@@ -2,11 +2,23 @@ package application.module.example;
 
 import akka.actor.ActorRef;
 import application.data.AccountData;
+import application.data.ActorDataDispatcher;
 import application.data.DataAgent;
+import application.module.player.base.domain.Person;
+import application.module.player.base.domain.PlayerEntity;
+import application.module.player.base.domain.PlayerInfo;
+import application.module.player.base.data.PlayerEntityData;
+import application.module.example.operate.GetType;
+import application.module.example.operate.SaveType;
+import com.cala.orm.cache.DbStatus;
+import com.cala.orm.message.DataBaseMessage;
+import com.cala.orm.message.DataReturnMessage;
+import com.cala.orm.message.MessageAndReply;
 import mobius.modular.module.api.AbstractModule;
 import mobius.modular.client.Client;
 import com.google.protobuf.InvalidProtocolBufferException;
 import protocol.P1;
+import scala.Option;
 
 
 /**
@@ -16,6 +28,8 @@ import protocol.P1;
  */
 public class ExampleModule extends AbstractModule {
 
+    record DataResult<T>(T ds, Option<ActorRef> r) {
+    }
 
     private ActorRef accountData;
 
@@ -27,13 +41,25 @@ public class ExampleModule extends AbstractModule {
                             onReceiveFromClient(r);
                             getLog().debug("ReceivedFromClient :: " + r.uID());
                         })
-                .match(DataAgent.DataResult.class, r -> {
+                .match(DataResult.class, r -> {
                     if (r.ds() instanceof AccountData) {
                         accountData = (ActorRef) r.r().get();
                         System.out.println("accountDta: " + accountData);
                         getLog().debug("accountDta: " + accountData);
                     } else {
                         getLog().debug("xxx");
+                    }
+                })
+                .match(DataReturnMessage.class, message -> {
+                    if (message.success()) {
+                        switch (message.operateType()) {
+                            case GetType ignored -> {
+                                PlayerEntity playerEntity = (PlayerEntity) message.abstractEntityBase();
+                                getLog().debug("playerEntry: " + playerEntity);
+                            }
+                            case SaveType ignored -> getLog().debug("dd");
+                            default -> System.out.println();
+                        }
                     }
                 })
 //                .match(Object.class , o ->{
@@ -72,5 +98,9 @@ public class ExampleModule extends AbstractModule {
     @Override
     public void initData() {
         this.dataAgent().tell(new DataAgent.RequestData<>(AccountData.getInstance()), sender());
+        DataBaseMessage.Get get = new DataBaseMessage.Get(
+                new MessageAndReply(self(),
+                        new PlayerEntity(1L, "x", DbStatus.SAVE, new PlayerInfo("x"), new Person.Builder().setAge(1).setName("wo").build()), GetType.INSTANCE));
+        dataAgent().tell(new ActorDataDispatcher.Message(PlayerEntityData.class, get, self()), self());
     }
 }

@@ -20,11 +20,20 @@ apply from: 'config.gradle'
 repositories {
     mavenLocal()
     maven {
-        url = uri('http://localnexus:8081/repository/valkyrie/')
+        url = uri('http://192.168.6.207:8081/repository/valkyrie/')
         allowInsecureProtocol = true
         credentials {
-            username repoUser
-            password repoUserPassword
+            username project.myNexusUsername
+            password project.myNexusPassword
+        }
+    }
+
+    maven {
+        url = uri('http://192.168.6.207:8081/repository/game-release')
+        allowInsecureProtocol = true
+        credentials {
+            username project.myNexusUsername
+            password project.myNexusPassword
         }
     }
 
@@ -90,10 +99,13 @@ dependencies {
     implementation "com.mobius:mobius-core_${libraryVersion.scalaMain}:${libraryVersion.mobius}"
     implementation "com.mobius:mobius-net_${libraryVersion.scalaMain}:${libraryVersion.mobius}"
     implementation "com.mobius:mobius-db_${libraryVersion.scalaMain}:${libraryVersion.mobius}"
-    implementation "com.mobius:mobius-modular_${libraryVersion.scalaMain}:${libraryVersion.mobius}"    
-
+    implementation "com.mobius:mobius-modular_${libraryVersion.scalaMain}:${libraryVersion.mobius}"
+    implementation 'com.cala:orm-framework:0.0.1'
+    implementation 'javax.persistence:persistence-api:1.0.2'
+    implementation"com.fasterxml.jackson.core:jackson-databind:2.13.0"
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.0.4'
+    implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
 }
-
 
 tasks.withType(JavaCompile) {
     // for JEP 406
@@ -102,8 +114,9 @@ tasks.withType(JavaCompile) {
 }
 tasks.withType(ScalaCompile) {
     // for JEP 406
-    options.compilerArgs += "--enable-preview"
+    options.compilerArgs += "--enable-preview";
     options.encoding = 'UTF-8'
+
 }
 
 tasks.withType(Test).all {
