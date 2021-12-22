@@ -32,8 +32,8 @@ repositories {
         url = uri('http://192.168.6.207:8081/repository/game-release')
         allowInsecureProtocol = true
         credentials {
-            username project.myNexusUsername
-            password project.myNexusPassword
+            username repoUser
+            password repoUserPassword
         }
     }
 
