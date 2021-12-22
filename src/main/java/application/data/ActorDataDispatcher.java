@@ -38,7 +38,7 @@ public class ActorDataDispatcher extends AbstractActor {
      * key: class
      * value: DbCacheManager Impl
      */
-    private Map<String, ActorRef> class2DbCacheManagerMap;
+    private Map<Class<?>, ActorRef> class2DbCacheManagerMap;
 
     public record Message(Class<? extends AbstractDataCacheManager<?>> clazz, Object abstractEntityBase,
                           ActorRef sender) {
@@ -76,7 +76,7 @@ public class ActorDataDispatcher extends AbstractActor {
     }
 
     private ActorRef getActor(Class<? extends AbstractDataCacheManager<?>> clazz) {
-        ActorRef actorRef = class2DbCacheManagerMap.get(clazz.getSimpleName());
+        ActorRef actorRef = class2DbCacheManagerMap.get(clazz);
         if (Objects.isNull(actorRef)) {
             logger.error("ActorDataDispatcherImpl not register {}", clazz.getSimpleName());
         }
@@ -99,8 +99,8 @@ public class ActorDataDispatcher extends AbstractActor {
      * @param clazz 对应类
      */
     private void add(Class<? extends AbstractDataCacheManager<?>> clazz) {
-        String name = clazz.getSimpleName();
-        ActorRef actorRef = class2DbCacheManagerMap.get(name);
+        String name = clazz.getName();
+        ActorRef actorRef = class2DbCacheManagerMap.get(clazz);
         if (Objects.nonNull(actorRef)) {
             throw new RuntimeErrorException(new Error("重复注册缓存对象！"));
         }
@@ -116,7 +116,7 @@ public class ActorDataDispatcher extends AbstractActor {
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
-        class2DbCacheManagerMap.put(name, actorRef);
+        class2DbCacheManagerMap.put(clazz, actorRef);
     }
 
     /**
