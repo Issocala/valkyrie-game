@@ -20,7 +20,7 @@ apply from: 'config.gradle'
 repositories {
     mavenLocal()
     maven {
-        url = uri('http://192.168.6.207:8081/repository/valkyrie/')
+        url = uri('http://localnexus:8081/repository/valkyrie/')
         allowInsecureProtocol = true
         credentials {
             username repoUser
@@ -29,7 +29,7 @@ repositories {
     }
 
     maven {
-        url = uri('http://192.168.6.207:8081/repository/game-release')
+        url = uri('http://localnexus:8081/repository/game-release')
         allowInsecureProtocol = true
         credentials {
             username repoUser
