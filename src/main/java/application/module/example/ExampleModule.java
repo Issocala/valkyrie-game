@@ -87,8 +87,8 @@ public class ExampleModule extends AbstractModule {
 
     private void add(Client.ReceivedFromClient r) {
         try {
-            var msg = P1.cs5.parseFrom(r.message());
-            var account = msg.getToAdd().getAccount();
+            var msg = P1.cs4.parseFrom(r.message());
+            var account = msg.getAccount().getAccount();
             log().info(account);
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();

@@ -1,0 +1,55 @@
+import "base.proto";
+package protocol;
+
+//注册
+message cs1
+{
+	required AccountInfo account=1;		
+	required string name=2;
+}
+
+
+message sc1
+{
+	required bool success=1;
+}
+
+//登录
+message cs2
+{
+	required AccountInfo account=1;		
+}
+
+//登录结果
+message sc2
+{
+	required bool success=1;
+	required int64	userId=2;
+}
+
+//客户端断开连接
+message cs3
+{
+	required int32 reason=1;
+}
+
+//服务器断开连接
+//reason
+//1: 服务器连接超时
+message sc3
+{
+	required int32 reason=1;
+}
+
+//测试协议
+message cs4
+{
+	required AccountInfo account=1;		
+}
+
+//测试协议
+message sc4
+{
+	required bool success=1;
+	required int64	userId=2;
+}

@@ -1,0 +1,14 @@
+#!/bin/sh
+PROTO_PATH=`dirname $0`
+PROJECT_ROOT="./../../"
+OUTPUT_PATH="${PROJECT_ROOT}/src/main/scala/"
+JAVA_OUTPUT_PATH="${PROJECT_ROOT}/src/main/java/"
+EXECUTE_PATH="./../../../valkyrie-tool/scalapbc-0.10.11/bin/scalapbc"
+cd $PROTO_PATH
+echo $PWD
+
+for i in `find $PROTO_PATH -type f -name "*.proto"`; do
+	echo $i
+	$EXECUTE_PATH $i --scala_out=java_conversions:$OUTPUT_PATH --java_out=${JAVA_OUTPUT_PATH}
+done
+

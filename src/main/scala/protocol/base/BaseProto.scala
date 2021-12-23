@@ -9,17 +9,12 @@ object BaseProto extends _root_.scalapb.GeneratedFileObject {
   lazy val dependencies: Seq[_root_.scalapb.GeneratedFileObject] = Seq.empty
   lazy val messagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] =
     Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]](
-      protocol.base.AccountInfo,
-      protocol.base.PersonalAccount
+      protocol.base.AccountInfo
     )
   private lazy val ProtoBytes: Array[Byte] =
       scalapb.Encoding.fromBase64(scala.collection.immutable.Seq(
   """CgpiYXNlLnByb3RvEghwcm90b2NvbCJgCgtBY2NvdW50SW5mbxImCgdhY2NvdW50GAEgAigJQgziPwkSB2FjY291bnRSB2FjY
-  291bnQSKQoIcGFzc3dvcmQYAiACKAlCDeI/ChIIcGFzc3dvcmRSCHBhc3N3b3JkIp0CCg9QZXJzb25hbEFjY291bnQSFwoCaWQYA
-  SACKANCB+I/BBICaWRSAmlkEh0KBHVzZXIYAiACKANCCeI/BhIEdXNlclIEdXNlchIpCghwbGF0Zm9ybRgDIAEoCUIN4j8KEghwb
-  GF0Zm9ybVIIcGxhdGZvcm0SJgoHYWNjb3VudBgEIAIoCUIM4j8JEgdhY2NvdW50UgdhY2NvdW50EikKCHBhc3N3b3JkGAUgAigJQ
-  g3iPwoSCHBhc3N3b3JkUghwYXNzd29yZBImCgdjb21tZW50GAYgASgJQgziPwkSB2NvbW1lbnRSB2NvbW1lbnQSLAoJdGltZXN0Y
-  W1wGAcgAigDQg7iPwsSCXRpbWVzdGFtcFIJdGltZXN0YW1w"""
+  291bnQSKQoIcGFzc3dvcmQYAiACKAlCDeI/ChIIcGFzc3dvcmRSCHBhc3N3b3Jk"""
       ).mkString)
   lazy val scalaDescriptor: _root_.scalapb.descriptors.FileDescriptor = {
     val scalaProto = com.google.protobuf.descriptor.FileDescriptorProto.parseFrom(ProtoBytes)
