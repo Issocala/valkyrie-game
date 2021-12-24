@@ -25,11 +25,13 @@ set PROTO_NAME=protocol
     set PROTO_PATH=%PROJECT_PATH%/%PROTO_NAME%
     cd %PROTO_PATH%
     set PROJECT_ROOT=./../../../
-    set OUTPUT_PATH="%PROJECT_ROOT%/src/main/scala/"
-    set JAVA_OUTPUT_PATH="%PROJECT_ROOT%/src/main/java/"
-    set "EXCUTE_PATH=./../../../../valkyrie-tool/scalapbc-0.10.11/bin/scalapbc"        
-    if not exist %OUTPUT_PATH% (md "%OUTPUT_PATH%")
-    if not exist %JAVA_OUTPUT_PATH% (md "%JAVA_OUTPUT_PATH%")
-    for /f "delims=" %%i in ('dir /b/a "*.proto"') do "%EXCUTE_PATH%" %%i --scala_out=java_conversions:%OUTPUT_PATH% --java_out=%JAVA_OUTPUT_PATH%
+    set OUTPUT_PATH=%PROJECT_ROOT%/src/main/scala/
+    set JAVA_OUTPUT_PATH=%PROJECT_ROOT%/src/main/java/
+    set "EXCUTE_PATH=./../../../../valkyrie-tool/scalapbc-0.10.11/bin/scalapbc"    
+    if exist %OUTPUT_PATH% ( rd /s /q "%OUTPUT_PATH%%PROTO_NAME%" )    
+    if exist %JAVA_OUTPUT_PATH% ( rd /s /q "%JAVA_OUTPUT_PATH%%PROTO_NAME%" )
+    if not exist "%OUTPUT_PATH%" ( md "%OUTPUT_PATH%" ) 
+    if not exist "%JAVA_OUTPUT_PATH%" ( md "%JAVA_OUTPUT_PATH%" ) 
+    for /f "delims=" %%i in ('dir /b/a "*.proto"') do "%EXCUTE_PATH%" %%i --scala_out=java_conversions:"%OUTPUT_PATH%" --java_out="%JAVA_OUTPUT_PATH%"
 
 pause
