@@ -19,6 +19,7 @@ import mobius.modular.client.Client;
 import com.google.protobuf.InvalidProtocolBufferException;
 import protocol.P1;
 import scala.Option;
+import template.TestTemplateHolder;
 
 
 /**
@@ -56,6 +57,7 @@ public class ExampleModule extends AbstractModule {
                             case GetType ignored -> {
                                 PlayerEntity playerEntity = (PlayerEntity) message.abstractEntityBase();
                                 getLog().debug("playerEntry: " + playerEntity);
+                                TestTemplateHolder.getData(1);
                             }
                             case SaveType ignored -> getLog().debug("dd");
                             default -> System.out.println();

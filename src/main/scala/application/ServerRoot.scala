@@ -8,6 +8,7 @@ import application.db.DataBaseAgent
 import mobius.db.message.{DbInit, Test}
 import mobius.modular.module.Module
 import application.module.ModuleAgent
+import application.util.StaticConfigLoad
 import mobius.core.ActorExtension.LogActor
 
 /**
@@ -30,6 +31,9 @@ class ServerRoot extends Actor with LogActor{
   var dataAgent:Option[ActorRef]=None
   var moduleAgent:Option[ActorRef]=None
   def onServerStart(): Unit = {
+    //策划配置数据加载
+    StaticConfigLoad.init()
+
     dbAgent=start(dbAgent,"dbAgent",DataBaseAgent.props(),DbInit)
     dbAgent.get ! Test
     dataAgent=start(dataAgent,"dataAgent",ActorDataDispatcher.create(),DataAgent.Init)

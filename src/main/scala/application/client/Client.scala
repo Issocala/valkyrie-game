@@ -37,7 +37,7 @@ private[application] object Client {
 /**
   * Created by RXL on 2016/10/13.
   */
-private[client] class Client(val connection: ActorRef) extends Actor with LogActor with Stash with FrameExtractor {
+private[client] class Client(val connection: ActorRef) extends LogActor with Stash with FrameExtractor {
 
   import ClientAgent._
   import context._
