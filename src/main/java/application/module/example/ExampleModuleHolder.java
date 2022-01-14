@@ -30,6 +30,6 @@ public class ExampleModuleHolder extends AbstractModuleHolder {
 
     @Override
     public List<Integer> getProtocols() {
-        return Arrays.asList(4);
+        return List.of(4);
     }
 }

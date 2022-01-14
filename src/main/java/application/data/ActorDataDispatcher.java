@@ -3,13 +3,15 @@ package application.data;
 import akka.actor.*;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
+import application.module.common.data.domain.DataMessage;
 import application.module.player.base.data.PlayerEntityData;
+import application.module.user.UserData;
 import application.util.TimeMacro;
 import com.cala.orm.OrmProcessor;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.ddl.SchemaUpdate;
+import com.cala.orm.message.DataBase;
 import com.cala.orm.message.DataBaseMessage;
-import com.cala.orm.message.MessageAndReply;
 import com.cala.orm.util.DbConnection;
 
 import javax.management.RuntimeErrorException;
@@ -17,7 +19,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.*;
-import java.util.concurrent.Callable;
 
 import static com.cala.orm.cache.AbstractDataCacheManager.DB_DISPATCHER;
 
@@ -44,7 +45,7 @@ public class ActorDataDispatcher extends AbstractActor {
      */
     private Map<Class<?>, ActorRef> class2DbCacheManagerMap;
 
-    public record Message(Class<? extends AbstractDataCacheManager<?>> clazz, Object abstractEntityBase,
+    public record Message(Class<? extends AbstractDataCacheManager<?>> clazz, DataBase abstractEntityBase,
                           ActorRef sender) {
     }
 
@@ -63,13 +64,22 @@ public class ActorDataDispatcher extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(DataAgent.Init$.class, init -> init())
                 .match(DataBaseMessage.PeriodsSavaData.class, periodsSavaData -> class2DbCacheManagerMap.forEach((k, v) -> v.tell(periodsSavaData, getSelf())))
                 .match(Message.class, message -> sendMessage(message.clazz, message.abstractEntityBase, message.sender))
+                .match(DataAgent.Init$.class, init -> init())
+                .match(DataMessage.RequestData.class, requestData -> requestData(requestData.clazz()))
                 .build();
     }
 
-    public void init() {
+    private void requestData(Class<?> clazz) {
+        ActorRef actorRef = class2DbCacheManagerMap.get(clazz);
+        if (Objects.isNull(actorRef)) {
+            throw new RuntimeErrorException(new Error("requestData error, not " + clazz.getName()));
+        }
+        sender().tell(new DataMessage.DataResult(clazz, actorRef), self());
+    }
+
+    private void init() {
         Set<Class<?>> entityClazzs = new HashSet<>();
         //数据库表初始化
         OrmProcessor.INSTANCE.initOrmDefinitions("application", entityClazzs);
@@ -142,5 +152,6 @@ public class ActorDataDispatcher extends AbstractActor {
      */
     private void addCacheManagerMap() {
         add(PlayerEntityData.class);
+        add(UserData.class);
     }
 }

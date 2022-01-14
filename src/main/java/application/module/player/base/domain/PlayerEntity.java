@@ -1,6 +1,6 @@
 package application.module.player.base.domain;
 
-
+import application.util.AbstractBuilder;
 import com.cala.orm.annotation.DbDeserialize;
 import com.cala.orm.annotation.DbPojoBuilder;
 import com.cala.orm.cache.AbstractEntityBase;
@@ -18,8 +18,47 @@ import javax.persistence.Column;
 @DbDeserialize(builder = PlayerEntity.Builder.class)
 public class PlayerEntity extends AbstractEntityBase {
 
+    /**
+     * 角色名字
+     */
     @Column
     private final String name;
+
+    /**
+     * 职业
+     */
+    @Column
+    private final byte profession;
+
+    /**
+     * 账号id
+     */
+    @Column
+    private final long accountId;
+
+    /**
+     * 账号名字
+     */
+    @Column
+    private final String accountName;
+
+    @Column
+    private long fightPower;
+
+    @Column
+    private final int level;
+
+    @Column
+    private final byte vipLevel;
+
+    @Column
+    private final byte gender;
+
+    @Column
+    private final long lastLoginTime;
+
+    @Column
+    private final long lastLogoutTime;
 
     @Column
     @Convert(converter = JsonAttributeConverter.class)
@@ -29,9 +68,33 @@ public class PlayerEntity extends AbstractEntityBase {
     @Convert(converter = JsonAttributeConverter.class)
     private final Person person;
 
-    public PlayerEntity(Long id, String name, DbStatus dbStatus, PlayerInfo playerInfo, Person person) {
+    public PlayerEntity(Long id, String name, byte profession, long accountId, String accountName, int level, byte vipLevel, byte gender, long lastLoginTime, long lastLogoutTime, DbStatus dbStatus, PlayerInfo playerInfo, Person person) {
         super(id, dbStatus);
         this.name = name;
+        this.profession = profession;
+        this.accountId = accountId;
+        this.accountName = accountName;
+        this.level = level;
+        this.vipLevel = vipLevel;
+        this.gender = gender;
+        this.lastLoginTime = lastLoginTime;
+        this.lastLogoutTime = lastLogoutTime;
+        this.playerInfo = playerInfo;
+        this.person = person;
+    }
+
+    public PlayerEntity(Long id, String name, byte profession, long accountId, String accountName, long fightPower, int level, byte vipLevel, byte gender, long lastLoginTime, long lastLogoutTime, DbStatus dbStatus, PlayerInfo playerInfo, Person person) {
+        super(id, dbStatus);
+        this.name = name;
+        this.profession = profession;
+        this.accountId = accountId;
+        this.accountName = accountName;
+        this.fightPower = fightPower;
+        this.level = level;
+        this.vipLevel = vipLevel;
+        this.gender = gender;
+        this.lastLoginTime = lastLoginTime;
+        this.lastLogoutTime = lastLogoutTime;
         this.playerInfo = playerInfo;
         this.person = person;
     }
@@ -39,26 +102,35 @@ public class PlayerEntity extends AbstractEntityBase {
     public PlayerEntity(PlayerEntity playerEntity, DbStatus dbStatus) {
         super(playerEntity.getId(), dbStatus);
         this.name = playerEntity.getName();
+        this.profession = playerEntity.getProfession();
+        this.accountId = playerEntity.getAccountId();
+        this.accountName = playerEntity.getAccountName();
+        this.level = playerEntity.getLevel();
+        this.vipLevel = playerEntity.getVipLevel();
+        this.gender = playerEntity.getGender();
+        this.lastLoginTime = playerEntity.getLastLoginTime();
+        this.lastLogoutTime = playerEntity.getLastLogoutTime();
         this.playerInfo = playerEntity.getPlayerInfo();
         this.person = playerEntity.getPerson();
     }
 
-
     @DbPojoBuilder
-    public static class Builder {
+    public static class Builder extends AbstractBuilder {
         private String name;
-        private Long id;
+        private byte profession;
+        private long accountId;
+        private String accountName;
+        private long fightPower;
+        private int level;
+        private byte vipLevel;
+        private byte gender;
+        private long lastLoginTime;
+        private long lastLogoutTime;
         private PlayerInfo playerInfo;
-        private DbStatus dbStatus;
         private Person person;
 
         public Builder setName(String name) {
             this.name = name;
-            return this;
-        }
-
-        public Builder setId(Long id) {
-            this.id = id;
             return this;
         }
 
@@ -67,18 +139,58 @@ public class PlayerEntity extends AbstractEntityBase {
             return this;
         }
 
-        public Builder setDbStatus(DbStatus dbStatus) {
-            this.dbStatus = dbStatus;
-            return this;
-        }
-
         public Builder setPerson(Person person) {
             this.person = person;
             return this;
         }
 
+        public Builder setProfession(byte profession) {
+            this.profession = profession;
+            return this;
+        }
+
+        public Builder setAccountId(long accountId) {
+            this.accountId = accountId;
+            return this;
+        }
+
+        public Builder setAccountName(String accountName) {
+            this.accountName = accountName;
+            return this;
+        }
+
+        public Builder setFightPower(long fightPower) {
+            this.fightPower = fightPower;
+            return this;
+        }
+
+        public Builder setLevel(int level) {
+            this.level = level;
+            return this;
+        }
+
+        public Builder setVipLevel(byte vipLevel) {
+            this.vipLevel = vipLevel;
+            return this;
+        }
+
+        public Builder setGender(byte gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public Builder setLastLoginTime(long lastLoginTime) {
+            this.lastLoginTime = lastLoginTime;
+            return this;
+        }
+
+        public Builder setLastLogoutTime(long lastLogoutTime) {
+            this.lastLogoutTime = lastLogoutTime;
+            return this;
+        }
+
         public PlayerEntity build() {
-            return new PlayerEntity(id, name, dbStatus, playerInfo, person);
+            return new PlayerEntity(getId(), name, profession, accountId, accountName, level, vipLevel, gender, lastLoginTime, lastLogoutTime, getDbStatus(), playerInfo, person);
         }
     }
 
@@ -94,11 +206,65 @@ public class PlayerEntity extends AbstractEntityBase {
         return name;
     }
 
+    public byte getProfession() {
+        return profession;
+    }
+
+    public long getAccountId() {
+        return accountId;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public long getFightPower() {
+        return fightPower;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public byte getVipLevel() {
+        return vipLevel;
+    }
+
+    public byte getGender() {
+        return gender;
+    }
+
+    public long getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public long getLastLogoutTime() {
+        return lastLogoutTime;
+    }
+
     public PlayerInfo getPlayerInfo() {
         return playerInfo;
     }
 
     public Person getPerson() {
         return person;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerEntity{" +
+                "name='" + name + '\'' +
+                ", profession=" + profession +
+                ", accountId=" + accountId +
+                ", accountName='" + accountName + '\'' +
+                ", fightPower=" + fightPower +
+                ", level=" + level +
+                ", vipLevel=" + vipLevel +
+                ", gender=" + gender +
+                ", lastLoginTime=" + lastLoginTime +
+                ", lastLogoutTime=" + lastLogoutTime +
+                ", playerInfo=" + playerInfo +
+                ", person=" + person +
+                '}';
     }
 }
