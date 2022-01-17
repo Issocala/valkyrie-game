@@ -1,4 +1,4 @@
-package application.module.player.base.domain;
+package application.module.player.base.data.domain;
 
 import application.util.AbstractBuilder;
 import com.cala.orm.annotation.DbDeserialize;
@@ -192,14 +192,6 @@ public class PlayerEntity extends AbstractEntityBase {
         public PlayerEntity build() {
             return new PlayerEntity(getId(), name, profession, accountId, accountName, level, vipLevel, gender, lastLoginTime, lastLogoutTime, getDbStatus(), playerInfo, person);
         }
-    }
-
-    @Override
-    public AbstractEntityBase valueOf(AbstractEntityBase entityBase, DbStatus dbStatus) {
-        if (!(entityBase instanceof PlayerEntity playerEntity)) {
-            return null;
-        }
-        return new PlayerEntity(playerEntity, dbStatus);
     }
 
     public String getName() {

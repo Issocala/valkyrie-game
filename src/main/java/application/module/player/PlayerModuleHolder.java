@@ -12,8 +12,11 @@ import java.util.List;
  */
 public class PlayerModuleHolder extends AbstractModuleHolder {
 
-    public static final PlayerModuleHolder INSTANCE = new PlayerModuleHolder();
+    private static final PlayerModuleHolder INSTANCE = new PlayerModuleHolder();
 
+    public static PlayerModuleHolder getInstance() {
+        return INSTANCE;
+    }
 
     @Override
     public Props props() {
@@ -22,6 +25,6 @@ public class PlayerModuleHolder extends AbstractModuleHolder {
 
     @Override
     public List<Integer> getProtocols() {
-        return List.of(5, 8);
+        return List.of();
     }
 }

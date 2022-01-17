@@ -1,4 +1,4 @@
-package application.module.user.domain;
+package application.module.user.data.domain;
 
 import application.util.AbstractBuilder;
 import com.cala.orm.annotation.DbDeserialize;
@@ -37,11 +37,6 @@ public class User extends AbstractEntityBase {
         this.password = password;
         this.platform = platform;
         this.timestamp = timestamp;
-    }
-
-    @Override
-    public AbstractEntityBase valueOf(AbstractEntityBase abstractEntityBase, DbStatus dbStatus) {
-        return null;
     }
 
     public static class Builder extends AbstractBuilder {

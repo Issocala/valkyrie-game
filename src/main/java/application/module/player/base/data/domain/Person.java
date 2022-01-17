@@ -1,4 +1,4 @@
-package application.module.player.base.domain;
+package application.module.player.base.data.domain;
 
 /**
  * @author Luo Yong

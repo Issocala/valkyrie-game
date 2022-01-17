@@ -4,6 +4,7 @@ import akka.actor.{ActorRef, Props}
 import application.module.example.ExampleModuleHolder
 import application.module.login.LoginModule
 import application.module.player.PlayerModuleHolder
+import application.module.user.UserModuleHolder
 import mobius.core.ActorExtension.LogActor
 import mobius.modular.module._
 
@@ -17,7 +18,7 @@ object ModuleAgent {
   final case class ClientMessageHandlers(h: Map[Int, ActorRef])
   final case class ModuleAgentRef(agent:ActorRef)
   final case object RequestClientMessageHandler
-  private[module] val modules = List[ModuleHolder](LoginModule,ExampleModuleHolder.getInstance(), PlayerModuleHolder.INSTANCE)
+  private[module] val modules = List[ModuleHolder](UserModuleHolder.getInstance(),ExampleModuleHolder.getInstance(), PlayerModuleHolder.getInstance())
 }
 
 
