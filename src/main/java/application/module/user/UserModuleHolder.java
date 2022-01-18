@@ -20,7 +20,7 @@ public class UserModuleHolder extends AbstractModuleHolder {
 
     @Override
     public Props props() {
-        return Props.create(UserModule::new);
+        return Props.create(UserModule.class);
     }
 
     @Override

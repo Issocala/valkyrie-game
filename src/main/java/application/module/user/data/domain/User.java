@@ -30,6 +30,7 @@ public class User extends AbstractEntityBase {
     @Column
     private final long timestamp;
 
+
     public User(Long id, DbStatus dbStatus, String account, String accountName, String password, String platform, long timestamp) {
         super(id, dbStatus);
         this.account = account;
@@ -78,6 +79,10 @@ public class User extends AbstractEntityBase {
         public User build() {
             return new User(getId(), getDbStatus(), account, accountName, password, platform, timestamp);
         }
+    }
+
+    public static User of(Long id) {
+        return new User(id, DbStatus.NORMAL, null, null, null, null, 0);
     }
 
     public String getAccount() {

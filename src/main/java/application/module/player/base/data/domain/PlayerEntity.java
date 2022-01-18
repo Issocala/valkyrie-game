@@ -99,21 +99,6 @@ public class PlayerEntity extends AbstractEntityBase {
         this.person = person;
     }
 
-    public PlayerEntity(PlayerEntity playerEntity, DbStatus dbStatus) {
-        super(playerEntity.getId(), dbStatus);
-        this.name = playerEntity.getName();
-        this.profession = playerEntity.getProfession();
-        this.accountId = playerEntity.getAccountId();
-        this.accountName = playerEntity.getAccountName();
-        this.level = playerEntity.getLevel();
-        this.vipLevel = playerEntity.getVipLevel();
-        this.gender = playerEntity.getGender();
-        this.lastLoginTime = playerEntity.getLastLoginTime();
-        this.lastLogoutTime = playerEntity.getLastLogoutTime();
-        this.playerInfo = playerEntity.getPlayerInfo();
-        this.person = playerEntity.getPerson();
-    }
-
     @DbPojoBuilder
     public static class Builder extends AbstractBuilder {
         private String name;
@@ -192,6 +177,11 @@ public class PlayerEntity extends AbstractEntityBase {
         public PlayerEntity build() {
             return new PlayerEntity(getId(), name, profession, accountId, accountName, level, vipLevel, gender, lastLoginTime, lastLogoutTime, getDbStatus(), playerInfo, person);
         }
+    }
+
+    public static PlayerEntity of(Long id) {
+        return new PlayerEntity(id, null, (byte) 0, 0, null, 0,
+                (byte)0, (byte)0, 0L, 0, DbStatus.NORMAL, null, null);
     }
 
     public String getName() {

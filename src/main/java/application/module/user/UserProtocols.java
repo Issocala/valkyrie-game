@@ -8,7 +8,10 @@ import application.module.GameProtocols;
  * @Source 1.0
  */
 public interface UserProtocols {
+
     int REGISTER = GameProtocols.USER;
 
+
     int LOGIN = GameProtocols.USER + 1;
+
 }

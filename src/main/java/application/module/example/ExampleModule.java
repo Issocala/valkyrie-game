@@ -2,6 +2,7 @@ package application.module.example;
 
 import akka.actor.ActorRef;
 import application.data.ActorDataDispatcher;
+import application.guid.UUID;
 import application.module.common.data.domain.DataMessage;
 import application.module.example.operate.GetByUseIdType;
 import application.module.example.operate.GetType;
@@ -62,7 +63,7 @@ public class ExampleModule extends AbstractModule {
                             case SaveType ignored -> getLog().debug("dd");
                             case GetByUseIdType ignored -> {
 
-                                List<PlayerEntity> playerEntityList = (List<PlayerEntity>) message.message();;
+                                List<PlayerEntity> playerEntityList = (List<PlayerEntity>) message.message();
                             }
                             default -> System.out.println();
                         }
@@ -101,10 +102,8 @@ public class ExampleModule extends AbstractModule {
     @Override
     public void initData() {
         this.dataAgent().tell(new DataMessage.RequestData(UserData.class), self());
-        DataBaseMessage.Get get = new DataBaseMessage.Get(
-                new MessageAndReply(self(),
-                        new PlayerEntity(1L, "x", (byte) 1, 1L, "1", 1, (byte) 1, (byte) 1, 1L, 1L, DbStatus.SAVE,
-                                new PlayerInfo("x"), new Person.Builder().setAge(1).setName("wo").build()), GetType.INSTANCE));
+        DataBaseMessage.Get get = new DataBaseMessage.Get(new MessageAndReply(self(),
+                PlayerEntity.of(UUID.fastUUID().getLeastSignificantBits()), GetType.INSTANCE));
         PlayerDataMessage.PlayerByUserId playerByUserId = new PlayerDataMessage.PlayerByUserId(new MessageAndReply(self(), new SimpleAbstractEntityBase(1L, DbStatus.NORMAL), GetByUseIdType.INSTANCE), "");
         this.dataAgent().tell(new ActorDataDispatcher.Message(PlayerEntityData.class, get, self()), self());
     }
