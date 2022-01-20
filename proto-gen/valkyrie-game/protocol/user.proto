@@ -4,25 +4,27 @@ package protocol;
 //注册
 message CS10010
 {
-	required AccountInfo account=1;
-	required string name=2;
+  required AccountInfo account = 1;
+  required string name = 2;
 }
 
 //注册结果
 message SC10010
 {
-	required bool success=1;
+  required bool success = 1;
+  optional string content = 2;
 }
 
 //登录
 message CS10011
 {
-	required AccountInfo account=1;
+  required AccountInfo account = 1;
 }
 
 //登录结果
 message SC10011
 {
-	required bool success=1;
-	required int64	userId=2;
+  required bool success = 1;
+  optional int64  userId = 2;
+  optional string content = 3;
 }

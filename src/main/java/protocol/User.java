@@ -865,6 +865,23 @@ public final class User {
      * @return The success.
      */
     boolean getSuccess();
+
+    /**
+     * <code>optional string content = 2;</code>
+     * @return Whether the content field is set.
+     */
+    boolean hasContent();
+    /**
+     * <code>optional string content = 2;</code>
+     * @return The content.
+     */
+    java.lang.String getContent();
+    /**
+     * <code>optional string content = 2;</code>
+     * @return The bytes for content.
+     */
+    com.google.protobuf.ByteString
+        getContentBytes();
   }
   /**
    * <pre>
@@ -883,6 +900,7 @@ public final class User {
       super(builder);
     }
     private SC10010() {
+      content_ = "";
     }
 
     @java.lang.Override
@@ -919,6 +937,12 @@ public final class User {
             case 8: {
               bitField0_ |= 0x00000001;
               success_ = input.readBool();
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              content_ = bs;
               break;
             }
             default: {
@@ -971,6 +995,51 @@ public final class User {
       return success_;
     }
 
+    public static final int CONTENT_FIELD_NUMBER = 2;
+    private volatile java.lang.Object content_;
+    /**
+     * <code>optional string content = 2;</code>
+     * @return Whether the content field is set.
+     */
+    public boolean hasContent() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>optional string content = 2;</code>
+     * @return The content.
+     */
+    public java.lang.String getContent() {
+      java.lang.Object ref = content_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          content_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string content = 2;</code>
+     * @return The bytes for content.
+     */
+    public com.google.protobuf.ByteString
+        getContentBytes() {
+      java.lang.Object ref = content_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        content_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -992,6 +1061,9 @@ public final class User {
       if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBool(1, success_);
       }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, content_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -1004,6 +1076,9 @@ public final class User {
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, success_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, content_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1025,6 +1100,11 @@ public final class User {
         if (getSuccess()
             != other.getSuccess()) return false;
       }
+      if (hasContent() != other.hasContent()) return false;
+      if (hasContent()) {
+        if (!getContent()
+            .equals(other.getContent())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1040,6 +1120,10 @@ public final class User {
         hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
             getSuccess());
+      }
+      if (hasContent()) {
+        hash = (37 * hash) + CONTENT_FIELD_NUMBER;
+        hash = (53 * hash) + getContent().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -1180,6 +1264,8 @@ public final class User {
         super.clear();
         success_ = false;
         bitField0_ = (bitField0_ & ~0x00000001);
+        content_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -1212,6 +1298,10 @@ public final class User {
           result.success_ = success_;
           to_bitField0_ |= 0x00000001;
         }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.content_ = content_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1263,6 +1353,11 @@ public final class User {
         if (other == protocol.User.SC10010.getDefaultInstance()) return this;
         if (other.hasSuccess()) {
           setSuccess(other.getSuccess());
+        }
+        if (other.hasContent()) {
+          bitField0_ |= 0x00000002;
+          content_ = other.content_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1330,6 +1425,90 @@ public final class User {
       public Builder clearSuccess() {
         bitField0_ = (bitField0_ & ~0x00000001);
         success_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object content_ = "";
+      /**
+       * <code>optional string content = 2;</code>
+       * @return Whether the content field is set.
+       */
+      public boolean hasContent() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>optional string content = 2;</code>
+       * @return The content.
+       */
+      public java.lang.String getContent() {
+        java.lang.Object ref = content_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            content_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string content = 2;</code>
+       * @return The bytes for content.
+       */
+      public com.google.protobuf.ByteString
+          getContentBytes() {
+        java.lang.Object ref = content_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          content_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string content = 2;</code>
+       * @param value The content to set.
+       * @return This builder for chaining.
+       */
+      public Builder setContent(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        content_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string content = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearContent() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        content_ = getDefaultInstance().getContent();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string content = 2;</code>
+       * @param value The bytes for content to set.
+       * @return This builder for chaining.
+       */
+      public Builder setContentBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        content_ = value;
         onChanged();
         return this;
       }
@@ -2053,15 +2232,32 @@ public final class User {
     boolean getSuccess();
 
     /**
-     * <code>required int64 userId = 2;</code>
+     * <code>optional int64 userId = 2;</code>
      * @return Whether the userId field is set.
      */
     boolean hasUserId();
     /**
-     * <code>required int64 userId = 2;</code>
+     * <code>optional int64 userId = 2;</code>
      * @return The userId.
      */
     long getUserId();
+
+    /**
+     * <code>optional string content = 3;</code>
+     * @return Whether the content field is set.
+     */
+    boolean hasContent();
+    /**
+     * <code>optional string content = 3;</code>
+     * @return The content.
+     */
+    java.lang.String getContent();
+    /**
+     * <code>optional string content = 3;</code>
+     * @return The bytes for content.
+     */
+    com.google.protobuf.ByteString
+        getContentBytes();
   }
   /**
    * <pre>
@@ -2080,6 +2276,7 @@ public final class User {
       super(builder);
     }
     private SC10011() {
+      content_ = "";
     }
 
     @java.lang.Override
@@ -2121,6 +2318,12 @@ public final class User {
             case 16: {
               bitField0_ |= 0x00000002;
               userId_ = input.readInt64();
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
+              content_ = bs;
               break;
             }
             default: {
@@ -2176,18 +2379,63 @@ public final class User {
     public static final int USERID_FIELD_NUMBER = 2;
     private long userId_;
     /**
-     * <code>required int64 userId = 2;</code>
+     * <code>optional int64 userId = 2;</code>
      * @return Whether the userId field is set.
      */
     public boolean hasUserId() {
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>required int64 userId = 2;</code>
+     * <code>optional int64 userId = 2;</code>
      * @return The userId.
      */
     public long getUserId() {
       return userId_;
+    }
+
+    public static final int CONTENT_FIELD_NUMBER = 3;
+    private volatile java.lang.Object content_;
+    /**
+     * <code>optional string content = 3;</code>
+     * @return Whether the content field is set.
+     */
+    public boolean hasContent() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <code>optional string content = 3;</code>
+     * @return The content.
+     */
+    public java.lang.String getContent() {
+      java.lang.Object ref = content_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          content_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string content = 3;</code>
+     * @return The bytes for content.
+     */
+    public com.google.protobuf.ByteString
+        getContentBytes() {
+      java.lang.Object ref = content_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        content_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2198,10 +2446,6 @@ public final class User {
       if (isInitialized == 0) return false;
 
       if (!hasSuccess()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUserId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -2217,6 +2461,9 @@ public final class User {
       }
       if (((bitField0_ & 0x00000002) != 0)) {
         output.writeInt64(2, userId_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, content_);
       }
       unknownFields.writeTo(output);
     }
@@ -2234,6 +2481,9 @@ public final class User {
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(2, userId_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, content_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2260,6 +2510,11 @@ public final class User {
         if (getUserId()
             != other.getUserId()) return false;
       }
+      if (hasContent() != other.hasContent()) return false;
+      if (hasContent()) {
+        if (!getContent()
+            .equals(other.getContent())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2280,6 +2535,10 @@ public final class User {
         hash = (37 * hash) + USERID_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getUserId());
+      }
+      if (hasContent()) {
+        hash = (37 * hash) + CONTENT_FIELD_NUMBER;
+        hash = (53 * hash) + getContent().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -2422,6 +2681,8 @@ public final class User {
         bitField0_ = (bitField0_ & ~0x00000001);
         userId_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000002);
+        content_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -2458,6 +2719,10 @@ public final class User {
           result.userId_ = userId_;
           to_bitField0_ |= 0x00000002;
         }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.content_ = content_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2513,6 +2778,11 @@ public final class User {
         if (other.hasUserId()) {
           setUserId(other.getUserId());
         }
+        if (other.hasContent()) {
+          bitField0_ |= 0x00000004;
+          content_ = other.content_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -2521,9 +2791,6 @@ public final class User {
       @java.lang.Override
       public final boolean isInitialized() {
         if (!hasSuccess()) {
-          return false;
-        }
-        if (!hasUserId()) {
           return false;
         }
         return true;
@@ -2588,21 +2855,21 @@ public final class User {
 
       private long userId_ ;
       /**
-       * <code>required int64 userId = 2;</code>
+       * <code>optional int64 userId = 2;</code>
        * @return Whether the userId field is set.
        */
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>required int64 userId = 2;</code>
+       * <code>optional int64 userId = 2;</code>
        * @return The userId.
        */
       public long getUserId() {
         return userId_;
       }
       /**
-       * <code>required int64 userId = 2;</code>
+       * <code>optional int64 userId = 2;</code>
        * @param value The userId to set.
        * @return This builder for chaining.
        */
@@ -2613,12 +2880,96 @@ public final class User {
         return this;
       }
       /**
-       * <code>required int64 userId = 2;</code>
+       * <code>optional int64 userId = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearUserId() {
         bitField0_ = (bitField0_ & ~0x00000002);
         userId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object content_ = "";
+      /**
+       * <code>optional string content = 3;</code>
+       * @return Whether the content field is set.
+       */
+      public boolean hasContent() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>optional string content = 3;</code>
+       * @return The content.
+       */
+      public java.lang.String getContent() {
+        java.lang.Object ref = content_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            content_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string content = 3;</code>
+       * @return The bytes for content.
+       */
+      public com.google.protobuf.ByteString
+          getContentBytes() {
+        java.lang.Object ref = content_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          content_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string content = 3;</code>
+       * @param value The content to set.
+       * @return This builder for chaining.
+       */
+      public Builder setContent(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        content_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string content = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearContent() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        content_ = getDefaultInstance().getContent();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string content = 3;</code>
+       * @param value The bytes for content to set.
+       * @return This builder for chaining.
+       */
+      public Builder setContentBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        content_ = value;
         onChanged();
         return this;
       }
@@ -2706,10 +3057,11 @@ public final class User {
     java.lang.String[] descriptorData = {
       "\n\nuser.proto\022\010protocol\032\nbase.proto\"?\n\007CS" +
       "10010\022&\n\007account\030\001 \002(\0132\025.protocol.Accoun" +
-      "tInfo\022\014\n\004name\030\002 \002(\t\"\032\n\007SC10010\022\017\n\007succes" +
-      "s\030\001 \002(\010\"1\n\007CS10011\022&\n\007account\030\001 \002(\0132\025.pr" +
-      "otocol.AccountInfo\"*\n\007SC10011\022\017\n\007success" +
-      "\030\001 \002(\010\022\016\n\006userId\030\002 \002(\003"
+      "tInfo\022\014\n\004name\030\002 \002(\t\"+\n\007SC10010\022\017\n\007succes" +
+      "s\030\001 \002(\010\022\017\n\007content\030\002 \001(\t\"1\n\007CS10011\022&\n\007a" +
+      "ccount\030\001 \002(\0132\025.protocol.AccountInfo\";\n\007S" +
+      "C10011\022\017\n\007success\030\001 \002(\010\022\016\n\006userId\030\002 \001(\003\022" +
+      "\017\n\007content\030\003 \001(\t"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2727,7 +3079,7 @@ public final class User {
     internal_static_protocol_SC10010_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_SC10010_descriptor,
-        new java.lang.String[] { "Success", });
+        new java.lang.String[] { "Success", "Content", });
     internal_static_protocol_CS10011_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_protocol_CS10011_fieldAccessorTable = new
@@ -2739,7 +3091,7 @@ public final class User {
     internal_static_protocol_SC10011_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_SC10011_descriptor,
-        new java.lang.String[] { "Success", "UserId", });
+        new java.lang.String[] { "Success", "UserId", "Content", });
     protocol.Base.getDescriptor();
   }
 
