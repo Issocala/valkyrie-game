@@ -11,7 +11,6 @@ public interface UserProtocols {
 
     int REGISTER = GameProtocols.USER;
 
-
     int LOGIN = GameProtocols.USER + 1;
 
 }

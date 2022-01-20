@@ -11,6 +11,6 @@ public interface GameProtocols {
 
     int EXAMPLE = 1000;
 
-    int USER = 1010;
+    int USER = 10010;
 
 }
