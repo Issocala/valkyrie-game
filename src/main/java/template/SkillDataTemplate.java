@@ -1,7 +1,7 @@
 /* 由程序自动生成，请勿修改。*/
 package template;
 
-public record SkillDataTemplate(int id,String name,int[] buffs,int[] steps,int skill_level,float cold_down,int need_buff,int prohibit_buff){
+public record SkillDataTemplate(int id,String name,int[] buffs,int[] steps,int skill_level,int cold_down,int need_buff,int prohibit_buff,int cost_mana){
 
     public static SkillDataTemplate parse(CustomByteBuffer cbb){
         var id = cbb.getInt();
@@ -17,12 +17,12 @@ public record SkillDataTemplate(int id,String name,int[] buffs,int[] steps,int s
             steps[i] = cbb.getInt();
         }
         var skill_level = cbb.getInt();
-        var cold_down = cbb.getFloat();
+        var cold_down = cbb.getInt();
         var need_buff = cbb.getInt();
         var prohibit_buff = cbb.getInt();
+        var cost_mana = cbb.getInt();
 
-        var temp = new SkillDataTemplate(id,name,buffs,steps,skill_level,cold_down,need_buff,prohibit_buff);
+        var temp = new SkillDataTemplate(id,name,buffs,steps,skill_level,cold_down,need_buff,prohibit_buff,cost_mana);
         return temp;
     }
 }
-

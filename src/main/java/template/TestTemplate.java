@@ -11,4 +11,3 @@ public record TestTemplate(int id,String type){
         return temp;
     }
 }
-

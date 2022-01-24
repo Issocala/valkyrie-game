@@ -25,4 +25,3 @@ public record BuffDataTemplate(int id,String name,int config_group_type,int inte
         return temp;
     }
 }
-

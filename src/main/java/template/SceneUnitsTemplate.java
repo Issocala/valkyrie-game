@@ -16,4 +16,3 @@ public record SceneUnitsTemplate(int id,String scene,int time_in_ms,int unit_typ
         return temp;
     }
 }
-

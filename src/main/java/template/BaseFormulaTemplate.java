@@ -11,4 +11,3 @@ public record BaseFormulaTemplate(int id,String formula){
         return temp;
     }
 }
-

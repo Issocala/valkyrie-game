@@ -34,7 +34,7 @@ public class CustomByteBuffer {
     }
 
     public boolean getBoolean(){
-        return  byteBuffer.get()==0?false:true;
+        return  byteBuffer.get() != 0;
     }
 
     public String getString(){
