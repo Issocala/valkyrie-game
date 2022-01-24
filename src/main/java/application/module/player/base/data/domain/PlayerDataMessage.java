@@ -10,6 +10,7 @@ import com.cala.orm.message.MessageAndReply;
  */
 public class PlayerDataMessage {
 
-    public record PlayerByUserId(MessageAndReply messageAndReply, String sql) implements DataBase {}
+    public static record PlayerByUserId(MessageAndReply messageAndReply) implements DataBase {
+    }
 
 }
