@@ -2,6 +2,8 @@ package application.module.user.data.domain;
 
 import application.util.AbstractBuilder;
 import com.cala.orm.annotation.DbDeserialize;
+import com.cala.orm.annotation.DbPojoBuilder;
+import com.cala.orm.annotation.UniqueKey;
 import com.cala.orm.cache.AbstractEntityBase;
 import com.cala.orm.cache.DbStatus;
 
@@ -15,6 +17,7 @@ import javax.persistence.Column;
 @DbDeserialize(builder = User.Builder.class)
 public class User extends AbstractEntityBase {
 
+    @UniqueKey
     @Column
     private final String account;
 
@@ -30,7 +33,6 @@ public class User extends AbstractEntityBase {
     @Column
     private final long timestamp;
 
-
     public User(Long id, DbStatus dbStatus, String account, String accountName, String password, String platform, long timestamp) {
         super(id, dbStatus);
         this.account = account;
@@ -40,6 +42,7 @@ public class User extends AbstractEntityBase {
         this.timestamp = timestamp;
     }
 
+    @DbPojoBuilder
     public static class Builder extends AbstractBuilder {
         private String account;
 
@@ -84,6 +87,15 @@ public class User extends AbstractEntityBase {
     public static User of(Long id) {
         return new User(id, DbStatus.NORMAL, null, null, null, null, 0);
     }
+
+    public static User of(String account) {
+        return new User(0L, DbStatus.NORMAL, account, null, null, null, 0);
+    }
+
+    public static User of(Long id, String account, String accountName, String password) {
+        return new User(id, DbStatus.NORMAL, account, accountName, password, null, 0);
+    }
+
 
     public String getAccount() {
         return account;

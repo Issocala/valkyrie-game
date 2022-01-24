@@ -1,4 +1,4 @@
-package application.module.user.operate;
+package application.util;
 
 import com.cala.orm.message.OperateTypeInfo;
 import com.google.protobuf.Message;

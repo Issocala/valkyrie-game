@@ -1,7 +1,16 @@
-package application.module.user.data.domain;/**
- *
+package application.module.user.data.domain;
+
+import com.cala.orm.message.DataBase;
+import com.cala.orm.message.MessageAndReply;
+
+/**
  * @author Luo Yong
  * @date 2022-1-20
  * @Source 1.0
- */public class UserDataMessage {
+ */
+public class UserDataMessage {
+
+    public static record UserGetByAccount(MessageAndReply messageAndReply) implements DataBase {
+    }
+
 }

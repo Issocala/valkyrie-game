@@ -14,10 +14,24 @@ public class UserProtocolBuilder {
                 .build();
     }
 
-    public static User.SC10011 getSc10011(boolean success, long userId) {
-        return User.SC10011.newBuilder()
+    public static User.SC10010 getSc10010(boolean success, String content) {
+        return User.SC10010.newBuilder()
                 .setSuccess(success)
+                .setContent(content)
+                .build();
+    }
+
+    public static User.SC10011 getSc10011(long userId) {
+        return User.SC10011.newBuilder()
+                .setSuccess(true)
                 .setUserId(userId)
+                .build();
+    }
+
+    public static User.SC10011 getSc10011(String content) {
+        return User.SC10011.newBuilder()
+                .setSuccess(false)
+                .setContent(content)
                 .build();
     }
 }

@@ -8,5 +8,5 @@ import com.cala.orm.message.OperateTypeInfo;
  * @date 2022-1-18
  * @Source 1.0
  */
-public record UserLogin(OperateTypeInfo operateTypeInfo) implements OperateType {
+public record UserLoginType(OperateTypeInfo operateTypeInfo) implements OperateType {
 }

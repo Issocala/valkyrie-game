@@ -8,5 +8,5 @@ import com.cala.orm.message.OperateTypeInfo;
  * @date 2022-1-20
  * @Source 1.0
  */
-public record UserRegister(OperateTypeInfo operateTypeInfo) implements OperateType {
+public record UserRegisterType(OperateTypeInfo operateTypeInfo) implements OperateType {
 }

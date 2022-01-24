@@ -8,7 +8,7 @@ import com.cala.orm.message.OperateTypeInfo;
  * @date 2022-1-18
  * @Source 1.0
  */
-public record UserGet(OperateTypeInfo operateTypeInfo) implements OperateType {
-    public static final UserGet INSTANCE = new UserGet(new OperateTypeInfo() {
+public record UserGetType(OperateTypeInfo operateTypeInfo) implements OperateType {
+    public static final UserGetType INSTANCE = new UserGetType(new OperateTypeInfo() {
     });
 }
