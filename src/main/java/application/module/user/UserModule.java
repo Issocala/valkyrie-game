@@ -47,25 +47,25 @@ public class UserModule extends AbstractModule {
             switch (dataReturnMessage.operateType()) {
                 case UserLoginType userLoginType -> userLoginOk(userLoginType, dataReturnMessage);
                 case UserRegisterType userRegisterType -> userRegisterOk(userRegisterType);
-                case UserRegisterInsertType userRegisterInsertType -> userRegisterInsertTypeOk(userRegisterInsertType, dataReturnMessage);
+                case UserRegisterInsertType userRegisterInsertType -> userRegisterInsertTypeOk(userRegisterInsertType);
                 default -> getLog().error(new IllegalStateException(), "Unexpected value: " + dataReturnMessage.operateType());
             }
         } else {
             switch (dataReturnMessage.operateType()) {
                 case UserLoginType userLoginType -> userLoginTypeError(userLoginType);
                 case UserRegisterType userRegisterType -> userRegisterTypeError(userRegisterType);
-                case UserRegisterInsertType userRegisterInsertType -> userRegisterInsertTypeError(userRegisterInsertType, dataReturnMessage);
+                case UserRegisterInsertType userRegisterInsertType -> userRegisterInsertTypeError(userRegisterInsertType);
                 default -> getLog().error(new IllegalStateException(), "Unexpected value: " + dataReturnMessage.operateType());
             }
         }
     }
 
-    private void userRegisterInsertTypeError(UserRegisterInsertType userRegisterInsertType, DataReturnMessage dataReturnMessage) {
+    private void userRegisterInsertTypeError(UserRegisterInsertType userRegisterInsertType) {
         var commonOperateTypeInfo = (CommonOperateTypeInfo) userRegisterInsertType.operateTypeInfo();
         commonOperateTypeInfo.r().client().tell(new application.client.Client.SendToClientJ(UserProtocols.REGISTER, UserProtocolBuilder.getSc10010(false, "请重试！")), self());
     }
 
-    private void userRegisterInsertTypeOk(UserRegisterInsertType userRegisterInsertType, DataReturnMessage dataReturnMessage) {
+    private void userRegisterInsertTypeOk(UserRegisterInsertType userRegisterInsertType) {
         var commonOperateTypeInfo = (CommonOperateTypeInfo) userRegisterInsertType.operateTypeInfo();
         commonOperateTypeInfo.r().client().tell(new application.client.Client.SendToClientJ(UserProtocols.REGISTER, UserProtocolBuilder.getSc10010(true)), self());
     }
