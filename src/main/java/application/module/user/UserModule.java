@@ -126,9 +126,11 @@ public class UserModule extends AbstractModule {
     private void login(Client.ReceivedFromClient r) {
         try {
             var cs10011 = protocol.User.CS10011.parseFrom(r.message());
+            if (StringUtils.isEmpty(cs10011.getAccount().getAccount()) || StringUtils.isEmpty(cs10011.getAccount().getPassword())) {
+                r.client().tell(new application.client.Client.SendToClientJ(UserProtocols.LOGIN, UserProtocolBuilder.getSc10011("账户或密码不能为空！！！")), self());
+            }
             var user = User.of(cs10011.getAccount().getAccount());
             this.userData.tell(new UserDataMessage.UserGetByAccount(new MessageAndReply(self(), user, new UserLoginType(new CommonOperateTypeInfo(r, cs10011)))), self());
-            getLog().debug("debug {} ");
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
