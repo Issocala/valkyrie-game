@@ -1,18 +1,13 @@
 package application.module.example;
 
 import akka.actor.ActorRef;
-import application.data.ActorDataDispatcher;
 import application.guid.UUID;
 import application.module.common.data.domain.DataMessage;
 import application.module.example.operate.GetByUseIdType;
 import application.module.example.operate.GetType;
 import application.module.example.operate.SaveType;
-import application.module.player.base.data.PlayerEntityData;
-import application.module.player.base.data.domain.PlayerDataMessage;
 import application.module.player.base.data.domain.PlayerEntity;
 import application.module.user.data.UserData;
-import com.cala.orm.cache.DbStatus;
-import com.cala.orm.cache.SimpleAbstractEntityBase;
 import com.cala.orm.message.DataBaseMessage;
 import com.cala.orm.message.DataReturnMessage;
 import com.cala.orm.message.MessageAndReply;
@@ -102,7 +97,5 @@ public class ExampleModule extends AbstractModule {
         this.dataAgent().tell(new DataMessage.RequestData(UserData.class), self());
         DataBaseMessage.Get get = new DataBaseMessage.Get(new MessageAndReply(self(),
                 PlayerEntity.of(UUID.fastUUID().getLeastSignificantBits()), GetType.INSTANCE));
-        PlayerDataMessage.PlayerByUserId playerByUserId = new PlayerDataMessage.PlayerByUserId(new MessageAndReply(self(), new SimpleAbstractEntityBase(1L, DbStatus.NORMAL), GetByUseIdType.INSTANCE));
-        this.dataAgent().tell(new ActorDataDispatcher.Message(PlayerEntityData.class, get, self()), self());
     }
 }
