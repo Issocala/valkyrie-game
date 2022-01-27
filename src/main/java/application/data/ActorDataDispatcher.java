@@ -1,6 +1,9 @@
 package application.data;
 
-import akka.actor.*;
+import akka.actor.AbstractActor;
+import akka.actor.ActorRef;
+import akka.actor.Cancellable;
+import akka.actor.Props;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import application.module.common.data.domain.DataMessage;
@@ -65,7 +68,6 @@ public class ActorDataDispatcher extends AbstractActor {
     public Receive createReceive() {
         return receiveBuilder()
                 .match(DataBaseMessage.PeriodsSavaData.class, periodsSavaData -> class2DbCacheManagerMap.forEach((k, v) -> v.tell(periodsSavaData, getSelf())))
-                .match(Message.class, message -> sendMessage(message.clazz, message.abstractEntityBase, message.sender))
                 .match(DataAgent.Init$.class, init -> init())
                 .match(DataMessage.RequestData.class, requestData -> requestData(requestData.clazz()))
                 .build();
@@ -114,7 +116,7 @@ public class ActorDataDispatcher extends AbstractActor {
     /**
      * 消息分发
      */
-    public void sendMessage(Class<? extends AbstractDataCacheManager<?>> clazz, Object abstractEntityBase, ActorRef sender) {
+    private void sendMessage(Class<? extends AbstractDataCacheManager<?>> clazz, Object abstractEntityBase, ActorRef sender) {
         ActorRef actorRef = getActor(clazz);
         if (Objects.nonNull(actorRef)) {
             actorRef.tell(abstractEntityBase, sender);
