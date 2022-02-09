@@ -6385,880 +6385,1399 @@ public final class Battle {
      */
     protocol.Battle.S2C_OneLandOrBuilder getLandsOrBuilder(
         int index);
-
-    /**
-     * <code>required float LeftLimit = 2;</code>
-     * @return Whether the leftLimit field is set.
-     */
-    boolean hasLeftLimit();
-    /**
-     * <code>required float LeftLimit = 2;</code>
-     * @return The leftLimit.
-     */
-    float getLeftLimit();
   }
-  /**
-   * Protobuf type {@code protocol.S2C_AllLands}
-   */
-  public  static final class S2C_AllLands extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:protocol.S2C_AllLands)
-      S2C_AllLandsOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use S2C_AllLands.newBuilder() to construct.
-    private S2C_AllLands(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private S2C_AllLands() {
-      lands_ = java.util.Collections.emptyList();
-    }
 
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new S2C_AllLands();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private S2C_AllLands(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                lands_ = new java.util.ArrayList<protocol.Battle.S2C_OneLand>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              lands_.add(
-                  input.readMessage(protocol.Battle.S2C_OneLand.PARSER, extensionRegistry));
-              break;
-            }
-            case 21: {
-              bitField0_ |= 0x00000001;
-              leftLimit_ = input.readFloat();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          lands_ = java.util.Collections.unmodifiableList(lands_);
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return protocol.Battle.internal_static_protocol_S2C_AllLands_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return protocol.Battle.internal_static_protocol_S2C_AllLands_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              protocol.Battle.S2C_AllLands.class, protocol.Battle.S2C_AllLands.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int LANDS_FIELD_NUMBER = 1;
-    private java.util.List<protocol.Battle.S2C_OneLand> lands_;
-    /**
-     * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-     */
-    public java.util.List<protocol.Battle.S2C_OneLand> getLandsList() {
-      return lands_;
-    }
-    /**
-     * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-     */
-    public java.util.List<? extends protocol.Battle.S2C_OneLandOrBuilder> 
-        getLandsOrBuilderList() {
-      return lands_;
-    }
-    /**
-     * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-     */
-    public int getLandsCount() {
-      return lands_.size();
-    }
-    /**
-     * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-     */
-    public protocol.Battle.S2C_OneLand getLands(int index) {
-      return lands_.get(index);
-    }
-    /**
-     * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-     */
-    public protocol.Battle.S2C_OneLandOrBuilder getLandsOrBuilder(
-        int index) {
-      return lands_.get(index);
-    }
-
-    public static final int LEFTLIMIT_FIELD_NUMBER = 2;
-    private float leftLimit_;
-    /**
-     * <code>required float LeftLimit = 2;</code>
-     * @return Whether the leftLimit field is set.
-     */
-    public boolean hasLeftLimit() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>required float LeftLimit = 2;</code>
-     * @return The leftLimit.
-     */
-    public float getLeftLimit() {
-      return leftLimit_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      if (!hasLeftLimit()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getLandsCount(); i++) {
-        if (!getLands(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      for (int i = 0; i < lands_.size(); i++) {
-        output.writeMessage(1, lands_.get(i));
-      }
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeFloat(2, leftLimit_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      for (int i = 0; i < lands_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, lands_.get(i));
-      }
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(2, leftLimit_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof protocol.Battle.S2C_AllLands)) {
-        return super.equals(obj);
-      }
-      protocol.Battle.S2C_AllLands other = (protocol.Battle.S2C_AllLands) obj;
-
-      if (!getLandsList()
-          .equals(other.getLandsList())) return false;
-      if (hasLeftLimit() != other.hasLeftLimit()) return false;
-      if (hasLeftLimit()) {
-        if (java.lang.Float.floatToIntBits(getLeftLimit())
-            != java.lang.Float.floatToIntBits(
-                other.getLeftLimit())) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (getLandsCount() > 0) {
-        hash = (37 * hash) + LANDS_FIELD_NUMBER;
-        hash = (53 * hash) + getLandsList().hashCode();
-      }
-      if (hasLeftLimit()) {
-        hash = (37 * hash) + LEFTLIMIT_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getLeftLimit());
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static protocol.Battle.S2C_AllLands parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static protocol.Battle.S2C_AllLands parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static protocol.Battle.S2C_AllLands parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static protocol.Battle.S2C_AllLands parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static protocol.Battle.S2C_AllLands parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static protocol.Battle.S2C_AllLands parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static protocol.Battle.S2C_AllLands parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static protocol.Battle.S2C_AllLands parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static protocol.Battle.S2C_AllLands parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static protocol.Battle.S2C_AllLands parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static protocol.Battle.S2C_AllLands parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static protocol.Battle.S2C_AllLands parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(protocol.Battle.S2C_AllLands prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     /**
      * Protobuf type {@code protocol.S2C_AllLands}
      */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:protocol.S2C_AllLands)
-        protocol.Battle.S2C_AllLandsOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return protocol.Battle.internal_static_protocol_S2C_AllLands_descriptor;
-      }
+    public  static final class S2C_AllLands extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:protocol.S2C_AllLands)
+            S2C_AllLandsOrBuilder {
+        private static final long serialVersionUID = 0L;
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return protocol.Battle.internal_static_protocol_S2C_AllLands_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                protocol.Battle.S2C_AllLands.class, protocol.Battle.S2C_AllLands.Builder.class);
-      }
-
-      // Construct using protocol.Battle.S2C_AllLands.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getLandsFieldBuilder();
+        // Use S2C_AllLands.newBuilder() to construct.
+        private S2C_AllLands(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
         }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        if (landsBuilder_ == null) {
-          lands_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          landsBuilder_.clear();
+
+        private S2C_AllLands() {
+            lands_ = java.util.Collections.emptyList();
         }
-        leftLimit_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000002);
-        return this;
-      }
 
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return protocol.Battle.internal_static_protocol_S2C_AllLands_descriptor;
-      }
-
-      @java.lang.Override
-      public protocol.Battle.S2C_AllLands getDefaultInstanceForType() {
-        return protocol.Battle.S2C_AllLands.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public protocol.Battle.S2C_AllLands build() {
-        protocol.Battle.S2C_AllLands result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        @java.lang.Override
+        @SuppressWarnings({"unused"})
+        protected java.lang.Object newInstance(
+                UnusedPrivateParameter unused) {
+            return new S2C_AllLands();
         }
-        return result;
-      }
 
-      @java.lang.Override
-      public protocol.Battle.S2C_AllLands buildPartial() {
-        protocol.Battle.S2C_AllLands result = new protocol.Battle.S2C_AllLands(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (landsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0)) {
-            lands_ = java.util.Collections.unmodifiableList(lands_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.lands_ = lands_;
-        } else {
-          result.lands_ = landsBuilder_.build();
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
         }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.leftLimit_ = leftLimit_;
-          to_bitField0_ |= 0x00000001;
-        }
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
 
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof protocol.Battle.S2C_AllLands) {
-          return mergeFrom((protocol.Battle.S2C_AllLands)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(protocol.Battle.S2C_AllLands other) {
-        if (other == protocol.Battle.S2C_AllLands.getDefaultInstance()) return this;
-        if (landsBuilder_ == null) {
-          if (!other.lands_.isEmpty()) {
-            if (lands_.isEmpty()) {
-              lands_ = other.lands_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureLandsIsMutable();
-              lands_.addAll(other.lands_);
+        private S2C_AllLands(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
             }
-            onChanged();
-          }
-        } else {
-          if (!other.lands_.isEmpty()) {
-            if (landsBuilder_.isEmpty()) {
-              landsBuilder_.dispose();
-              landsBuilder_ = null;
-              lands_ = other.lands_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              landsBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getLandsFieldBuilder() : null;
-            } else {
-              landsBuilder_.addAllMessages(other.lands_);
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        case 10: {
+                            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                                lands_ = new java.util.ArrayList<protocol.Battle.S2C_OneLand>();
+                                mutable_bitField0_ |= 0x00000001;
+                            }
+                            lands_.add(
+                                    input.readMessage(protocol.Battle.S2C_OneLand.PARSER, extensionRegistry));
+                            break;
+                        }
+                        default: {
+                            if (!parseUnknownField(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                if (((mutable_bitField0_ & 0x00000001) != 0)) {
+                    lands_ = java.util.Collections.unmodifiableList(lands_);
+                }
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
             }
-          }
         }
-        if (other.hasLeftLimit()) {
-          setLeftLimit(other.getLeftLimit());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
 
-      @java.lang.Override
-      public final boolean isInitialized() {
-        if (!hasLeftLimit()) {
-          return false;
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return protocol.Battle.internal_static_protocol_S2C_AllLands_descriptor;
         }
-        for (int i = 0; i < getLandsCount(); i++) {
-          if (!getLands(i).isInitialized()) {
-            return false;
-          }
-        }
-        return true;
-      }
 
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        protocol.Battle.S2C_AllLands parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (protocol.Battle.S2C_AllLands) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return protocol.Battle.internal_static_protocol_S2C_AllLands_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            protocol.Battle.S2C_AllLands.class, protocol.Battle.S2C_AllLands.Builder.class);
         }
-        return this;
-      }
-      private int bitField0_;
 
-      private java.util.List<protocol.Battle.S2C_OneLand> lands_ =
-        java.util.Collections.emptyList();
-      private void ensureLandsIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
-          lands_ = new java.util.ArrayList<protocol.Battle.S2C_OneLand>(lands_);
-          bitField0_ |= 0x00000001;
-         }
-      }
+        public static final int LANDS_FIELD_NUMBER = 1;
+        private java.util.List<protocol.Battle.S2C_OneLand> lands_;
 
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          protocol.Battle.S2C_OneLand, protocol.Battle.S2C_OneLand.Builder, protocol.Battle.S2C_OneLandOrBuilder> landsBuilder_;
+        /**
+         * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+         */
+        public java.util.List<protocol.Battle.S2C_OneLand> getLandsList() {
+            return lands_;
+        }
 
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public java.util.List<protocol.Battle.S2C_OneLand> getLandsList() {
-        if (landsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(lands_);
-        } else {
-          return landsBuilder_.getMessageList();
+        /**
+         * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+         */
+        public java.util.List<? extends protocol.Battle.S2C_OneLandOrBuilder>
+        getLandsOrBuilderList() {
+            return lands_;
         }
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public int getLandsCount() {
-        if (landsBuilder_ == null) {
-          return lands_.size();
-        } else {
-          return landsBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public protocol.Battle.S2C_OneLand getLands(int index) {
-        if (landsBuilder_ == null) {
-          return lands_.get(index);
-        } else {
-          return landsBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public Builder setLands(
-          int index, protocol.Battle.S2C_OneLand value) {
-        if (landsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureLandsIsMutable();
-          lands_.set(index, value);
-          onChanged();
-        } else {
-          landsBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public Builder setLands(
-          int index, protocol.Battle.S2C_OneLand.Builder builderForValue) {
-        if (landsBuilder_ == null) {
-          ensureLandsIsMutable();
-          lands_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          landsBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public Builder addLands(protocol.Battle.S2C_OneLand value) {
-        if (landsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureLandsIsMutable();
-          lands_.add(value);
-          onChanged();
-        } else {
-          landsBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public Builder addLands(
-          int index, protocol.Battle.S2C_OneLand value) {
-        if (landsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureLandsIsMutable();
-          lands_.add(index, value);
-          onChanged();
-        } else {
-          landsBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public Builder addLands(
-          protocol.Battle.S2C_OneLand.Builder builderForValue) {
-        if (landsBuilder_ == null) {
-          ensureLandsIsMutable();
-          lands_.add(builderForValue.build());
-          onChanged();
-        } else {
-          landsBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public Builder addLands(
-          int index, protocol.Battle.S2C_OneLand.Builder builderForValue) {
-        if (landsBuilder_ == null) {
-          ensureLandsIsMutable();
-          lands_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          landsBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public Builder addAllLands(
-          java.lang.Iterable<? extends protocol.Battle.S2C_OneLand> values) {
-        if (landsBuilder_ == null) {
-          ensureLandsIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, lands_);
-          onChanged();
-        } else {
-          landsBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public Builder clearLands() {
-        if (landsBuilder_ == null) {
-          lands_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          landsBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public Builder removeLands(int index) {
-        if (landsBuilder_ == null) {
-          ensureLandsIsMutable();
-          lands_.remove(index);
-          onChanged();
-        } else {
-          landsBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public protocol.Battle.S2C_OneLand.Builder getLandsBuilder(
-          int index) {
-        return getLandsFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public protocol.Battle.S2C_OneLandOrBuilder getLandsOrBuilder(
-          int index) {
-        if (landsBuilder_ == null) {
-          return lands_.get(index);  } else {
-          return landsBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public java.util.List<? extends protocol.Battle.S2C_OneLandOrBuilder> 
-           getLandsOrBuilderList() {
-        if (landsBuilder_ != null) {
-          return landsBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(lands_);
-        }
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public protocol.Battle.S2C_OneLand.Builder addLandsBuilder() {
-        return getLandsFieldBuilder().addBuilder(
-            protocol.Battle.S2C_OneLand.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public protocol.Battle.S2C_OneLand.Builder addLandsBuilder(
-          int index) {
-        return getLandsFieldBuilder().addBuilder(
-            index, protocol.Battle.S2C_OneLand.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-       */
-      public java.util.List<protocol.Battle.S2C_OneLand.Builder> 
-           getLandsBuilderList() {
-        return getLandsFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          protocol.Battle.S2C_OneLand, protocol.Battle.S2C_OneLand.Builder, protocol.Battle.S2C_OneLandOrBuilder> 
-          getLandsFieldBuilder() {
-        if (landsBuilder_ == null) {
-          landsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              protocol.Battle.S2C_OneLand, protocol.Battle.S2C_OneLand.Builder, protocol.Battle.S2C_OneLandOrBuilder>(
-                  lands_,
-                  ((bitField0_ & 0x00000001) != 0),
-                  getParentForChildren(),
-                  isClean());
-          lands_ = null;
-        }
-        return landsBuilder_;
-      }
 
-      private float leftLimit_ ;
-      /**
-       * <code>required float LeftLimit = 2;</code>
-       * @return Whether the leftLimit field is set.
-       */
-      public boolean hasLeftLimit() {
-        return ((bitField0_ & 0x00000002) != 0);
-      }
-      /**
-       * <code>required float LeftLimit = 2;</code>
-       * @return The leftLimit.
-       */
-      public float getLeftLimit() {
-        return leftLimit_;
-      }
-      /**
-       * <code>required float LeftLimit = 2;</code>
-       * @param value The leftLimit to set.
-       * @return This builder for chaining.
-       */
-      public Builder setLeftLimit(float value) {
-        bitField0_ |= 0x00000002;
-        leftLimit_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required float LeftLimit = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearLeftLimit() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        leftLimit_ = 0F;
-        onChanged();
-        return this;
-      }
+        /**
+         * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+         */
+        public int getLandsCount() {
+            return lands_.size();
+        }
+
+        /**
+         * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+         */
+        public protocol.Battle.S2C_OneLand getLands(int index) {
+            return lands_.get(index);
+        }
+
+        /**
+         * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+         */
+        public protocol.Battle.S2C_OneLandOrBuilder getLandsOrBuilder(
+                int index) {
+            return lands_.get(index);
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            for (int i = 0; i < getLandsCount(); i++) {
+                if (!getLands(i).isInitialized()) {
+                    memoizedIsInitialized = 0;
+                    return false;
+                }
+            }
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        @java.lang.Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            for (int i = 0; i < lands_.size(); i++) {
+                output.writeMessage(1, lands_.get(i));
+            }
+            unknownFields.writeTo(output);
+        }
+
+        @java.lang.Override
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            for (int i = 0; i < lands_.size(); i++) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(1, lands_.get(i));
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof protocol.Battle.S2C_AllLands)) {
+                return super.equals(obj);
+            }
+            protocol.Battle.S2C_AllLands other = (protocol.Battle.S2C_AllLands) obj;
+
+            if (!getLandsList()
+                    .equals(other.getLandsList())) return false;
+            if (!unknownFields.equals(other.unknownFields)) return false;
+            return true;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            if (getLandsCount() > 0) {
+                hash = (37 * hash) + LANDS_FIELD_NUMBER;
+                hash = (53 * hash) + getLandsList().hashCode();
+            }
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static protocol.Battle.S2C_AllLands parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static protocol.Battle.S2C_AllLands parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static protocol.Battle.S2C_AllLands parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static protocol.Battle.S2C_AllLands parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static protocol.Battle.S2C_AllLands parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static protocol.Battle.S2C_AllLands parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static protocol.Battle.S2C_AllLands parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static protocol.Battle.S2C_AllLands parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static protocol.Battle.S2C_AllLands parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static protocol.Battle.S2C_AllLands parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static protocol.Battle.S2C_AllLands parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static protocol.Battle.S2C_AllLands parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        @java.lang.Override
+        public Builder newBuilderForType() { return newBuilder(); }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(protocol.Battle.S2C_AllLands prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        @java.lang.Override
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * Protobuf type {@code protocol.S2C_AllLands}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:protocol.S2C_AllLands)
+                protocol.Battle.S2C_AllLandsOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return protocol.Battle.internal_static_protocol_S2C_AllLands_descriptor;
+            }
+
+            @java.lang.Override
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return protocol.Battle.internal_static_protocol_S2C_AllLands_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                protocol.Battle.S2C_AllLands.class, protocol.Battle.S2C_AllLands.Builder.class);
+            }
+
+            // Construct using protocol.Battle.S2C_AllLands.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                    getLandsFieldBuilder();
+                }
+            }
+
+            @java.lang.Override
+            public Builder clear() {
+                super.clear();
+                if (landsBuilder_ == null) {
+                    lands_ = java.util.Collections.emptyList();
+                    bitField0_ = (bitField0_ & ~0x00000001);
+                } else {
+                    landsBuilder_.clear();
+                }
+                return this;
+            }
+
+            @java.lang.Override
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return protocol.Battle.internal_static_protocol_S2C_AllLands_descriptor;
+            }
+
+            @java.lang.Override
+            public protocol.Battle.S2C_AllLands getDefaultInstanceForType() {
+                return protocol.Battle.S2C_AllLands.getDefaultInstance();
+            }
+
+            @java.lang.Override
+            public protocol.Battle.S2C_AllLands build() {
+                protocol.Battle.S2C_AllLands result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            @java.lang.Override
+            public protocol.Battle.S2C_AllLands buildPartial() {
+                protocol.Battle.S2C_AllLands result = new protocol.Battle.S2C_AllLands(this);
+                int from_bitField0_ = bitField0_;
+                if (landsBuilder_ == null) {
+                    if (((bitField0_ & 0x00000001) != 0)) {
+                        lands_ = java.util.Collections.unmodifiableList(lands_);
+                        bitField0_ = (bitField0_ & ~0x00000001);
+                    }
+                    result.lands_ = lands_;
+                } else {
+                    result.lands_ = landsBuilder_.build();
+                }
+                onBuilt();
+                return result;
+            }
+
+            @java.lang.Override
+            public Builder clone() {
+                return super.clone();
+            }
+
+            @java.lang.Override
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.setField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return super.clearField(field);
+            }
+
+            @java.lang.Override
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return super.clearOneof(oneof);
+            }
+
+            @java.lang.Override
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return super.setRepeatedField(field, index, value);
+            }
+
+            @java.lang.Override
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.addRepeatedField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof protocol.Battle.S2C_AllLands) {
+                    return mergeFrom((protocol.Battle.S2C_AllLands)other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(protocol.Battle.S2C_AllLands other) {
+                if (other == protocol.Battle.S2C_AllLands.getDefaultInstance()) return this;
+                if (landsBuilder_ == null) {
+                    if (!other.lands_.isEmpty()) {
+                        if (lands_.isEmpty()) {
+                            lands_ = other.lands_;
+                            bitField0_ = (bitField0_ & ~0x00000001);
+                        } else {
+                            ensureLandsIsMutable();
+                            lands_.addAll(other.lands_);
+                        }
+                        onChanged();
+                    }
+                } else {
+                    if (!other.lands_.isEmpty()) {
+                        if (landsBuilder_.isEmpty()) {
+                            landsBuilder_.dispose();
+                            landsBuilder_ = null;
+                            lands_ = other.lands_;
+                            bitField0_ = (bitField0_ & ~0x00000001);
+                            landsBuilder_ =
+                                    com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                                            getLandsFieldBuilder() : null;
+                        } else {
+                            landsBuilder_.addAllMessages(other.lands_);
+                        }
+                    }
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            @java.lang.Override
+            public final boolean isInitialized() {
+                for (int i = 0; i < getLandsCount(); i++) {
+                    if (!getLands(i).isInitialized()) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                protocol.Battle.S2C_AllLands parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (protocol.Battle.S2C_AllLands) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private int bitField0_;
+
+            private java.util.List<protocol.Battle.S2C_OneLand> lands_ =
+                    java.util.Collections.emptyList();
+
+            private void ensureLandsIsMutable() {
+                if (!((bitField0_ & 0x00000001) != 0)) {
+                    lands_ = new java.util.ArrayList<protocol.Battle.S2C_OneLand>(lands_);
+                    bitField0_ |= 0x00000001;
+                }
+            }
+
+            private com.google.protobuf.RepeatedFieldBuilderV3<
+                    protocol.Battle.S2C_OneLand, protocol.Battle.S2C_OneLand.Builder, protocol.Battle.S2C_OneLandOrBuilder> landsBuilder_;
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public java.util.List<protocol.Battle.S2C_OneLand> getLandsList() {
+                if (landsBuilder_ == null) {
+                    return java.util.Collections.unmodifiableList(lands_);
+                } else {
+                    return landsBuilder_.getMessageList();
+                }
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public int getLandsCount() {
+                if (landsBuilder_ == null) {
+                    return lands_.size();
+                } else {
+                    return landsBuilder_.getCount();
+                }
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public protocol.Battle.S2C_OneLand getLands(int index) {
+                if (landsBuilder_ == null) {
+                    return lands_.get(index);
+                } else {
+                    return landsBuilder_.getMessage(index);
+                }
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public Builder setLands(
+                    int index, protocol.Battle.S2C_OneLand value) {
+                if (landsBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    ensureLandsIsMutable();
+                    lands_.set(index, value);
+                    onChanged();
+                } else {
+                    landsBuilder_.setMessage(index, value);
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public Builder setLands(
+                    int index, protocol.Battle.S2C_OneLand.Builder builderForValue) {
+                if (landsBuilder_ == null) {
+                    ensureLandsIsMutable();
+                    lands_.set(index, builderForValue.build());
+                    onChanged();
+                } else {
+                    landsBuilder_.setMessage(index, builderForValue.build());
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public Builder addLands(protocol.Battle.S2C_OneLand value) {
+                if (landsBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    ensureLandsIsMutable();
+                    lands_.add(value);
+                    onChanged();
+                } else {
+                    landsBuilder_.addMessage(value);
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public Builder addLands(
+                    int index, protocol.Battle.S2C_OneLand value) {
+                if (landsBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    ensureLandsIsMutable();
+                    lands_.add(index, value);
+                    onChanged();
+                } else {
+                    landsBuilder_.addMessage(index, value);
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public Builder addLands(
+                    protocol.Battle.S2C_OneLand.Builder builderForValue) {
+                if (landsBuilder_ == null) {
+                    ensureLandsIsMutable();
+                    lands_.add(builderForValue.build());
+                    onChanged();
+                } else {
+                    landsBuilder_.addMessage(builderForValue.build());
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public Builder addLands(
+                    int index, protocol.Battle.S2C_OneLand.Builder builderForValue) {
+                if (landsBuilder_ == null) {
+                    ensureLandsIsMutable();
+                    lands_.add(index, builderForValue.build());
+                    onChanged();
+                } else {
+                    landsBuilder_.addMessage(index, builderForValue.build());
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public Builder addAllLands(
+                    java.lang.Iterable<? extends protocol.Battle.S2C_OneLand> values) {
+                if (landsBuilder_ == null) {
+                    ensureLandsIsMutable();
+                    com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                            values, lands_);
+                    onChanged();
+                } else {
+                    landsBuilder_.addAllMessages(values);
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public Builder clearLands() {
+                if (landsBuilder_ == null) {
+                    lands_ = java.util.Collections.emptyList();
+                    bitField0_ = (bitField0_ & ~0x00000001);
+                    onChanged();
+                } else {
+                    landsBuilder_.clear();
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public Builder removeLands(int index) {
+                if (landsBuilder_ == null) {
+                    ensureLandsIsMutable();
+                    lands_.remove(index);
+                    onChanged();
+                } else {
+                    landsBuilder_.remove(index);
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public protocol.Battle.S2C_OneLand.Builder getLandsBuilder(
+                    int index) {
+                return getLandsFieldBuilder().getBuilder(index);
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public protocol.Battle.S2C_OneLandOrBuilder getLandsOrBuilder(
+                    int index) {
+                if (landsBuilder_ == null) {
+                    return lands_.get(index);  } else {
+                    return landsBuilder_.getMessageOrBuilder(index);
+                }
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public java.util.List<? extends protocol.Battle.S2C_OneLandOrBuilder>
+            getLandsOrBuilderList() {
+                if (landsBuilder_ != null) {
+                    return landsBuilder_.getMessageOrBuilderList();
+                } else {
+                    return java.util.Collections.unmodifiableList(lands_);
+                }
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public protocol.Battle.S2C_OneLand.Builder addLandsBuilder() {
+                return getLandsFieldBuilder().addBuilder(
+                        protocol.Battle.S2C_OneLand.getDefaultInstance());
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public protocol.Battle.S2C_OneLand.Builder addLandsBuilder(
+                    int index) {
+                return getLandsFieldBuilder().addBuilder(
+                        index, protocol.Battle.S2C_OneLand.getDefaultInstance());
+            }
+
+            /**
+             * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+             */
+            public java.util.List<protocol.Battle.S2C_OneLand.Builder>
+            getLandsBuilderList() {
+                return getLandsFieldBuilder().getBuilderList();
+            }
+
+            private com.google.protobuf.RepeatedFieldBuilderV3<
+                    protocol.Battle.S2C_OneLand, protocol.Battle.S2C_OneLand.Builder, protocol.Battle.S2C_OneLandOrBuilder>
+            getLandsFieldBuilder() {
+                if (landsBuilder_ == null) {
+                    landsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+                            protocol.Battle.S2C_OneLand, protocol.Battle.S2C_OneLand.Builder, protocol.Battle.S2C_OneLandOrBuilder>(
+                            lands_,
+                            ((bitField0_ & 0x00000001) != 0),
+                            getParentForChildren(),
+                            isClean());
+                    lands_ = null;
+                }
+                return landsBuilder_;
+            }
+
+            @java.lang.Override
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFields(unknownFields);
+            }
+
+            @java.lang.Override
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
+
+
+            // @@protoc_insertion_point(builder_scope:protocol.S2C_AllLands)
+        }
+
+        // @@protoc_insertion_point(class_scope:protocol.S2C_AllLands)
+        private static final protocol.Battle.S2C_AllLands DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new protocol.Battle.S2C_AllLands();
+        }
+
+        public static protocol.Battle.S2C_AllLands getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        @java.lang.Deprecated
+        public static final com.google.protobuf.Parser<S2C_AllLands>
+                PARSER = new com.google.protobuf.AbstractParser<S2C_AllLands>() {
+            @java.lang.Override
+            public S2C_AllLands parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new S2C_AllLands(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<S2C_AllLands> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<S2C_AllLands> getParserForType() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public protocol.Battle.S2C_AllLands getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
+    }
+
+    public interface S2C_LeftLimitOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:protocol.S2C_LeftLimit)
+            com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>required int32 LeftLimit = 1;</code>
+         *
+         * @return Whether the leftLimit field is set.
+         */
+        boolean hasLeftLimit();
+
+        /**
+         * <code>required int32 LeftLimit = 1;</code>
+         *
+         * @return The leftLimit.
+         */
+        int getLeftLimit();
+    }
+
+    /**
+     * Protobuf type {@code protocol.S2C_LeftLimit}
+     */
+    public static final class S2C_LeftLimit extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:protocol.S2C_LeftLimit)
+            S2C_LeftLimitOrBuilder {
+        private static final long serialVersionUID = 0L;
+
+        // Use S2C_LeftLimit.newBuilder() to construct.
+        private S2C_LeftLimit(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
+        }
+
+        private S2C_LeftLimit() {
+        }
+
+        @java.lang.Override
+        @SuppressWarnings({"unused"})
+        protected java.lang.Object newInstance(
+                UnusedPrivateParameter unused) {
+            return new S2C_LeftLimit();
+        }
+
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
+        }
+
+        private S2C_LeftLimit(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        case 8: {
+                            bitField0_ |= 0x00000001;
+                            leftLimit_ = input.readInt32();
+                            break;
+                        }
+                        default: {
+                            if (!parseUnknownField(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
+        }
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return protocol.Battle.internal_static_protocol_S2C_LeftLimit_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return protocol.Battle.internal_static_protocol_S2C_LeftLimit_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            protocol.Battle.S2C_LeftLimit.class, protocol.Battle.S2C_LeftLimit.Builder.class);
+        }
+
+        private int bitField0_;
+        public static final int LEFTLIMIT_FIELD_NUMBER = 1;
+        private int leftLimit_;
+
+        /**
+         * <code>required int32 LeftLimit = 1;</code>
+         * @return Whether the leftLimit field is set.
+         */
+        public boolean hasLeftLimit() {
+            return ((bitField0_ & 0x00000001) != 0);
+        }
+
+        /**
+         * <code>required int32 LeftLimit = 1;</code>
+         * @return The leftLimit.
+         */
+        public int getLeftLimit() {
+            return leftLimit_;
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            if (!hasLeftLimit()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        @java.lang.Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (((bitField0_ & 0x00000001) != 0)) {
+                output.writeInt32(1, leftLimit_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        @java.lang.Override
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (((bitField0_ & 0x00000001) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(1, leftLimit_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof protocol.Battle.S2C_LeftLimit)) {
+                return super.equals(obj);
+            }
+            protocol.Battle.S2C_LeftLimit other = (protocol.Battle.S2C_LeftLimit) obj;
+
+            if (hasLeftLimit() != other.hasLeftLimit()) return false;
+            if (hasLeftLimit()) {
+                if (getLeftLimit()
+                        != other.getLeftLimit()) return false;
+            }
+            if (!unknownFields.equals(other.unknownFields)) return false;
+            return true;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            if (hasLeftLimit()) {
+                hash = (37 * hash) + LEFTLIMIT_FIELD_NUMBER;
+                hash = (53 * hash) + getLeftLimit();
+            }
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static protocol.Battle.S2C_LeftLimit parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static protocol.Battle.S2C_LeftLimit parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static protocol.Battle.S2C_LeftLimit parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static protocol.Battle.S2C_LeftLimit parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static protocol.Battle.S2C_LeftLimit parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static protocol.Battle.S2C_LeftLimit parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static protocol.Battle.S2C_LeftLimit parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static protocol.Battle.S2C_LeftLimit parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static protocol.Battle.S2C_LeftLimit parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static protocol.Battle.S2C_LeftLimit parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static protocol.Battle.S2C_LeftLimit parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static protocol.Battle.S2C_LeftLimit parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        @java.lang.Override
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(protocol.Battle.S2C_LeftLimit prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        @java.lang.Override
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * Protobuf type {@code protocol.S2C_LeftLimit}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:protocol.S2C_LeftLimit)
+                protocol.Battle.S2C_LeftLimitOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return protocol.Battle.internal_static_protocol_S2C_LeftLimit_descriptor;
+            }
+
+            @java.lang.Override
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return protocol.Battle.internal_static_protocol_S2C_LeftLimit_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                protocol.Battle.S2C_LeftLimit.class, protocol.Battle.S2C_LeftLimit.Builder.class);
+            }
+
+            // Construct using protocol.Battle.S2C_LeftLimit.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            @java.lang.Override
+            public Builder clear() {
+                super.clear();
+                leftLimit_ = 0;
+                bitField0_ = (bitField0_ & ~0x00000001);
+                return this;
+            }
+
+            @java.lang.Override
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return protocol.Battle.internal_static_protocol_S2C_LeftLimit_descriptor;
+            }
+
+            @java.lang.Override
+            public protocol.Battle.S2C_LeftLimit getDefaultInstanceForType() {
+                return protocol.Battle.S2C_LeftLimit.getDefaultInstance();
+            }
+
+            @java.lang.Override
+            public protocol.Battle.S2C_LeftLimit build() {
+                protocol.Battle.S2C_LeftLimit result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            @java.lang.Override
+            public protocol.Battle.S2C_LeftLimit buildPartial() {
+                protocol.Battle.S2C_LeftLimit result = new protocol.Battle.S2C_LeftLimit(this);
+                int from_bitField0_ = bitField0_;
+                int to_bitField0_ = 0;
+                if (((from_bitField0_ & 0x00000001) != 0)) {
+                    result.leftLimit_ = leftLimit_;
+                    to_bitField0_ |= 0x00000001;
+                }
+                result.bitField0_ = to_bitField0_;
+                onBuilt();
+                return result;
+            }
+
+            @java.lang.Override
+            public Builder clone() {
+                return super.clone();
+            }
+
+            @java.lang.Override
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.setField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return super.clearField(field);
+            }
+
+            @java.lang.Override
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return super.clearOneof(oneof);
+            }
+
+            @java.lang.Override
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return super.setRepeatedField(field, index, value);
+            }
+
+            @java.lang.Override
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.addRepeatedField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof protocol.Battle.S2C_LeftLimit) {
+                    return mergeFrom((protocol.Battle.S2C_LeftLimit) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(protocol.Battle.S2C_LeftLimit other) {
+                if (other == protocol.Battle.S2C_LeftLimit.getDefaultInstance()) return this;
+                if (other.hasLeftLimit()) {
+                    setLeftLimit(other.getLeftLimit());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            @java.lang.Override
+            public final boolean isInitialized() {
+                if (!hasLeftLimit()) {
+                    return false;
+                }
+                return true;
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                protocol.Battle.S2C_LeftLimit parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (protocol.Battle.S2C_LeftLimit) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private int bitField0_;
+
+            private int leftLimit_;
+
+            /**
+             * <code>required int32 LeftLimit = 1;</code>
+             * @return Whether the leftLimit field is set.
+             */
+            public boolean hasLeftLimit() {
+                return ((bitField0_ & 0x00000001) != 0);
+            }
+
+            /**
+             * <code>required int32 LeftLimit = 1;</code>
+             * @return The leftLimit.
+             */
+            public int getLeftLimit() {
+                return leftLimit_;
+            }
+
+            /**
+             * <code>required int32 LeftLimit = 1;</code>
+             * @param value The leftLimit to set.
+             * @return This builder for chaining.
+             */
+            public Builder setLeftLimit(int value) {
+                bitField0_ |= 0x00000001;
+                leftLimit_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>required int32 LeftLimit = 1;</code>
+             * @return This builder for chaining.
+             */
+            public Builder clearLeftLimit() {
+                bitField0_ = (bitField0_ & ~0x00000001);
+                leftLimit_ = 0;
+                onChanged();
+                return this;
+            }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
       }
 
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
+            @java.lang.Override
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
 
 
-      // @@protoc_insertion_point(builder_scope:protocol.S2C_AllLands)
-    }
+            // @@protoc_insertion_point(builder_scope:protocol.S2C_LeftLimit)
+        }
 
-    // @@protoc_insertion_point(class_scope:protocol.S2C_AllLands)
-    private static final protocol.Battle.S2C_AllLands DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new protocol.Battle.S2C_AllLands();
-    }
+        // @@protoc_insertion_point(class_scope:protocol.S2C_LeftLimit)
+        private static final protocol.Battle.S2C_LeftLimit DEFAULT_INSTANCE;
 
-    public static protocol.Battle.S2C_AllLands getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
+        static {
+            DEFAULT_INSTANCE = new protocol.Battle.S2C_LeftLimit();
+        }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<S2C_AllLands>
-        PARSER = new com.google.protobuf.AbstractParser<S2C_AllLands>() {
-      @java.lang.Override
-      public S2C_AllLands parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new S2C_AllLands(input, extensionRegistry);
-      }
-    };
+        public static protocol.Battle.S2C_LeftLimit getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
 
-    public static com.google.protobuf.Parser<S2C_AllLands> parser() {
-      return PARSER;
-    }
+        @java.lang.Deprecated
+        public static final com.google.protobuf.Parser<S2C_LeftLimit>
+                PARSER = new com.google.protobuf.AbstractParser<S2C_LeftLimit>() {
+            @java.lang.Override
+            public S2C_LeftLimit parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new S2C_LeftLimit(input, extensionRegistry);
+            }
+        };
 
-    @java.lang.Override
-    public com.google.protobuf.Parser<S2C_AllLands> getParserForType() {
-      return PARSER;
-    }
+        public static com.google.protobuf.Parser<S2C_LeftLimit> parser() {
+            return PARSER;
+        }
 
-    @java.lang.Override
-    public protocol.Battle.S2C_AllLands getDefaultInstanceForType() {
+        @java.lang.Override
+        public com.google.protobuf.Parser<S2C_LeftLimit> getParserForType() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public protocol.Battle.S2C_LeftLimit getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -9088,26 +9607,31 @@ public final class Battle {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_protocol_S2C_DestroyUnit_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protocol_S2C_OneLand_descriptor;
-  private static final 
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_protocol_S2C_OneLand_descriptor;
+    private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_protocol_S2C_OneLand_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protocol_S2C_AllLands_descriptor;
-  private static final 
+            internal_static_protocol_S2C_OneLand_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_protocol_S2C_AllLands_descriptor;
+    private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_protocol_S2C_AllLands_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protocol_C2S_HB_descriptor;
-  private static final 
+            internal_static_protocol_S2C_AllLands_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_protocol_S2C_LeftLimit_descriptor;
+    private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_protocol_C2S_HB_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protocol_C2S_UseSkill_descriptor;
-  private static final 
+            internal_static_protocol_S2C_LeftLimit_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_protocol_C2S_HB_descriptor;
+    private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_protocol_C2S_UseSkill_fieldAccessorTable;
+            internal_static_protocol_C2S_HB_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_protocol_C2S_UseSkill_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_protocol_C2S_UseSkill_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_protocol_C2S_ChangeInputDir_descriptor;
   private static final 
@@ -9129,23 +9653,23 @@ public final class Battle {
       "\005 \002(\002\022\016\n\006SpeedY\030\006 \002(\002\022\017\n\007FaceDir\030\007 \002(\002\"\351" +
       "\001\n\014S2C_UnitInfo\022\n\n\002ID\030\001 \002(\005\022\020\n\010UnitType\030" +
       "\002 \002(\005\022\025\n\rControlPlayer\030\003 \002(\005\022\023\n\013HandCont" +
-      "rol\030\004 \002(\010\022\016\n\006HpRate\030\005 \002(\002\022\016\n\006MpRate\030\n \002(" +
-      "\002\022\020\n\010NowInput\030\006 \002(\010\022\023\n\013NowInputDir\030\007 \002(\002" +
-      "\022\022\n\nRandomSeed\030\010 \002(\005\0224\n\014UnitMoveInfo\030\t \002" +
-      "(\0132\036.protocol.S2C_C2S_UnitMoveInfo\":\n\rS2" +
-      "C_UnitInfos\022)\n\tUnitInfos\030\001 \003(\0132\026.protoco" +
-      "l.S2C_UnitInfo\"/\n\014S2C_UseSkill\022\016\n\006UnitID" +
-      "\030\001 \002(\005\022\017\n\007SkillID\030\002 \002(\005\"!\n\017S2C_DestroyUn" +
-      "it\022\016\n\006UnitID\030\001 \002(\005\"\201\001\n\013S2C_OneLand\022\n\n\002ID" +
-      "\030\001 \002(\005\022\r\n\005LeftX\030\002 \002(\002\022\r\n\005LeftY\030\003 \002(\002\022\016\n\006" +
-      "RightX\030\004 \002(\002\022\016\n\006RightY\030\005 \002(\002\022\022\n\nCanCross" +
-      "Up\030\006 \002(\010\022\024\n\014CanCrossDown\030\007 \002(\010\"G\n\014S2C_Al" +
-      "lLands\022$\n\005Lands\030\001 \003(\0132\025.protocol.S2C_One" +
-      "Land\022\021\n\tLeftLimit\030\002 \002(\002\"\010\n\006C2S_HB\"U\n\014C2S" +
-      "_UseSkill\022\017\n\007SkillID\030\001 \002(\005\0224\n\014UnitMoveIn" +
-      "fo\030\002 \002(\0132\036.protocol.S2C_C2S_UnitMoveInfo" +
-      "\";\n\022C2S_ChangeInputDir\022\020\n\010NowInput\030\001 \002(\010" +
-      "\022\023\n\013NowInputDir\030\002 \002(\002"
+              "rol\030\004 \002(\010\022\016\n\006HpRate\030\005 \002(\002\022\016\n\006MpRate\030\n \002(" +
+              "\002\022\020\n\010NowInput\030\006 \002(\010\022\023\n\013NowInputDir\030\007 \002(\002" +
+              "\022\022\n\nRandomSeed\030\010 \002(\005\0224\n\014UnitMoveInfo\030\t \002" +
+              "(\0132\036.protocol.S2C_C2S_UnitMoveInfo\":\n\rS2" +
+              "C_UnitInfos\022)\n\tUnitInfos\030\001 \003(\0132\026.protoco" +
+              "l.S2C_UnitInfo\"/\n\014S2C_UseSkill\022\016\n\006UnitID" +
+              "\030\001 \002(\005\022\017\n\007SkillID\030\002 \002(\005\"!\n\017S2C_DestroyUn" +
+              "it\022\016\n\006UnitID\030\001 \002(\005\"\201\001\n\013S2C_OneLand\022\n\n\002ID" +
+              "\030\001 \002(\005\022\r\n\005LeftX\030\002 \002(\002\022\r\n\005LeftY\030\003 \002(\002\022\016\n\006" +
+              "RightX\030\004 \002(\002\022\016\n\006RightY\030\005 \002(\002\022\022\n\nCanCross" +
+              "Up\030\006 \002(\010\022\024\n\014CanCrossDown\030\007 \002(\010\"4\n\014S2C_Al" +
+              "lLands\022$\n\005Lands\030\001 \003(\0132\025.protocol.S2C_One" +
+              "Land\"\"\n\rS2C_LeftLimit\022\021\n\tLeftLimit\030\001 \002(\005" +
+              "\"\010\n\006C2S_HB\"U\n\014C2S_UseSkill\022\017\n\007SkillID\030\001 " +
+              "\002(\005\0224\n\014UnitMoveInfo\030\002 \002(\0132\036.protocol.S2C" +
+              "_C2S_UnitMoveInfo\";\n\022C2S_ChangeInputDir\022" +
+              "\020\n\010NowInput\030\001 \002(\010\022\023\n\013NowInputDir\030\002 \002(\002"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -9187,36 +9711,42 @@ public final class Battle {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_S2C_DestroyUnit_descriptor,
         new java.lang.String[] { "UnitID", });
-    internal_static_protocol_S2C_OneLand_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_protocol_S2C_OneLand_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_protocol_S2C_OneLand_descriptor,
-        new java.lang.String[] { "ID", "LeftX", "LeftY", "RightX", "RightY", "CanCrossUp", "CanCrossDown", });
-    internal_static_protocol_S2C_AllLands_descriptor =
-      getDescriptor().getMessageTypes().get(7);
-    internal_static_protocol_S2C_AllLands_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_protocol_S2C_AllLands_descriptor,
-        new java.lang.String[] { "Lands", "LeftLimit", });
-    internal_static_protocol_C2S_HB_descriptor =
-      getDescriptor().getMessageTypes().get(8);
-    internal_static_protocol_C2S_HB_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_protocol_C2S_HB_descriptor,
-        new java.lang.String[] { });
-    internal_static_protocol_C2S_UseSkill_descriptor =
-      getDescriptor().getMessageTypes().get(9);
-    internal_static_protocol_C2S_UseSkill_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_protocol_C2S_UseSkill_descriptor,
-        new java.lang.String[] { "SkillID", "UnitMoveInfo", });
-    internal_static_protocol_C2S_ChangeInputDir_descriptor =
-      getDescriptor().getMessageTypes().get(10);
-    internal_static_protocol_C2S_ChangeInputDir_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_protocol_C2S_ChangeInputDir_descriptor,
-        new java.lang.String[] { "NowInput", "NowInputDir", });
+      internal_static_protocol_S2C_OneLand_descriptor =
+              getDescriptor().getMessageTypes().get(6);
+      internal_static_protocol_S2C_OneLand_fieldAccessorTable = new
+              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+              internal_static_protocol_S2C_OneLand_descriptor,
+              new java.lang.String[]{"ID", "LeftX", "LeftY", "RightX", "RightY", "CanCrossUp", "CanCrossDown",});
+      internal_static_protocol_S2C_AllLands_descriptor =
+              getDescriptor().getMessageTypes().get(7);
+      internal_static_protocol_S2C_AllLands_fieldAccessorTable = new
+              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+              internal_static_protocol_S2C_AllLands_descriptor,
+              new java.lang.String[]{"Lands",});
+      internal_static_protocol_S2C_LeftLimit_descriptor =
+              getDescriptor().getMessageTypes().get(8);
+      internal_static_protocol_S2C_LeftLimit_fieldAccessorTable = new
+              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+              internal_static_protocol_S2C_LeftLimit_descriptor,
+              new java.lang.String[]{"LeftLimit",});
+      internal_static_protocol_C2S_HB_descriptor =
+              getDescriptor().getMessageTypes().get(9);
+      internal_static_protocol_C2S_HB_fieldAccessorTable = new
+              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+              internal_static_protocol_C2S_HB_descriptor,
+              new java.lang.String[]{});
+      internal_static_protocol_C2S_UseSkill_descriptor =
+              getDescriptor().getMessageTypes().get(10);
+      internal_static_protocol_C2S_UseSkill_fieldAccessorTable = new
+              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+              internal_static_protocol_C2S_UseSkill_descriptor,
+              new java.lang.String[]{"SkillID", "UnitMoveInfo",});
+      internal_static_protocol_C2S_ChangeInputDir_descriptor =
+              getDescriptor().getMessageTypes().get(11);
+      internal_static_protocol_C2S_ChangeInputDir_fieldAccessorTable = new
+              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+              internal_static_protocol_C2S_ChangeInputDir_descriptor,
+              new java.lang.String[] { "NowInput", "NowInputDir", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

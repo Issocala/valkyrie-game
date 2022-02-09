@@ -42,26 +42,36 @@ object C2S_HB extends scalapb.GeneratedMessageCompanion[protocol.battle.C2S_HB] 
     val javaPbOut = protocol.Battle.C2S_HB.newBuilder
     javaPbOut.build
   }
+
   def fromJavaProto(javaPbSource: protocol.Battle.C2S_HB): protocol.battle.C2S_HB = protocol.battle.C2S_HB(
   )
+
   def merge(`_message__`: protocol.battle.C2S_HB, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.battle.C2S_HB = newBuilder(_message__).merge(_input__).result()
-  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.battle.C2S_HB] = _root_.scalapb.descriptors.Reads{
+
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.battle.C2S_HB] = _root_.scalapb.descriptors.Reads {
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
       protocol.battle.C2S_HB(
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = BattleProto.javaDescriptor.getMessageTypes().get(8)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = BattleProto.scalaDescriptor.messages(8)
+
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = BattleProto.javaDescriptor.getMessageTypes().get(9)
+
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = BattleProto.scalaDescriptor.messages(9)
+
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
+
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
+
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
+
   lazy val defaultInstance = protocol.battle.C2S_HB(
   )
-  final class Builder private (
-    private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
-  ) extends _root_.scalapb.MessageBuilder[protocol.battle.C2S_HB] {
+
+  final class Builder private(
+                               private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
+                             ) extends _root_.scalapb.MessageBuilder[protocol.battle.C2S_HB] {
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
       while (!_done__) {

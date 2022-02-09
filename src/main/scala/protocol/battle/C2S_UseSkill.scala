@@ -85,8 +85,10 @@ object C2S_UseSkill extends scalapb.GeneratedMessageCompanion[protocol.battle.C2
     skillID = javaPbSource.getSkillID.intValue,
     unitMoveInfo = protocol.battle.S2C_C2S_UnitMoveInfo.fromJavaProto(javaPbSource.getUnitMoveInfo)
   )
+
   def merge(`_message__`: protocol.battle.C2S_UseSkill, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.battle.C2S_UseSkill = newBuilder(_message__).merge(_input__).result()
-  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.battle.C2S_UseSkill] = _root_.scalapb.descriptors.Reads{
+
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.battle.C2S_UseSkill] = _root_.scalapb.descriptors.Reads {
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
       protocol.battle.C2S_UseSkill(
@@ -95,8 +97,11 @@ object C2S_UseSkill extends scalapb.GeneratedMessageCompanion[protocol.battle.C2
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = BattleProto.javaDescriptor.getMessageTypes().get(9)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = BattleProto.scalaDescriptor.messages(9)
+
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = BattleProto.javaDescriptor.getMessageTypes().get(10)
+
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = BattleProto.scalaDescriptor.messages(10)
+
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
     var __out: _root_.scalapb.GeneratedMessageCompanion[_] = null
     (__number: @_root_.scala.unchecked) match {
@@ -104,8 +109,11 @@ object C2S_UseSkill extends scalapb.GeneratedMessageCompanion[protocol.battle.C2
     }
     __out
   }
+
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
+
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
+
   lazy val defaultInstance = protocol.battle.C2S_UseSkill(
     skillID = 0,
     unitMoveInfo = protocol.battle.S2C_C2S_UnitMoveInfo.defaultInstance

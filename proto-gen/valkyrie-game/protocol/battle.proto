@@ -60,7 +60,11 @@ message S2C_OneLand
 message S2C_AllLands
 {
 	repeated S2C_OneLand Lands = 1;
-	required float LeftLimit = 2;
+}
+
+message S2C_LeftLimit
+{
+	required int32 LeftLimit = 1;
 }
 
 message C2S_HB

@@ -1,0 +1,53 @@
+package protocol;
+
+//玩家角色基本
+message PlayerInfo
+{
+  required int64 roleId = 1;
+  required string name = 2;
+  required int32 level = 3;
+  required int32 gender = 4;
+  required int32 profession = 5;
+  required int64 lastLoginTime = 6;
+}
+
+//查询用户全部角色
+message CS10020
+{
+}
+
+//返回基本玩家角色信息
+message SC10020
+{
+  repeated PlayerInfo playerInfo = 1;
+}
+
+
+//创建角色
+message CS10021
+{
+  required string name = 1; //名字
+  required int32 gender = 2; //性别
+  required int32 profession = 3; //职业
+}
+
+//创角结果
+message SC10021
+{
+  required bool success = 1;
+  optional string content = 2;
+}
+
+//选择角色
+message CS10022
+{
+  required int64 roleId = 1;
+}
+
+//选角结果
+message SC10022
+{
+  required bool success = 1;
+  optional int64  roleId = 2;
+  optional string content = 3;
+}

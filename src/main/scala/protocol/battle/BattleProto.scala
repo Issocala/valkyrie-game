@@ -17,6 +17,7 @@ object BattleProto extends _root_.scalapb.GeneratedFileObject {
       protocol.battle.S2C_DestroyUnit,
       protocol.battle.S2C_OneLand,
       protocol.battle.S2C_AllLands,
+      protocol.battle.S2C_LeftLimit,
       protocol.battle.C2S_HB,
       protocol.battle.C2S_UseSkill,
       protocol.battle.C2S_ChangeInputDir
@@ -41,12 +42,13 @@ object BattleProto extends _root_.scalapb.GeneratedFileObject {
   GFuZBIXCgJJRBgBIAIoBUIH4j8EEgJpRFICSUQSIAoFTGVmdFgYAiACKAJCCuI/BxIFbGVmdFhSBUxlZnRYEiAKBUxlZnRZGAMgA
   igCQgriPwcSBWxlZnRZUgVMZWZ0WRIjCgZSaWdodFgYBCACKAJCC+I/CBIGcmlnaHRYUgZSaWdodFgSIwoGUmlnaHRZGAUgAigCQ
   gviPwgSBnJpZ2h0WVIGUmlnaHRZEi8KCkNhbkNyb3NzVXAYBiACKAhCD+I/DBIKY2FuQ3Jvc3NVcFIKQ2FuQ3Jvc3NVcBI1CgxDY
-  W5Dcm9zc0Rvd24YByACKAhCEeI/DhIMY2FuQ3Jvc3NEb3duUgxDYW5Dcm9zc0Rvd24idQoMUzJDX0FsbExhbmRzEjcKBUxhbmRzG
-  AEgAygLMhUucHJvdG9jb2wuUzJDX09uZUxhbmRCCuI/BxIFbGFuZHNSBUxhbmRzEiwKCUxlZnRMaW1pdBgCIAIoAkIO4j8LEglsZ
-  WZ0TGltaXRSCUxlZnRMaW1pdCIICgZDMlNfSEIijQEKDEMyU19Vc2VTa2lsbBImCgdTa2lsbElEGAEgAigFQgziPwkSB3NraWxsS
-  URSB1NraWxsSUQSVQoMVW5pdE1vdmVJbmZvGAIgAigLMh4ucHJvdG9jb2wuUzJDX0MyU19Vbml0TW92ZUluZm9CEeI/DhIMdW5pd
-  E1vdmVJbmZvUgxVbml0TW92ZUluZm8icwoSQzJTX0NoYW5nZUlucHV0RGlyEikKCE5vd0lucHV0GAEgAigIQg3iPwoSCG5vd0luc
-  HV0UghOb3dJbnB1dBIyCgtOb3dJbnB1dERpchgCIAIoAkIQ4j8NEgtub3dJbnB1dERpclILTm93SW5wdXREaXI="""
+  W5Dcm9zc0Rvd24YByACKAhCEeI/DhIMY2FuQ3Jvc3NEb3duUgxDYW5Dcm9zc0Rvd24iRwoMUzJDX0FsbExhbmRzEjcKBUxhbmRzG
+  AEgAygLMhUucHJvdG9jb2wuUzJDX09uZUxhbmRCCuI/BxIFbGFuZHNSBUxhbmRzIj0KDVMyQ19MZWZ0TGltaXQSLAoJTGVmdExpb
+  Wl0GAEgAigFQg7iPwsSCWxlZnRMaW1pdFIJTGVmdExpbWl0IggKBkMyU19IQiKNAQoMQzJTX1VzZVNraWxsEiYKB1NraWxsSUQYA
+  SACKAVCDOI/CRIHc2tpbGxJRFIHU2tpbGxJRBJVCgxVbml0TW92ZUluZm8YAiACKAsyHi5wcm90b2NvbC5TMkNfQzJTX1VuaXRNb
+  3ZlSW5mb0IR4j8OEgx1bml0TW92ZUluZm9SDFVuaXRNb3ZlSW5mbyJzChJDMlNfQ2hhbmdlSW5wdXREaXISKQoITm93SW5wdXQYA
+  SACKAhCDeI/ChIIbm93SW5wdXRSCE5vd0lucHV0EjIKC05vd0lucHV0RGlyGAIgAigCQhDiPw0SC25vd0lucHV0RGlyUgtOb3dJb
+  nB1dERpcg=="""
       ).mkString)
   lazy val scalaDescriptor: _root_.scalapb.descriptors.FileDescriptor = {
     val scalaProto = com.google.protobuf.descriptor.FileDescriptorProto.parseFrom(ProtoBytes)
