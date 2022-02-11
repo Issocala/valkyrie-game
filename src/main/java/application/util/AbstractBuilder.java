@@ -11,6 +11,19 @@ public class AbstractBuilder {
     private Long id;
     private DbStatus dbStatus;
 
+    public AbstractBuilder() {
+    }
+
+    public AbstractBuilder(Long id) {
+        this.id = id;
+        this.dbStatus = DbStatus.NORMAL;
+    }
+
+    public AbstractBuilder(Long id, DbStatus dbStatus) {
+        this.id = id;
+        this.dbStatus = dbStatus;
+    }
+
     public Long getId() {
         return id;
     }
