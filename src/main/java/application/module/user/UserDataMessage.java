@@ -1,4 +1,4 @@
-package application.module.user.data.domain;
+package application.module.user;
 
 import com.cala.orm.message.DataBase;
 import com.cala.orm.message.MessageAndReply;

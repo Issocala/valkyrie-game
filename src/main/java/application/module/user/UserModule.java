@@ -5,7 +5,6 @@ import application.guid.IdUtils;
 import application.module.common.data.domain.DataMessage;
 import application.module.user.data.UserData;
 import application.module.user.data.domain.User;
-import application.module.user.data.domain.UserDataMessage;
 import application.module.user.operate.UserLoginType;
 import application.module.user.operate.UserRegisterInsertType;
 import application.module.user.operate.UserRegisterType;
@@ -13,6 +12,7 @@ import application.util.CommonOperateTypeInfo;
 import com.cala.orm.message.DataBaseMessage;
 import com.cala.orm.message.DataReturnMessage;
 import com.cala.orm.message.MessageAndReply;
+import com.cala.orm.message.OperateType;
 import com.cala.orm.util.StringUtils;
 import com.google.protobuf.InvalidProtocolBufferException;
 import mobius.core.digest.Codec;
@@ -43,19 +43,20 @@ public class UserModule extends AbstractModule {
     }
 
     private void dataResultMessage(DataReturnMessage dataReturnMessage) {
+        OperateType operateType = dataReturnMessage.operateType();
         if (dataReturnMessage.result().isOK()) {
-            switch (dataReturnMessage.operateType()) {
+            switch (operateType) {
                 case UserLoginType userLoginType -> userLoginOk(userLoginType, dataReturnMessage);
                 case UserRegisterType userRegisterType -> userRegisterOk(userRegisterType);
                 case UserRegisterInsertType userRegisterInsertType -> userRegisterInsertTypeOk(userRegisterInsertType);
-                default -> getLog().error(new IllegalStateException(), "Unexpected value: " + dataReturnMessage.operateType());
+                default -> getLog().error(new IllegalStateException(), "Unexpected value: " + operateType);
             }
         } else {
-            switch (dataReturnMessage.operateType()) {
+            switch (operateType) {
                 case UserLoginType userLoginType -> userLoginTypeError(userLoginType);
                 case UserRegisterType userRegisterType -> userRegisterTypeError(userRegisterType);
                 case UserRegisterInsertType userRegisterInsertType -> userRegisterInsertTypeError(userRegisterInsertType);
-                default -> getLog().error(new IllegalStateException(), "Unexpected value: " + dataReturnMessage.operateType());
+                default -> getLog().error(new IllegalStateException(), "Unexpected value: " + operateType);
             }
         }
     }
@@ -126,6 +127,7 @@ public class UserModule extends AbstractModule {
     private void login(Client.ReceivedFromClient r) {
         try {
             var cs10011 = protocol.User.CS10011.parseFrom(r.message());
+            //todo 名字是否非法认证
             if (StringUtils.isEmpty(cs10011.getAccount().getAccount()) || StringUtils.isEmpty(cs10011.getAccount().getPassword())) {
                 r.client().tell(new application.client.Client.SendToClientJ(UserProtocols.LOGIN, UserProtocolBuilder.getSc10011("账户或密码不能为空！！！")), self());
             }

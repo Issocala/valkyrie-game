@@ -1,8 +1,8 @@
 package application.module.user.data;
 
 import akka.actor.Props;
+import application.module.user.UserDataMessage;
 import application.module.user.data.domain.User;
-import application.module.user.data.domain.UserDataMessage;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
 import com.cala.orm.message.DataBase;
