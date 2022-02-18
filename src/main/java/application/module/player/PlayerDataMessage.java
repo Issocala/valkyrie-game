@@ -1,4 +1,4 @@
-package application.module.player.base.data.domain;
+package application.module.player;
 
 import com.cala.orm.message.DataBase;
 import com.cala.orm.message.MessageAndReply;
@@ -11,6 +11,9 @@ import com.cala.orm.message.MessageAndReply;
 public class PlayerDataMessage {
 
     public static record PlayerByUserId(MessageAndReply messageAndReply) implements DataBase {
+    }
+
+    public static record PlayerByUserIdAndProfession(MessageAndReply messageAndReply) implements DataBase {
     }
 
 }

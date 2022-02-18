@@ -25,6 +25,6 @@ public class PlayerModuleHolder extends AbstractModuleHolder {
 
     @Override
     public List<Integer> getProtocols() {
-        return List.of();
+        return List.of(PlayerProtocols.GETAll, PlayerProtocols.CREATE, PlayerProtocols.LOGIN, PlayerProtocols.DELETE);
     }
 }

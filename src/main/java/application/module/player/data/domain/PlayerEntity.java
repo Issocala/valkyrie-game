@@ -1,4 +1,4 @@
-package application.module.player.base.data.domain;
+package application.module.player.data.domain;
 
 import application.util.AbstractBuilder;
 import com.cala.orm.annotation.DbDeserialize;
@@ -66,9 +66,9 @@ public class PlayerEntity extends AbstractEntityBase {
 
     @Column
     @Convert(converter = JsonAttributeConverter.class)
-    private final Person person;
+    private final PlayerData playerData;
 
-    public PlayerEntity(Long id, String name, byte profession, long accountId, String accountName, int level, byte vipLevel, byte gender, long lastLoginTime, long lastLogoutTime, DbStatus dbStatus, PlayerInfo playerInfo, Person person) {
+    public PlayerEntity(Long id, String name, byte profession, long accountId, String accountName, int level, byte vipLevel, byte gender, long lastLoginTime, long lastLogoutTime, DbStatus dbStatus, PlayerInfo playerInfo, PlayerData playerData) {
         super(id, dbStatus);
         this.name = name;
         this.profession = profession;
@@ -80,10 +80,10 @@ public class PlayerEntity extends AbstractEntityBase {
         this.lastLoginTime = lastLoginTime;
         this.lastLogoutTime = lastLogoutTime;
         this.playerInfo = playerInfo;
-        this.person = person;
+        this.playerData = playerData;
     }
 
-    public PlayerEntity(Long id, String name, byte profession, long accountId, String accountName, long fightPower, int level, byte vipLevel, byte gender, long lastLoginTime, long lastLogoutTime, DbStatus dbStatus, PlayerInfo playerInfo, Person person) {
+    public PlayerEntity(Long id, String name, byte profession, long accountId, String accountName, long fightPower, int level, byte vipLevel, byte gender, long lastLoginTime, long lastLogoutTime, DbStatus dbStatus, PlayerInfo playerInfo, PlayerData playerData) {
         super(id, dbStatus);
         this.name = name;
         this.profession = profession;
@@ -96,7 +96,7 @@ public class PlayerEntity extends AbstractEntityBase {
         this.lastLoginTime = lastLoginTime;
         this.lastLogoutTime = lastLogoutTime;
         this.playerInfo = playerInfo;
-        this.person = person;
+        this.playerData = playerData;
     }
 
     @DbPojoBuilder
@@ -112,7 +112,15 @@ public class PlayerEntity extends AbstractEntityBase {
         private long lastLoginTime;
         private long lastLogoutTime;
         private PlayerInfo playerInfo;
-        private Person person;
+        private PlayerData playerData;
+
+        public Builder() {
+
+        }
+
+        public Builder(Long id) {
+            super(id);
+        }
 
         public Builder setName(String name) {
             this.name = name;
@@ -124,8 +132,8 @@ public class PlayerEntity extends AbstractEntityBase {
             return this;
         }
 
-        public Builder setPerson(Person person) {
-            this.person = person;
+        public Builder setPerson(PlayerData playerData) {
+            this.playerData = playerData;
             return this;
         }
 
@@ -175,13 +183,13 @@ public class PlayerEntity extends AbstractEntityBase {
         }
 
         public PlayerEntity build() {
-            return new PlayerEntity(getId(), name, profession, accountId, accountName, level, vipLevel, gender, lastLoginTime, lastLogoutTime, getDbStatus(), playerInfo, person);
+            return new PlayerEntity(getId(), name, profession, accountId, accountName, level, vipLevel, gender, lastLoginTime, lastLogoutTime, getDbStatus(), playerInfo, playerData);
         }
     }
 
     public static PlayerEntity of(Long id) {
         return new PlayerEntity(id, null, (byte) 0, 0, null, 0,
-                (byte)0, (byte)0, 0L, 0, DbStatus.NORMAL, null, null);
+                (byte) 0, (byte) 0, 0L, 0, DbStatus.NORMAL, null, null);
     }
 
     public String getName() {
@@ -228,8 +236,8 @@ public class PlayerEntity extends AbstractEntityBase {
         return playerInfo;
     }
 
-    public Person getPerson() {
-        return person;
+    public PlayerData getPerson() {
+        return playerData;
     }
 
     @Override
@@ -246,7 +254,7 @@ public class PlayerEntity extends AbstractEntityBase {
                 ", lastLoginTime=" + lastLoginTime +
                 ", lastLogoutTime=" + lastLogoutTime +
                 ", playerInfo=" + playerInfo +
-                ", person=" + person +
+                ", person=" + playerData +
                 '}';
     }
 }

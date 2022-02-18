@@ -1,11 +1,11 @@
-package application.module.player.base.data.domain;
+package application.module.player.data.domain;
 
 /**
  * @author Luo Yong
  * @date 2021-11-30
  * @Source 1.0
  */
-public record Person(String name, Integer age) {
+public record PlayerData(String name, Integer age) {
 
     public static class Builder {
         String name;
@@ -21,8 +21,8 @@ public record Person(String name, Integer age) {
             return this;
         }
 
-        public Person build() {
-            return new Person(name, age);
+        public PlayerData build() {
+            return new PlayerData(name, age);
         }
     }
 }
