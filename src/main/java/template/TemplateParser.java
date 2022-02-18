@@ -16,7 +16,9 @@ public class TemplateParser {
                     case "UnitSelector" -> UnitSelectorTemplateHolder.addData(UnitSelectorTemplate.parse(cbb));
                     case "BaseFormula" -> BaseFormulaTemplateHolder.addData(BaseFormulaTemplate.parse(cbb));
                     case "InputOrder" -> InputOrderTemplateHolder.addData(InputOrderTemplate.parse(cbb));
+                    case "UnitType" -> UnitTypeTemplateHolder.addData(UnitTypeTemplate.parse(cbb));
                     case "AIAction" -> AIActionTemplateHolder.addData(AIActionTemplate.parse(cbb));
+                    case "AttributeTree" -> AttributeTreeTemplateHolder.addData(AttributeTreeTemplate.parse(cbb));
 
                 }
             }
