@@ -7,7 +7,7 @@ import akka.actor.Props;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import application.module.common.data.domain.DataMessage;
-import application.module.player.base.data.PlayerEntityData;
+import application.module.player.data.PlayerEntityData;
 import application.module.user.data.UserData;
 import application.util.TimeMacro;
 import com.cala.orm.OrmProcessor;
