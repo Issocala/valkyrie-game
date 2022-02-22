@@ -7,6 +7,7 @@ import akka.actor.Props;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import application.module.common.data.domain.DataMessage;
+import application.module.fight.attribute.data.FightAttributeData;
 import application.module.player.data.PlayerEntityData;
 import application.module.user.data.UserData;
 import application.util.TimeMacro;
@@ -102,7 +103,9 @@ public class ActorDataDispatcher extends AbstractActor {
     public void postStop() throws Exception {
         super.postStop();
         //取消数据库持久化触发器
-        cancellable.cancel();
+        if (Objects.nonNull(cancellable)) {
+            cancellable.cancel();
+        }
     }
 
     private ActorRef getActor(Class<? extends AbstractDataCacheManager<?>> clazz) {
@@ -155,5 +158,6 @@ public class ActorDataDispatcher extends AbstractActor {
     private void addCacheManagerMap() {
         add(PlayerEntityData.class);
         add(UserData.class);
+        add(FightAttributeData.class);
     }
 }
