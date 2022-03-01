@@ -1,6 +1,5 @@
 package application.guid;
 
-import java.io.Serial;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -9,14 +8,15 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 提供通用唯一识别码（universally unique identifier）（UUID）实现
+ * <p>
+ * 网上抄的，能用，不要慌
+ * </p>
  *
  * @author Luo Yong
  * @date 2022-1-10
  * @Source 1.0
  */
-public final class UUID implements java.io.Serializable, Comparable<UUID> {
-    @Serial
-    private static final long serialVersionUID = -1185015143654744140L;
+public final class UUID implements Comparable<UUID> {
 
     /**
      * SecureRandom 的单例
