@@ -7,8 +7,11 @@ import java.util.Map;
  * @date 2022-2-16
  * @Source 1.0
  */
-public interface FightAttributeProvider {
+public interface AttributeProvider {
 
+    /**
+     * 计算当前参数获得的属性
+     */
     Map<Short, Long> provider(Object o);
 
     /**

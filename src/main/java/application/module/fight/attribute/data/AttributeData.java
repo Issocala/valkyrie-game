@@ -1,7 +1,7 @@
 package application.module.fight.attribute.data;
 
 import akka.actor.Props;
-import application.module.fight.attribute.data.domain.FightAttribute;
+import application.module.fight.attribute.data.domain.Attribute;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
 import com.cala.orm.message.DataBase;
@@ -11,13 +11,13 @@ import com.cala.orm.message.DataBase;
  * @date 2022-2-16
  * @Source 1.0
  */
-public class FightAttributeData extends AbstractDataCacheManager<FightAttribute> {
+public class AttributeData extends AbstractDataCacheManager<Attribute> {
 
     public static Props create() {
-        return Props.create(FightAttributeData.class, FightAttributeData::new).withDispatcher(DB_DISPATCHER);
+        return Props.create(AttributeData.class, AttributeData::new).withDispatcher(DB_DISPATCHER);
     }
 
-    private FightAttributeData() {
+    private AttributeData() {
     }
 
     @Override
@@ -27,6 +27,6 @@ public class FightAttributeData extends AbstractDataCacheManager<FightAttribute>
 
     @Override
     public boolean validDomain(AbstractEntityBase abstractEntityBase) {
-        return abstractEntityBase.getClass() == FightAttribute.class;
+        return abstractEntityBase.getClass() == Attribute.class;
     }
 }

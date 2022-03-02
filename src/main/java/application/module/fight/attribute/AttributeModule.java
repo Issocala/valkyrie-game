@@ -2,10 +2,10 @@ package application.module.fight.attribute;
 
 import akka.actor.ActorRef;
 import application.module.common.data.domain.DataMessage;
-import application.module.fight.attribute.data.FightAttributeData;
-import application.module.fight.attribute.node.FightAttributeNode;
-import application.module.fight.attribute.node.FightAttributeNodeManager;
-import application.module.fight.attribute.provider.FightAttributeRegister;
+import application.module.fight.attribute.data.AttributeData;
+import application.module.fight.attribute.node.AttributeNode;
+import application.module.fight.attribute.node.AttributeNodeManager;
+import application.module.fight.attribute.provider.AttributeRegister;
 import com.cala.orm.message.DataReturnMessage;
 import mobius.modular.client.Client;
 import mobius.modular.module.api.AbstractModule;
@@ -26,8 +26,8 @@ public class AttributeModule extends AbstractModule {
 
     @Override
     public void initData() {
-        this.dataAgent().tell(new DataMessage.RequestData(FightAttributeData.class), self());
-        FightAttributeRegister.register();
+        this.dataAgent().tell(new DataMessage.RequestData(AttributeData.class), self());
+        AttributeRegister.register();
     }
 
 
@@ -43,11 +43,11 @@ public class AttributeModule extends AbstractModule {
 
     private void updateAttribute(UpdateAttribute updateAttribute) {
         long playerId = updateAttribute.playerId;
-        FightAttributeNode fightAttributeNode = FightAttributeNodeManager.getFightAttribute(playerId, updateAttribute.type);
-        if (Objects.isNull(fightAttributeNode)) {
+        AttributeNode attributeNode = AttributeNodeManager.getFightAttribute(playerId, updateAttribute.type);
+        if (Objects.isNull(attributeNode)) {
             return;
         }
-        fightAttributeNode.update(playerId, updateAttribute.isInit, updateAttribute.o);
+        attributeNode.update(playerId, updateAttribute.isInit, updateAttribute.o);
     }
 
     private void receivedFromClient(Client.ReceivedFromClient r) {
@@ -59,7 +59,7 @@ public class AttributeModule extends AbstractModule {
     }
 
     private void dataResult(DataMessage.DataResult dataResult) {
-        if (dataResult.clazz() == FightAttributeData.class) {
+        if (dataResult.clazz() == AttributeData.class) {
             this.fightAttributeData = dataResult.actorRef();
             getContext().system().eventStream().subscribe(fightAttributeData, UpdateAttribute.class);
         }

@@ -5,7 +5,7 @@ package application.module.fight.attribute;
  * @date 2022-2-16
  * @Source 1.0
  */
-public interface AttributeType {
+public interface AttributeModuleType {
     /**
      * 玩家等级属性
      */

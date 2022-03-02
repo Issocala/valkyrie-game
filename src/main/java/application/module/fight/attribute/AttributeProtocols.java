@@ -7,7 +7,7 @@ import application.module.GameProtocols;
  * @date 2022-2-16
  * @Source 1.0
  */
-public interface FightAttributeProtocols {
+public interface AttributeProtocols {
 
     /**
      * 获取战斗属性

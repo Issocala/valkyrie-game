@@ -12,15 +12,15 @@ import java.util.Set;
  * @date 2022-2-17
  * @Source 1.0
  */
-public class FightAttributeRegister {
-    private final static Map<String, FightAttributeProvider> register = new HashMap<>();
+public class AttributeRegister {
+    private final static Map<String, AttributeProvider> register = new HashMap<>();
 
     public static void register() {
-        Set<Class<?>> set = ClassScanningUtil.findClassBySuper(FightAttributeRegister.class.getPackageName(), FightAttributeProvider.class);
+        Set<Class<?>> set = ClassScanningUtil.findClassBySuper(AttributeRegister.class.getPackageName(), AttributeProvider.class);
         set.forEach(e -> {
             try {
-                if (e == FightAttributeProvider.class) {
-                    register.put(e.getSimpleName(), (FightAttributeProvider) e.getDeclaredConstructor().newInstance());
+                if (e == AttributeProvider.class) {
+                    register.put(e.getSimpleName(), (AttributeProvider) e.getDeclaredConstructor().newInstance());
                 }
             } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
                 ex.printStackTrace();
@@ -28,7 +28,7 @@ public class FightAttributeRegister {
         });
     }
 
-    public static FightAttributeProvider getFightAttributeProvider(String name) {
+    public static AttributeProvider getFightAttributeProvider(String name) {
         return register.get(name);
     }
 }

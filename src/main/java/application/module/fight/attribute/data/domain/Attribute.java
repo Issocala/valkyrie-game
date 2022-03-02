@@ -16,14 +16,14 @@ import java.util.Map;
  * @date 2022-2-16
  * @Source 1.0
  */
-@DbDeserialize(builder = FightAttribute.Builder.class)
-public class FightAttribute extends AbstractEntityBase {
+@DbDeserialize(builder = Attribute.Builder.class)
+public class Attribute extends AbstractEntityBase {
 
     @Column
     @Convert(converter = JsonAttributeConverter.class)
     private final Map<Short, FightPower> type2FightPowerMap;
 
-    public FightAttribute(Long id, DbStatus dbStatus, Map<Short, FightPower> type2FightPowerMap) {
+    public Attribute(Long id, DbStatus dbStatus, Map<Short, FightPower> type2FightPowerMap) {
         super(id, dbStatus);
         this.type2FightPowerMap = type2FightPowerMap;
     }
@@ -37,8 +37,8 @@ public class FightAttribute extends AbstractEntityBase {
             return this;
         }
 
-        public FightAttribute build() {
-            return new FightAttribute(getId(), getDbStatus(), type2FightPowerMap);
+        public Attribute build() {
+            return new Attribute(getId(), getDbStatus(), type2FightPowerMap);
         }
     }
 

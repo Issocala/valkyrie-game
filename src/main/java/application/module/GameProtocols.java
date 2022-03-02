@@ -13,4 +13,9 @@ public interface GameProtocols {
 
     int USER = 10010;
 
+    int PLAYER = 10020;
+
+    int SCENE = 10030;
+
+    int ATTRIBUTE = 10040;
 }
