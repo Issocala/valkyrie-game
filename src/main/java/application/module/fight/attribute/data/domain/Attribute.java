@@ -4,7 +4,6 @@ import application.util.AbstractBuilder;
 import com.cala.orm.annotation.DbDeserialize;
 import com.cala.orm.annotation.DbPojoBuilder;
 import com.cala.orm.cache.AbstractEntityBase;
-import com.cala.orm.cache.DbStatus;
 import com.cala.orm.converter.Convert;
 import com.cala.orm.converter.JsonAttributeConverter;
 
@@ -23,8 +22,8 @@ public class Attribute extends AbstractEntityBase {
     @Convert(converter = JsonAttributeConverter.class)
     private final Map<Short, FightPower> type2FightPowerMap;
 
-    public Attribute(Long id, DbStatus dbStatus, Map<Short, FightPower> type2FightPowerMap) {
-        super(id, dbStatus);
+    public Attribute(Long id, Map<Short, FightPower> type2FightPowerMap) {
+        super(id);
         this.type2FightPowerMap = type2FightPowerMap;
     }
 
@@ -38,7 +37,7 @@ public class Attribute extends AbstractEntityBase {
         }
 
         public Attribute build() {
-            return new Attribute(getId(), getDbStatus(), type2FightPowerMap);
+            return new Attribute(getId(), type2FightPowerMap);
         }
     }
 

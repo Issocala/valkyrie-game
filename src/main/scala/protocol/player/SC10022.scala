@@ -105,7 +105,6 @@ final case class SC10022(
 
 object SC10022 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10022] with scalapb.HasBuilder[protocol.player.SC10022] with scalapb.JavaProtoSupport[protocol.player.SC10022, protocol.Player.SC10022] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.player.SC10022] with scalapb.HasBuilder[protocol.player.SC10022] with scalapb.JavaProtoSupport[protocol.player.SC10022, protocol.Player.SC10022] = this
-
   def toJavaProto(scalaPbSource: protocol.player.SC10022): protocol.Player.SC10022 = {
     val javaPbOut = protocol.Player.SC10022.newBuilder
     javaPbOut.setSuccess(scalaPbSource.success)
@@ -113,7 +112,6 @@ object SC10022 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10022
     scalaPbSource.content.foreach(javaPbOut.setContent)
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Player.SC10022): protocol.player.SC10022 = protocol.player.SC10022(
     success = javaPbSource.getSuccess.booleanValue,
     roleId = if (javaPbSource.hasRoleId) Some(javaPbSource.getRoleId.longValue) else _root_.scala.None,
@@ -179,7 +177,6 @@ object SC10022 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10022
       }
       this
     }
-
     def result(): protocol.player.SC10022 = {
       if (__requiredFields0 != 0L) {
         throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
@@ -192,7 +189,6 @@ object SC10022 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10022
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.player.SC10022, protocol.player.SC10022.Builder] {
     def apply(): Builder = new Builder(
       __success = false,
@@ -200,7 +196,6 @@ object SC10022 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10022
       __content = _root_.scala.None,
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.player.SC10022): Builder = new Builder(
       __success = _message__.success,
       __roleId = _message__.roleId,
@@ -208,23 +203,15 @@ object SC10022 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10022
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.player.SC10022.Builder()
-
   def newBuilder(`_message__`: protocol.player.SC10022): Builder = protocol.player.SC10022.Builder(_message__)
-
   implicit class SC10022Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.player.SC10022]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.player.SC10022](_l) {
     def success: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.success)((c_, f_) => c_.copy(success = f_))
-
     def roleId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.getRoleId)((c_, f_) => c_.copy(roleId = Option(f_)))
-
     def optionalRoleId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Long]] = field(_.roleId)((c_, f_) => c_.copy(roleId = f_))
-
     def content: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.getContent)((c_, f_) => c_.copy(content = Option(f_)))
-
     def optionalContent: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Predef.String]] = field(_.content)((c_, f_) => c_.copy(content = f_))
   }
-
   final val SUCCESS_FIELD_NUMBER = 1
   final val ROLEID_FIELD_NUMBER = 2
   final val CONTENT_FIELD_NUMBER = 3

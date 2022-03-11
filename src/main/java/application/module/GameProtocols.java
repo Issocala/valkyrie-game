@@ -18,4 +18,10 @@ public interface GameProtocols {
     int SCENE = 10030;
 
     int ATTRIBUTE = 10040;
+
+    int SKILL = 10050;
+
+    int STATE = 10060;
+
+    int BUFF = 10070;
 }

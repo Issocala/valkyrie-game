@@ -88,14 +88,12 @@ final case class SC10021(
 
 object SC10021 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10021] with scalapb.HasBuilder[protocol.player.SC10021] with scalapb.JavaProtoSupport[protocol.player.SC10021, protocol.Player.SC10021] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.player.SC10021] with scalapb.HasBuilder[protocol.player.SC10021] with scalapb.JavaProtoSupport[protocol.player.SC10021, protocol.Player.SC10021] = this
-
   def toJavaProto(scalaPbSource: protocol.player.SC10021): protocol.Player.SC10021 = {
     val javaPbOut = protocol.Player.SC10021.newBuilder
     javaPbOut.setSuccess(scalaPbSource.success)
     scalaPbSource.content.foreach(javaPbOut.setContent)
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Player.SC10021): protocol.player.SC10021 = protocol.player.SC10021(
     success = javaPbSource.getSuccess.booleanValue,
     content = if (javaPbSource.hasContent) Some(javaPbSource.getContent) else _root_.scala.None
@@ -155,7 +153,6 @@ object SC10021 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10021
       }
       this
     }
-
     def result(): protocol.player.SC10021 = {
       if (__requiredFields0 != 0L) {
         throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
@@ -167,33 +164,25 @@ object SC10021 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10021
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.player.SC10021, protocol.player.SC10021.Builder] {
     def apply(): Builder = new Builder(
       __success = false,
       __content = _root_.scala.None,
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.player.SC10021): Builder = new Builder(
       __success = _message__.success,
       __content = _message__.content,
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.player.SC10021.Builder()
-
   def newBuilder(`_message__`: protocol.player.SC10021): Builder = protocol.player.SC10021.Builder(_message__)
-
   implicit class SC10021Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.player.SC10021]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.player.SC10021](_l) {
     def success: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.success)((c_, f_) => c_.copy(success = f_))
-
     def content: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.getContent)((c_, f_) => c_.copy(content = Option(f_)))
-
     def optionalContent: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Predef.String]] = field(_.content)((c_, f_) => c_.copy(content = f_))
   }
-
   final val SUCCESS_FIELD_NUMBER = 1
   final val CONTENT_FIELD_NUMBER = 2
 

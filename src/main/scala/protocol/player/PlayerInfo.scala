@@ -146,7 +146,6 @@ final case class PlayerInfo(
 
 object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.PlayerInfo] with scalapb.HasBuilder[protocol.player.PlayerInfo] with scalapb.JavaProtoSupport[protocol.player.PlayerInfo, protocol.Player.PlayerInfo] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.player.PlayerInfo] with scalapb.HasBuilder[protocol.player.PlayerInfo] with scalapb.JavaProtoSupport[protocol.player.PlayerInfo, protocol.Player.PlayerInfo] = this
-
   def toJavaProto(scalaPbSource: protocol.player.PlayerInfo): protocol.Player.PlayerInfo = {
     val javaPbOut = protocol.Player.PlayerInfo.newBuilder
     javaPbOut.setRoleId(scalaPbSource.roleId)
@@ -157,7 +156,6 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
     javaPbOut.setLastLoginTime(scalaPbSource.lastLoginTime)
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Player.PlayerInfo): protocol.player.PlayerInfo = protocol.player.PlayerInfo(
     roleId = javaPbSource.getRoleId.longValue,
     name = javaPbSource.getName,
@@ -182,11 +180,8 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-
   def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = PlayerProto.javaDescriptor.getMessageTypes().get(0)
-
   def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = PlayerProto.scalaDescriptor.messages(0)
-
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
 
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
@@ -246,7 +241,6 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
       }
       this
     }
-
     def result(): protocol.player.PlayerInfo = {
       if (__requiredFields0 != 0L) {
         throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
@@ -262,7 +256,6 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.player.PlayerInfo, protocol.player.PlayerInfo.Builder] {
     def apply(): Builder = new Builder(
       __roleId = 0L,
@@ -273,7 +266,6 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
       __lastLoginTime = 0L,
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.player.PlayerInfo): Builder = new Builder(
       __roleId = _message__.roleId,
       __name = _message__.name,
@@ -284,25 +276,16 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.player.PlayerInfo.Builder()
-
   def newBuilder(`_message__`: protocol.player.PlayerInfo): Builder = protocol.player.PlayerInfo.Builder(_message__)
-
   implicit class PlayerInfoLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.player.PlayerInfo]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.player.PlayerInfo](_l) {
     def roleId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.roleId)((c_, f_) => c_.copy(roleId = f_))
-
     def name: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.name)((c_, f_) => c_.copy(name = f_))
-
     def level: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.level)((c_, f_) => c_.copy(level = f_))
-
     def gender: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.gender)((c_, f_) => c_.copy(gender = f_))
-
     def profession: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.profession)((c_, f_) => c_.copy(profession = f_))
-
     def lastLoginTime: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.lastLoginTime)((c_, f_) => c_.copy(lastLoginTime = f_))
   }
-
   final val ROLEID_FIELD_NUMBER = 1
   final val NAME_FIELD_NUMBER = 2
   final val LEVEL_FIELD_NUMBER = 3

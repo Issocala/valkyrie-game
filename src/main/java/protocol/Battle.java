@@ -6371,26 +6371,29 @@ public final class Battle {
      * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
      */
     protocol.Battle.S2C_OneLand getLands(int index);
-    /**
-     * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-     */
-    int getLandsCount();
-    /**
-     * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-     */
-    java.util.List<? extends protocol.Battle.S2C_OneLandOrBuilder> 
-        getLandsOrBuilderList();
-    /**
-     * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-     */
-    protocol.Battle.S2C_OneLandOrBuilder getLandsOrBuilder(
-        int index);
+
+      /**
+       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+       */
+      int getLandsCount();
+
+      /**
+       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+       */
+      java.util.List<? extends protocol.Battle.S2C_OneLandOrBuilder>
+      getLandsOrBuilderList();
+
+      /**
+       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+       */
+      protocol.Battle.S2C_OneLandOrBuilder getLandsOrBuilder(
+              int index);
   }
 
     /**
      * Protobuf type {@code protocol.S2C_AllLands}
      */
-    public  static final class S2C_AllLands extends
+    public static final class S2C_AllLands extends
             com.google.protobuf.GeneratedMessageV3 implements
             // @@protoc_insertion_point(message_implements:protocol.S2C_AllLands)
             S2C_AllLandsOrBuilder {
@@ -6678,7 +6681,9 @@ public final class Battle {
         }
 
         @java.lang.Override
-        public Builder newBuilderForType() { return newBuilder(); }
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
 
         public static Builder newBuilder() {
             return DEFAULT_INSTANCE.toBuilder();
@@ -6829,7 +6834,7 @@ public final class Battle {
             @java.lang.Override
             public Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof protocol.Battle.S2C_AllLands) {
-                    return mergeFrom((protocol.Battle.S2C_AllLands)other);
+                    return mergeFrom((protocol.Battle.S2C_AllLands) other);
                 } else {
                     super.mergeFrom(other);
                     return this;
@@ -7102,7 +7107,8 @@ public final class Battle {
             public protocol.Battle.S2C_OneLandOrBuilder getLandsOrBuilder(
                     int index) {
                 if (landsBuilder_ == null) {
-                    return lands_.get(index);  } else {
+                    return lands_.get(index);
+                } else {
                     return landsBuilder_.getMessageOrBuilder(index);
                 }
             }
@@ -7326,6 +7332,7 @@ public final class Battle {
 
         /**
          * <code>required int32 LeftLimit = 1;</code>
+         *
          * @return Whether the leftLimit field is set.
          */
         public boolean hasLeftLimit() {
@@ -7334,6 +7341,7 @@ public final class Battle {
 
         /**
          * <code>required int32 LeftLimit = 1;</code>
+         *
          * @return The leftLimit.
          */
         public int getLeftLimit() {
@@ -7692,6 +7700,7 @@ public final class Battle {
 
             /**
              * <code>required int32 LeftLimit = 1;</code>
+             *
              * @return Whether the leftLimit field is set.
              */
             public boolean hasLeftLimit() {
@@ -7700,6 +7709,7 @@ public final class Battle {
 
             /**
              * <code>required int32 LeftLimit = 1;</code>
+             *
              * @return The leftLimit.
              */
             public int getLeftLimit() {
@@ -7708,6 +7718,7 @@ public final class Battle {
 
             /**
              * <code>required int32 LeftLimit = 1;</code>
+             *
              * @param value The leftLimit to set.
              * @return This builder for chaining.
              */
@@ -7720,6 +7731,7 @@ public final class Battle {
 
             /**
              * <code>required int32 LeftLimit = 1;</code>
+             *
              * @return This builder for chaining.
              */
             public Builder clearLeftLimit() {
@@ -7728,11 +7740,12 @@ public final class Battle {
                 onChanged();
                 return this;
             }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
+
+            @java.lang.Override
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFields(unknownFields);
+            }
 
             @java.lang.Override
             public final Builder mergeUnknownFields(
@@ -7778,10 +7791,10 @@ public final class Battle {
 
         @java.lang.Override
         public protocol.Battle.S2C_LeftLimit getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
+            return DEFAULT_INSTANCE;
+        }
 
-  }
+    }
 
   public interface C2S_HBOrBuilder extends
       // @@protoc_insertion_point(interface_extends:protocol.C2S_HB)
@@ -9561,52 +9574,52 @@ public final class Battle {
       }
     };
 
-    public static com.google.protobuf.Parser<C2S_ChangeInputDir> parser() {
-      return PARSER;
-    }
+      public static com.google.protobuf.Parser<C2S_ChangeInputDir> parser() {
+          return PARSER;
+      }
 
-    @java.lang.Override
-    public com.google.protobuf.Parser<C2S_ChangeInputDir> getParserForType() {
-      return PARSER;
-    }
+      @java.lang.Override
+      public com.google.protobuf.Parser<C2S_ChangeInputDir> getParserForType() {
+          return PARSER;
+      }
 
-    @java.lang.Override
-    public protocol.Battle.C2S_ChangeInputDir getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
+      @java.lang.Override
+      public protocol.Battle.C2S_ChangeInputDir getDefaultInstanceForType() {
+          return DEFAULT_INSTANCE;
+      }
 
   }
 
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protocol_S2C_SetUserID_descriptor;
-  private static final 
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_protocol_S2C_SetUserID_descriptor;
+    private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_protocol_S2C_SetUserID_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protocol_S2C_C2S_UnitMoveInfo_descriptor;
-  private static final 
+            internal_static_protocol_S2C_SetUserID_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_protocol_S2C_C2S_UnitMoveInfo_descriptor;
+    private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_protocol_S2C_C2S_UnitMoveInfo_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protocol_S2C_UnitInfo_descriptor;
-  private static final 
+            internal_static_protocol_S2C_C2S_UnitMoveInfo_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_protocol_S2C_UnitInfo_descriptor;
+    private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_protocol_S2C_UnitInfo_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protocol_S2C_UnitInfos_descriptor;
-  private static final 
+            internal_static_protocol_S2C_UnitInfo_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_protocol_S2C_UnitInfos_descriptor;
+    private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_protocol_S2C_UnitInfos_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protocol_S2C_UseSkill_descriptor;
-  private static final 
+            internal_static_protocol_S2C_UnitInfos_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_protocol_S2C_UseSkill_descriptor;
+    private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_protocol_S2C_UseSkill_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protocol_S2C_DestroyUnit_descriptor;
-  private static final 
+            internal_static_protocol_S2C_UseSkill_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_protocol_S2C_DestroyUnit_descriptor;
+    private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_protocol_S2C_DestroyUnit_fieldAccessorTable;
+            internal_static_protocol_S2C_DestroyUnit_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_protocol_S2C_OneLand_descriptor;
     private static final
@@ -9632,44 +9645,46 @@ public final class Battle {
     private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internal_static_protocol_C2S_UseSkill_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protocol_C2S_ChangeInputDir_descriptor;
-  private static final 
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_protocol_C2S_ChangeInputDir_descriptor;
+    private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_protocol_C2S_ChangeInputDir_fieldAccessorTable;
+            internal_static_protocol_C2S_ChangeInputDir_fieldAccessorTable;
 
-  public static com.google.protobuf.Descriptors.FileDescriptor
-      getDescriptor() {
-    return descriptor;
-  }
-  private static  com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
-  static {
-    java.lang.String[] descriptorData = {
-      "\n\014battle.proto\022\010protocol\"\033\n\rS2C_SetUserI" +
-      "D\022\n\n\002ID\030\001 \002(\005\"\216\001\n\024S2C_C2S_UnitMoveInfo\022\021" +
-      "\n\tPosStatus\030\001 \002(\005\022\026\n\016LandOrLadderID\030\002 \002(" +
-      "\005\022\014\n\004PosX\030\003 \002(\002\022\014\n\004PosY\030\004 \002(\002\022\016\n\006SpeedX\030" +
-      "\005 \002(\002\022\016\n\006SpeedY\030\006 \002(\002\022\017\n\007FaceDir\030\007 \002(\002\"\351" +
-      "\001\n\014S2C_UnitInfo\022\n\n\002ID\030\001 \002(\005\022\020\n\010UnitType\030" +
-      "\002 \002(\005\022\025\n\rControlPlayer\030\003 \002(\005\022\023\n\013HandCont" +
-              "rol\030\004 \002(\010\022\016\n\006HpRate\030\005 \002(\002\022\016\n\006MpRate\030\n \002(" +
-              "\002\022\020\n\010NowInput\030\006 \002(\010\022\023\n\013NowInputDir\030\007 \002(\002" +
-              "\022\022\n\nRandomSeed\030\010 \002(\005\0224\n\014UnitMoveInfo\030\t \002" +
-              "(\0132\036.protocol.S2C_C2S_UnitMoveInfo\":\n\rS2" +
-              "C_UnitInfos\022)\n\tUnitInfos\030\001 \003(\0132\026.protoco" +
-              "l.S2C_UnitInfo\"/\n\014S2C_UseSkill\022\016\n\006UnitID" +
-              "\030\001 \002(\005\022\017\n\007SkillID\030\002 \002(\005\"!\n\017S2C_DestroyUn" +
-              "it\022\016\n\006UnitID\030\001 \002(\005\"\201\001\n\013S2C_OneLand\022\n\n\002ID" +
-              "\030\001 \002(\005\022\r\n\005LeftX\030\002 \002(\002\022\r\n\005LeftY\030\003 \002(\002\022\016\n\006" +
-              "RightX\030\004 \002(\002\022\016\n\006RightY\030\005 \002(\002\022\022\n\nCanCross" +
-              "Up\030\006 \002(\010\022\024\n\014CanCrossDown\030\007 \002(\010\"4\n\014S2C_Al" +
-              "lLands\022$\n\005Lands\030\001 \003(\0132\025.protocol.S2C_One" +
-              "Land\"\"\n\rS2C_LeftLimit\022\021\n\tLeftLimit\030\001 \002(\005" +
-              "\"\010\n\006C2S_HB\"U\n\014C2S_UseSkill\022\017\n\007SkillID\030\001 " +
-              "\002(\005\0224\n\014UnitMoveInfo\030\002 \002(\0132\036.protocol.S2C" +
-              "_C2S_UnitMoveInfo\";\n\022C2S_ChangeInputDir\022" +
-              "\020\n\010NowInput\030\001 \002(\010\022\023\n\013NowInputDir\030\002 \002(\002"
+    public static com.google.protobuf.Descriptors.FileDescriptor
+    getDescriptor() {
+        return descriptor;
+    }
+
+    private static com.google.protobuf.Descriptors.FileDescriptor
+            descriptor;
+
+    static {
+        java.lang.String[] descriptorData = {
+                "\n\014battle.proto\022\010protocol\"\033\n\rS2C_SetUserI" +
+                        "D\022\n\n\002ID\030\001 \002(\005\"\216\001\n\024S2C_C2S_UnitMoveInfo\022\021" +
+                        "\n\tPosStatus\030\001 \002(\005\022\026\n\016LandOrLadderID\030\002 \002(" +
+                        "\005\022\014\n\004PosX\030\003 \002(\002\022\014\n\004PosY\030\004 \002(\002\022\016\n\006SpeedX\030" +
+                        "\005 \002(\002\022\016\n\006SpeedY\030\006 \002(\002\022\017\n\007FaceDir\030\007 \002(\002\"\351" +
+                        "\001\n\014S2C_UnitInfo\022\n\n\002ID\030\001 \002(\005\022\020\n\010UnitType\030" +
+                        "\002 \002(\005\022\025\n\rControlPlayer\030\003 \002(\005\022\023\n\013HandCont" +
+                        "rol\030\004 \002(\010\022\016\n\006HpRate\030\005 \002(\002\022\016\n\006MpRate\030\n \002(" +
+                        "\002\022\020\n\010NowInput\030\006 \002(\010\022\023\n\013NowInputDir\030\007 \002(\002" +
+                        "\022\022\n\nRandomSeed\030\010 \002(\005\0224\n\014UnitMoveInfo\030\t \002" +
+                        "(\0132\036.protocol.S2C_C2S_UnitMoveInfo\":\n\rS2" +
+                        "C_UnitInfos\022)\n\tUnitInfos\030\001 \003(\0132\026.protoco" +
+                        "l.S2C_UnitInfo\"/\n\014S2C_UseSkill\022\016\n\006UnitID" +
+                        "\030\001 \002(\005\022\017\n\007SkillID\030\002 \002(\005\"!\n\017S2C_DestroyUn" +
+                        "it\022\016\n\006UnitID\030\001 \002(\005\"\201\001\n\013S2C_OneLand\022\n\n\002ID" +
+                        "\030\001 \002(\005\022\r\n\005LeftX\030\002 \002(\002\022\r\n\005LeftY\030\003 \002(\002\022\016\n\006" +
+                        "RightX\030\004 \002(\002\022\016\n\006RightY\030\005 \002(\002\022\022\n\nCanCross" +
+                        "Up\030\006 \002(\010\022\024\n\014CanCrossDown\030\007 \002(\010\"4\n\014S2C_Al" +
+      "lLands\022$\n\005Lands\030\001 \003(\0132\025.protocol.S2C_One" +
+      "Land\"\"\n\rS2C_LeftLimit\022\021\n\tLeftLimit\030\001 \002(\005" +
+      "\"\010\n\006C2S_HB\"U\n\014C2S_UseSkill\022\017\n\007SkillID\030\001 " +
+      "\002(\005\0224\n\014UnitMoveInfo\030\002 \002(\0132\036.protocol.S2C" +
+      "_C2S_UnitMoveInfo\";\n\022C2S_ChangeInputDir\022" +
+      "\020\n\010NowInput\030\001 \002(\010\022\023\n\013NowInputDir\030\002 \002(\002"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -9680,73 +9695,73 @@ public final class Battle {
     internal_static_protocol_S2C_SetUserID_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_S2C_SetUserID_descriptor,
-        new java.lang.String[] { "ID", });
-    internal_static_protocol_S2C_C2S_UnitMoveInfo_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_protocol_S2C_C2S_UnitMoveInfo_fieldAccessorTable = new
+        new java.lang.String[]{"ID",});
+        internal_static_protocol_S2C_C2S_UnitMoveInfo_descriptor =
+                getDescriptor().getMessageTypes().get(1);
+        internal_static_protocol_S2C_C2S_UnitMoveInfo_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_protocol_S2C_C2S_UnitMoveInfo_descriptor,
+                new java.lang.String[]{"PosStatus", "LandOrLadderID", "PosX", "PosY", "SpeedX", "SpeedY", "FaceDir",});
+        internal_static_protocol_S2C_UnitInfo_descriptor =
+                getDescriptor().getMessageTypes().get(2);
+        internal_static_protocol_S2C_UnitInfo_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_protocol_S2C_UnitInfo_descriptor,
+                new java.lang.String[]{"ID", "UnitType", "ControlPlayer", "HandControl", "HpRate", "MpRate", "NowInput", "NowInputDir", "RandomSeed", "UnitMoveInfo",});
+        internal_static_protocol_S2C_UnitInfos_descriptor =
+                getDescriptor().getMessageTypes().get(3);
+        internal_static_protocol_S2C_UnitInfos_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_protocol_S2C_UnitInfos_descriptor,
+                new java.lang.String[]{"UnitInfos",});
+        internal_static_protocol_S2C_UseSkill_descriptor =
+                getDescriptor().getMessageTypes().get(4);
+        internal_static_protocol_S2C_UseSkill_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_protocol_S2C_UseSkill_descriptor,
+                new java.lang.String[]{"UnitID", "SkillID",});
+        internal_static_protocol_S2C_DestroyUnit_descriptor =
+                getDescriptor().getMessageTypes().get(5);
+        internal_static_protocol_S2C_DestroyUnit_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_protocol_S2C_DestroyUnit_descriptor,
+                new java.lang.String[]{"UnitID",});
+        internal_static_protocol_S2C_OneLand_descriptor =
+                getDescriptor().getMessageTypes().get(6);
+        internal_static_protocol_S2C_OneLand_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_protocol_S2C_OneLand_descriptor,
+                new java.lang.String[]{"ID", "LeftX", "LeftY", "RightX", "RightY", "CanCrossUp", "CanCrossDown",});
+        internal_static_protocol_S2C_AllLands_descriptor =
+                getDescriptor().getMessageTypes().get(7);
+        internal_static_protocol_S2C_AllLands_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_protocol_S2C_AllLands_descriptor,
+                new java.lang.String[]{"Lands",});
+        internal_static_protocol_S2C_LeftLimit_descriptor =
+                getDescriptor().getMessageTypes().get(8);
+        internal_static_protocol_S2C_LeftLimit_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_protocol_S2C_LeftLimit_descriptor,
+                new java.lang.String[]{"LeftLimit",});
+        internal_static_protocol_C2S_HB_descriptor =
+                getDescriptor().getMessageTypes().get(9);
+        internal_static_protocol_C2S_HB_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_protocol_C2S_HB_descriptor,
+                new java.lang.String[]{});
+        internal_static_protocol_C2S_UseSkill_descriptor =
+                getDescriptor().getMessageTypes().get(10);
+        internal_static_protocol_C2S_UseSkill_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_protocol_C2S_UseSkill_descriptor,
+        new java.lang.String[] { "SkillID", "UnitMoveInfo", });
+    internal_static_protocol_C2S_ChangeInputDir_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_protocol_C2S_ChangeInputDir_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_protocol_S2C_C2S_UnitMoveInfo_descriptor,
-        new java.lang.String[] { "PosStatus", "LandOrLadderID", "PosX", "PosY", "SpeedX", "SpeedY", "FaceDir", });
-    internal_static_protocol_S2C_UnitInfo_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_protocol_S2C_UnitInfo_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_protocol_S2C_UnitInfo_descriptor,
-        new java.lang.String[] { "ID", "UnitType", "ControlPlayer", "HandControl", "HpRate", "MpRate", "NowInput", "NowInputDir", "RandomSeed", "UnitMoveInfo", });
-    internal_static_protocol_S2C_UnitInfos_descriptor =
-      getDescriptor().getMessageTypes().get(3);
-    internal_static_protocol_S2C_UnitInfos_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_protocol_S2C_UnitInfos_descriptor,
-        new java.lang.String[] { "UnitInfos", });
-    internal_static_protocol_S2C_UseSkill_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_protocol_S2C_UseSkill_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_protocol_S2C_UseSkill_descriptor,
-        new java.lang.String[] { "UnitID", "SkillID", });
-    internal_static_protocol_S2C_DestroyUnit_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_protocol_S2C_DestroyUnit_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_protocol_S2C_DestroyUnit_descriptor,
-        new java.lang.String[] { "UnitID", });
-      internal_static_protocol_S2C_OneLand_descriptor =
-              getDescriptor().getMessageTypes().get(6);
-      internal_static_protocol_S2C_OneLand_fieldAccessorTable = new
-              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-              internal_static_protocol_S2C_OneLand_descriptor,
-              new java.lang.String[]{"ID", "LeftX", "LeftY", "RightX", "RightY", "CanCrossUp", "CanCrossDown",});
-      internal_static_protocol_S2C_AllLands_descriptor =
-              getDescriptor().getMessageTypes().get(7);
-      internal_static_protocol_S2C_AllLands_fieldAccessorTable = new
-              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-              internal_static_protocol_S2C_AllLands_descriptor,
-              new java.lang.String[]{"Lands",});
-      internal_static_protocol_S2C_LeftLimit_descriptor =
-              getDescriptor().getMessageTypes().get(8);
-      internal_static_protocol_S2C_LeftLimit_fieldAccessorTable = new
-              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-              internal_static_protocol_S2C_LeftLimit_descriptor,
-              new java.lang.String[]{"LeftLimit",});
-      internal_static_protocol_C2S_HB_descriptor =
-              getDescriptor().getMessageTypes().get(9);
-      internal_static_protocol_C2S_HB_fieldAccessorTable = new
-              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-              internal_static_protocol_C2S_HB_descriptor,
-              new java.lang.String[]{});
-      internal_static_protocol_C2S_UseSkill_descriptor =
-              getDescriptor().getMessageTypes().get(10);
-      internal_static_protocol_C2S_UseSkill_fieldAccessorTable = new
-              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-              internal_static_protocol_C2S_UseSkill_descriptor,
-              new java.lang.String[]{"SkillID", "UnitMoveInfo",});
-      internal_static_protocol_C2S_ChangeInputDir_descriptor =
-              getDescriptor().getMessageTypes().get(11);
-      internal_static_protocol_C2S_ChangeInputDir_fieldAccessorTable = new
-              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-              internal_static_protocol_C2S_ChangeInputDir_descriptor,
-              new java.lang.String[] { "NowInput", "NowInputDir", });
+        internal_static_protocol_C2S_ChangeInputDir_descriptor,
+        new java.lang.String[] { "NowInput", "NowInputDir", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -1,6 +1,6 @@
 package application.client
 
-import akka.actor.{Actor, ActorRef, Props, ReceiveTimeout, Stash}
+import akka.actor.{ActorRef, Props, ReceiveTimeout, Stash}
 import akka.io.Tcp._
 import akka.util.ByteString
 import application.client.Client._
@@ -122,6 +122,7 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
     log.debug(s"frame length:${frame.length} :$frame")
     val protocolId = frame.iterator.getShort
 
+    //TODO 或许需要实现协议过滤，防止未登入的用户或者选择非当前角色发包，
     val handler = messageHandler.get(protocolId)
     handler match {
       case Some(h) => h ! ReceivedFromClient(self, userID, protocolId, (frame drop 2).toArray)

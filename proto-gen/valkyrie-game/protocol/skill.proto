@@ -1,0 +1,43 @@
+package protocol;
+
+//获取全部技能
+message CS10050
+{
+}
+
+message SC10050
+{
+
+}
+
+
+//学习技能
+message CS10051
+{
+  required int64 fightOrganismId = 1;
+  required int32 skillId = 2;
+}
+
+message SC10051
+{
+
+}
+
+//使用技能
+message CS10052
+{
+  required int64 fightOrganismId = 1; //技能的战斗单位id
+  required int32 skillId = 2; //技能id
+  optional int64 targetId = 3;  //目标战斗单位id
+  optional int32 direction = 4; //释放方向
+  required float skillPositionX = 5;  //技能横坐标
+  required float skillPositionY = 6;  //技能纵坐标
+  optional int64 time = 7;  //释放时间戳
+  required int64 sceneId = 8; //释放场景
+
+}
+
+message SC10052
+{
+
+}

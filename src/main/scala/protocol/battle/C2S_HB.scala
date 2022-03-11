@@ -42,10 +42,8 @@ object C2S_HB extends scalapb.GeneratedMessageCompanion[protocol.battle.C2S_HB] 
     val javaPbOut = protocol.Battle.C2S_HB.newBuilder
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Battle.C2S_HB): protocol.battle.C2S_HB = protocol.battle.C2S_HB(
   )
-
   def merge(`_message__`: protocol.battle.C2S_HB, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.battle.C2S_HB = newBuilder(_message__).merge(_input__).result()
 
   implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.battle.C2S_HB] = _root_.scalapb.descriptors.Reads {

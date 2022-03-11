@@ -4,7 +4,6 @@
 // Protofile syntax: PROTO2
 
 package protocol.player
-
 import _root_.scalapb.internal.compat.JavaConverters._
 
 /** 返回基本玩家角色信息
@@ -79,13 +78,11 @@ final case class SC10020(
 
 object SC10020 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10020] with scalapb.HasBuilder[protocol.player.SC10020] with scalapb.JavaProtoSupport[protocol.player.SC10020, protocol.Player.SC10020] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.player.SC10020] with scalapb.HasBuilder[protocol.player.SC10020] with scalapb.JavaProtoSupport[protocol.player.SC10020, protocol.Player.SC10020] = this
-
   def toJavaProto(scalaPbSource: protocol.player.SC10020): protocol.Player.SC10020 = {
     val javaPbOut = protocol.Player.SC10020.newBuilder
     javaPbOut.addAllPlayerInfo(_root_.scalapb.internal.compat.toIterable(scalaPbSource.playerInfo.iterator.map(protocol.player.PlayerInfo.toJavaProto(_))).asJava)
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Player.SC10020): protocol.player.SC10020 = protocol.player.SC10020(
     playerInfo = javaPbSource.getPlayerInfoList.asScala.iterator.map(protocol.player.PlayerInfo.fromJavaProto(_)).toSeq
   )
@@ -102,9 +99,7 @@ object SC10020 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10020
   }
 
   def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = PlayerProto.javaDescriptor.getMessageTypes().get(2)
-
   def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = PlayerProto.scalaDescriptor.messages(2)
-
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
     var __out: _root_.scalapb.GeneratedMessageCompanion[_] = null
     (__number: @_root_.scala.unchecked) match {
@@ -142,7 +137,6 @@ object SC10020 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10020
       }
       this
     }
-
     def result(): protocol.player.SC10020 = {
       protocol.player.SC10020(
         playerInfo = __playerInfo.result(),
@@ -150,27 +144,21 @@ object SC10020 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10020
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.player.SC10020, protocol.player.SC10020.Builder] {
     def apply(): Builder = new Builder(
       __playerInfo = new _root_.scala.collection.immutable.VectorBuilder[protocol.player.PlayerInfo],
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.player.SC10020): Builder = new Builder(
       __playerInfo = new _root_.scala.collection.immutable.VectorBuilder[protocol.player.PlayerInfo] ++= _message__.playerInfo,
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.player.SC10020.Builder()
-
   def newBuilder(`_message__`: protocol.player.SC10020): Builder = protocol.player.SC10020.Builder(_message__)
-
   implicit class SC10020Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.player.SC10020]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.player.SC10020](_l) {
     def playerInfo: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[protocol.player.PlayerInfo]] = field(_.playerInfo)((c_, f_) => c_.copy(playerInfo = f_))
   }
-
   final val PLAYERINFO_FIELD_NUMBER = 1
 
   def of(

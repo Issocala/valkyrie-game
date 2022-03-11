@@ -49,12 +49,10 @@ final case class CS10020(
 
 object CS10020 extends scalapb.GeneratedMessageCompanion[protocol.player.CS10020] with scalapb.HasBuilder[protocol.player.CS10020] with scalapb.JavaProtoSupport[protocol.player.CS10020, protocol.Player.CS10020] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.player.CS10020] with scalapb.HasBuilder[protocol.player.CS10020] with scalapb.JavaProtoSupport[protocol.player.CS10020, protocol.Player.CS10020] = this
-
   def toJavaProto(scalaPbSource: protocol.player.CS10020): protocol.Player.CS10020 = {
     val javaPbOut = protocol.Player.CS10020.newBuilder
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Player.CS10020): protocol.player.CS10020 = protocol.player.CS10020(
   )
 
@@ -99,28 +97,22 @@ object CS10020 extends scalapb.GeneratedMessageCompanion[protocol.player.CS10020
       }
       this
     }
-
     def result(): protocol.player.CS10020 = {
       protocol.player.CS10020(
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.player.CS10020, protocol.player.CS10020.Builder] {
     def apply(): Builder = new Builder(
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.player.CS10020): Builder = new Builder(
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.player.CS10020.Builder()
-
   def newBuilder(`_message__`: protocol.player.CS10020): Builder = protocol.player.CS10020.Builder(_message__)
-
   implicit class CS10020Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.player.CS10020]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.player.CS10020](_l) {
   }
 

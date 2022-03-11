@@ -2,6 +2,7 @@ package application.module.fight.attribute.node;
 
 import application.module.fight.attribute.provider.AttributeProvider;
 import application.util.AttributeMapUtil;
+import application.util.UpdateAttributeObject;
 import com.google.common.base.Preconditions;
 
 import java.util.*;
@@ -21,7 +22,7 @@ public record AttributeNode(short typeId, AttributeNode fatherNode, List<Attribu
                             Map<Short, Long> id2AllFightAttributeMap,
                             AttributeProvider attributeProvider) {
 
-    public void update(long playerId, boolean isInit, Object o) {
+    public Set<Short> update(boolean isInit, UpdateAttributeObject<?> o) {
         Set<Short> isUpdateTypeSet = new HashSet<>();
         Preconditions.checkNotNull(attributeProvider, "战力提供函数为空,策划配置函数名和代码函数名不一致！！！");
         Map<Short, Long> id2FightAttributeMap;
@@ -32,28 +33,21 @@ public record AttributeNode(short typeId, AttributeNode fatherNode, List<Attribu
         }
         //属性并未变化
         if (Objects.isNull(id2FightAttributeMap) || id2FightAttributeMap.isEmpty()) {
-            return;
+            return null;
         }
         AttributeMapUtil.add(id2AllFightAttributeMap, id2FightAttributeMap);
         //缓存有更新的模块
         isUpdateTypeSet.add(typeId);
         if (Objects.isNull(fatherNode)) {
-            return;
+            return null;
         }
         //当前节点属性变化，父节点属性也会变化
         fatherNode.addId2AllFightAttributeMap(id2FightAttributeMap, isUpdateTypeSet);
         //初始化不计算，战力读缓存
         if (isInit) {
-            return;
+            return null;
         }
-        //处理战力计算
-        isUpdateTypeSet.forEach(s -> {
-            AttributeNode attributeNode = AttributeNodeManager.getFightAttribute(playerId, typeId);
-            Map<Short, Long> map = attributeNode.id2AllFightAttributeMap;
-            //TODO 百分比属性及一级属性转换二级属性计算
-            //TODO 计算战力值，保存到缓存中，并持久化。
-
-        });
+        return isUpdateTypeSet;
 
     }
 

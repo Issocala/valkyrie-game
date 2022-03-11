@@ -83,7 +83,6 @@ object C2S_ChangeInputDir extends scalapb.GeneratedMessageCompanion[protocol.bat
     nowInput = javaPbSource.getNowInput.booleanValue,
     nowInputDir = javaPbSource.getNowInputDir.floatValue
   )
-
   def merge(`_message__`: protocol.battle.C2S_ChangeInputDir, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.battle.C2S_ChangeInputDir = newBuilder(_message__).merge(_input__).result()
 
   implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.battle.C2S_ChangeInputDir] = _root_.scalapb.descriptors.Reads {
@@ -114,9 +113,10 @@ object C2S_ChangeInputDir extends scalapb.GeneratedMessageCompanion[protocol.bat
   final class Builder private(
                                private var __nowInput: _root_.scala.Boolean,
                                private var __nowInputDir: _root_.scala.Float,
-    private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
-  ) extends _root_.scalapb.MessageBuilder[protocol.battle.C2S_ChangeInputDir] {
+                               private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
+                             ) extends _root_.scalapb.MessageBuilder[protocol.battle.C2S_ChangeInputDir] {
     private var __requiredFields0: _root_.scala.Long = 0x3L
+
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
       while (!_done__) {

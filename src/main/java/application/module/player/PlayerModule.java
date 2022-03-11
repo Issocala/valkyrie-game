@@ -11,9 +11,9 @@ import application.module.player.operate.PlayerGetAllType;
 import application.module.player.operate.PlayerLoginSelectType;
 import application.module.player.operate.info.PlayerOperateTypeInfo;
 import application.util.CommonOperateTypeInfo;
-import com.cala.orm.message.DataBaseMessage;
+import com.cala.orm.cache.message.DataGet;
+import com.cala.orm.cache.message.DataInsert;
 import com.cala.orm.message.DataReturnMessage;
-import com.cala.orm.message.MessageAndReply;
 import com.cala.orm.message.OperateType;
 import com.google.protobuf.InvalidProtocolBufferException;
 import mobius.modular.client.Client;
@@ -83,7 +83,8 @@ public class PlayerModule extends AbstractModule {
             }
         }
         PlayerEntity playerEntity = createPlayerEntity(cs10021, r.uID());
-        playerEntityData.tell(new DataBaseMessage.AsyncInsert(new MessageAndReply(self(), playerEntity, new PlayerCreateInsertType(new PlayerOperateTypeInfo(commonOperateTypeInfo.r(), playerEntity)))), self());
+        playerEntityData.tell(new DataInsert(self(), playerEntity,
+                new PlayerCreateInsertType(new PlayerOperateTypeInfo(commonOperateTypeInfo.r(), playerEntity))), self());
     }
 
     private PlayerEntity createPlayerEntity(Player.CS10021 cs10021, long uId) {
@@ -121,7 +122,8 @@ public class PlayerModule extends AbstractModule {
         try {
             Player.CS10022 cs10022 = Player.CS10022.parseFrom(r.message());
             var playerEntity = PlayerEntity.of(cs10022.getRoleId());
-            playerEntityData.tell(new DataBaseMessage.Get(new MessageAndReply(self(), playerEntity, new PlayerLoginSelectType(new CommonOperateTypeInfo(r, cs10022)))), self());
+            playerEntityData.tell(new DataGet(self(), playerEntity,
+                    new PlayerLoginSelectType(new CommonOperateTypeInfo(r, cs10022))), self());
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
@@ -139,7 +141,7 @@ public class PlayerModule extends AbstractModule {
             }
             //TODO 名字是否已存在或者非法认证
             var playerEntity = PlayerEntity.of(r.uID());
-            playerEntityData.tell(new PlayerDataMessage.PlayerByUserId(new MessageAndReply(self(), playerEntity, new PlayerCreateSelectType(new CommonOperateTypeInfo(r, cs10021)))), self());
+            playerEntityData.tell(new PlayerDataMessage.PlayerByUserId(self(), playerEntity, new PlayerCreateSelectType(new CommonOperateTypeInfo(r, cs10021))), self());
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
@@ -147,7 +149,7 @@ public class PlayerModule extends AbstractModule {
 
     private void getAllRole(Client.ReceivedFromClient r) {
         var playerEntity = PlayerEntity.of(r.uID());
-        playerEntityData.tell(new PlayerDataMessage.PlayerByUserId(new MessageAndReply(self(), playerEntity, new PlayerGetAllType(new CommonOperateTypeInfo(r, null)))), self());
+        playerEntityData.tell(new PlayerDataMessage.PlayerByUserId(self(), playerEntity, new PlayerGetAllType(new CommonOperateTypeInfo(r, null))), self());
     }
 
     private void dataResult(DataMessage.DataResult dataResult) {

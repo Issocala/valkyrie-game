@@ -108,7 +108,6 @@ final case class CS10021(
 
 object CS10021 extends scalapb.GeneratedMessageCompanion[protocol.player.CS10021] with scalapb.HasBuilder[protocol.player.CS10021] with scalapb.JavaProtoSupport[protocol.player.CS10021, protocol.Player.CS10021] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.player.CS10021] with scalapb.HasBuilder[protocol.player.CS10021] with scalapb.JavaProtoSupport[protocol.player.CS10021, protocol.Player.CS10021] = this
-
   def toJavaProto(scalaPbSource: protocol.player.CS10021): protocol.Player.CS10021 = {
     val javaPbOut = protocol.Player.CS10021.newBuilder
     javaPbOut.setName(scalaPbSource.name)
@@ -116,7 +115,6 @@ object CS10021 extends scalapb.GeneratedMessageCompanion[protocol.player.CS10021
     javaPbOut.setProfession(scalaPbSource.profession)
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Player.CS10021): protocol.player.CS10021 = protocol.player.CS10021(
     name = javaPbSource.getName,
     gender = javaPbSource.getGender.intValue,
@@ -184,7 +182,6 @@ object CS10021 extends scalapb.GeneratedMessageCompanion[protocol.player.CS10021
       }
       this
     }
-
     def result(): protocol.player.CS10021 = {
       if (__requiredFields0 != 0L) {
         throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
@@ -197,7 +194,6 @@ object CS10021 extends scalapb.GeneratedMessageCompanion[protocol.player.CS10021
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.player.CS10021, protocol.player.CS10021.Builder] {
     def apply(): Builder = new Builder(
       __name = "",
@@ -205,7 +201,6 @@ object CS10021 extends scalapb.GeneratedMessageCompanion[protocol.player.CS10021
       __profession = 0,
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.player.CS10021): Builder = new Builder(
       __name = _message__.name,
       __gender = _message__.gender,
@@ -213,19 +208,13 @@ object CS10021 extends scalapb.GeneratedMessageCompanion[protocol.player.CS10021
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.player.CS10021.Builder()
-
   def newBuilder(`_message__`: protocol.player.CS10021): Builder = protocol.player.CS10021.Builder(_message__)
-
   implicit class CS10021Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.player.CS10021]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.player.CS10021](_l) {
     def name: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.name)((c_, f_) => c_.copy(name = f_))
-
     def gender: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.gender)((c_, f_) => c_.copy(gender = f_))
-
     def profession: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.profession)((c_, f_) => c_.copy(profession = f_))
   }
-
   final val NAME_FIELD_NUMBER = 1
   final val GENDER_FIELD_NUMBER = 2
   final val PROFESSION_FIELD_NUMBER = 3

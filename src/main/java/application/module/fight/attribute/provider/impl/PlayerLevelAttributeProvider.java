@@ -1,6 +1,7 @@
 package application.module.fight.attribute.provider.impl;
 
 import application.module.fight.attribute.provider.AttributeProvider;
+import application.util.UpdateAttributeObject;
 
 import java.util.Map;
 
@@ -11,14 +12,14 @@ import java.util.Map;
  */
 public class PlayerLevelAttributeProvider implements AttributeProvider {
 
+
     @Override
-    public Map<Short, Long> provider(Object o) {
+    public Map<Short, Long> provider(UpdateAttributeObject<?> o) {
         return null;
     }
 
     @Override
-    public Map<Short, Long> subProvider(Object o) {
+    public Map<Short, Long> subProvider(UpdateAttributeObject<?> o) {
         return null;
     }
-
 }

@@ -69,13 +69,11 @@ final case class S2C_LeftLimit(
 
 object S2C_LeftLimit extends scalapb.GeneratedMessageCompanion[protocol.battle.S2C_LeftLimit] with scalapb.HasBuilder[protocol.battle.S2C_LeftLimit] with scalapb.JavaProtoSupport[protocol.battle.S2C_LeftLimit, protocol.Battle.S2C_LeftLimit] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.battle.S2C_LeftLimit] with scalapb.HasBuilder[protocol.battle.S2C_LeftLimit] with scalapb.JavaProtoSupport[protocol.battle.S2C_LeftLimit, protocol.Battle.S2C_LeftLimit] = this
-
   def toJavaProto(scalaPbSource: protocol.battle.S2C_LeftLimit): protocol.Battle.S2C_LeftLimit = {
     val javaPbOut = protocol.Battle.S2C_LeftLimit.newBuilder
     javaPbOut.setLeftLimit(scalaPbSource.leftLimit)
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Battle.S2C_LeftLimit): protocol.battle.S2C_LeftLimit = protocol.battle.S2C_LeftLimit(
     leftLimit = javaPbSource.getLeftLimit.intValue
   )
@@ -129,7 +127,6 @@ object S2C_LeftLimit extends scalapb.GeneratedMessageCompanion[protocol.battle.S
       }
       this
     }
-
     def result(): protocol.battle.S2C_LeftLimit = {
       if (__requiredFields0 != 0L) {
         throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
@@ -140,27 +137,21 @@ object S2C_LeftLimit extends scalapb.GeneratedMessageCompanion[protocol.battle.S
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.battle.S2C_LeftLimit, protocol.battle.S2C_LeftLimit.Builder] {
     def apply(): Builder = new Builder(
       __leftLimit = 0,
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.battle.S2C_LeftLimit): Builder = new Builder(
       __leftLimit = _message__.leftLimit,
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.battle.S2C_LeftLimit.Builder()
-
   def newBuilder(`_message__`: protocol.battle.S2C_LeftLimit): Builder = protocol.battle.S2C_LeftLimit.Builder(_message__)
-
   implicit class S2C_LeftLimitLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.battle.S2C_LeftLimit]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.battle.S2C_LeftLimit](_l) {
     def leftLimit: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.leftLimit)((c_, f_) => c_.copy(leftLimit = f_))
   }
-
   final val LEFTLIMIT_FIELD_NUMBER = 1
 
   def of(
