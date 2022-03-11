@@ -4,6 +4,7 @@ import akka.actor.Props;
 import application.module.fight.attribute.data.domain.Attribute;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
+import com.cala.orm.message.DBReturnMessage;
 import com.cala.orm.message.DataBase;
 
 /**
@@ -14,10 +15,15 @@ import com.cala.orm.message.DataBase;
 public class AttributeData extends AbstractDataCacheManager<Attribute> {
 
     public static Props create() {
-        return Props.create(AttributeData.class, AttributeData::new).withDispatcher(DB_DISPATCHER);
+        return Props.create(AttributeData.class, AttributeData::new).withDispatcher(DATA_AND_DB_DISPATCHER);
     }
 
     private AttributeData() {
+    }
+
+    @Override
+    public void dbReturnMessage(DBReturnMessage dbReturnMessage) {
+
     }
 
     @Override

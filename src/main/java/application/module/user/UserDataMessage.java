@@ -1,7 +1,9 @@
 package application.module.user;
 
+import akka.actor.ActorRef;
+import com.cala.orm.cache.AbstractEntityBase;
 import com.cala.orm.message.DataBase;
-import com.cala.orm.message.MessageAndReply;
+import com.cala.orm.message.OperateType;
 
 /**
  * @author Luo Yong
@@ -10,7 +12,8 @@ import com.cala.orm.message.MessageAndReply;
  */
 public class UserDataMessage {
 
-    public static record UserGetByAccount(MessageAndReply messageAndReply) implements DataBase {
+    public static record UserGetByAccount(ActorRef ref, AbstractEntityBase abstractEntityBase,
+                                          OperateType operateType) implements DataBase {
     }
 
 }

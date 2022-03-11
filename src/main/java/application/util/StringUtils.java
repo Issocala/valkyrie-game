@@ -17,4 +17,14 @@ public class StringUtils {
         return s.split(split);
     }
 
+    public static int[] toIntArray(String s) {
+        String[] ss = toStringArray(s);
+        int length = ss.length;
+        int[] is = new int[length];
+        for (int i = 0; i < length; i++) {
+            is[i] = Integer.parseInt(ss[i]);
+        }
+        return is;
+    }
+
 }

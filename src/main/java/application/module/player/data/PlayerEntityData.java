@@ -5,9 +5,9 @@ import application.module.player.PlayerDataMessage;
 import application.module.player.data.domain.PlayerEntity;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
+import com.cala.orm.message.DBReturnMessage;
 import com.cala.orm.message.DataBase;
 import com.cala.orm.message.DataReturnMessage;
-import com.cala.orm.message.MessageAndReply;
 import com.cala.orm.util.DbConnection;
 import com.cala.orm.util.DbHelper;
 import com.cala.orm.util.RuntimeResult;
@@ -24,10 +24,15 @@ import java.util.Objects;
 public class PlayerEntityData extends AbstractDataCacheManager<PlayerEntity> {
 
     public static Props create() {
-        return Props.create(PlayerEntityData.class, PlayerEntityData::new).withDispatcher(DB_DISPATCHER);
+        return Props.create(PlayerEntityData.class, PlayerEntityData::new).withDispatcher(DATA_AND_DB_DISPATCHER);
     }
 
     private PlayerEntityData() {
+    }
+
+    @Override
+    public void dbReturnMessage(DBReturnMessage dbReturnMessage) {
+
     }
 
     @Override
@@ -40,8 +45,7 @@ public class PlayerEntityData extends AbstractDataCacheManager<PlayerEntity> {
     }
 
     private void getPlayerByUserIdAndProfession(PlayerDataMessage.PlayerByUserIdAndProfession playerByUserIdAndProfession) {
-        MessageAndReply messageAndReply = playerByUserIdAndProfession.messageAndReply();
-        PlayerEntity playerEntity = (PlayerEntity) messageAndReply.abstractEntityBase();
+        PlayerEntity playerEntity = (PlayerEntity) playerByUserIdAndProfession.abstractEntityBase();
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("select * from playerEntity where accountId = ");
         stringBuilder.append(playerEntity.getId());
@@ -50,7 +54,7 @@ public class PlayerEntityData extends AbstractDataCacheManager<PlayerEntity> {
         try {
             playerEntity = DbHelper.queryOne(DbConnection.getUserConnection(), stringBuilder.toString(), PlayerEntity.class);
             if (Objects.nonNull(playerEntity)) {
-                messageAndReply.ref().tell(new DataReturnMessage(RuntimeResult.ok(), playerEntity, messageAndReply.operateType()), sender());
+                playerByUserIdAndProfession.ref().tell(new DataReturnMessage(RuntimeResult.ok(), playerEntity, playerByUserIdAndProfession.operateType()), sender());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,12 +62,11 @@ public class PlayerEntityData extends AbstractDataCacheManager<PlayerEntity> {
     }
 
     private void getPlayerByUserId(PlayerDataMessage.PlayerByUserId playerByUserId) {
-        MessageAndReply messageAndReply = playerByUserId.messageAndReply();
-        AbstractEntityBase abstractEntityBase = messageAndReply.abstractEntityBase();
+        AbstractEntityBase abstractEntityBase = playerByUserId.abstractEntityBase();
         String sql = "select * from playerEntity where accountId = " + abstractEntityBase.getId();
         try {
             List<PlayerEntity> playerEntityList = DbHelper.queryMany(DbConnection.getUserConnection(), sql, PlayerEntity.class);
-            messageAndReply.ref().tell(new DataReturnMessage(RuntimeResult.ok(), List.copyOf(playerEntityList), messageAndReply.operateType()), sender());
+//            playerByUserId.ref().tell(new DataReturnMessage(RuntimeResult.ok(), List.copyOf(playerEntityList), playerByUserId.operateType()), sender());
         } catch (SQLException e) {
             e.printStackTrace();
         }

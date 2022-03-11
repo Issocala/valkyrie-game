@@ -4,7 +4,6 @@ import application.util.AbstractBuilder;
 import com.cala.orm.annotation.DbDeserialize;
 import com.cala.orm.annotation.DbPojoBuilder;
 import com.cala.orm.cache.AbstractEntityBase;
-import com.cala.orm.cache.DbStatus;
 import com.cala.orm.converter.Convert;
 import com.cala.orm.converter.JsonAttributeConverter;
 
@@ -68,8 +67,8 @@ public class PlayerEntity extends AbstractEntityBase {
     @Convert(converter = JsonAttributeConverter.class)
     private final PlayerData playerData;
 
-    public PlayerEntity(Long id, String name, byte profession, long accountId, String accountName, int level, byte vipLevel, byte gender, long lastLoginTime, long lastLogoutTime, DbStatus dbStatus, PlayerInfo playerInfo, PlayerData playerData) {
-        super(id, dbStatus);
+    public PlayerEntity(Long id, String name, byte profession, long accountId, String accountName, int level, byte vipLevel, byte gender, long lastLoginTime, long lastLogoutTime, PlayerInfo playerInfo, PlayerData playerData) {
+        super(id);
         this.name = name;
         this.profession = profession;
         this.accountId = accountId;
@@ -83,8 +82,8 @@ public class PlayerEntity extends AbstractEntityBase {
         this.playerData = playerData;
     }
 
-    public PlayerEntity(Long id, String name, byte profession, long accountId, String accountName, long fightPower, int level, byte vipLevel, byte gender, long lastLoginTime, long lastLogoutTime, DbStatus dbStatus, PlayerInfo playerInfo, PlayerData playerData) {
-        super(id, dbStatus);
+    public PlayerEntity(Long id, String name, byte profession, long accountId, String accountName, long fightPower, int level, byte vipLevel, byte gender, long lastLoginTime, long lastLogoutTime, PlayerInfo playerInfo, PlayerData playerData) {
+        super(id);
         this.name = name;
         this.profession = profession;
         this.accountId = accountId;
@@ -183,13 +182,13 @@ public class PlayerEntity extends AbstractEntityBase {
         }
 
         public PlayerEntity build() {
-            return new PlayerEntity(getId(), name, profession, accountId, accountName, level, vipLevel, gender, lastLoginTime, lastLogoutTime, getDbStatus(), playerInfo, playerData);
+            return new PlayerEntity(getId(), name, profession, accountId, accountName, level, vipLevel, gender, lastLoginTime, lastLogoutTime, playerInfo, playerData);
         }
     }
 
     public static PlayerEntity of(Long id) {
         return new PlayerEntity(id, null, (byte) 0, 0, null, 0,
-                (byte) 0, (byte) 0, 0L, 0, DbStatus.NORMAL, null, null);
+                (byte) 0, (byte) 0, 0L, 0, null, null);
     }
 
     public String getName() {

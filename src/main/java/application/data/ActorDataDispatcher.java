@@ -2,29 +2,28 @@ package application.data;
 
 import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
-import akka.actor.Cancellable;
 import akka.actor.Props;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import application.module.common.data.domain.DataMessage;
-import application.module.fight.attribute.data.FightAttributeData;
+import application.module.fight.attribute.data.AttributeData;
+import application.module.fight.skill.data.SkillData;
 import application.module.player.data.PlayerEntityData;
+import application.module.scene.data.SceneData;
+import application.module.state.data.StateData;
 import application.module.user.data.UserData;
-import application.util.TimeMacro;
 import com.cala.orm.OrmProcessor;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.ddl.SchemaUpdate;
 import com.cala.orm.message.DataBase;
-import com.cala.orm.message.DataBaseMessage;
 import com.cala.orm.util.DbConnection;
 
 import javax.management.RuntimeErrorException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.time.Duration;
 import java.util.*;
 
-import static com.cala.orm.cache.AbstractDataCacheManager.DB_DISPATCHER;
+import static com.cala.orm.cache.AbstractDataCacheManager.DATA_AND_DB_DISPATCHER;
 
 /**
  * 数据缓存分发控制中心
@@ -36,7 +35,6 @@ import static com.cala.orm.cache.AbstractDataCacheManager.DB_DISPATCHER;
 public class ActorDataDispatcher extends AbstractActor {
 
     private final LoggingAdapter logger = Logging.getLogger(getContext().getSystem(), this);
-    private Cancellable cancellable;
 
     /**
      * 创建props方法，方法名
@@ -57,7 +55,7 @@ public class ActorDataDispatcher extends AbstractActor {
     }
 
     public static Props create() {
-        return Props.create(ActorDataDispatcher.class, ActorDataDispatcher::new).withDispatcher(DB_DISPATCHER);
+        return Props.create(ActorDataDispatcher.class, ActorDataDispatcher::new).withDispatcher(DATA_AND_DB_DISPATCHER);
     }
 
     @Override
@@ -68,7 +66,6 @@ public class ActorDataDispatcher extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(DataBaseMessage.PeriodsSavaData.class, periodsSavaData -> class2DbCacheManagerMap.forEach((k, v) -> v.tell(periodsSavaData, getSelf())))
                 .match(DataAgent.Init$.class, init -> init())
                 .match(DataMessage.RequestData.class, requestData -> requestData(requestData.clazz()))
                 .build();
@@ -93,19 +90,6 @@ public class ActorDataDispatcher extends AbstractActor {
         //数据库对应表管理对象
         addCacheManagerMap();
 
-        //触发器进行定时缓存持久化处理
-        cancellable = getContext().getSystem().scheduler()
-                .scheduleWithFixedDelay(Duration.ofMillis(TimeMacro.MINUTE), Duration.ofMillis(TimeMacro.MINUTE),
-                        getSelf(), new DataBaseMessage.PeriodsSavaData(), getContext().getSystem().dispatcher(), ActorRef.noSender());
-    }
-
-    @Override
-    public void postStop() throws Exception {
-        super.postStop();
-        //取消数据库持久化触发器
-        if (Objects.nonNull(cancellable)) {
-            cancellable.cancel();
-        }
     }
 
     private ActorRef getActor(Class<? extends AbstractDataCacheManager<?>> clazz) {
@@ -158,6 +142,9 @@ public class ActorDataDispatcher extends AbstractActor {
     private void addCacheManagerMap() {
         add(PlayerEntityData.class);
         add(UserData.class);
-        add(FightAttributeData.class);
+        add(AttributeData.class);
+        add(SkillData.class);
+        add(StateData.class);
+        add(SceneData.class);
     }
 }

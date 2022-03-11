@@ -1,6 +1,5 @@
 /* 由程序自动生成，请勿修改。*/
 package template;
-
 import java.util.HashMap;
 import java.util.List;
 

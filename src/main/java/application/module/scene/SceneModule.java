@@ -1,4 +1,4 @@
-package application.module.base.scene;
+package application.module.scene;
 
 import mobius.modular.module.api.AbstractModule;
 
@@ -7,7 +7,8 @@ import mobius.modular.module.api.AbstractModule;
  * @date 2021-12-31
  * @Source 1.0
  */
-public class GameScene extends AbstractModule {
+public class SceneModule extends AbstractModule {
+
 
     @Override
     public void initData() {

@@ -1,5 +1,6 @@
 package application.util;
 
+import application.module.fight.base.skill.FightSkillWrapContainer;
 import com.cala.orm.util.ConfigLoad;
 import com.typesafe.config.Config;
 import template.CustomByteBuffer;
@@ -19,5 +20,13 @@ public class StaticConfigLoad {
         byte[] bytes = FileUtils.toByteArray3(ClassLoader.getSystemResource(config.getString(TEMPLATE_DATA_PATH)).getPath());
         CustomByteBuffer customByteBuffer = new CustomByteBuffer(bytes);
         TemplateParser.parse(customByteBuffer);
+
+        wrapInit();
+    }
+
+    //二次封装数据加载
+    private static void wrapInit() {
+        //技能数据二次包装
+        FightSkillWrapContainer.init();
     }
 }

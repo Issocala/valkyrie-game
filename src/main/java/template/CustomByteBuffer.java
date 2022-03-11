@@ -1,6 +1,7 @@
 package template;
 
-import java.nio.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 
 public class CustomByteBuffer {
@@ -29,19 +30,27 @@ public class CustomByteBuffer {
         return byteBuffer.getFloat();
     }
 
-    public double getDouble(){
+    public double getDouble() {
         return byteBuffer.getDouble();
     }
 
-    public boolean getBoolean(){
-        return  byteBuffer.get() != 0;
+    public boolean getBoolean() {
+        return byteBuffer.get() != 0;
     }
 
-    public String getString(){
+    public byte get() {
+        return byteBuffer.get();
+    }
+
+    public short getShort() {
+        return byteBuffer.getShort();
+    }
+
+    public String getString() {
 
         int length = byteBuffer.getInt();
         byte[] bytes = new byte[length];
-        byteBuffer.get(bytes,0,length);
+        byteBuffer.get(bytes, 0, length);
         return new String(bytes, StandardCharsets.UTF_8);
     }
 }

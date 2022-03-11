@@ -9,9 +9,8 @@ import application.module.user.operate.UserLoginType;
 import application.module.user.operate.UserRegisterInsertType;
 import application.module.user.operate.UserRegisterType;
 import application.util.CommonOperateTypeInfo;
-import com.cala.orm.message.DataBaseMessage;
+import com.cala.orm.cache.message.DataInsert;
 import com.cala.orm.message.DataReturnMessage;
-import com.cala.orm.message.MessageAndReply;
 import com.cala.orm.message.OperateType;
 import com.cala.orm.util.StringUtils;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -79,7 +78,7 @@ public class UserModule extends AbstractModule {
         var cs10010 = (protocol.User.CS10010) commonOperateTypeInfo.message();
         var accountInfo = cs10010.getAccount();
         var user = User.of(IdUtils.fastSimpleUUIDLong(), accountInfo.getAccount(), cs10010.getName(), codecPassword(accountInfo.getPassword()));
-        this.userData.tell(new DataBaseMessage.Insert(new MessageAndReply(self(), user, new UserRegisterInsertType(new CommonOperateTypeInfo(commonOperateTypeInfo.r(), cs10010)))), self());
+        this.userData.tell(new DataInsert(self(), user, new UserRegisterInsertType(new CommonOperateTypeInfo(commonOperateTypeInfo.r(), cs10010))), self());
     }
 
     private void userLoginTypeError(UserLoginType userLoginType) {
@@ -132,7 +131,7 @@ public class UserModule extends AbstractModule {
                 r.client().tell(new application.client.Client.SendToClientJ(UserProtocols.LOGIN, UserProtocolBuilder.getSc10011("账户或密码不能为空！！！")), self());
             }
             var user = User.of(cs10011.getAccount().getAccount());
-            this.userData.tell(new UserDataMessage.UserGetByAccount(new MessageAndReply(self(), user, new UserLoginType(new CommonOperateTypeInfo(r, cs10011)))), self());
+            this.userData.tell(new UserDataMessage.UserGetByAccount(self(), user, new UserLoginType(new CommonOperateTypeInfo(r, cs10011))), self());
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
@@ -151,7 +150,7 @@ public class UserModule extends AbstractModule {
                 return;
             }
             var user = User.of(accountInfo.getAccount());
-            this.userData.tell(new UserDataMessage.UserGetByAccount(new MessageAndReply(self(), user, new UserRegisterType(new CommonOperateTypeInfo(r, cs10010)))), self());
+            this.userData.tell(new UserDataMessage.UserGetByAccount(self(), user, new UserRegisterType(new CommonOperateTypeInfo(r, cs10010))), self());
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }

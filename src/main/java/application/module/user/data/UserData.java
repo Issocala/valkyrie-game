@@ -5,9 +5,9 @@ import application.module.user.UserDataMessage;
 import application.module.user.data.domain.User;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
+import com.cala.orm.message.DBReturnMessage;
 import com.cala.orm.message.DataBase;
 import com.cala.orm.message.DataReturnMessage;
-import com.cala.orm.message.MessageAndReply;
 import com.cala.orm.util.DbConnection;
 import com.cala.orm.util.DbHelper;
 import com.cala.orm.util.RuntimeResult;
@@ -25,8 +25,13 @@ public class UserData extends AbstractDataCacheManager<User> {
     private UserData() {
     }
 
+    @Override
+    public void dbReturnMessage(DBReturnMessage dbReturnMessage) {
+
+    }
+
     public static Props create() {
-        return Props.create(UserData.class, UserData::new).withDispatcher(DB_DISPATCHER);
+        return Props.create(UserData.class, UserData::new).withDispatcher(DATA_AND_DB_DISPATCHER);
     }
 
     @Override
@@ -38,16 +43,15 @@ public class UserData extends AbstractDataCacheManager<User> {
     }
 
     private void userGetByAccount(UserDataMessage.UserGetByAccount userGetByAccount) {
-        MessageAndReply messageAndReply = userGetByAccount.messageAndReply();
-        var user = (User) messageAndReply.abstractEntityBase();
+        var user = (User) userGetByAccount.abstractEntityBase();
         String sql = "select * from user where account = ?";
         try {
             user = DbHelper.queryOne(DbConnection.getUserConnection(), sql, User.class, user.getAccount());
             if (Objects.isNull(user)) {
-                messageAndReply.ref().tell(new DataReturnMessage(RuntimeResult.runtimeError(), null, messageAndReply.operateType()), sender());
+                userGetByAccount.ref().tell(new DataReturnMessage(RuntimeResult.runtimeError(), null, userGetByAccount.operateType()), sender());
                 return;
             }
-            messageAndReply.ref().tell(new DataReturnMessage(RuntimeResult.ok(), user, messageAndReply.operateType()), sender());
+            userGetByAccount.ref().tell(new DataReturnMessage(RuntimeResult.ok(), user, userGetByAccount.operateType()), sender());
         } catch (SQLException e) {
             e.printStackTrace();
         }

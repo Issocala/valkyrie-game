@@ -22,4 +22,10 @@ public class FightAttributeMgr {
      */
     private final Map<Short, Long> buffAttributeMap = new HashMap<>();
 
+    public Long getValue(short id) {
+        long value = fightAttributeMap.get(id);
+        long buffValue = buffAttributeMap.get(id);
+        return value + buffValue;
+    }
+
 }

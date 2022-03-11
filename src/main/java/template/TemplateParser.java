@@ -19,6 +19,8 @@ public class TemplateParser {
                     case "UnitType" -> UnitTypeTemplateHolder.addData(UnitTypeTemplate.parse(cbb));
                     case "AIAction" -> AIActionTemplateHolder.addData(AIActionTemplate.parse(cbb));
                     case "AttributeTree" -> AttributeTreeTemplateHolder.addData(AttributeTreeTemplate.parse(cbb));
+                    case "FightSkill" -> FightSkillTemplateHolder.addData(FightSkillTemplate.parse(cbb));
+                    case "FightSkillProcess" -> FightSkillProcessTemplateHolder.addData(FightSkillProcessTemplate.parse(cbb));
 
                 }
             }

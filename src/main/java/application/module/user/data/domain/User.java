@@ -5,7 +5,6 @@ import com.cala.orm.annotation.DbDeserialize;
 import com.cala.orm.annotation.DbPojoBuilder;
 import com.cala.orm.annotation.UniqueKey;
 import com.cala.orm.cache.AbstractEntityBase;
-import com.cala.orm.cache.DbStatus;
 
 import javax.persistence.Column;
 
@@ -33,8 +32,8 @@ public class User extends AbstractEntityBase {
     @Column
     private final long timestamp;
 
-    public User(Long id, DbStatus dbStatus, String account, String accountName, String password, String platform, long timestamp) {
-        super(id, dbStatus);
+    public User(Long id, String account, String accountName, String password, String platform, long timestamp) {
+        super(id);
         this.account = account;
         this.accountName = accountName;
         this.password = password;
@@ -80,20 +79,20 @@ public class User extends AbstractEntityBase {
         }
 
         public User build() {
-            return new User(getId(), getDbStatus(), account, accountName, password, platform, timestamp);
+            return new User(getId(), account, accountName, password, platform, timestamp);
         }
     }
 
     public static User of(Long id) {
-        return new User(id, DbStatus.NORMAL, null, null, null, null, 0);
+        return new User(id, null, null, null, null, 0);
     }
 
     public static User of(String account) {
-        return new User(0L, DbStatus.NORMAL, account, null, null, null, 0);
+        return new User(0L, account, null, null, null, 0);
     }
 
     public static User of(Long id, String account, String accountName, String password) {
-        return new User(id, DbStatus.NORMAL, account, accountName, password, null, 0);
+        return new User(id, account, accountName, password, null, 0);
     }
 
 

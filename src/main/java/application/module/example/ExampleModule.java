@@ -1,23 +1,17 @@
 package application.module.example;
 
 import akka.actor.ActorRef;
-import application.guid.UUID;
 import application.module.common.data.domain.DataMessage;
-import application.module.example.operate.GetByUseIdType;
 import application.module.example.operate.GetType;
 import application.module.example.operate.SaveType;
-import application.module.player.base.data.domain.PlayerEntity;
+import application.module.player.data.domain.PlayerEntity;
 import application.module.user.data.UserData;
-import com.cala.orm.message.DataBaseMessage;
 import com.cala.orm.message.DataReturnMessage;
-import com.cala.orm.message.MessageAndReply;
 import com.google.protobuf.InvalidProtocolBufferException;
 import mobius.modular.client.Client;
 import mobius.modular.module.api.AbstractModule;
 import protocol.P1;
 import template.TestTemplateHolder;
-
-import java.util.List;
 
 /**
  * Created by RXL on 2021/12/1.
@@ -54,10 +48,6 @@ public class ExampleModule extends AbstractModule {
                                 TestTemplateHolder.getData(1);
                             }
                             case SaveType ignored -> getLog().debug("dd");
-                            case GetByUseIdType ignored -> {
-
-                                List<PlayerEntity> playerEntityList = (List<PlayerEntity>) message.message();
-                            }
                             default -> System.out.println();
                         }
                     }
@@ -95,7 +85,6 @@ public class ExampleModule extends AbstractModule {
     @Override
     public void initData() {
         this.dataAgent().tell(new DataMessage.RequestData(UserData.class), self());
-        DataBaseMessage.Get get = new DataBaseMessage.Get(new MessageAndReply(self(),
-                PlayerEntity.of(UUID.fastUUID().getLeastSignificantBits()), GetType.INSTANCE));
+
     }
 }
