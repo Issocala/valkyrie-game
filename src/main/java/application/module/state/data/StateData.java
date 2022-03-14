@@ -22,7 +22,7 @@ public class StateData extends AbstractDataCacheManager<StateEntity> {
         return Props.create(StateData.class, StateData::new).withDispatcher(DATA_AND_DB_DISPATCHER);
     }
 
-    private final static Map<Long, FightOrganismState> fightOrganismId2Mgr = new HashMap<>();
+    private final Map<Long, FightOrganismState> fightOrganismId2Mgr = new HashMap<>();
 
     private StateData() {
     }
@@ -42,11 +42,11 @@ public class StateData extends AbstractDataCacheManager<StateEntity> {
         return abstractEntityBase.getClass() == StateEntity.class;
     }
 
-    public FightOrganismState getFightOrganismStateMgr(long fightOrganismId) {
-        return fightOrganismId2Mgr.get(fightOrganismId);
-    }
-
-    public void addFightOrganismStateMgr(FightOrganismState fightOrganismState) {
-        fightOrganismId2Mgr.put(fightOrganismState.getId(), fightOrganismState);
-    }
+//    public FightOrganismState getFightOrganismStateMgr(long fightOrganismId) {
+//        return fightOrganismId2Mgr.get(fightOrganismId);
+//    }
+//
+//    public void addFightOrganismStateMgr(FightOrganismState fightOrganismState) {
+//        fightOrganismId2Mgr.put(fightOrganismState.getId(), fightOrganismState);
+//    }
 }
