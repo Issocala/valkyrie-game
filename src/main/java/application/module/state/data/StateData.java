@@ -1,7 +1,6 @@
 package application.module.state.data;
 
 import akka.actor.Props;
-import application.module.state.base.FightOrganismState;
 import application.module.state.data.domain.StateEntity;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
@@ -22,7 +21,7 @@ public class StateData extends AbstractDataCacheManager<StateEntity> {
         return Props.create(StateData.class, StateData::new).withDispatcher(DATA_AND_DB_DISPATCHER);
     }
 
-    private final Map<Long, FightOrganismState> fightOrganismId2Mgr = new HashMap<>();
+    private final Map<Long, Long> fightOrganismId2Mgr = new HashMap<>();
 
     private StateData() {
     }
