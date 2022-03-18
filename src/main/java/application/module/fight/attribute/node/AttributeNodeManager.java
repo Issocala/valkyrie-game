@@ -16,6 +16,7 @@ import java.util.Objects;
  */
 public class AttributeNodeManager {
 
+
     //TODO 当前未清理玩家数据
     private final static Map<Long, Map<Short, AttributeNode>> playerId2TypeId3FightAttributeMap = new HashMap<>();
 

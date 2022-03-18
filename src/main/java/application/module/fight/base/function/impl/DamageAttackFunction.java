@@ -20,10 +20,15 @@ public class DamageAttackFunction extends FightSkillActiveFunction {
         int damage = attributeParameter[0];
         //技能伤害系数
         int damageRate = attributeParameter[1];
-        basicAttack(fightSkillProcessTemplate, useSkillDataTemp, damage, damageRate);
+//        basicAttack(fightSkillProcessTemplate, useSkillDataTemp, damage, damageRate);
     }
 
     private void basicAttack(FightSkillProcessTemplate fightSkillProcessTemplate, UseSkillDataTemp useSkillDataTemp, final int damage, final int damageRate) {
+
+    }
+
+    @Override
+    public void onReceive(Object message) throws Throwable, Throwable {
 
     }
 }

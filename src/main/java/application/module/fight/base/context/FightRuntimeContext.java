@@ -2,6 +2,8 @@ package application.module.fight.base.context;
 
 import akka.actor.Props;
 import akka.actor.UntypedAbstractActor;
+import application.module.fight.attribute.AttributeTemplateId;
+import application.module.fight.attribute.data.message.AttributeUpdateFightAttribute;
 import application.module.fight.attribute.fight.FightAttributeMgr;
 import application.module.fight.base.skill.FightSkillWrap;
 import application.module.fight.base.skill.FightSkillWrapContainer;
@@ -9,7 +11,6 @@ import application.module.fight.base.skill.SkillCDController;
 import application.module.fight.base.skill.invoker.FightSkillInvoker;
 import application.module.fight.skill.data.message.SkillUse;
 import application.module.scene.operate.info.SkillUseInfo;
-import application.util.AttributeTemplateId;
 import template.FightSkillTemplate;
 
 /**
@@ -41,7 +42,7 @@ public class FightRuntimeContext extends UntypedAbstractActor {
             return;
         }
         FightSkillTemplate fightSkillTemplate = fightSkillWrap.getFightSkillTemplate();
-        if (fightAttributeMgr.getValue(AttributeTemplateId.HP) <= fightSkillTemplate.costHp() && fightAttributeMgr.getValue(AttributeTemplateId.MP) < fightSkillTemplate.costMp()) {
+        if (fightAttributeMgr.getValue(AttributeTemplateId.MAX_HP) <= fightSkillTemplate.costHp() && fightAttributeMgr.getValue(AttributeTemplateId.MAX_MP) < fightSkillTemplate.costMp()) {
             //TODO 考虑是否需要返回客户端错误信息
             return;
         }
@@ -67,8 +68,13 @@ public class FightRuntimeContext extends UntypedAbstractActor {
     public void onReceive(Object message) {
         switch (message) {
             case SkillUse skillUse -> skillUse(skillUse);
+            case AttributeUpdateFightAttribute attributeUpdateFightAttribute -> attributeUpdateFightAttribute(attributeUpdateFightAttribute);
             default -> throw new IllegalStateException("Unexpected value: " + message);
         }
+    }
+
+    private void attributeUpdateFightAttribute(AttributeUpdateFightAttribute attributeUpdateFightAttribute) {
+        fightAttributeMgr.setTemplateAttributeMap(attributeUpdateFightAttribute.result());
     }
 
     private void skillUse(SkillUse skillUse) {

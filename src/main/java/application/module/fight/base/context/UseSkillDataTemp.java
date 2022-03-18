@@ -16,6 +16,7 @@
 package application.module.fight.base.context;
 
 import akka.actor.ActorRef;
+import mobius.modular.client.Client;
 import protocol.Skill;
 
 import java.util.ArrayList;
@@ -38,7 +39,13 @@ public class UseSkillDataTemp {
     private float posX;
     private float posY;
     private long sceneId;
+    private byte profession;
+    private Client.ReceivedFromClient r;
     private ActorRef scene;
+    private int attackLevel;
+
+    private final List<TargetParameter> targetParameters = new ArrayList<>();
+
 
     public UseSkillDataTemp() {
     }
@@ -54,7 +61,6 @@ public class UseSkillDataTemp {
         this.sceneId = sceneId;
     }
 
-    private final List<Long> tempTargetIdList = new ArrayList<>();
 
     public static UseSkillDataTemp of() {
         return new UseSkillDataTemp();
@@ -135,5 +141,33 @@ public class UseSkillDataTemp {
 
     public void setScene(ActorRef scene) {
         this.scene = scene;
+    }
+
+    public byte getProfession() {
+        return profession;
+    }
+
+    public void setProfession(byte profession) {
+        this.profession = profession;
+    }
+
+    public int getAttackLevel() {
+        return attackLevel;
+    }
+
+    public void setAttackLevel(int attackLevel) {
+        this.attackLevel = attackLevel;
+    }
+
+    public List<TargetParameter> getTargetParameters() {
+        return targetParameters;
+    }
+
+    public Client.ReceivedFromClient getR() {
+        return r;
+    }
+
+    public void setR(Client.ReceivedFromClient r) {
+        this.r = r;
     }
 }

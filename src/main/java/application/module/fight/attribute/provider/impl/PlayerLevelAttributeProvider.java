@@ -12,12 +12,6 @@ import java.util.Map;
  */
 public class PlayerLevelAttributeProvider implements AttributeProvider {
 
-
-    @Override
-    public Map<Short, Long> provider(UpdateAttributeObject<?> o) {
-        return null;
-    }
-
     @Override
     public Map<Short, Long> subProvider(UpdateAttributeObject<?> o) {
         return null;

@@ -1,11 +1,18 @@
 package application.module.fight.attribute.node;
 
+import akka.actor.ActorRef;
+import application.module.fight.attribute.AttributeTemplateIdContainer;
+import application.module.fight.attribute.data.message.AttributeUpdateFightAttribute;
 import application.module.fight.attribute.provider.AttributeProvider;
 import application.util.AttributeMapUtil;
 import application.util.UpdateAttributeObject;
 import com.google.common.base.Preconditions;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import static application.module.fight.attribute.data.AttributeData.doAddAttribute;
 
 /**
  * <p>
@@ -22,47 +29,31 @@ public record AttributeNode(short typeId, AttributeNode fatherNode, List<Attribu
                             Map<Short, Long> id2AllFightAttributeMap,
                             AttributeProvider attributeProvider) {
 
-    public Set<Short> update(boolean isInit, UpdateAttributeObject<?> o) {
-        Set<Short> isUpdateTypeSet = new HashSet<>();
+    public void update(UpdateAttributeObject<?> o, long playerId, ActorRef sceneData) {
         Preconditions.checkNotNull(attributeProvider, "战力提供函数为空,策划配置函数名和代码函数名不一致！！！");
         Map<Short, Long> id2FightAttributeMap;
-        if (isInit) {
-            id2FightAttributeMap = attributeProvider.provider(o);
-        } else {
-            id2FightAttributeMap = attributeProvider.subProvider(o);
-        }
+
+        id2FightAttributeMap = attributeProvider.subProvider(o);
+
         //属性并未变化
         if (Objects.isNull(id2FightAttributeMap) || id2FightAttributeMap.isEmpty()) {
-            return null;
-        }
-        AttributeMapUtil.add(id2AllFightAttributeMap, id2FightAttributeMap);
-        //缓存有更新的模块
-        isUpdateTypeSet.add(typeId);
-        if (Objects.isNull(fatherNode)) {
-            return null;
-        }
-        //当前节点属性变化，父节点属性也会变化
-        fatherNode.addId2AllFightAttributeMap(id2FightAttributeMap, isUpdateTypeSet);
-        //初始化不计算，战力读缓存
-        if (isInit) {
-            return null;
-        }
-        return isUpdateTypeSet;
-
-    }
-
-    /**
-     * 新增属性至属性集合
-     */
-    public void addId2AllFightAttributeMap(Map<Short, Long> id2FightAttributeMap, Set<Short> isUpdateTypeSet) {
-        AttributeMapUtil.add(id2AllFightAttributeMap, id2FightAttributeMap);
-        //缓存有更新的模块
-        isUpdateTypeSet.add(typeId);
-        if (Objects.isNull(fatherNode)) {
             return;
         }
-        //当前节点属性变化，父节点属性也会变化
-        fatherNode.addId2AllFightAttributeMap(id2FightAttributeMap, isUpdateTypeSet);
+        Map<Short, Long> reduces = AttributeTemplateIdContainer.reducePartExt(id2AllFightAttributeMap, id2FightAttributeMap.keySet());
+        AttributeMapUtil.add(id2AllFightAttributeMap, id2FightAttributeMap);
+        Map<Short, Long> addExtMap = AttributeTemplateIdContainer.finalPartResult(id2AllFightAttributeMap, id2FightAttributeMap.keySet());
+        //TODO 计算模块战力
+
+        if (Objects.nonNull(fatherNode)) {
+            Map<Short, Long> fatherId2AllFightAttributeMap = fatherNode.id2AllFightAttributeMap;
+            AttributeMapUtil.sub(fatherId2AllFightAttributeMap, reduces);
+            AttributeMapUtil.add(fatherId2AllFightAttributeMap, addExtMap);
+
+            doAddAttribute(fatherId2AllFightAttributeMap, id2FightAttributeMap);
+            sceneData.tell(new AttributeUpdateFightAttribute(fatherId2AllFightAttributeMap, playerId), null);
+            //TODO 计算整体战力
+
+        }
     }
 
     public void addChildList(AttributeNode attributeNode) {
