@@ -69,24 +69,28 @@ public final class Player {
          *
          * @return The level.
          */
-    int getLevel();
+        int getLevel();
 
-    /**
-     * <code>required int32 gender = 4;</code>
-     * @return Whether the gender field is set.
-     */
-    boolean hasGender();
-    /**
-     * <code>required int32 gender = 4;</code>
-     * @return The gender.
-     */
-    int getGender();
+        /**
+         * <code>required int32 gender = 4;</code>
+         *
+         * @return Whether the gender field is set.
+         */
+        boolean hasGender();
 
-    /**
-     * <code>required int32 profession = 5;</code>
-     * @return Whether the profession field is set.
-     */
-    boolean hasProfession();
+        /**
+         * <code>required int32 gender = 4;</code>
+         *
+         * @return The gender.
+         */
+        int getGender();
+
+        /**
+         * <code>required int32 profession = 5;</code>
+         *
+         * @return Whether the profession field is set.
+         */
+        boolean hasProfession();
 
         /**
          * <code>required int32 profession = 5;</code>
@@ -164,27 +168,27 @@ public final class Player {
                         case 0:
                             done = true;
                             break;
-            case 8: {
-              bitField0_ |= 0x00000001;
-              roleId_ = input.readInt64();
-              break;
-            }
-            case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
-              name_ = bs;
-              break;
-            }
-            case 24: {
-              bitField0_ |= 0x00000004;
-              level_ = input.readInt32();
-              break;
-            }
-            case 32: {
-                bitField0_ |= 0x00000008;
-                gender_ = input.readInt32();
-                break;
-            }
+                        case 8: {
+                            bitField0_ |= 0x00000001;
+                            roleId_ = input.readInt64();
+                            break;
+                        }
+                        case 18: {
+                            com.google.protobuf.ByteString bs = input.readBytes();
+                            bitField0_ |= 0x00000002;
+                            name_ = bs;
+                            break;
+                        }
+                        case 24: {
+                            bitField0_ |= 0x00000004;
+                            level_ = input.readInt32();
+                            break;
+                        }
+                        case 32: {
+                            bitField0_ |= 0x00000008;
+                            gender_ = input.readInt32();
+                            break;
+                        }
                         case 40: {
                             bitField0_ |= 0x00000010;
                             profession_ = input.readInt32();
@@ -198,9 +202,9 @@ public final class Player {
                         default: {
                             if (!parseUnknownField(
                                     input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-                  }
-                  break;
+                                done = true;
+                            }
+                            break;
                         }
                     }
                 }
@@ -233,7 +237,7 @@ public final class Player {
         private long roleId_;
 
         /**
-         * <code>required int64 roleId = 1;</code>
+     * <code>required int64 roleId = 1;</code>
      * @return Whether the roleId field is set.
      */
     public boolean hasRoleId() {
@@ -249,31 +253,35 @@ public final class Player {
 
     public static final int NAME_FIELD_NUMBER = 2;
     private volatile java.lang.Object name_;
-    /**
-     * <code>required string name = 2;</code>
-     * @return Whether the name field is set.
-     */
-    public boolean hasName() {
-      return ((bitField0_ & 0x00000002) != 0);
-    }
-    /**
-     * <code>required string name = 2;</code>
-     * @return The name.
-     */
-    public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (ref instanceof java.lang.String) {
-            return (java.lang.String) ref;
-        } else {
-            com.google.protobuf.ByteString bs =
-                    (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            if (bs.isValidUtf8()) {
-                name_ = s;
-            }
-            return s;
+
+        /**
+         * <code>required string name = 2;</code>
+         *
+         * @return Whether the name field is set.
+         */
+        public boolean hasName() {
+            return ((bitField0_ & 0x00000002) != 0);
         }
-    }
+
+        /**
+         * <code>required string name = 2;</code>
+         *
+         * @return The name.
+         */
+        public java.lang.String getName() {
+            java.lang.Object ref = name_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                if (bs.isValidUtf8()) {
+                    name_ = s;
+                }
+                return s;
+            }
+        }
 
         /**
          * <code>required string name = 2;</code>
@@ -283,14 +291,14 @@ public final class Player {
         public com.google.protobuf.ByteString
         getNameBytes() {
             java.lang.Object ref = name_;
-            if (ref instanceof java.lang.String) {
-                com.google.protobuf.ByteString b =
-                        com.google.protobuf.ByteString.copyFromUtf8(
-                                (java.lang.String) ref);
-                name_ = b;
-                return b;
-            } else {
-                return (com.google.protobuf.ByteString) ref;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
       }
     }
 
@@ -354,48 +362,51 @@ public final class Player {
     public boolean hasLastLoginTime() {
       return ((bitField0_ & 0x00000020) != 0);
     }
-    /**
-     * <code>required int64 lastLoginTime = 6;</code>
-     * @return The lastLoginTime.
-     */
-    public long getLastLoginTime() {
-      return lastLoginTime_;
-    }
 
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
+        /**
+         * <code>required int64 lastLoginTime = 6;</code>
+         *
+         * @return The lastLoginTime.
+         */
+        public long getLastLoginTime() {
+            return lastLoginTime_;
+        }
 
-      if (!hasRoleId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-          return false;
-      }
-        if (!hasLevel()) {
-            memoizedIsInitialized = 0;
-            return false;
+        private byte memoizedIsInitialized = -1;
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            if (!hasRoleId()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasName()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasLevel()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasGender()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasProfession()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasLastLoginTime()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            memoizedIsInitialized = 1;
+            return true;
         }
-        if (!hasGender()) {
-            memoizedIsInitialized = 0;
-            return false;
-        }
-        if (!hasProfession()) {
-            memoizedIsInitialized = 0;
-            return false;
-        }
-        if (!hasLastLoginTime()) {
-            memoizedIsInitialized = 0;
-            return false;
-        }
-        memoizedIsInitialized = 1;
-        return true;
-    }
 
         @java.lang.Override
         public void writeTo(com.google.protobuf.CodedOutputStream output)
@@ -411,13 +422,13 @@ public final class Player {
             }
             if (((bitField0_ & 0x00000008) != 0)) {
                 output.writeInt32(4, gender_);
-      }
-      if (((bitField0_ & 0x00000010) != 0)) {
-        output.writeInt32(5, profession_);
-      }
-      if (((bitField0_ & 0x00000020) != 0)) {
-        output.writeInt64(6, lastLoginTime_);
-      }
+            }
+            if (((bitField0_ & 0x00000010) != 0)) {
+                output.writeInt32(5, profession_);
+            }
+            if (((bitField0_ & 0x00000020) != 0)) {
+                output.writeInt64(6, lastLoginTime_);
+            }
             unknownFields.writeTo(output);
         }
 
@@ -435,51 +446,51 @@ public final class Player {
                 size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
             }
             if (((bitField0_ & 0x00000004) != 0)) {
-          size += com.google.protobuf.CodedOutputStream
-                  .computeInt32Size(3, level_);
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(3, level_);
             }
             if (((bitField0_ & 0x00000008) != 0)) {
-          size += com.google.protobuf.CodedOutputStream
-                  .computeInt32Size(4, gender_);
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(4, gender_);
             }
             if (((bitField0_ & 0x00000010) != 0)) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeInt32Size(5, profession_);
-            }
-            if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(6, lastLoginTime_);
+          .computeInt32Size(5, profession_);
       }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
+      if (((bitField0_ & 0x00000020) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+                .computeInt64Size(6, lastLoginTime_);
+      }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
         }
 
         @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof protocol.Player.PlayerInfo)) {
-        return super.equals(obj);
-      }
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof protocol.Player.PlayerInfo)) {
+                return super.equals(obj);
+            }
             protocol.Player.PlayerInfo other = (protocol.Player.PlayerInfo) obj;
 
             if (hasRoleId() != other.hasRoleId()) return false;
-      if (hasRoleId()) {
-        if (getRoleId()
-                != other.getRoleId()) return false;
-      }
-      if (hasName() != other.hasName()) return false;
-      if (hasName()) {
-        if (!getName()
-                .equals(other.getName())) return false;
-      }
-      if (hasLevel() != other.hasLevel()) return false;
-      if (hasLevel()) {
-        if (getLevel()
-                != other.getLevel()) return false;
-      }
+            if (hasRoleId()) {
+                if (getRoleId()
+                        != other.getRoleId()) return false;
+            }
+            if (hasName() != other.hasName()) return false;
+            if (hasName()) {
+                if (!getName()
+                        .equals(other.getName())) return false;
+            }
+            if (hasLevel() != other.hasLevel()) return false;
+            if (hasLevel()) {
+                if (getLevel()
+                        != other.getLevel()) return false;
+            }
             if (hasGender() != other.hasGender()) return false;
             if (hasGender()) {
                 if (getGender()
@@ -492,10 +503,10 @@ public final class Player {
             }
             if (hasLastLoginTime() != other.hasLastLoginTime()) return false;
             if (hasLastLoginTime()) {
-        if (getLastLoginTime()
-            != other.getLastLoginTime()) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
+                if (getLastLoginTime()
+                        != other.getLastLoginTime()) return false;
+            }
+            if (!unknownFields.equals(other.unknownFields)) return false;
             return true;
         }
 
@@ -698,14 +709,14 @@ public final class Player {
                 bitField0_ = (bitField0_ & ~0x00000008);
                 profession_ = 0;
                 bitField0_ = (bitField0_ & ~0x00000010);
-          lastLoginTime_ = 0L;
+                lastLoginTime_ = 0L;
                 bitField0_ = (bitField0_ & ~0x00000020);
                 return this;
             }
 
             @java.lang.Override
             public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
+          getDescriptorForType() {
         return protocol.Player.internal_static_protocol_PlayerInfo_descriptor;
       }
 
@@ -718,44 +729,44 @@ public final class Player {
       public protocol.Player.PlayerInfo build() {
         protocol.Player.PlayerInfo result = buildPartial();
         if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+            throw newUninitializedMessageException(result);
         }
-        return result;
-      }
-
-      @java.lang.Override
-      public protocol.Player.PlayerInfo buildPartial() {
-        protocol.Player.PlayerInfo result = new protocol.Player.PlayerInfo(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.roleId_ = roleId_;
-          to_bitField0_ |= 0x00000001;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.name_ = name_;
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.level_ = level_;
-          to_bitField0_ |= 0x00000004;
-        }
-          if (((from_bitField0_ & 0x00000008) != 0)) {
-              result.gender_ = gender_;
-              to_bitField0_ |= 0x00000008;
-          }
-          if (((from_bitField0_ & 0x00000010) != 0)) {
-              result.profession_ = profession_;
-              to_bitField0_ |= 0x00000010;
-          }
-          if (((from_bitField0_ & 0x00000020) != 0)) {
-              result.lastLoginTime_ = lastLoginTime_;
-              to_bitField0_ |= 0x00000020;
-          }
-          result.bitField0_ = to_bitField0_;
-          onBuilt();
           return result;
       }
+
+            @java.lang.Override
+            public protocol.Player.PlayerInfo buildPartial() {
+                protocol.Player.PlayerInfo result = new protocol.Player.PlayerInfo(this);
+                int from_bitField0_ = bitField0_;
+                int to_bitField0_ = 0;
+                if (((from_bitField0_ & 0x00000001) != 0)) {
+                    result.roleId_ = roleId_;
+                    to_bitField0_ |= 0x00000001;
+                }
+                if (((from_bitField0_ & 0x00000002) != 0)) {
+                    to_bitField0_ |= 0x00000002;
+                }
+                result.name_ = name_;
+                if (((from_bitField0_ & 0x00000004) != 0)) {
+                    result.level_ = level_;
+                    to_bitField0_ |= 0x00000004;
+                }
+                if (((from_bitField0_ & 0x00000008) != 0)) {
+                    result.gender_ = gender_;
+                    to_bitField0_ |= 0x00000008;
+                }
+                if (((from_bitField0_ & 0x00000010) != 0)) {
+                    result.profession_ = profession_;
+                    to_bitField0_ |= 0x00000010;
+                }
+                if (((from_bitField0_ & 0x00000020) != 0)) {
+                    result.lastLoginTime_ = lastLoginTime_;
+                    to_bitField0_ |= 0x00000020;
+                }
+                result.bitField0_ = to_bitField0_;
+                onBuilt();
+                return result;
+            }
 
             @java.lang.Override
             public Builder clone() {
@@ -805,8 +816,8 @@ public final class Player {
                 }
             }
 
-            public Builder mergeFrom(protocol.Player.PlayerInfo other) {
-                if (other == protocol.Player.PlayerInfo.getDefaultInstance()) return this;
+      public Builder mergeFrom(protocol.Player.PlayerInfo other) {
+        if (other == protocol.Player.PlayerInfo.getDefaultInstance()) return this;
         if (other.hasRoleId()) {
           setRoleId(other.getRoleId());
         }
@@ -819,41 +830,41 @@ public final class Player {
           setLevel(other.getLevel());
         }
         if (other.hasGender()) {
-          setGender(other.getGender());
+            setGender(other.getGender());
         }
-        if (other.hasProfession()) {
-          setProfession(other.getProfession());
-        }
-        if (other.hasLastLoginTime()) {
-          setLastLoginTime(other.getLastLoginTime());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
+          if (other.hasProfession()) {
+              setProfession(other.getProfession());
+          }
+          if (other.hasLastLoginTime()) {
+              setLastLoginTime(other.getLastLoginTime());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
       }
 
-      @java.lang.Override
-      public final boolean isInitialized() {
-          if (!hasRoleId()) {
-              return false;
-          }
-          if (!hasName()) {
-              return false;
-          }
-          if (!hasLevel()) {
-              return false;
-          }
-          if (!hasGender()) {
-              return false;
-          }
-          if (!hasProfession()) {
-              return false;
-          }
-          if (!hasLastLoginTime()) {
-              return false;
-          }
-          return true;
-      }
+            @java.lang.Override
+            public final boolean isInitialized() {
+                if (!hasRoleId()) {
+                    return false;
+                }
+                if (!hasName()) {
+                    return false;
+                }
+                if (!hasLevel()) {
+                    return false;
+                }
+                if (!hasGender()) {
+                    return false;
+                }
+                if (!hasProfession()) {
+                    return false;
+                }
+                if (!hasLastLoginTime()) {
+                    return false;
+                }
+                return true;
+            }
 
             @java.lang.Override
             public Builder mergeFrom(
@@ -864,11 +875,11 @@ public final class Player {
                 try {
                     parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
                 } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                    parsedMessage = (protocol.Player.PlayerInfo) e.getUnfinishedMessage();
-                    throw e.unwrapIOException();
-                } finally {
-                    if (parsedMessage != null) {
-                        mergeFrom(parsedMessage);
+          parsedMessage = (protocol.Player.PlayerInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
         return this;
@@ -908,36 +919,40 @@ public final class Player {
       public Builder clearRoleId() {
         bitField0_ = (bitField0_ & ~0x00000001);
         roleId_ = 0L;
-        onChanged();
-        return this;
+          onChanged();
+          return this;
       }
 
-      private java.lang.Object name_ = "";
-      /**
-       * <code>required string name = 2;</code>
-       * @return Whether the name field is set.
-       */
-      public boolean hasName() {
-        return ((bitField0_ & 0x00000002) != 0);
-      }
-      /**
-       * <code>required string name = 2;</code>
-       * @return The name.
-       */
-      public java.lang.String getName() {
-          java.lang.Object ref = name_;
-          if (!(ref instanceof java.lang.String)) {
-              com.google.protobuf.ByteString bs =
-                      (com.google.protobuf.ByteString) ref;
-              java.lang.String s = bs.toStringUtf8();
-              if (bs.isValidUtf8()) {
-                  name_ = s;
-              }
-              return s;
-          } else {
-              return (java.lang.String) ref;
-          }
-      }
+            private java.lang.Object name_ = "";
+
+            /**
+             * <code>required string name = 2;</code>
+             *
+             * @return Whether the name field is set.
+             */
+            public boolean hasName() {
+                return ((bitField0_ & 0x00000002) != 0);
+            }
+
+            /**
+             * <code>required string name = 2;</code>
+             *
+             * @return The name.
+             */
+            public java.lang.String getName() {
+                java.lang.Object ref = name_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    if (bs.isValidUtf8()) {
+                        name_ = s;
+                    }
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
 
             /**
              * <code>required string name = 2;</code>
@@ -989,24 +1004,24 @@ public final class Player {
 
             /**
              * <code>required string name = 2;</code>
-             *
              * @param value The bytes for name to set.
              * @return This builder for chaining.
-             */
-            public Builder setNameBytes(
-                    com.google.protobuf.ByteString value) {
-                if (value == null) {
-                    throw new NullPointerException();
-                }
-                bitField0_ |= 0x00000002;
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
         name_ = value;
         onChanged();
         return this;
       }
 
-      private int level_ ;
-      /**
-       * <code>required int32 level = 3;</code>
+      private int level_;
+
+            /**
+             * <code>required int32 level = 3;</code>
        * @return Whether the level field is set.
        */
       public boolean hasLevel() {
@@ -1027,7 +1042,7 @@ public final class Player {
       public Builder setLevel(int value) {
         bitField0_ |= 0x00000004;
         level_ = value;
-          onChanged();
+        onChanged();
         return this;
       }
       /**
@@ -1041,10 +1056,11 @@ public final class Player {
         return this;
       }
 
-      private int gender_ ;
-      /**
-       * <code>required int32 gender = 4;</code>
-       * @return Whether the gender field is set.
+            private int gender_;
+
+            /**
+             * <code>required int32 gender = 4;</code>
+             * @return Whether the gender field is set.
        */
       public boolean hasGender() {
         return ((bitField0_ & 0x00000008) != 0);
@@ -1064,8 +1080,8 @@ public final class Player {
       public Builder setGender(int value) {
         bitField0_ |= 0x00000008;
         gender_ = value;
-          onChanged();
-          return this;
+        onChanged();
+        return this;
       }
       /**
        * <code>required int32 gender = 4;</code>
@@ -1099,37 +1115,43 @@ public final class Player {
        * @return This builder for chaining.
        */
       public Builder setProfession(int value) {
-        bitField0_ |= 0x00000010;
-        profession_ = value;
-        onChanged();
+          bitField0_ |= 0x00000010;
+          profession_ = value;
+          onChanged();
           return this;
       }
-      /**
-       * <code>required int32 profession = 5;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearProfession() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        profession_ = 0;
-        onChanged();
-        return this;
-      }
 
-      private long lastLoginTime_ ;
-      /**
-       * <code>required int64 lastLoginTime = 6;</code>
-       * @return Whether the lastLoginTime field is set.
-       */
-      public boolean hasLastLoginTime() {
-        return ((bitField0_ & 0x00000020) != 0);
-      }
-      /**
-       * <code>required int64 lastLoginTime = 6;</code>
-       * @return The lastLoginTime.
-       */
-      public long getLastLoginTime() {
-          return lastLoginTime_;
-      }
+            /**
+             * <code>required int32 profession = 5;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearProfession() {
+                bitField0_ = (bitField0_ & ~0x00000010);
+                profession_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private long lastLoginTime_;
+
+            /**
+             * <code>required int64 lastLoginTime = 6;</code>
+             *
+             * @return Whether the lastLoginTime field is set.
+             */
+            public boolean hasLastLoginTime() {
+                return ((bitField0_ & 0x00000020) != 0);
+            }
+
+            /**
+             * <code>required int64 lastLoginTime = 6;</code>
+             *
+             * @return The lastLoginTime.
+             */
+            public long getLastLoginTime() {
+                return lastLoginTime_;
+            }
 
             /**
              * <code>required int64 lastLoginTime = 6;</code>
@@ -1271,7 +1293,7 @@ public final class Player {
                         default: {
                             if (!parseUnknownField(
                                     input, unknownFields, extensionRegistry, tag)) {
-                      done = true;
+                                done = true;
                             }
                             break;
                         }
@@ -1315,20 +1337,20 @@ public final class Player {
 
         @java.lang.Override
         public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      unknownFields.writeTo(output);
-    }
+                throws java.io.IOException {
+            unknownFields.writeTo(output);
+        }
 
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
+        @java.lang.Override
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
 
-      size = 0;
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-        return size;
-    }
+            size = 0;
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
 
         @java.lang.Override
         public boolean equals(final java.lang.Object obj) {
@@ -1512,14 +1534,14 @@ public final class Player {
 
             @java.lang.Override
             public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return protocol.Player.internal_static_protocol_CS10020_descriptor;
-      }
+            getDescriptorForType() {
+                return protocol.Player.internal_static_protocol_CS10020_descriptor;
+            }
 
-      @java.lang.Override
-      public protocol.Player.CS10020 getDefaultInstanceForType() {
-          return protocol.Player.CS10020.getDefaultInstance();
-      }
+            @java.lang.Override
+            public protocol.Player.CS10020 getDefaultInstanceForType() {
+                return protocol.Player.CS10020.getDefaultInstance();
+            }
 
             @java.lang.Override
             public protocol.Player.CS10020 build() {
@@ -1854,21 +1876,21 @@ public final class Player {
             for (int i = 0; i < getPlayerInfoCount(); i++) {
                 if (!getPlayerInfo(i).isInitialized()) {
           memoizedIsInitialized = 0;
-          return false;
+                    return false;
+                }
+            }
+            memoizedIsInitialized = 1;
+            return true;
         }
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
 
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
-      for (int i = 0; i < playerInfo_.size(); i++) {
-          output.writeMessage(1, playerInfo_.get(i));
-      }
-        unknownFields.writeTo(output);
-    }
+        @java.lang.Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            for (int i = 0; i < playerInfo_.size(); i++) {
+                output.writeMessage(1, playerInfo_.get(i));
+            }
+            unknownFields.writeTo(output);
+        }
 
         @java.lang.Override
         public int getSerializedSize() {
@@ -1879,27 +1901,27 @@ public final class Player {
             for (int i = 0; i < playerInfo_.size(); i++) {
                 size += com.google.protobuf.CodedOutputStream
                         .computeMessageSize(1, playerInfo_.get(i));
-      }
-        size += unknownFields.getSerializedSize();
+            }
+            size += unknownFields.getSerializedSize();
             memoizedSize = size;
-      return size;
-    }
+            return size;
+        }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-        if (obj == this) {
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof protocol.Player.SC10020)) {
+                return super.equals(obj);
+            }
+            protocol.Player.SC10020 other = (protocol.Player.SC10020) obj;
+
+            if (!getPlayerInfoList()
+                    .equals(other.getPlayerInfoList())) return false;
+            if (!unknownFields.equals(other.unknownFields)) return false;
             return true;
         }
-        if (!(obj instanceof protocol.Player.SC10020)) {
-            return super.equals(obj);
-        }
-        protocol.Player.SC10020 other = (protocol.Player.SC10020) obj;
-
-        if (!getPlayerInfoList()
-                .equals(other.getPlayerInfoList())) return false;
-        if (!unknownFields.equals(other.unknownFields)) return false;
-        return true;
-    }
 
         @java.lang.Override
         public int hashCode() {
@@ -2061,42 +2083,42 @@ public final class Player {
 
             private void maybeForceBuilderInitialization() {
                 if (com.google.protobuf.GeneratedMessageV3
-                  .alwaysUseFieldBuilders) {
-              getPlayerInfoFieldBuilder();
-          }
-      }
+                        .alwaysUseFieldBuilders) {
+                    getPlayerInfoFieldBuilder();
+                }
+            }
 
             @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        if (playerInfoBuilder_ == null) {
-          playerInfo_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-            playerInfoBuilder_.clear();
-        }
+            public Builder clear() {
+                super.clear();
+                if (playerInfoBuilder_ == null) {
+                    playerInfo_ = java.util.Collections.emptyList();
+                    bitField0_ = (bitField0_ & ~0x00000001);
+                } else {
+                    playerInfoBuilder_.clear();
+                }
                 return this;
             }
 
             @java.lang.Override
             public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return protocol.Player.internal_static_protocol_SC10020_descriptor;
-      }
+            getDescriptorForType() {
+                return protocol.Player.internal_static_protocol_SC10020_descriptor;
+            }
 
-      @java.lang.Override
-      public protocol.Player.SC10020 getDefaultInstanceForType() {
-        return protocol.Player.SC10020.getDefaultInstance();
-      }
+            @java.lang.Override
+            public protocol.Player.SC10020 getDefaultInstanceForType() {
+                return protocol.Player.SC10020.getDefaultInstance();
+            }
 
-      @java.lang.Override
-      public protocol.Player.SC10020 build() {
-        protocol.Player.SC10020 result = buildPartial();
-        if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-        }
-          return result;
-      }
+            @java.lang.Override
+            public protocol.Player.SC10020 build() {
+                protocol.Player.SC10020 result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
 
             @java.lang.Override
             public protocol.Player.SC10020 buildPartial() {
@@ -2156,7 +2178,7 @@ public final class Player {
             @java.lang.Override
             public Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof protocol.Player.SC10020) {
-          return mergeFrom((protocol.Player.SC10020) other);
+                    return mergeFrom((protocol.Player.SC10020) other);
                 } else {
                     super.mergeFrom(other);
                     return this;
@@ -2379,10 +2401,10 @@ public final class Player {
                 if (playerInfoBuilder_ == null) {
                     ensurePlayerInfoIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, playerInfo_);
-          onChanged();
-        } else {
-          playerInfoBuilder_.addAllMessages(values);
+                            values, playerInfo_);
+                    onChanged();
+                } else {
+                    playerInfoBuilder_.addAllMessages(values);
                 }
                 return this;
             }
@@ -2697,18 +2719,18 @@ public final class Player {
                         }
                         default: {
                             if (!parseUnknownField(
-                          input, unknownFields, extensionRegistry, tag)) {
-                      done = true;
-                  }
-                  break;
-              }
-          }
-        }
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
             } catch (com.google.protobuf.InvalidProtocolBufferException e) {
                 throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-                e).setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
             } finally {
                 this.unknownFields = unknownFields.build();
                 makeExtensionsImmutable();
@@ -2734,11 +2756,10 @@ public final class Player {
 
         /**
          * <pre>
-         * 名字
+         *名字
          * </pre>
          *
          * <code>required string name = 1;</code>
-         *
          * @return Whether the name field is set.
          */
         public boolean hasName() {
@@ -2747,11 +2768,10 @@ public final class Player {
 
         /**
          * <pre>
-         * 名字
+         *名字
          * </pre>
          *
          * <code>required string name = 1;</code>
-         *
          * @return The name.
          */
         public java.lang.String getName() {
@@ -2771,11 +2791,10 @@ public final class Player {
 
         /**
          * <pre>
-         * 名字
+         *名字
          * </pre>
          *
          * <code>required string name = 1;</code>
-         *
          * @return The bytes for name.
          */
         public com.google.protobuf.ByteString
@@ -2788,9 +2807,9 @@ public final class Player {
                 name_ = b;
                 return b;
             } else {
-            return (com.google.protobuf.ByteString) ref;
+                return (com.google.protobuf.ByteString) ref;
+            }
         }
-    }
 
         public static final int GENDER_FIELD_NUMBER = 2;
         private int gender_;
@@ -2801,11 +2820,11 @@ public final class Player {
          * </pre>
          *
          * <code>required int32 gender = 2;</code>
-     * @return Whether the gender field is set.
-     */
-    public boolean hasGender() {
-      return ((bitField0_ & 0x00000002) != 0);
-    }
+         * @return Whether the gender field is set.
+         */
+        public boolean hasGender() {
+            return ((bitField0_ & 0x00000002) != 0);
+        }
 
         /**
          * <pre>
@@ -2855,38 +2874,38 @@ public final class Player {
         public final boolean isInitialized() {
             byte isInitialized = memoizedIsInitialized;
             if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
+            if (isInitialized == 0) return false;
 
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasGender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasProfession()) {
-          memoizedIsInitialized = 0;
-          return false;
-      }
+            if (!hasName()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasGender()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasProfession()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
             memoizedIsInitialized = 1;
-      return true;
-    }
+            return true;
+        }
 
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-          com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
-      }
-        if (((bitField0_ & 0x00000002) != 0)) {
-            output.writeInt32(2, gender_);
+        @java.lang.Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (((bitField0_ & 0x00000001) != 0)) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
+            }
+            if (((bitField0_ & 0x00000002) != 0)) {
+                output.writeInt32(2, gender_);
+            }
+            if (((bitField0_ & 0x00000004) != 0)) {
+                output.writeInt32(3, profession_);
+            }
+            unknownFields.writeTo(output);
         }
-        if (((bitField0_ & 0x00000004) != 0)) {
-            output.writeInt32(3, profession_);
-        }
-        unknownFields.writeTo(output);
-    }
 
         @java.lang.Override
         public int getSerializedSize() {
@@ -2898,13 +2917,13 @@ public final class Player {
                 size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
             }
             if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, gender_);
-      }
-        if (((bitField0_ & 0x00000004) != 0)) {
-            size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, profession_);
-      }
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(2, gender_);
+            }
+            if (((bitField0_ & 0x00000004) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(3, profession_);
+            }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
             return size;
@@ -3087,7 +3106,7 @@ public final class Player {
             }
 
             @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return protocol.Player.internal_static_protocol_CS10021_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
@@ -3095,30 +3114,31 @@ public final class Player {
             }
 
             // Construct using protocol.Player.CS10021.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
 
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
 
             @java.lang.Override
             public Builder clear() {
                 super.clear();
                 name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        gender_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000002);
-        profession_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000004);
+                bitField0_ = (bitField0_ & ~0x00000001);
+                gender_ = 0;
+                bitField0_ = (bitField0_ & ~0x00000002);
+                profession_ = 0;
+                bitField0_ = (bitField0_ & ~0x00000004);
                 return this;
             }
 
@@ -3225,43 +3245,43 @@ public final class Player {
                 if (other.hasProfession()) {
                     setProfession(other.getProfession());
                 }
-            this.mergeUnknownFields(other.unknownFields);
-            onChanged();
-            return this;
-      }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
 
-      @java.lang.Override
-      public final boolean isInitialized() {
-        if (!hasName()) {
-            return false;
-        }
-          if (!hasGender()) {
-              return false;
-          }
-          if (!hasProfession()) {
-              return false;
-          }
-        return true;
-      }
+            @java.lang.Override
+            public final boolean isInitialized() {
+                if (!hasName()) {
+                    return false;
+                }
+                if (!hasGender()) {
+                    return false;
+                }
+                if (!hasProfession()) {
+                    return false;
+                }
+                return true;
+            }
 
-      @java.lang.Override
-      public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-          protocol.Player.CS10021 parsedMessage = null;
-          try {
-              parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-              parsedMessage = (protocol.Player.CS10021) e.getUnfinishedMessage();
-              throw e.unwrapIOException();
-          } finally {
-              if (parsedMessage != null) {
-                  mergeFrom(parsedMessage);
-              }
-          }
-          return this;
-      }
+            @java.lang.Override
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                protocol.Player.CS10021 parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (protocol.Player.CS10021) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
 
             private int bitField0_;
 
@@ -3366,10 +3386,11 @@ public final class Player {
 
             /**
              * <pre>
-             *名字
+             * 名字
              * </pre>
              *
              * <code>required string name = 1;</code>
+             *
              * @param value The bytes for name to set.
              * @return This builder for chaining.
              */
@@ -3720,17 +3741,19 @@ public final class Player {
          */
         public boolean getSuccess() {
             return success_;
-    }
+        }
 
-    public static final int CONTENT_FIELD_NUMBER = 2;
-    private volatile java.lang.Object content_;
-    /**
-     * <code>optional string content = 2;</code>
-     * @return Whether the content field is set.
-     */
-    public boolean hasContent() {
-        return ((bitField0_ & 0x00000002) != 0);
-    }
+        public static final int CONTENT_FIELD_NUMBER = 2;
+        private volatile java.lang.Object content_;
+
+        /**
+         * <code>optional string content = 2;</code>
+         *
+         * @return Whether the content field is set.
+         */
+        public boolean hasContent() {
+            return ((bitField0_ & 0x00000002) != 0);
+        }
 
         /**
          * <code>optional string content = 2;</code>
@@ -3745,29 +3768,31 @@ public final class Player {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
                 java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          content_ = s;
+                if (bs.isValidUtf8()) {
+                    content_ = s;
+                }
+                return s;
+            }
         }
-        return s;
-      }
-    }
-    /**
-     * <code>optional string content = 2;</code>
-     * @return The bytes for content.
-     */
-    public com.google.protobuf.ByteString
-    getContentBytes() {
-      java.lang.Object ref = content_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b =
-            com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-          content_ = b;
-          return b;
-      } else {
-          return (com.google.protobuf.ByteString) ref;
-      }
-    }
+
+        /**
+         * <code>optional string content = 2;</code>
+         *
+         * @return The bytes for content.
+         */
+        public com.google.protobuf.ByteString
+        getContentBytes() {
+            java.lang.Object ref = content_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                content_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
 
         private byte memoizedIsInitialized = -1;
 
@@ -3963,346 +3988,347 @@ public final class Player {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     *创角结果
-     * </pre>
-     *
-     * Protobuf type {@code protocol.SC10021}
-     */
-    public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:protocol.SC10021)
-            protocol.Player.SC10021OrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-            return protocol.Player.internal_static_protocol_SC10021_descriptor;
+            Builder builder = new Builder(parent);
+            return builder;
         }
 
-        @java.lang.Override
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-            return protocol.Player.internal_static_protocol_SC10021_fieldAccessorTable
-                    .ensureFieldAccessorsInitialized(
-                            protocol.Player.SC10021.class, protocol.Player.SC10021.Builder.class);
-        }
-
-        // Construct using protocol.Player.SC10021.newBuilder()
-        private Builder() {
-            maybeForceBuilderInitialization();
-        }
-
-        private Builder(
-                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            super(parent);
-            maybeForceBuilderInitialization();
-        }
-
-        private void maybeForceBuilderInitialization() {
-            if (com.google.protobuf.GeneratedMessageV3
-                    .alwaysUseFieldBuilders) {
+        /**
+         * <pre>
+         * 创角结果
+         * </pre>
+         * <p>
+         * Protobuf type {@code protocol.SC10021}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:protocol.SC10021)
+                protocol.Player.SC10021OrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return protocol.Player.internal_static_protocol_SC10021_descriptor;
             }
-        }
 
-        @java.lang.Override
-        public Builder clear() {
-            super.clear();
-            success_ = false;
-            bitField0_ = (bitField0_ & ~0x00000001);
-            content_ = "";
-            bitField0_ = (bitField0_ & ~0x00000002);
-            return this;
-        }
-
-        @java.lang.Override
-        public com.google.protobuf.Descriptors.Descriptor
-        getDescriptorForType() {
-            return protocol.Player.internal_static_protocol_SC10021_descriptor;
-        }
-
-        @java.lang.Override
-        public protocol.Player.SC10021 getDefaultInstanceForType() {
-            return protocol.Player.SC10021.getDefaultInstance();
-        }
-
-        @java.lang.Override
-        public protocol.Player.SC10021 build() {
-            protocol.Player.SC10021 result = buildPartial();
-            if (!result.isInitialized()) {
-                throw newUninitializedMessageException(result);
+            @java.lang.Override
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return protocol.Player.internal_static_protocol_SC10021_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                protocol.Player.SC10021.class, protocol.Player.SC10021.Builder.class);
             }
-            return result;
-        }
 
-        @java.lang.Override
-        public protocol.Player.SC10021 buildPartial() {
-            protocol.Player.SC10021 result = new protocol.Player.SC10021(this);
-            int from_bitField0_ = bitField0_;
-            int to_bitField0_ = 0;
-            if (((from_bitField0_ & 0x00000001) != 0)) {
-                result.success_ = success_;
-                to_bitField0_ |= 0x00000001;
+            // Construct using protocol.Player.SC10021.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
             }
-            if (((from_bitField0_ & 0x00000002) != 0)) {
-                to_bitField0_ |= 0x00000002;
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
             }
-            result.content_ = content_;
-            result.bitField0_ = to_bitField0_;
-            onBuilt();
-            return result;
-        }
 
-        @java.lang.Override
-        public Builder clone() {
-            return super.clone();
-        }
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
 
-        @java.lang.Override
-        public Builder setField(
-                com.google.protobuf.Descriptors.FieldDescriptor field,
-                java.lang.Object value) {
-            return super.setField(field, value);
-        }
-
-        @java.lang.Override
-        public Builder clearField(
-                com.google.protobuf.Descriptors.FieldDescriptor field) {
-            return super.clearField(field);
-        }
-
-        @java.lang.Override
-        public Builder clearOneof(
-                com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-            return super.clearOneof(oneof);
-        }
-
-        @java.lang.Override
-        public Builder setRepeatedField(
-                com.google.protobuf.Descriptors.FieldDescriptor field,
-                int index, java.lang.Object value) {
-            return super.setRepeatedField(field, index, value);
-        }
-
-        @java.lang.Override
-        public Builder addRepeatedField(
-                com.google.protobuf.Descriptors.FieldDescriptor field,
-                java.lang.Object value) {
-            return super.addRepeatedField(field, value);
-        }
-
-        @java.lang.Override
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-            if (other instanceof protocol.Player.SC10021) {
-                return mergeFrom((protocol.Player.SC10021) other);
-            } else {
-                super.mergeFrom(other);
+            @java.lang.Override
+            public Builder clear() {
+                super.clear();
+                success_ = false;
+                bitField0_ = (bitField0_ & ~0x00000001);
+                content_ = "";
+                bitField0_ = (bitField0_ & ~0x00000002);
                 return this;
             }
-        }
 
-        public Builder mergeFrom(protocol.Player.SC10021 other) {
-            if (other == protocol.Player.SC10021.getDefaultInstance()) return this;
-            if (other.hasSuccess()) {
-                setSuccess(other.getSuccess());
+            @java.lang.Override
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return protocol.Player.internal_static_protocol_SC10021_descriptor;
             }
-            if (other.hasContent()) {
-                bitField0_ |= 0x00000002;
-                content_ = other.content_;
+
+            @java.lang.Override
+            public protocol.Player.SC10021 getDefaultInstanceForType() {
+                return protocol.Player.SC10021.getDefaultInstance();
+            }
+
+            @java.lang.Override
+            public protocol.Player.SC10021 build() {
+                protocol.Player.SC10021 result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            @java.lang.Override
+            public protocol.Player.SC10021 buildPartial() {
+                protocol.Player.SC10021 result = new protocol.Player.SC10021(this);
+                int from_bitField0_ = bitField0_;
+                int to_bitField0_ = 0;
+                if (((from_bitField0_ & 0x00000001) != 0)) {
+                    result.success_ = success_;
+                    to_bitField0_ |= 0x00000001;
+                }
+                if (((from_bitField0_ & 0x00000002) != 0)) {
+                    to_bitField0_ |= 0x00000002;
+                }
+                result.content_ = content_;
+                result.bitField0_ = to_bitField0_;
+                onBuilt();
+                return result;
+            }
+
+            @java.lang.Override
+            public Builder clone() {
+                return super.clone();
+            }
+
+            @java.lang.Override
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.setField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return super.clearField(field);
+            }
+
+            @java.lang.Override
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return super.clearOneof(oneof);
+            }
+
+            @java.lang.Override
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return super.setRepeatedField(field, index, value);
+            }
+
+            @java.lang.Override
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.addRepeatedField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof protocol.Player.SC10021) {
+                    return mergeFrom((protocol.Player.SC10021) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(protocol.Player.SC10021 other) {
+                if (other == protocol.Player.SC10021.getDefaultInstance()) return this;
+                if (other.hasSuccess()) {
+                    setSuccess(other.getSuccess());
+                }
+                if (other.hasContent()) {
+                    bitField0_ |= 0x00000002;
+                    content_ = other.content_;
+                    onChanged();
+                }
+                this.mergeUnknownFields(other.unknownFields);
                 onChanged();
+                return this;
             }
-            this.mergeUnknownFields(other.unknownFields);
-            onChanged();
-            return this;
-        }
 
-        @java.lang.Override
-        public final boolean isInitialized() {
-            if (!hasSuccess()) {
-                return false;
+            @java.lang.Override
+            public final boolean isInitialized() {
+                if (!hasSuccess()) {
+                    return false;
+                }
+                return true;
             }
-            return true;
-        }
 
-        @java.lang.Override
-        public Builder mergeFrom(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-            protocol.Player.SC10021 parsedMessage = null;
-            try {
-                parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                parsedMessage = (protocol.Player.SC10021) e.getUnfinishedMessage();
-                throw e.unwrapIOException();
-            } finally {
-                if (parsedMessage != null) {
-                    mergeFrom(parsedMessage);
+            @java.lang.Override
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                protocol.Player.SC10021 parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (protocol.Player.SC10021) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private int bitField0_;
+
+            private boolean success_;
+
+            /**
+             * <code>required bool success = 1;</code>
+             *
+             * @return Whether the success field is set.
+             */
+            public boolean hasSuccess() {
+                return ((bitField0_ & 0x00000001) != 0);
+            }
+
+            /**
+             * <code>required bool success = 1;</code>
+             *
+             * @return The success.
+             */
+            public boolean getSuccess() {
+                return success_;
+            }
+
+            /**
+             * <code>required bool success = 1;</code>
+             *
+             * @param value The success to set.
+             * @return This builder for chaining.
+             */
+            public Builder setSuccess(boolean value) {
+                bitField0_ |= 0x00000001;
+                success_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>required bool success = 1;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearSuccess() {
+                bitField0_ = (bitField0_ & ~0x00000001);
+                success_ = false;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object content_ = "";
+
+            /**
+             * <code>optional string content = 2;</code>
+             *
+             * @return Whether the content field is set.
+             */
+            public boolean hasContent() {
+                return ((bitField0_ & 0x00000002) != 0);
+            }
+
+            /**
+             * <code>optional string content = 2;</code>
+             *
+             * @return The content.
+             */
+            public java.lang.String getContent() {
+                java.lang.Object ref = content_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    if (bs.isValidUtf8()) {
+                        content_ = s;
+                    }
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
                 }
             }
-            return this;
-        }
 
-        private int bitField0_;
-
-        private boolean success_;
-
-        /**
-         * <code>required bool success = 1;</code>
-         *
-         * @return Whether the success field is set.
-         */
-        public boolean hasSuccess() {
-            return ((bitField0_ & 0x00000001) != 0);
-        }
-
-        /**
-         * <code>required bool success = 1;</code>
-         *
-         * @return The success.
-         */
-        public boolean getSuccess() {
-            return success_;
-        }
-
-        /**
-         * <code>required bool success = 1;</code>
-         *
-         * @param value The success to set.
-         * @return This builder for chaining.
-         */
-        public Builder setSuccess(boolean value) {
-            bitField0_ |= 0x00000001;
-            success_ = value;
-            onChanged();
-            return this;
-        }
-
-        /**
-         * <code>required bool success = 1;</code>
-         *
-         * @return This builder for chaining.
-         */
-        public Builder clearSuccess() {
-            bitField0_ = (bitField0_ & ~0x00000001);
-            success_ = false;
-            onChanged();
-            return this;
-        }
-
-        private java.lang.Object content_ = "";
-
-        /**
-         * <code>optional string content = 2;</code>
-         *
-         * @return Whether the content field is set.
-         */
-        public boolean hasContent() {
-            return ((bitField0_ & 0x00000002) != 0);
-        }
-
-        /**
-         * <code>optional string content = 2;</code>
-         *
-         * @return The content.
-         */
-        public java.lang.String getContent() {
-            java.lang.Object ref = content_;
-            if (!(ref instanceof java.lang.String)) {
-                com.google.protobuf.ByteString bs =
-                        (com.google.protobuf.ByteString) ref;
-                java.lang.String s = bs.toStringUtf8();
-                if (bs.isValidUtf8()) {
-                    content_ = s;
+            /**
+             * <code>optional string content = 2;</code>
+             *
+             * @return The bytes for content.
+             */
+            public com.google.protobuf.ByteString
+            getContentBytes() {
+                java.lang.Object ref = content_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    content_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
                 }
-                return s;
-            } else {
-                return (java.lang.String) ref;
             }
-        }
 
-        /**
-         * <code>optional string content = 2;</code>
-         *
-         * @return The bytes for content.
-         */
-        public com.google.protobuf.ByteString
-        getContentBytes() {
-            java.lang.Object ref = content_;
-            if (ref instanceof String) {
-                com.google.protobuf.ByteString b =
-                        com.google.protobuf.ByteString.copyFromUtf8(
-                                (java.lang.String) ref);
-                content_ = b;
-                return b;
-            } else {
-                return (com.google.protobuf.ByteString) ref;
+            /**
+             * <code>optional string content = 2;</code>
+             *
+             * @param value The content to set.
+             * @return This builder for chaining.
+             */
+            public Builder setContent(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                bitField0_ |= 0x00000002;
+                content_ = value;
+                onChanged();
+                return this;
             }
-        }
 
-        /**
-         * <code>optional string content = 2;</code>
-         *
-         * @param value The content to set.
-         * @return This builder for chaining.
-         */
-        public Builder setContent(
-                java.lang.String value) {
-            if (value == null) {
-                throw new NullPointerException();
+            /**
+             * <code>optional string content = 2;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearContent() {
+                bitField0_ = (bitField0_ & ~0x00000002);
+                content_ = getDefaultInstance().getContent();
+                onChanged();
+                return this;
             }
-            bitField0_ |= 0x00000002;
-            content_ = value;
-            onChanged();
-            return this;
-        }
 
-        /**
-         * <code>optional string content = 2;</code>
-         *
-         * @return This builder for chaining.
-         */
-        public Builder clearContent() {
-            bitField0_ = (bitField0_ & ~0x00000002);
-            content_ = getDefaultInstance().getContent();
-            onChanged();
-            return this;
-        }
-
-        /**
-         * <code>optional string content = 2;</code>
-         *
-         * @param value The bytes for content to set.
-         * @return This builder for chaining.
-         */
-        public Builder setContentBytes(
-                com.google.protobuf.ByteString value) {
-            if (value == null) {
-                throw new NullPointerException();
+            /**
+             * <code>optional string content = 2;</code>
+             *
+             * @param value The bytes for content to set.
+             * @return This builder for chaining.
+             */
+            public Builder setContentBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                bitField0_ |= 0x00000002;
+                content_ = value;
+                onChanged();
+                return this;
             }
-            bitField0_ |= 0x00000002;
-            content_ = value;
-            onChanged();
-            return this;
+
+            @java.lang.Override
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFields(unknownFields);
+            }
+
+            @java.lang.Override
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
+
+
+            // @@protoc_insertion_point(builder_scope:protocol.SC10021)
         }
-
-        @java.lang.Override
-        public final Builder setUnknownFields(
-                final com.google.protobuf.UnknownFieldSet unknownFields) {
-            return super.setUnknownFields(unknownFields);
-        }
-
-        @java.lang.Override
-        public final Builder mergeUnknownFields(
-                final com.google.protobuf.UnknownFieldSet unknownFields) {
-            return super.mergeUnknownFields(unknownFields);
-        }
-
-
-        // @@protoc_insertion_point(builder_scope:protocol.SC10021)
-    }
 
         // @@protoc_insertion_point(class_scope:protocol.SC10021)
         private static final protocol.Player.SC10021 DEFAULT_INSTANCE;
@@ -4422,18 +4448,18 @@ public final class Player {
                         }
                         default: {
                             if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(
-                  e).setUnfinishedMessage(this);
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
             } finally {
                 this.unknownFields = unknownFields.build();
                 makeExtensionsImmutable();
@@ -4994,83 +5020,84 @@ public final class Player {
             com.google.protobuf.GeneratedMessageV3 implements
             // @@protoc_insertion_point(message_implements:protocol.SC10022)
             SC10022OrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use SC10022.newBuilder() to construct.
-    private SC10022(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-        super(builder);
-    }
+        private static final long serialVersionUID = 0L;
 
-      private SC10022() {
-          content_ = "";
-      }
+        // Use SC10022.newBuilder() to construct.
+        private SC10022(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
+        }
 
-      @java.lang.Override
-      @SuppressWarnings({"unused"})
-      protected java.lang.Object newInstance(
-              UnusedPrivateParameter unused) {
-          return new SC10022();
-      }
+        private SC10022() {
+            content_ = "";
+        }
+
+        @java.lang.Override
+        @SuppressWarnings({"unused"})
+        protected java.lang.Object newInstance(
+                UnusedPrivateParameter unused) {
+            return new SC10022();
+        }
 
         @java.lang.Override
         public final com.google.protobuf.UnknownFieldSet
-      getUnknownFields() {
-          return this.unknownFields;
-      }
+        getUnknownFields() {
+            return this.unknownFields;
+        }
 
-      private SC10022(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
-          this();
-          if (extensionRegistry == null) {
-              throw new java.lang.NullPointerException();
-          }
-          int mutable_bitField0_ = 0;
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-                  com.google.protobuf.UnknownFieldSet.newBuilder();
-          try {
-              boolean done = false;
-              while (!done) {
-                  int tag = input.readTag();
-                  switch (tag) {
-                      case 0:
-                          done = true;
-                          break;
-                      case 8: {
-                          bitField0_ |= 0x00000001;
-                          success_ = input.readBool();
-                          break;
-                      }
-                      case 16: {
-                          bitField0_ |= 0x00000002;
-                          roleId_ = input.readInt64();
-                          break;
-                      }
-                      case 26: {
-                          com.google.protobuf.ByteString bs = input.readBytes();
-                          bitField0_ |= 0x00000004;
-                          content_ = bs;
-                          break;
-                      }
-                      default: {
-                          if (!parseUnknownField(
-                                  input, unknownFields, extensionRegistry, tag)) {
-                              done = true;
-                          }
-                          break;
-                      }
-                  }
-              }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-              throw e.setUnfinishedMessage(this);
-          } catch (java.io.IOException e) {
-              throw new com.google.protobuf.InvalidProtocolBufferException(
-                      e).setUnfinishedMessage(this);
-          } finally {
-              this.unknownFields = unknownFields.build();
-              makeExtensionsImmutable();
-          }
-      }
+        private SC10022(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        case 8: {
+                            bitField0_ |= 0x00000001;
+                            success_ = input.readBool();
+                            break;
+                        }
+                        case 16: {
+                            bitField0_ |= 0x00000002;
+                            roleId_ = input.readInt64();
+                            break;
+                        }
+                        case 26: {
+                            com.google.protobuf.ByteString bs = input.readBytes();
+                            bitField0_ |= 0x00000004;
+                            content_ = bs;
+                            break;
+                        }
+                        default: {
+                            if (!parseUnknownField(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
+        }
 
         public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
@@ -5123,10 +5150,10 @@ public final class Player {
          * <code>optional int64 roleId = 2;</code>
          *
          * @return The roleId.
-       */
-      public long getRoleId() {
-          return roleId_;
-      }
+         */
+        public long getRoleId() {
+            return roleId_;
+        }
 
         public static final int CONTENT_FIELD_NUMBER = 3;
         private volatile java.lang.Object content_;
@@ -5369,7 +5396,8 @@ public final class Player {
         }
 
         @java.lang.Override
-        public Builder newBuilderForType() { return newBuilder();
+        public Builder newBuilderForType() {
+            return newBuilder();
         }
 
         public static Builder newBuilder() {
@@ -5432,19 +5460,19 @@ public final class Player {
                 if (com.google.protobuf.GeneratedMessageV3
                         .alwaysUseFieldBuilders) {
                 }
-        }
+            }
 
-        @java.lang.Override
-        public Builder clear() {
-            super.clear();
-            success_ = false;
-            bitField0_ = (bitField0_ & ~0x00000001);
-            roleId_ = 0L;
-            bitField0_ = (bitField0_ & ~0x00000002);
-            content_ = "";
-            bitField0_ = (bitField0_ & ~0x00000004);
-            return this;
-        }
+            @java.lang.Override
+            public Builder clear() {
+                super.clear();
+                success_ = false;
+                bitField0_ = (bitField0_ & ~0x00000001);
+                roleId_ = 0L;
+                bitField0_ = (bitField0_ & ~0x00000002);
+                content_ = "";
+                bitField0_ = (bitField0_ & ~0x00000004);
+                return this;
+            }
 
             @java.lang.Override
             public com.google.protobuf.Descriptors.Descriptor
@@ -5483,33 +5511,34 @@ public final class Player {
                     to_bitField0_ |= 0x00000004;
                 }
                 result.content_ = content_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
+                result.bitField0_ = to_bitField0_;
+                onBuilt();
+                return result;
+            }
 
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              java.lang.Object value) {
-          return super.setField(field, value);
-      }
+            @java.lang.Override
+            public Builder clone() {
+                return super.clone();
+            }
 
-        @java.lang.Override
-        public Builder clearField(
-                com.google.protobuf.Descriptors.FieldDescriptor field) {
-            return super.clearField(field);
-        }
+            @java.lang.Override
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.setField(field, value);
+            }
 
-        @java.lang.Override
-        public Builder clearOneof(
-                com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-            return super.clearOneof(oneof);
-        }
+            @java.lang.Override
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return super.clearField(field);
+            }
+
+            @java.lang.Override
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return super.clearOneof(oneof);
+            }
 
             @java.lang.Override
             public Builder setRepeatedField(
@@ -5527,31 +5556,31 @@ public final class Player {
 
             @java.lang.Override
             public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof protocol.Player.SC10022) {
-            return mergeFrom((protocol.Player.SC10022)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
+                if (other instanceof protocol.Player.SC10022) {
+                    return mergeFrom((protocol.Player.SC10022) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
 
-      public Builder mergeFrom(protocol.Player.SC10022 other) {
-        if (other == protocol.Player.SC10022.getDefaultInstance()) return this;
-        if (other.hasSuccess()) {
-          setSuccess(other.getSuccess());
-        }
-        if (other.hasRoleId()) {
-          setRoleId(other.getRoleId());
-        }
-          if (other.hasContent()) {
-              bitField0_ |= 0x00000004;
-              content_ = other.content_;
-              onChanged();
-          }
-          this.mergeUnknownFields(other.unknownFields);
-          onChanged();
-          return this;
-      }
+            public Builder mergeFrom(protocol.Player.SC10022 other) {
+                if (other == protocol.Player.SC10022.getDefaultInstance()) return this;
+                if (other.hasSuccess()) {
+                    setSuccess(other.getSuccess());
+                }
+                if (other.hasRoleId()) {
+                    setRoleId(other.getRoleId());
+                }
+                if (other.hasContent()) {
+                    bitField0_ |= 0x00000004;
+                    content_ = other.content_;
+                    onChanged();
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
 
             @java.lang.Override
             public final boolean isInitialized() {
@@ -5880,24 +5909,24 @@ public final class Player {
                         "022\022\016\n\006roleId\030\001 \002(\003\";\n\007SC10022\022\017\n\007succes" +
                         "s\030\001 \002(\010\022\016\n\006roleId\030\002 \001(\003\022\017\n\007content\030\003 \001(\t"
         };
-        descriptor = com.google.protobuf.Descriptors.FileDescriptor
-                .internalBuildGeneratedFileFrom(descriptorData,
-                        new com.google.protobuf.Descriptors.FileDescriptor[]{
-                        });
-        internal_static_protocol_PlayerInfo_descriptor =
-                getDescriptor().getMessageTypes().get(0);
-        internal_static_protocol_PlayerInfo_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_protocol_PlayerInfo_descriptor,
-                new java.lang.String[]{"RoleId", "Name", "Level", "Gender", "Profession", "LastLoginTime",});
-        internal_static_protocol_CS10020_descriptor =
-                getDescriptor().getMessageTypes().get(1);
-        internal_static_protocol_CS10020_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_protocol_CS10020_descriptor,
-                new java.lang.String[]{});
-        internal_static_protocol_SC10020_descriptor =
-                getDescriptor().getMessageTypes().get(2);
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
+      .internalBuildGeneratedFileFrom(descriptorData,
+        new com.google.protobuf.Descriptors.FileDescriptor[] {
+        });
+    internal_static_protocol_PlayerInfo_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_protocol_PlayerInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_PlayerInfo_descriptor,
+        new java.lang.String[] { "RoleId", "Name", "Level", "Gender", "Profession", "LastLoginTime", });
+    internal_static_protocol_CS10020_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_protocol_CS10020_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_CS10020_descriptor,
+        new java.lang.String[] { });
+    internal_static_protocol_SC10020_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_protocol_SC10020_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_SC10020_descriptor,

@@ -1,0 +1,90 @@
+package protocol;
+
+
+message MoveInfo
+{
+  required float positionX = 1;
+  required float positionY = 2;
+  required int32 face = 3; //面部朝向
+  optional int32 direction = 4; //人物移动方向(如果和面部朝向一样可以不用赋值)
+}
+
+message StopInfo
+{
+  required float positionX = 1;
+  required float positionY = 2;
+  required int32 face = 3;
+}
+
+//玩家角色基本
+message PlayerInfo
+{
+  required int64 playerId = 1;
+  required string name = 2;
+  required int32 level = 3;
+  required int32 gender = 4;
+  required int32 profession = 5;
+  repeated AttributeMap AttributeMap = 6;
+}
+
+message AttributeMap
+{
+  required int32 id = 1;
+  required int64 value = 2;
+}
+
+
+//玩家进入场景
+message CS10030
+{
+  required int64 sceneId = 1;
+}
+
+//返回玩家进入场景
+message SC10030
+{
+  required int64 sceneId = 1;
+  required int64 organismId = 2;
+  required float positionX = 3;
+  required float positionY = 4;
+  required int32 face = 5;
+}
+
+
+//玩家退出场景
+message CS10031
+{
+  required int64 sceneId = 1;
+}
+
+//返回玩家退出场景
+message SC10031
+{
+  required int64 playerId = 1;
+}
+
+//玩家移动
+message CS10032
+{
+  required MoveInfo moveInfo = 1;
+}
+
+//返回玩家移动
+message SC10032
+{
+  required int64 playerId = 1;
+  required MoveInfo moveInfo = 2;
+}
+
+//玩家停止移动
+message CS10033
+{
+  required StopInfo stopInfo = 1;
+}
+
+//返回玩家停止移动
+message SC10033
+{
+  required int64 playerId = 1;
+  required StopInfo stopInfo = 2;
+}

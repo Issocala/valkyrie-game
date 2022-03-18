@@ -6362,15 +6362,16 @@ public final class Battle {
       // @@protoc_insertion_point(interface_extends:protocol.S2C_AllLands)
       com.google.protobuf.MessageOrBuilder {
 
-    /**
-     * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-     */
-    java.util.List<protocol.Battle.S2C_OneLand> 
-        getLandsList();
-    /**
-     * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
-     */
-    protocol.Battle.S2C_OneLand getLands(int index);
+      /**
+       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+       */
+      java.util.List<protocol.Battle.S2C_OneLand>
+      getLandsList();
+
+      /**
+       * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
+       */
+      protocol.Battle.S2C_OneLand getLands(int index);
 
       /**
        * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
@@ -9550,29 +9551,31 @@ public final class Battle {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:protocol.C2S_ChangeInputDir)
+        // @@protoc_insertion_point(builder_scope:protocol.C2S_ChangeInputDir)
     }
 
-    // @@protoc_insertion_point(class_scope:protocol.C2S_ChangeInputDir)
-    private static final protocol.Battle.C2S_ChangeInputDir DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new protocol.Battle.C2S_ChangeInputDir();
-    }
+      // @@protoc_insertion_point(class_scope:protocol.C2S_ChangeInputDir)
+      private static final protocol.Battle.C2S_ChangeInputDir DEFAULT_INSTANCE;
 
-    public static protocol.Battle.C2S_ChangeInputDir getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<C2S_ChangeInputDir>
-        PARSER = new com.google.protobuf.AbstractParser<C2S_ChangeInputDir>() {
-      @java.lang.Override
-      public C2S_ChangeInputDir parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new C2S_ChangeInputDir(input, extensionRegistry);
+      static {
+          DEFAULT_INSTANCE = new protocol.Battle.C2S_ChangeInputDir();
       }
-    };
+
+      public static protocol.Battle.C2S_ChangeInputDir getDefaultInstance() {
+          return DEFAULT_INSTANCE;
+      }
+
+      @java.lang.Deprecated
+      public static final com.google.protobuf.Parser<C2S_ChangeInputDir>
+              PARSER = new com.google.protobuf.AbstractParser<C2S_ChangeInputDir>() {
+          @java.lang.Override
+          public C2S_ChangeInputDir parsePartialFrom(
+                  com.google.protobuf.CodedInputStream input,
+                  com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                  throws com.google.protobuf.InvalidProtocolBufferException {
+              return new C2S_ChangeInputDir(input, extensionRegistry);
+          }
+      };
 
       public static com.google.protobuf.Parser<C2S_ChangeInputDir> parser() {
           return PARSER;
@@ -9679,23 +9682,23 @@ public final class Battle {
                         "\030\001 \002(\005\022\r\n\005LeftX\030\002 \002(\002\022\r\n\005LeftY\030\003 \002(\002\022\016\n\006" +
                         "RightX\030\004 \002(\002\022\016\n\006RightY\030\005 \002(\002\022\022\n\nCanCross" +
                         "Up\030\006 \002(\010\022\024\n\014CanCrossDown\030\007 \002(\010\"4\n\014S2C_Al" +
-      "lLands\022$\n\005Lands\030\001 \003(\0132\025.protocol.S2C_One" +
-      "Land\"\"\n\rS2C_LeftLimit\022\021\n\tLeftLimit\030\001 \002(\005" +
-      "\"\010\n\006C2S_HB\"U\n\014C2S_UseSkill\022\017\n\007SkillID\030\001 " +
-      "\002(\005\0224\n\014UnitMoveInfo\030\002 \002(\0132\036.protocol.S2C" +
-      "_C2S_UnitMoveInfo\";\n\022C2S_ChangeInputDir\022" +
-      "\020\n\010NowInput\030\001 \002(\010\022\023\n\013NowInputDir\030\002 \002(\002"
-    };
-    descriptor = com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
-        new com.google.protobuf.Descriptors.FileDescriptor[] {
-        });
-    internal_static_protocol_S2C_SetUserID_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_protocol_S2C_SetUserID_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_protocol_S2C_SetUserID_descriptor,
-        new java.lang.String[]{"ID",});
+                        "lLands\022$\n\005Lands\030\001 \003(\0132\025.protocol.S2C_One" +
+                        "Land\"\"\n\rS2C_LeftLimit\022\021\n\tLeftLimit\030\001 \002(\005" +
+                        "\"\010\n\006C2S_HB\"U\n\014C2S_UseSkill\022\017\n\007SkillID\030\001 " +
+                        "\002(\005\0224\n\014UnitMoveInfo\030\002 \002(\0132\036.protocol.S2C" +
+                        "_C2S_UnitMoveInfo\";\n\022C2S_ChangeInputDir\022" +
+                        "\020\n\010NowInput\030\001 \002(\010\022\023\n\013NowInputDir\030\002 \002(\002"
+        };
+        descriptor = com.google.protobuf.Descriptors.FileDescriptor
+                .internalBuildGeneratedFileFrom(descriptorData,
+                        new com.google.protobuf.Descriptors.FileDescriptor[]{
+                        });
+        internal_static_protocol_S2C_SetUserID_descriptor =
+                getDescriptor().getMessageTypes().get(0);
+        internal_static_protocol_S2C_SetUserID_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_protocol_S2C_SetUserID_descriptor,
+                new java.lang.String[]{"ID",});
         internal_static_protocol_S2C_C2S_UnitMoveInfo_descriptor =
                 getDescriptor().getMessageTypes().get(1);
         internal_static_protocol_S2C_C2S_UnitMoveInfo_fieldAccessorTable = new
@@ -9754,7 +9757,7 @@ public final class Battle {
                 getDescriptor().getMessageTypes().get(10);
         internal_static_protocol_C2S_UseSkill_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_protocol_C2S_UseSkill_descriptor,
+        internal_static_protocol_C2S_UseSkill_descriptor,
         new java.lang.String[] { "SkillID", "UnitMoveInfo", });
     internal_static_protocol_C2S_ChangeInputDir_descriptor =
       getDescriptor().getMessageTypes().get(11);
