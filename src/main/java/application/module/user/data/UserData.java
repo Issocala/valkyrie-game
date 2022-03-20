@@ -1,19 +1,14 @@
 package application.module.user.data;
 
 import akka.actor.Props;
-import application.module.user.UserDataMessage;
 import application.module.user.data.domain.User;
+import application.module.user.data.message.UserGetByAccount;
+import application.module.user.data.message.UserInsertByAccount;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
-import com.cala.orm.message.DBReturnMessage;
+import com.cala.orm.db.message.DbInsert;
+import com.cala.orm.db.message.DbQueryOneBySql;
 import com.cala.orm.message.DataBase;
-import com.cala.orm.message.DataReturnMessage;
-import com.cala.orm.util.DbConnection;
-import com.cala.orm.util.DbHelper;
-import com.cala.orm.util.RuntimeResult;
-
-import java.sql.SQLException;
-import java.util.Objects;
 
 /**
  * @author Luo Yong
@@ -25,11 +20,6 @@ public class UserData extends AbstractDataCacheManager<User> {
     private UserData() {
     }
 
-    @Override
-    public void dbReturnMessage(DBReturnMessage dbReturnMessage) {
-
-    }
-
     public static Props create() {
         return Props.create(UserData.class, UserData::new).withDispatcher(DATA_AND_DB_DISPATCHER);
     }
@@ -37,24 +27,21 @@ public class UserData extends AbstractDataCacheManager<User> {
     @Override
     public void receive(DataBase dataBase) {
         switch (dataBase) {
-            case UserDataMessage.UserGetByAccount userGetByAccount -> userGetByAccount(userGetByAccount);
+            case UserGetByAccount userGetByAccount -> userGetByAccount(userGetByAccount);
+            case UserInsertByAccount userInsertByAccount -> userInsertByAccount(userInsertByAccount);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase);
         }
     }
 
-    private void userGetByAccount(UserDataMessage.UserGetByAccount userGetByAccount) {
+    private void userInsertByAccount(UserInsertByAccount userInsertByAccount) {
+        var user = (User) userInsertByAccount.abstractEntityBase();
+        getDbManager().tell(new DbInsert(userInsertByAccount.ref(), user, userInsertByAccount.operateType(), true), self());
+    }
+
+    private void userGetByAccount(UserGetByAccount userGetByAccount) {
         var user = (User) userGetByAccount.abstractEntityBase();
-        String sql = "select * from user where account = ?";
-        try {
-            user = DbHelper.queryOne(DbConnection.getUserConnection(), sql, User.class, user.getAccount());
-            if (Objects.isNull(user)) {
-                userGetByAccount.ref().tell(new DataReturnMessage(RuntimeResult.runtimeError(), null, userGetByAccount.operateType()), sender());
-                return;
-            }
-            userGetByAccount.ref().tell(new DataReturnMessage(RuntimeResult.ok(), user, userGetByAccount.operateType()), sender());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        String sql = "select * from user where account = " + user.getAccount();
+        getDbManager().tell(new DbQueryOneBySql(userGetByAccount.ref(), sql, User.class, userGetByAccount.operateType()), self());
     }
 
     @Override

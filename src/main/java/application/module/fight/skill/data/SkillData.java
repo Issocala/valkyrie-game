@@ -8,7 +8,6 @@ import application.util.CommonOperateTypeInfo;
 import application.util.DataMessageAndReply;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
-import com.cala.orm.message.DBReturnMessage;
 import com.cala.orm.message.DataBase;
 import com.cala.orm.message.DataReturnMessage;
 import com.cala.orm.util.RuntimeResult;
@@ -25,11 +24,6 @@ public class SkillData extends AbstractDataCacheManager<Skill> {
     }
 
     private SkillData() {
-    }
-
-    @Override
-    public void dbReturnMessage(DBReturnMessage dbReturnMessage) {
-
     }
 
     @Override

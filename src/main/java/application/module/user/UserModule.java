@@ -5,11 +5,11 @@ import application.guid.IdUtils;
 import application.module.common.data.domain.DataMessage;
 import application.module.user.data.UserData;
 import application.module.user.data.domain.User;
+import application.module.user.data.message.UserGetByAccount;
+import application.module.user.data.message.UserInsertByAccount;
 import application.module.user.operate.UserLoginType;
-import application.module.user.operate.UserRegisterInsertType;
 import application.module.user.operate.UserRegisterType;
 import application.util.CommonOperateTypeInfo;
-import com.cala.orm.cache.message.DataInsert;
 import com.cala.orm.message.DataReturnMessage;
 import com.cala.orm.message.OperateType;
 import com.cala.orm.util.StringUtils;
@@ -46,53 +46,32 @@ public class UserModule extends AbstractModule {
         if (dataReturnMessage.result().isOK()) {
             switch (operateType) {
                 case UserLoginType userLoginType -> userLoginOk(userLoginType, dataReturnMessage);
-                case UserRegisterType userRegisterType -> userRegisterOk(userRegisterType);
-                case UserRegisterInsertType userRegisterInsertType -> userRegisterInsertTypeOk(userRegisterInsertType);
+                case UserRegisterType userRegister -> userRegisterOk(userRegister);
                 default -> getLog().error(new IllegalStateException(), "Unexpected value: " + operateType);
             }
         } else {
             switch (operateType) {
                 case UserLoginType userLoginType -> userLoginTypeError(userLoginType);
                 case UserRegisterType userRegisterType -> userRegisterTypeError(userRegisterType);
-                case UserRegisterInsertType userRegisterInsertType -> userRegisterInsertTypeError(userRegisterInsertType);
                 default -> getLog().error(new IllegalStateException(), "Unexpected value: " + operateType);
             }
         }
     }
 
-    private void userRegisterInsertTypeError(UserRegisterInsertType userRegisterInsertType) {
-        var commonOperateTypeInfo = (CommonOperateTypeInfo) userRegisterInsertType.operateTypeInfo();
-        commonOperateTypeInfo.r().client().tell(new application.client.Client.SendToClientJ(UserProtocols.REGISTER, UserProtocolBuilder.getSc10010(false, "请重试！")), self());
-    }
-
-    private void userRegisterInsertTypeOk(UserRegisterInsertType userRegisterInsertType) {
-        var commonOperateTypeInfo = (CommonOperateTypeInfo) userRegisterInsertType.operateTypeInfo();
+    private void userRegisterOk(UserRegisterType userRegister) {
+        var commonOperateTypeInfo = (CommonOperateTypeInfo) userRegister.operateTypeInfo();
         commonOperateTypeInfo.r().client().tell(new application.client.Client.SendToClientJ(UserProtocols.REGISTER, UserProtocolBuilder.getSc10010(true)), self());
     }
 
-    /**
-     * 注册前的查询返回为失败，代表账号不存在，可以注册，发送插入请求
-     */
     private void userRegisterTypeError(UserRegisterType userRegisterType) {
         var commonOperateTypeInfo = (CommonOperateTypeInfo) userRegisterType.operateTypeInfo();
-        var cs10010 = (protocol.User.CS10010) commonOperateTypeInfo.message();
-        var accountInfo = cs10010.getAccount();
-        var user = User.of(IdUtils.fastSimpleUUIDLong(), accountInfo.getAccount(), cs10010.getName(), codecPassword(accountInfo.getPassword()));
-        this.userData.tell(new DataInsert(self(), user, new UserRegisterInsertType(new CommonOperateTypeInfo(commonOperateTypeInfo.r(), cs10010))), self());
+        commonOperateTypeInfo.r().client().tell(new application.client.Client.SendToClientJ(UserProtocols.REGISTER, UserProtocolBuilder.getSc10010(false, "账户已存在！！！")), self());
     }
 
     private void userLoginTypeError(UserLoginType userLoginType) {
         var commonOperateTypeInfo = (CommonOperateTypeInfo) userLoginType.operateTypeInfo();
         commonOperateTypeInfo.r().client().tell(
                 new application.client.Client.SendToClientJ(UserProtocols.LOGIN, UserProtocolBuilder.getSc10011("大概率你账号都不存在吧！！！")), self());
-    }
-
-    /**
-     * 注册的查询返回成功，代表里面账号已经存在
-     */
-    private void userRegisterOk(UserRegisterType userRegisterType) {
-        var commonOperateTypeInfo = (CommonOperateTypeInfo) userRegisterType.operateTypeInfo();
-        commonOperateTypeInfo.r().client().tell(new application.client.Client.SendToClientJ(UserProtocols.REGISTER, UserProtocolBuilder.getSc10010(false, "账号已经存在！")), self());
     }
 
     private void userLoginOk(UserLoginType userLoginType, DataReturnMessage dataReturnMessage) {
@@ -131,7 +110,7 @@ public class UserModule extends AbstractModule {
                 r.client().tell(new application.client.Client.SendToClientJ(UserProtocols.LOGIN, UserProtocolBuilder.getSc10011("账户或密码不能为空！！！")), self());
             }
             var user = User.of(cs10011.getAccount().getAccount());
-            this.userData.tell(new UserDataMessage.UserGetByAccount(self(), user, new UserLoginType(new CommonOperateTypeInfo(r, cs10011))), self());
+            this.userData.tell(new UserGetByAccount(self(), user, new UserLoginType(new CommonOperateTypeInfo(r, cs10011))), self());
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
@@ -149,8 +128,8 @@ public class UserModule extends AbstractModule {
                 r.client().tell(UserProtocolBuilder.getSc10010(false, "算我球球你了，账号密码好好输入吧！"), self());
                 return;
             }
-            var user = User.of(accountInfo.getAccount());
-            this.userData.tell(new UserDataMessage.UserGetByAccount(self(), user, new UserRegisterType(new CommonOperateTypeInfo(r, cs10010))), self());
+            var user = User.of(IdUtils.fastSimpleUUIDLong(), accountInfo.getAccount(), cs10010.getName(), codecPassword(accountInfo.getPassword()));
+            this.userData.tell(new UserInsertByAccount(self(), user, new UserRegisterType(new CommonOperateTypeInfo(r, cs10010))), self());
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }

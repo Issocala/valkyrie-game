@@ -6,7 +6,6 @@ import application.module.fight.attribute.data.domain.Attribute;
 import application.util.AttributeMapUtil;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
-import com.cala.orm.message.DBReturnMessage;
 import com.cala.orm.message.DataBase;
 
 import java.util.Map;
@@ -23,11 +22,6 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
     }
 
     private AttributeData() {
-    }
-
-    @Override
-    public void dbReturnMessage(DBReturnMessage dbReturnMessage) {
-
     }
 
     @Override

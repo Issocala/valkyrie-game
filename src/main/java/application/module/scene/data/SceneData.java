@@ -14,7 +14,6 @@ import application.module.scene.operate.SceneStop;
 import application.util.CommonOperateTypeInfo;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
-import com.cala.orm.message.DBReturnMessage;
 import com.cala.orm.message.DataBase;
 import protocol.Skill;
 
@@ -34,11 +33,6 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
     }
 
     private SceneData() {
-    }
-
-    @Override
-    public void dbReturnMessage(DBReturnMessage dbReturnMessage) {
-
     }
 
     private final Map<Long, Long> playerId2SceneIdMap = new HashMap<>();
