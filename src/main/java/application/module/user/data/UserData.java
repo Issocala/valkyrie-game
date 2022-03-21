@@ -40,7 +40,7 @@ public class UserData extends AbstractDataCacheManager<User> {
 
     private void userGetByAccount(UserGetByAccount userGetByAccount) {
         var user = (User) userGetByAccount.abstractEntityBase();
-        String sql = "select * from user where account = " + user.getAccount();
+        String sql = "select * from user where account = \"" + user.getAccount() + "\"";
         getDbManager().tell(new DbQueryOneBySql(userGetByAccount.ref(), sql, User.class, userGetByAccount.operateType()), self());
     }
 
