@@ -5,7 +5,7 @@ message MoveInfo
 {
   required float positionX = 1;
   required float positionY = 2;
-  required int32 face = 3; //面部朝向
+  required int32 face = 3; //面部朝向(0代表看向右边(默认),1代表看向左边)
   optional int32 direction = 4; //人物移动方向(如果和面部朝向一样可以不用赋值)
 }
 
@@ -13,19 +13,19 @@ message StopInfo
 {
   required float positionX = 1;
   required float positionY = 2;
-  required int32 face = 3;
+  required int32 face = 3; //面部朝向(0代表看向右边(默认),1代表看向左边)
 }
 
 //玩家角色基本
-message PlayerInfo
-{
-  required int64 playerId = 1;
-  required string name = 2;
-  required int32 level = 3;
-  required int32 gender = 4;
-  required int32 profession = 5;
-  repeated AttributeMap AttributeMap = 6;
-}
+// message PlayerInfo
+// {
+//   required int64 playerId = 1;
+//   required string name = 2;
+//   required int32 level = 3;
+//   required int32 gender = 4;
+//   required int32 profession = 5;
+//   repeated AttributeMap AttributeMap = 6;
+// }
 
 message AttributeMap
 {
@@ -44,10 +44,6 @@ message CS10030
 message SC10030
 {
   required int64 sceneId = 1;
-  required int64 organismId = 2;
-  required float positionX = 3;
-  required float positionY = 4;
-  required int32 face = 5;
 }
 
 
@@ -87,4 +83,14 @@ message SC10033
 {
   required int64 playerId = 1;
   required StopInfo stopInfo = 2;
+}
+
+//返回创建某实体
+message SC10034
+{
+  required int64 organismId = 1;
+  required int32 organismType = 2;
+  required float positionX = 3;
+  required float positionY = 4;
+  required int32 face = 5;
 }

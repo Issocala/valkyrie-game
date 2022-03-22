@@ -36,21 +36,21 @@ public final class Player {
         long getRoleId();
 
         /**
-         * <code>required string name = 2;</code>
+         * <code>optional string name = 2;</code>
          *
          * @return Whether the name field is set.
          */
         boolean hasName();
 
         /**
-         * <code>required string name = 2;</code>
+         * <code>optional string name = 2;</code>
          *
          * @return The name.
          */
         java.lang.String getName();
 
         /**
-         * <code>required string name = 2;</code>
+         * <code>optional string name = 2;</code>
          *
          * @return The bytes for name.
          */
@@ -237,26 +237,26 @@ public final class Player {
         private long roleId_;
 
         /**
-     * <code>required int64 roleId = 1;</code>
-     * @return Whether the roleId field is set.
-     */
-    public boolean hasRoleId() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>required int64 roleId = 1;</code>
-     * @return The roleId.
-     */
-    public long getRoleId() {
-      return roleId_;
-    }
-
-    public static final int NAME_FIELD_NUMBER = 2;
-    private volatile java.lang.Object name_;
+         * <code>required int64 roleId = 1;</code>
+         * @return Whether the roleId field is set.
+         */
+        public boolean hasRoleId() {
+            return ((bitField0_ & 0x00000001) != 0);
+        }
 
         /**
-         * <code>required string name = 2;</code>
-         *
+         * <code>required int64 roleId = 1;</code>
+         * @return The roleId.
+         */
+        public long getRoleId() {
+            return roleId_;
+        }
+
+        public static final int NAME_FIELD_NUMBER = 2;
+        private volatile java.lang.Object name_;
+
+        /**
+         * <code>optional string name = 2;</code>
          * @return Whether the name field is set.
          */
         public boolean hasName() {
@@ -264,8 +264,7 @@ public final class Player {
         }
 
         /**
-         * <code>required string name = 2;</code>
-         *
+         * <code>optional string name = 2;</code>
          * @return The name.
          */
         public java.lang.String getName() {
@@ -284,21 +283,20 @@ public final class Player {
         }
 
         /**
-         * <code>required string name = 2;</code>
-         *
+         * <code>optional string name = 2;</code>
          * @return The bytes for name.
          */
         public com.google.protobuf.ByteString
         getNameBytes() {
             java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b =
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                name_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
       }
     }
 
@@ -343,25 +341,29 @@ public final class Player {
      * @return Whether the profession field is set.
      */
     public boolean hasProfession() {
-      return ((bitField0_ & 0x00000010) != 0);
-    }
-    /**
-     * <code>required int32 profession = 5;</code>
-     * @return The profession.
-     */
-    public int getProfession() {
-      return profession_;
+        return ((bitField0_ & 0x00000010) != 0);
     }
 
-    public static final int LASTLOGINTIME_FIELD_NUMBER = 6;
-    private long lastLoginTime_;
-    /**
-     * <code>required int64 lastLoginTime = 6;</code>
-     * @return Whether the lastLoginTime field is set.
-     */
-    public boolean hasLastLoginTime() {
-      return ((bitField0_ & 0x00000020) != 0);
-    }
+        /**
+         * <code>required int32 profession = 5;</code>
+         *
+         * @return The profession.
+         */
+        public int getProfession() {
+            return profession_;
+        }
+
+        public static final int LASTLOGINTIME_FIELD_NUMBER = 6;
+        private long lastLoginTime_;
+
+        /**
+         * <code>required int64 lastLoginTime = 6;</code>
+         *
+         * @return Whether the lastLoginTime field is set.
+         */
+        public boolean hasLastLoginTime() {
+            return ((bitField0_ & 0x00000020) != 0);
+        }
 
         /**
          * <code>required int64 lastLoginTime = 6;</code>
@@ -381,10 +383,6 @@ public final class Player {
             if (isInitialized == 0) return false;
 
             if (!hasRoleId()) {
-                memoizedIsInitialized = 0;
-                return false;
-            }
-            if (!hasName()) {
                 memoizedIsInitialized = 0;
                 return false;
             }
@@ -454,13 +452,13 @@ public final class Player {
                         .computeInt32Size(4, gender_);
             }
             if (((bitField0_ & 0x00000010) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, profession_);
-      }
-      if (((bitField0_ & 0x00000020) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-                .computeInt64Size(6, lastLoginTime_);
-      }
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(5, profession_);
+            }
+            if (((bitField0_ & 0x00000020) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(6, lastLoginTime_);
+            }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
             return size;
@@ -716,23 +714,23 @@ public final class Player {
 
             @java.lang.Override
             public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return protocol.Player.internal_static_protocol_PlayerInfo_descriptor;
-      }
+            getDescriptorForType() {
+                return protocol.Player.internal_static_protocol_PlayerInfo_descriptor;
+            }
 
-      @java.lang.Override
-      public protocol.Player.PlayerInfo getDefaultInstanceForType() {
-        return protocol.Player.PlayerInfo.getDefaultInstance();
-      }
+            @java.lang.Override
+            public protocol.Player.PlayerInfo getDefaultInstanceForType() {
+                return protocol.Player.PlayerInfo.getDefaultInstance();
+            }
 
-      @java.lang.Override
-      public protocol.Player.PlayerInfo build() {
-        protocol.Player.PlayerInfo result = buildPartial();
-        if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-        }
-          return result;
-      }
+            @java.lang.Override
+            public protocol.Player.PlayerInfo build() {
+                protocol.Player.PlayerInfo result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
 
             @java.lang.Override
             public protocol.Player.PlayerInfo buildPartial() {
@@ -816,39 +814,36 @@ public final class Player {
                 }
             }
 
-      public Builder mergeFrom(protocol.Player.PlayerInfo other) {
-        if (other == protocol.Player.PlayerInfo.getDefaultInstance()) return this;
-        if (other.hasRoleId()) {
-          setRoleId(other.getRoleId());
-        }
-        if (other.hasName()) {
-          bitField0_ |= 0x00000002;
-          name_ = other.name_;
-          onChanged();
-        }
-        if (other.hasLevel()) {
-          setLevel(other.getLevel());
-        }
-        if (other.hasGender()) {
-            setGender(other.getGender());
-        }
-          if (other.hasProfession()) {
-              setProfession(other.getProfession());
-          }
-          if (other.hasLastLoginTime()) {
-              setLastLoginTime(other.getLastLoginTime());
-          }
-          this.mergeUnknownFields(other.unknownFields);
-          onChanged();
-          return this;
-      }
+            public Builder mergeFrom(protocol.Player.PlayerInfo other) {
+                if (other == protocol.Player.PlayerInfo.getDefaultInstance()) return this;
+                if (other.hasRoleId()) {
+                    setRoleId(other.getRoleId());
+                }
+                if (other.hasName()) {
+                    bitField0_ |= 0x00000002;
+                    name_ = other.name_;
+                    onChanged();
+                }
+                if (other.hasLevel()) {
+                    setLevel(other.getLevel());
+                }
+                if (other.hasGender()) {
+                    setGender(other.getGender());
+                }
+                if (other.hasProfession()) {
+                    setProfession(other.getProfession());
+                }
+                if (other.hasLastLoginTime()) {
+                    setLastLoginTime(other.getLastLoginTime());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
 
             @java.lang.Override
             public final boolean isInitialized() {
                 if (!hasRoleId()) {
-                    return false;
-                }
-                if (!hasName()) {
                     return false;
                 }
                 if (!hasLevel()) {
@@ -899,34 +894,38 @@ public final class Player {
        * @return The roleId.
        */
       public long getRoleId() {
-        return roleId_;
+          return roleId_;
       }
-      /**
-       * <code>required int64 roleId = 1;</code>
-       * @param value The roleId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setRoleId(long value) {
-        bitField0_ |= 0x00000001;
-        roleId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required int64 roleId = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearRoleId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        roleId_ = 0L;
-          onChanged();
-          return this;
-      }
+
+            /**
+             * <code>required int64 roleId = 1;</code>
+             *
+             * @param value The roleId to set.
+             * @return This builder for chaining.
+             */
+            public Builder setRoleId(long value) {
+                bitField0_ |= 0x00000001;
+                roleId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>required int64 roleId = 1;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearRoleId() {
+                bitField0_ = (bitField0_ & ~0x00000001);
+                roleId_ = 0L;
+                onChanged();
+                return this;
+            }
 
             private java.lang.Object name_ = "";
 
             /**
-             * <code>required string name = 2;</code>
+             * <code>optional string name = 2;</code>
              *
              * @return Whether the name field is set.
              */
@@ -935,7 +934,7 @@ public final class Player {
             }
 
             /**
-             * <code>required string name = 2;</code>
+             * <code>optional string name = 2;</code>
              *
              * @return The name.
              */
@@ -955,7 +954,7 @@ public final class Player {
             }
 
             /**
-             * <code>required string name = 2;</code>
+             * <code>optional string name = 2;</code>
              *
              * @return The bytes for name.
              */
@@ -974,7 +973,7 @@ public final class Player {
             }
 
             /**
-             * <code>required string name = 2;</code>
+             * <code>optional string name = 2;</code>
              *
              * @param value The name to set.
              * @return This builder for chaining.
@@ -991,7 +990,7 @@ public final class Player {
             }
 
             /**
-             * <code>required string name = 2;</code>
+             * <code>optional string name = 2;</code>
              *
              * @return This builder for chaining.
              */
@@ -1003,17 +1002,18 @@ public final class Player {
             }
 
             /**
-             * <code>required string name = 2;</code>
+             * <code>optional string name = 2;</code>
+             *
              * @param value The bytes for name to set.
              * @return This builder for chaining.
-       */
-      public Builder setNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        name_ = value;
+             */
+            public Builder setNameBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                bitField0_ |= 0x00000002;
+                name_ = value;
         onChanged();
         return this;
       }
@@ -1022,27 +1022,32 @@ public final class Player {
 
             /**
              * <code>required int32 level = 3;</code>
-       * @return Whether the level field is set.
-       */
-      public boolean hasLevel() {
-        return ((bitField0_ & 0x00000004) != 0);
-      }
-      /**
-       * <code>required int32 level = 3;</code>
-       * @return The level.
-       */
-      public int getLevel() {
-        return level_;
-      }
-      /**
-       * <code>required int32 level = 3;</code>
-       * @param value The level to set.
-       * @return This builder for chaining.
-       */
-      public Builder setLevel(int value) {
-        bitField0_ |= 0x00000004;
-        level_ = value;
-        onChanged();
+             *
+             * @return Whether the level field is set.
+             */
+            public boolean hasLevel() {
+                return ((bitField0_ & 0x00000004) != 0);
+            }
+
+            /**
+             * <code>required int32 level = 3;</code>
+             *
+             * @return The level.
+             */
+            public int getLevel() {
+                return level_;
+            }
+
+            /**
+             * <code>required int32 level = 3;</code>
+             *
+             * @param value The level to set.
+             * @return This builder for chaining.
+             */
+            public Builder setLevel(int value) {
+                bitField0_ |= 0x00000004;
+                level_ = value;
+                onChanged();
         return this;
       }
       /**
@@ -1056,11 +1061,10 @@ public final class Player {
         return this;
       }
 
-            private int gender_;
-
-            /**
-             * <code>required int32 gender = 4;</code>
-             * @return Whether the gender field is set.
+      private int gender_ ;
+      /**
+       * <code>required int32 gender = 4;</code>
+       * @return Whether the gender field is set.
        */
       public boolean hasGender() {
         return ((bitField0_ & 0x00000008) != 0);
@@ -1079,47 +1083,55 @@ public final class Player {
        */
       public Builder setGender(int value) {
         bitField0_ |= 0x00000008;
-        gender_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required int32 gender = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearGender() {
-        bitField0_ = (bitField0_ & ~0x00000008);
-        gender_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private int profession_ ;
-      /**
-       * <code>required int32 profession = 5;</code>
-       * @return Whether the profession field is set.
-       */
-      public boolean hasProfession() {
-        return ((bitField0_ & 0x00000010) != 0);
-      }
-      /**
-       * <code>required int32 profession = 5;</code>
-       * @return The profession.
-       */
-      public int getProfession() {
-        return profession_;
-      }
-      /**
-       * <code>required int32 profession = 5;</code>
-       * @param value The profession to set.
-       * @return This builder for chaining.
-       */
-      public Builder setProfession(int value) {
-          bitField0_ |= 0x00000010;
-          profession_ = value;
+          gender_ = value;
           onChanged();
           return this;
       }
+
+            /**
+             * <code>required int32 gender = 4;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearGender() {
+                bitField0_ = (bitField0_ & ~0x00000008);
+                gender_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private int profession_;
+
+            /**
+             * <code>required int32 profession = 5;</code>
+             *
+             * @return Whether the profession field is set.
+             */
+            public boolean hasProfession() {
+                return ((bitField0_ & 0x00000010) != 0);
+            }
+
+            /**
+             * <code>required int32 profession = 5;</code>
+             *
+             * @return The profession.
+             */
+            public int getProfession() {
+                return profession_;
+            }
+
+            /**
+             * <code>required int32 profession = 5;</code>
+             *
+             * @param value The profession to set.
+             * @return This builder for chaining.
+             */
+            public Builder setProfession(int value) {
+                bitField0_ |= 0x00000010;
+                profession_ = value;
+                onChanged();
+                return this;
+            }
 
             /**
              * <code>required int32 profession = 5;</code>
@@ -1875,7 +1887,7 @@ public final class Player {
 
             for (int i = 0; i < getPlayerInfoCount(); i++) {
                 if (!getPlayerInfo(i).isInitialized()) {
-          memoizedIsInitialized = 0;
+                    memoizedIsInitialized = 0;
                     return false;
                 }
             }
@@ -2756,10 +2768,11 @@ public final class Player {
 
         /**
          * <pre>
-         *名字
+         * 名字
          * </pre>
          *
          * <code>required string name = 1;</code>
+         *
          * @return Whether the name field is set.
          */
         public boolean hasName() {
@@ -2768,10 +2781,11 @@ public final class Player {
 
         /**
          * <pre>
-         *名字
+         * 名字
          * </pre>
          *
          * <code>required string name = 1;</code>
+         *
          * @return The name.
          */
         public java.lang.String getName() {
@@ -2791,10 +2805,11 @@ public final class Player {
 
         /**
          * <pre>
-         *名字
+         * 名字
          * </pre>
          *
          * <code>required string name = 1;</code>
+         *
          * @return The bytes for name.
          */
         public com.google.protobuf.ByteString
@@ -2816,10 +2831,11 @@ public final class Player {
 
         /**
          * <pre>
-         *性别
+         * 性别
          * </pre>
          *
          * <code>required int32 gender = 2;</code>
+         *
          * @return Whether the gender field is set.
          */
         public boolean hasGender() {
@@ -3601,21 +3617,35 @@ public final class Player {
         boolean getSuccess();
 
         /**
-         * <code>optional string content = 2;</code>
+         * <code>optional int64 roleId = 2;</code>
+         *
+         * @return Whether the roleId field is set.
+         */
+        boolean hasRoleId();
+
+        /**
+         * <code>optional int64 roleId = 2;</code>
+         *
+         * @return The roleId.
+         */
+        long getRoleId();
+
+        /**
+         * <code>optional string content = 3;</code>
          *
          * @return Whether the content field is set.
          */
         boolean hasContent();
 
         /**
-         * <code>optional string content = 2;</code>
+         * <code>optional string content = 3;</code>
          *
          * @return The content.
          */
         java.lang.String getContent();
 
         /**
-         * <code>optional string content = 2;</code>
+         * <code>optional string content = 3;</code>
          *
          * @return The bytes for content.
          */
@@ -3682,9 +3712,14 @@ public final class Player {
                             success_ = input.readBool();
                             break;
                         }
-                        case 18: {
-                            com.google.protobuf.ByteString bs = input.readBytes();
+                        case 16: {
                             bitField0_ |= 0x00000002;
+                            roleId_ = input.readInt64();
+                            break;
+                        }
+                        case 26: {
+                            com.google.protobuf.ByteString bs = input.readBytes();
+                            bitField0_ |= 0x00000004;
                             content_ = bs;
                             break;
                         }
@@ -3743,20 +3778,41 @@ public final class Player {
             return success_;
         }
 
-        public static final int CONTENT_FIELD_NUMBER = 2;
-        private volatile java.lang.Object content_;
+        public static final int ROLEID_FIELD_NUMBER = 2;
+        private long roleId_;
 
         /**
-         * <code>optional string content = 2;</code>
+         * <code>optional int64 roleId = 2;</code>
          *
-         * @return Whether the content field is set.
+         * @return Whether the roleId field is set.
          */
-        public boolean hasContent() {
+        public boolean hasRoleId() {
             return ((bitField0_ & 0x00000002) != 0);
         }
 
         /**
-         * <code>optional string content = 2;</code>
+         * <code>optional int64 roleId = 2;</code>
+         *
+         * @return The roleId.
+         */
+        public long getRoleId() {
+            return roleId_;
+        }
+
+        public static final int CONTENT_FIELD_NUMBER = 3;
+        private volatile java.lang.Object content_;
+
+        /**
+         * <code>optional string content = 3;</code>
+         *
+         * @return Whether the content field is set.
+         */
+        public boolean hasContent() {
+            return ((bitField0_ & 0x00000004) != 0);
+        }
+
+        /**
+         * <code>optional string content = 3;</code>
          *
          * @return The content.
          */
@@ -3776,7 +3832,7 @@ public final class Player {
         }
 
         /**
-         * <code>optional string content = 2;</code>
+         * <code>optional string content = 3;</code>
          *
          * @return The bytes for content.
          */
@@ -3817,7 +3873,10 @@ public final class Player {
                 output.writeBool(1, success_);
             }
             if (((bitField0_ & 0x00000002) != 0)) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 2, content_);
+                output.writeInt64(2, roleId_);
+            }
+            if (((bitField0_ & 0x00000004) != 0)) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 3, content_);
             }
             unknownFields.writeTo(output);
         }
@@ -3833,7 +3892,11 @@ public final class Player {
                         .computeBoolSize(1, success_);
             }
             if (((bitField0_ & 0x00000002) != 0)) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, content_);
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(2, roleId_);
+            }
+            if (((bitField0_ & 0x00000004) != 0)) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, content_);
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
@@ -3855,6 +3918,11 @@ public final class Player {
                 if (getSuccess()
                         != other.getSuccess()) return false;
             }
+            if (hasRoleId() != other.hasRoleId()) return false;
+            if (hasRoleId()) {
+                if (getRoleId()
+                        != other.getRoleId()) return false;
+            }
             if (hasContent() != other.hasContent()) return false;
             if (hasContent()) {
                 if (!getContent()
@@ -3875,6 +3943,11 @@ public final class Player {
                 hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
                 hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
                         getSuccess());
+            }
+            if (hasRoleId()) {
+                hash = (37 * hash) + ROLEID_FIELD_NUMBER;
+                hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                        getRoleId());
             }
             if (hasContent()) {
                 hash = (37 * hash) + CONTENT_FIELD_NUMBER;
@@ -4038,8 +4111,10 @@ public final class Player {
                 super.clear();
                 success_ = false;
                 bitField0_ = (bitField0_ & ~0x00000001);
-                content_ = "";
+                roleId_ = 0L;
                 bitField0_ = (bitField0_ & ~0x00000002);
+                content_ = "";
+                bitField0_ = (bitField0_ & ~0x00000004);
                 return this;
             }
 
@@ -4073,7 +4148,11 @@ public final class Player {
                     to_bitField0_ |= 0x00000001;
                 }
                 if (((from_bitField0_ & 0x00000002) != 0)) {
+                    result.roleId_ = roleId_;
                     to_bitField0_ |= 0x00000002;
+                }
+                if (((from_bitField0_ & 0x00000004) != 0)) {
+                    to_bitField0_ |= 0x00000004;
                 }
                 result.content_ = content_;
                 result.bitField0_ = to_bitField0_;
@@ -4134,8 +4213,11 @@ public final class Player {
                 if (other.hasSuccess()) {
                     setSuccess(other.getSuccess());
                 }
+                if (other.hasRoleId()) {
+                    setRoleId(other.getRoleId());
+                }
                 if (other.hasContent()) {
-                    bitField0_ |= 0x00000002;
+                    bitField0_ |= 0x00000004;
                     content_ = other.content_;
                     onChanged();
                 }
@@ -4218,19 +4300,64 @@ public final class Player {
                 return this;
             }
 
-            private java.lang.Object content_ = "";
+            private long roleId_;
 
             /**
-             * <code>optional string content = 2;</code>
+             * <code>optional int64 roleId = 2;</code>
              *
-             * @return Whether the content field is set.
+             * @return Whether the roleId field is set.
              */
-            public boolean hasContent() {
+            public boolean hasRoleId() {
                 return ((bitField0_ & 0x00000002) != 0);
             }
 
             /**
-             * <code>optional string content = 2;</code>
+             * <code>optional int64 roleId = 2;</code>
+             *
+             * @return The roleId.
+             */
+            public long getRoleId() {
+                return roleId_;
+            }
+
+            /**
+             * <code>optional int64 roleId = 2;</code>
+             *
+             * @param value The roleId to set.
+             * @return This builder for chaining.
+             */
+            public Builder setRoleId(long value) {
+                bitField0_ |= 0x00000002;
+                roleId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>optional int64 roleId = 2;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearRoleId() {
+                bitField0_ = (bitField0_ & ~0x00000002);
+                roleId_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object content_ = "";
+
+            /**
+             * <code>optional string content = 3;</code>
+             *
+             * @return Whether the content field is set.
+             */
+            public boolean hasContent() {
+                return ((bitField0_ & 0x00000004) != 0);
+            }
+
+            /**
+             * <code>optional string content = 3;</code>
              *
              * @return The content.
              */
@@ -4250,7 +4377,7 @@ public final class Player {
             }
 
             /**
-             * <code>optional string content = 2;</code>
+             * <code>optional string content = 3;</code>
              *
              * @return The bytes for content.
              */
@@ -4269,7 +4396,7 @@ public final class Player {
             }
 
             /**
-             * <code>optional string content = 2;</code>
+             * <code>optional string content = 3;</code>
              *
              * @param value The content to set.
              * @return This builder for chaining.
@@ -4279,26 +4406,26 @@ public final class Player {
                 if (value == null) {
                     throw new NullPointerException();
                 }
-                bitField0_ |= 0x00000002;
+                bitField0_ |= 0x00000004;
                 content_ = value;
                 onChanged();
                 return this;
             }
 
             /**
-             * <code>optional string content = 2;</code>
+             * <code>optional string content = 3;</code>
              *
              * @return This builder for chaining.
              */
             public Builder clearContent() {
-                bitField0_ = (bitField0_ & ~0x00000002);
+                bitField0_ = (bitField0_ & ~0x00000004);
                 content_ = getDefaultInstance().getContent();
                 onChanged();
                 return this;
             }
 
             /**
-             * <code>optional string content = 2;</code>
+             * <code>optional string content = 3;</code>
              *
              * @param value The bytes for content to set.
              * @return This builder for chaining.
@@ -4308,7 +4435,7 @@ public final class Player {
                 if (value == null) {
                     throw new NullPointerException();
                 }
-                bitField0_ |= 0x00000002;
+                bitField0_ |= 0x00000004;
                 content_ = value;
                 onChanged();
                 return this;
@@ -5899,16 +6026,17 @@ public final class Player {
     static {
         java.lang.String[] descriptorData = {
                 "\n\014player.proto\022\010protocol\"t\n\nPlayerInfo\022\016" +
-                        "\n\006roleId\030\001 \002(\003\022\014\n\004name\030\002 \002(\t\022\r\n\005level\030\003 " +
+                        "\n\006roleId\030\001 \002(\003\022\014\n\004name\030\002 \001(\t\022\r\n\005level\030\003 " +
                         "\002(\005\022\016\n\006gender\030\004 \002(\005\022\022\n\nprofession\030\005 \002(\005\022" +
                         "\025\n\rlastLoginTime\030\006 \002(\003\"\t\n\007CS10020\"3\n\007SC1" +
                         "0020\022(\n\nplayerInfo\030\001 \003(\0132\024.protocol.Play" +
                         "erInfo\";\n\007CS10021\022\014\n\004name\030\001 \002(\t\022\016\n\006gende" +
-                        "r\030\002 \002(\005\022\022\n\nprofession\030\003 \002(\005\"+\n\007SC10021\022\017" +
-                        "\n\007success\030\001 \002(\010\022\017\n\007content\030\002 \001(\t\"\031\n\007CS10" +
-                        "022\022\016\n\006roleId\030\001 \002(\003\";\n\007SC10022\022\017\n\007succes" +
-                        "s\030\001 \002(\010\022\016\n\006roleId\030\002 \001(\003\022\017\n\007content\030\003 \001(\t"
-        };
+                        "r\030\002 \002(\005\022\022\n\nprofession\030\003 \002(\005\";\n\007SC10021\022\017" +
+                        "\n\007success\030\001 \002(\010\022\016\n\006roleId\030\002 \001(\003\022\017\n\007conte" +
+                        "nt\030\003 \001(\t\"\031\n\007CS10022\022\016\n\006roleId\030\001 \002(\003\";\n\007S" +
+      "C10022\022\017\n\007success\030\001 \002(\010\022\016\n\006roleId\030\002 \001(\003\022" +
+      "\017\n\007content\030\003 \001(\t"
+    };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
@@ -5942,7 +6070,7 @@ public final class Player {
     internal_static_protocol_SC10021_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_SC10021_descriptor,
-        new java.lang.String[] { "Success", "Content", });
+        new java.lang.String[] { "Success", "RoleId", "Content", });
     internal_static_protocol_CS10022_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_protocol_CS10022_fieldAccessorTable = new

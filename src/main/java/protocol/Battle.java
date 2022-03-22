@@ -6359,8 +6359,8 @@ public final class Battle {
   }
 
   public interface S2C_AllLandsOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:protocol.S2C_AllLands)
-      com.google.protobuf.MessageOrBuilder {
+          // @@protoc_insertion_point(interface_extends:protocol.S2C_AllLands)
+          com.google.protobuf.MessageOrBuilder {
 
       /**
        * <code>repeated .protocol.S2C_OneLand Lands = 1;</code>
@@ -9525,30 +9525,33 @@ public final class Battle {
       public Builder setNowInputDir(float value) {
         bitField0_ |= 0x00000002;
         nowInputDir_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required float NowInputDir = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearNowInputDir() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        nowInputDir_ = 0F;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+          onChanged();
+          return this;
       }
 
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
+        /**
+         * <code>required float NowInputDir = 2;</code>
+         *
+         * @return This builder for chaining.
+         */
+        public Builder clearNowInputDir() {
+            bitField0_ = (bitField0_ & ~0x00000002);
+            nowInputDir_ = 0F;
+            onChanged();
+            return this;
+        }
+
+        @java.lang.Override
+        public final Builder setUnknownFields(
+                final com.google.protobuf.UnknownFieldSet unknownFields) {
+            return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+                final com.google.protobuf.UnknownFieldSet unknownFields) {
+            return super.mergeUnknownFields(unknownFields);
+        }
 
 
         // @@protoc_insertion_point(builder_scope:protocol.C2S_ChangeInputDir)
