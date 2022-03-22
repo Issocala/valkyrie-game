@@ -10,7 +10,7 @@ package protocol.player
 @SerialVersionUID(0L)
 final case class PlayerInfo(
                              roleId: _root_.scala.Long,
-                             name: _root_.scala.Predef.String,
+                             name: _root_.scala.Option[_root_.scala.Predef.String] = _root_.scala.None,
                              level: _root_.scala.Int,
                              gender: _root_.scala.Int,
                              profession: _root_.scala.Int,
@@ -27,9 +27,8 @@ final case class PlayerInfo(
       val __value = roleId
       __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(1, __value)
     };
-
-    {
-      val __value = name
+    if (name.isDefined) {
+      val __value = name.get
       __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(2, __value)
     };
 
@@ -71,10 +70,9 @@ final case class PlayerInfo(
       val __v = roleId
       _output__.writeInt64(1, __v)
     };
-
-    {
-      val __v = name
-      _output__.writeString(2, __v)
+    name.foreach { __v =>
+      val __m = __v
+      _output__.writeString(2, __m)
     };
 
     {
@@ -101,7 +99,11 @@ final case class PlayerInfo(
 
   def withRoleId(__v: _root_.scala.Long): PlayerInfo = copy(roleId = __v)
 
-  def withName(__v: _root_.scala.Predef.String): PlayerInfo = copy(name = __v)
+  def getName: _root_.scala.Predef.String = name.getOrElse("")
+
+  def clearName: PlayerInfo = copy(name = _root_.scala.None)
+
+  def withName(__v: _root_.scala.Predef.String): PlayerInfo = copy(name = Option(__v))
 
   def withLevel(__v: _root_.scala.Int): PlayerInfo = copy(level = __v)
 
@@ -118,7 +120,7 @@ final case class PlayerInfo(
   def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
     (__fieldNumber: @_root_.scala.unchecked) match {
       case 1 => roleId
-      case 2 => name
+      case 2 => name.orNull
       case 3 => level
       case 4 => gender
       case 5 => profession
@@ -130,7 +132,7 @@ final case class PlayerInfo(
     _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
     (__field.number: @_root_.scala.unchecked) match {
       case 1 => _root_.scalapb.descriptors.PLong(roleId)
-      case 2 => _root_.scalapb.descriptors.PString(name)
+      case 2 => name.map(_root_.scalapb.descriptors.PString(_)).getOrElse(_root_.scalapb.descriptors.PEmpty)
       case 3 => _root_.scalapb.descriptors.PInt(level)
       case 4 => _root_.scalapb.descriptors.PInt(gender)
       case 5 => _root_.scalapb.descriptors.PInt(profession)
@@ -149,7 +151,7 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
   def toJavaProto(scalaPbSource: protocol.player.PlayerInfo): protocol.Player.PlayerInfo = {
     val javaPbOut = protocol.Player.PlayerInfo.newBuilder
     javaPbOut.setRoleId(scalaPbSource.roleId)
-    javaPbOut.setName(scalaPbSource.name)
+    scalaPbSource.name.foreach(javaPbOut.setName)
     javaPbOut.setLevel(scalaPbSource.level)
     javaPbOut.setGender(scalaPbSource.gender)
     javaPbOut.setProfession(scalaPbSource.profession)
@@ -158,7 +160,7 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
   }
   def fromJavaProto(javaPbSource: protocol.Player.PlayerInfo): protocol.player.PlayerInfo = protocol.player.PlayerInfo(
     roleId = javaPbSource.getRoleId.longValue,
-    name = javaPbSource.getName,
+    name = if (javaPbSource.hasName) Some(javaPbSource.getName) else _root_.scala.None,
     level = javaPbSource.getLevel.intValue,
     gender = javaPbSource.getGender.intValue,
     profession = javaPbSource.getProfession.intValue,
@@ -172,7 +174,7 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
       protocol.player.PlayerInfo(
         roleId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).get.as[_root_.scala.Long],
-        name = __fieldsMap.get(scalaDescriptor.findFieldByNumber(2).get).get.as[_root_.scala.Predef.String],
+        name = __fieldsMap.get(scalaDescriptor.findFieldByNumber(2).get).flatMap(_.as[_root_.scala.Option[_root_.scala.Predef.String]]),
         level = __fieldsMap.get(scalaDescriptor.findFieldByNumber(3).get).get.as[_root_.scala.Int],
         gender = __fieldsMap.get(scalaDescriptor.findFieldByNumber(4).get).get.as[_root_.scala.Int],
         profession = __fieldsMap.get(scalaDescriptor.findFieldByNumber(5).get).get.as[_root_.scala.Int],
@@ -190,7 +192,7 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
 
   lazy val defaultInstance = protocol.player.PlayerInfo(
     roleId = 0L,
-    name = "",
+    name = _root_.scala.None,
     level = 0,
     gender = 0,
     profession = 0,
@@ -199,14 +201,14 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
 
   final class Builder private(
                                private var __roleId: _root_.scala.Long,
-                               private var __name: _root_.scala.Predef.String,
+                               private var __name: _root_.scala.Option[_root_.scala.Predef.String],
                                private var __level: _root_.scala.Int,
                                private var __gender: _root_.scala.Int,
                                private var __profession: _root_.scala.Int,
                                private var __lastLoginTime: _root_.scala.Long,
                                private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
                              ) extends _root_.scalapb.MessageBuilder[protocol.player.PlayerInfo] {
-    private var __requiredFields0: _root_.scala.Long = 0x3fL
+    private var __requiredFields0: _root_.scala.Long = 0x1fL
 
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
@@ -218,20 +220,19 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
             __roleId = _input__.readInt64()
             __requiredFields0 &= 0xfffffffffffffffeL
           case 18 =>
-            __name = _input__.readStringRequireUtf8()
-            __requiredFields0 &= 0xfffffffffffffffdL
+            __name = Option(_input__.readStringRequireUtf8())
           case 24 =>
             __level = _input__.readInt32()
-            __requiredFields0 &= 0xfffffffffffffffbL
+            __requiredFields0 &= 0xfffffffffffffffdL
           case 32 =>
             __gender = _input__.readInt32()
-            __requiredFields0 &= 0xfffffffffffffff7L
+            __requiredFields0 &= 0xfffffffffffffffbL
           case 40 =>
             __profession = _input__.readInt32()
-            __requiredFields0 &= 0xffffffffffffffefL
+            __requiredFields0 &= 0xfffffffffffffff7L
           case 48 =>
             __lastLoginTime = _input__.readInt64()
-            __requiredFields0 &= 0xffffffffffffffdfL
+            __requiredFields0 &= 0xffffffffffffffefL
           case tag =>
             if (_unknownFields__ == null) {
               _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -259,7 +260,7 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.player.PlayerInfo, protocol.player.PlayerInfo.Builder] {
     def apply(): Builder = new Builder(
       __roleId = 0L,
-      __name = "",
+      __name = _root_.scala.None,
       __level = 0,
       __gender = 0,
       __profession = 0,
@@ -280,10 +281,17 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
   def newBuilder(`_message__`: protocol.player.PlayerInfo): Builder = protocol.player.PlayerInfo.Builder(_message__)
   implicit class PlayerInfoLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.player.PlayerInfo]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.player.PlayerInfo](_l) {
     def roleId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.roleId)((c_, f_) => c_.copy(roleId = f_))
-    def name: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.name)((c_, f_) => c_.copy(name = f_))
+
+    def name: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.getName)((c_, f_) => c_.copy(name = Option(f_)))
+
+    def optionalName: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Predef.String]] = field(_.name)((c_, f_) => c_.copy(name = f_))
+
     def level: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.level)((c_, f_) => c_.copy(level = f_))
+
     def gender: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.gender)((c_, f_) => c_.copy(gender = f_))
+
     def profession: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.profession)((c_, f_) => c_.copy(profession = f_))
+
     def lastLoginTime: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.lastLoginTime)((c_, f_) => c_.copy(lastLoginTime = f_))
   }
   final val ROLEID_FIELD_NUMBER = 1
@@ -295,7 +303,7 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
 
   def of(
           roleId: _root_.scala.Long,
-          name: _root_.scala.Predef.String,
+          name: _root_.scala.Option[_root_.scala.Predef.String],
           level: _root_.scala.Int,
           gender: _root_.scala.Int,
           profession: _root_.scala.Int,

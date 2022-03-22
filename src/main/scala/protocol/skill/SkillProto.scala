@@ -33,7 +33,6 @@ object SkillProto extends _root_.scalapb.GeneratedFileObject {
   }
   lazy val javaDescriptor: com.google.protobuf.Descriptors.FileDescriptor =
     protocol.Skill.getDescriptor()
-
   @deprecated("Use javaDescriptor instead. In a future version this will refer to scalaDescriptor.", "ScalaPB 0.5.47")
   def descriptor: com.google.protobuf.Descriptors.FileDescriptor = javaDescriptor
 }

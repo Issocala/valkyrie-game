@@ -86,14 +86,12 @@ final case class CS10051(
 
 object CS10051 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10051] with scalapb.HasBuilder[protocol.skill.CS10051] with scalapb.JavaProtoSupport[protocol.skill.CS10051, protocol.Skill.CS10051] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.skill.CS10051] with scalapb.HasBuilder[protocol.skill.CS10051] with scalapb.JavaProtoSupport[protocol.skill.CS10051, protocol.Skill.CS10051] = this
-
   def toJavaProto(scalaPbSource: protocol.skill.CS10051): protocol.Skill.CS10051 = {
     val javaPbOut = protocol.Skill.CS10051.newBuilder
     javaPbOut.setFightOrganismId(scalaPbSource.fightOrganismId)
     javaPbOut.setSkillId(scalaPbSource.skillId)
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Skill.CS10051): protocol.skill.CS10051 = protocol.skill.CS10051(
     fightOrganismId = javaPbSource.getFightOrganismId.longValue,
     skillId = javaPbSource.getSkillId.intValue
@@ -154,7 +152,6 @@ object CS10051 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10051]
       }
       this
     }
-
     def result(): protocol.skill.CS10051 = {
       if (__requiredFields0 != 0L) {
         throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
@@ -166,31 +163,24 @@ object CS10051 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10051]
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.skill.CS10051, protocol.skill.CS10051.Builder] {
     def apply(): Builder = new Builder(
       __fightOrganismId = 0L,
       __skillId = 0,
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.skill.CS10051): Builder = new Builder(
       __fightOrganismId = _message__.fightOrganismId,
       __skillId = _message__.skillId,
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.skill.CS10051.Builder()
-
   def newBuilder(`_message__`: protocol.skill.CS10051): Builder = protocol.skill.CS10051.Builder(_message__)
-
   implicit class CS10051Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.skill.CS10051]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.skill.CS10051](_l) {
     def fightOrganismId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.fightOrganismId)((c_, f_) => c_.copy(fightOrganismId = f_))
-
     def skillId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.skillId)((c_, f_) => c_.copy(skillId = f_))
   }
-
   final val FIGHTORGANISMID_FIELD_NUMBER = 1
   final val SKILLID_FIELD_NUMBER = 2
 

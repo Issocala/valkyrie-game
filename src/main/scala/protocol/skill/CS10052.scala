@@ -199,7 +199,6 @@ final case class CS10052(
 
 object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052] with scalapb.HasBuilder[protocol.skill.CS10052] with scalapb.JavaProtoSupport[protocol.skill.CS10052, protocol.Skill.CS10052] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.skill.CS10052] with scalapb.HasBuilder[protocol.skill.CS10052] with scalapb.JavaProtoSupport[protocol.skill.CS10052, protocol.Skill.CS10052] = this
-
   def toJavaProto(scalaPbSource: protocol.skill.CS10052): protocol.Skill.CS10052 = {
     val javaPbOut = protocol.Skill.CS10052.newBuilder
     javaPbOut.setFightOrganismId(scalaPbSource.fightOrganismId)
@@ -212,7 +211,6 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
     javaPbOut.setSceneId(scalaPbSource.sceneId)
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Skill.CS10052): protocol.skill.CS10052 = protocol.skill.CS10052(
     fightOrganismId = javaPbSource.getFightOrganismId.longValue,
     skillId = javaPbSource.getSkillId.intValue,
@@ -241,15 +239,10 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-
   def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SkillProto.javaDescriptor.getMessageTypes().get(4)
-
   def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SkillProto.scalaDescriptor.messages(4)
-
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
-
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
-
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
 
   lazy val defaultInstance = protocol.skill.CS10052(
@@ -312,7 +305,6 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
       }
       this
     }
-
     def result(): protocol.skill.CS10052 = {
       if (__requiredFields0 != 0L) {
         throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
@@ -330,7 +322,6 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.skill.CS10052, protocol.skill.CS10052.Builder] {
     def apply(): Builder = new Builder(
       __fightOrganismId = 0L,
@@ -343,7 +334,6 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
       __sceneId = 0L,
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.skill.CS10052): Builder = new Builder(
       __fightOrganismId = _message__.fightOrganismId,
       __skillId = _message__.skillId,
@@ -356,35 +346,21 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.skill.CS10052.Builder()
-
   def newBuilder(`_message__`: protocol.skill.CS10052): Builder = protocol.skill.CS10052.Builder(_message__)
-
   implicit class CS10052Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.skill.CS10052]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.skill.CS10052](_l) {
     def fightOrganismId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.fightOrganismId)((c_, f_) => c_.copy(fightOrganismId = f_))
-
     def skillId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.skillId)((c_, f_) => c_.copy(skillId = f_))
-
     def targetId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.getTargetId)((c_, f_) => c_.copy(targetId = Option(f_)))
-
     def optionalTargetId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Long]] = field(_.targetId)((c_, f_) => c_.copy(targetId = f_))
-
     def direction: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.getDirection)((c_, f_) => c_.copy(direction = Option(f_)))
-
     def optionalDirection: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Int]] = field(_.direction)((c_, f_) => c_.copy(direction = f_))
-
     def skillPositionX: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.skillPositionX)((c_, f_) => c_.copy(skillPositionX = f_))
-
     def skillPositionY: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.skillPositionY)((c_, f_) => c_.copy(skillPositionY = f_))
-
     def time: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.getTime)((c_, f_) => c_.copy(time = Option(f_)))
-
     def optionalTime: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Long]] = field(_.time)((c_, f_) => c_.copy(time = f_))
-
     def sceneId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.sceneId)((c_, f_) => c_.copy(sceneId = f_))
   }
-
   final val FIGHTORGANISMID_FIELD_NUMBER = 1
   final val SKILLID_FIELD_NUMBER = 2
   final val TARGETID_FIELD_NUMBER = 3
