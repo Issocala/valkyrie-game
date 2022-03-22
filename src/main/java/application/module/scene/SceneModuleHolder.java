@@ -11,13 +11,20 @@ import java.util.List;
  * @Source 1.0
  */
 public class SceneModuleHolder extends AbstractModuleHolder {
+
+    private final static SceneModuleHolder INSTANCE = new SceneModuleHolder();
+
+    public static SceneModuleHolder getInstance() {
+        return INSTANCE;
+    }
+
     @Override
     public Props props() {
-        return null;
+        return Props.create(SceneModule.class);
     }
 
     @Override
     public List<Integer> getProtocols() {
-        return null;
+        return List.of(SceneProtocols.SCENE_ENTER, SceneProtocols.SCENE_EXIT, SceneProtocols.SCENE_MOVE, SceneProtocols.SCENE_STOP);
     }
 }

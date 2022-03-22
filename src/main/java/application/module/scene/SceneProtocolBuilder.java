@@ -10,13 +10,9 @@ import protocol.Scene;
  */
 public class SceneProtocolBuilder {
 
-    public static Scene.SC10030 getSc10030(long sceneId, long playerId, PositionInfo positionInfo) {
+    public static Scene.SC10030 getSc10030(long sceneId) {
         return Scene.SC10030.newBuilder()
                 .setSceneId(sceneId)
-                .setOrganismId(playerId)
-                .setPositionX(positionInfo.positionX())
-                .setPositionY(positionInfo.positionY())
-                .setFace(positionInfo.face())
                 .build();
     }
 
@@ -37,6 +33,16 @@ public class SceneProtocolBuilder {
         return Scene.SC10033.newBuilder()
                 .setPlayerId(playerId)
                 .setStopInfo(cs10033.getStopInfo())
+                .build();
+    }
+
+    public static Scene.SC10034 getSc10034(long organismId, byte organismType, PositionInfo positionInfo) {
+        return Scene.SC10034.newBuilder()
+                .setOrganismId(organismId)
+                .setOrganismType(organismType)
+                .setPositionX(positionInfo.positionX())
+                .setPositionY(positionInfo.positionY())
+                .setFace(positionInfo.face())
                 .build();
     }
 }

@@ -18,4 +18,6 @@ public interface SceneProtocols {
 
     int SCENE_STOP = GameProtocols.SCENE + 3;
 
+    int SCENE_RETURN_ENTITY = GameProtocols.SCENE + 4;
+
 }

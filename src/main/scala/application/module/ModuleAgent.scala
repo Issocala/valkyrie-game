@@ -1,9 +1,9 @@
 package application.module
 
-import akka.actor.SupervisorStrategy.{Decider, Restart, Resume, Stop}
-import akka.actor.{ActorInitializationException, ActorKilledException, ActorRef, DeathPactException, OneForOneStrategy, Props, SupervisorStrategy}
+import akka.actor.{ActorRef, Props}
 import application.module.example.ExampleModuleHolder
 import application.module.player.PlayerModuleHolder
+import application.module.scene.SceneModuleHolder
 import application.module.user.UserModuleHolder
 import mobius.core.ActorExtension.LogActor
 import mobius.modular.module._
@@ -15,10 +15,15 @@ import mobius.modular.module._
   */
 object ModuleAgent {
   private[application] def props(): Props = Props(classOf[ModuleAgent])
+
   final case class ClientMessageHandlers(h: Map[Int, ActorRef])
-  final case class ModuleAgentRef(agent:ActorRef)
+
+  final case class ModuleAgentRef(agent: ActorRef)
+
   final case object RequestClientMessageHandler
-  private[module] val modules = List[ModuleHolder](UserModuleHolder.getInstance(),ExampleModuleHolder.getInstance(), PlayerModuleHolder.getInstance())
+
+  private[module] val modules = List[ModuleHolder](UserModuleHolder.getInstance(), ExampleModuleHolder.getInstance(),
+    PlayerModuleHolder.getInstance(), SceneModuleHolder.getInstance())
 }
 
 
@@ -56,15 +61,4 @@ class ModuleAgent extends LogActor {
     case Module.InitModule(d) => initModules(d)
     case RequestClientMessageHandler => sender() ! ClientMessageHandlers(messageHandler)
   }
-
-
-  final val decider: Decider = {
-    case _: ActorInitializationException => Stop
-    case _: ActorKilledException => Stop
-    case _: DeathPactException => Stop
-    case _: NullPointerException => Resume
-    case _: Exception => Restart
-  }
-
-  override def supervisorStrategy: SupervisorStrategy = OneForOneStrategy()(decider)
 }

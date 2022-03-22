@@ -2,8 +2,12 @@ package application.module.scene.data;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
+import application.client.Client;
 import application.module.fight.attribute.data.message.AttributeUpdateFightAttribute;
 import application.module.fight.skill.data.message.SkillUse;
+import application.module.player.data.message.PlayerLogin;
+import application.module.scene.SceneProtocolBuilder;
+import application.module.scene.SceneProtocols;
 import application.module.scene.data.domain.Scene;
 import application.module.scene.data.domain.SceneEntity;
 import application.module.scene.data.message.SceneInit;
@@ -47,10 +51,16 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
             case SkillUse skillUse -> skillUse(skillUse);
             case ScenePlayerEntry scenePlayerEntry -> scenePlayerEntry(scenePlayerEntry);
             case ScenePlayerExit scenePlayerExit -> scenePlayerExit(scenePlayerExit);
+            case PlayerLogin playerLogin -> playerLogin(playerLogin);
             case SceneInit sceneInit -> sceneInit(sceneInit);
             case AttributeUpdateFightAttribute attributeUpdateFightAttribute -> attributeUpdateFightAttribute(attributeUpdateFightAttribute);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase);
         }
+    }
+
+    private void playerLogin(PlayerLogin playerLogin) {
+        sceneId2SceneMap.get(20003L).tell(playerLogin, self());
+        playerLogin.r().client().tell(new Client.SendToClientJ(SceneProtocols.SCENE_ENTER, SceneProtocolBuilder.getSc10030(20003L)), self());
     }
 
     private void sceneStop(SceneStop sceneStop) {

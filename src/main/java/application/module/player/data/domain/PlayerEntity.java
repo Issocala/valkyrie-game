@@ -181,6 +181,11 @@ public class PlayerEntity extends AbstractEntityBase {
             return this;
         }
 
+        public Builder setPlayerData(PlayerData playerData) {
+            this.playerData = playerData;
+            return this;
+        }
+
         public PlayerEntity build() {
             return new PlayerEntity(getId(), name, profession, accountId, accountName, level, vipLevel, gender, lastLoginTime, lastLogoutTime, playerInfo, playerData);
         }
@@ -188,7 +193,7 @@ public class PlayerEntity extends AbstractEntityBase {
 
     public static PlayerEntity of(Long id) {
         return new PlayerEntity(id, null, (byte) 0, 0, null, 0,
-                (byte) 0, (byte) 0, 0L, 0, null, null);
+                (byte) 0, (byte) 0, 0L, 0, new PlayerInfo(), new PlayerData("1", 1));
     }
 
     public String getName() {
