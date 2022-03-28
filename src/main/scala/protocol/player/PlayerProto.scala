@@ -18,8 +18,8 @@ object PlayerProto extends _root_.scalapb.GeneratedFileObject {
       protocol.player.SC10022
     )
   private lazy val ProtoBytes: Array[Byte] =
-    scalapb.Encoding.fromBase64(scala.collection.immutable.Seq(
-      """CgxwbGF5ZXIucHJvdG8SCHByb3RvY29sIoICCgpQbGF5ZXJJbmZvEiMKBnJvbGVJZBgBIAIoA0IL4j8IEgZyb2xlSWRSBnJvb
+      scalapb.Encoding.fromBase64(scala.collection.immutable.Seq(
+  """CgxwbGF5ZXIucHJvdG8SCHByb3RvY29sIoICCgpQbGF5ZXJJbmZvEiMKBnJvbGVJZBgBIAIoA0IL4j8IEgZyb2xlSWRSBnJvb
   GVJZBIdCgRuYW1lGAIgASgJQgniPwYSBG5hbWVSBG5hbWUSIAoFbGV2ZWwYAyACKAVCCuI/BxIFbGV2ZWxSBWxldmVsEiMKBmdlb
   mRlchgEIAIoBUIL4j8IEgZnZW5kZXJSBmdlbmRlchIvCgpwcm9mZXNzaW9uGAUgAigFQg/iPwwSCnByb2Zlc3Npb25SCnByb2Zlc
   3Npb24SOAoNbGFzdExvZ2luVGltZRgGIAIoA0IS4j8PEg1sYXN0TG9naW5UaW1lUg1sYXN0TG9naW5UaW1lIgkKB0NTMTAwMjAiU
@@ -30,7 +30,7 @@ object PlayerProto extends _root_.scalapb.GeneratedFileObject {
   2NvbnRlbnQYAyABKAlCDOI/CRIHY29udGVudFIHY29udGVudCIuCgdDUzEwMDIyEiMKBnJvbGVJZBgBIAIoA0IL4j8IEgZyb2xlS
   WRSBnJvbGVJZCJ+CgdTQzEwMDIyEiYKB3N1Y2Nlc3MYASACKAhCDOI/CRIHc3VjY2Vzc1IHc3VjY2VzcxIjCgZyb2xlSWQYAiABK
   ANCC+I/CBIGcm9sZUlkUgZyb2xlSWQSJgoHY29udGVudBgDIAEoCUIM4j8JEgdjb250ZW50Ugdjb250ZW50"""
-    ).mkString)
+      ).mkString)
   lazy val scalaDescriptor: _root_.scalapb.descriptors.FileDescriptor = {
     val scalaProto = com.google.protobuf.descriptor.FileDescriptorProto.parseFrom(ProtoBytes)
     _root_.scalapb.descriptors.FileDescriptor.buildFrom(scalaProto, dependencies.map(_.scalaDescriptor))

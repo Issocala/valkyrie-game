@@ -6,104 +6,92 @@
 package protocol.player
 
 /** 创建角色
- *
- * @param name
- * 名字
- * @param gender
- * 性别
- * @param profession
- * 职业
- */
+  *
+  * @param name
+  *  名字
+  * @param gender
+  *  性别
+  * @param profession
+  *  职业
+  */
 @SerialVersionUID(0L)
 final case class CS10021(
-                          name: _root_.scala.Predef.String,
-                          gender: _root_.scala.Int,
-                          profession: _root_.scala.Int,
-                          unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
-                        ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[CS10021] {
-  @transient
-  private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
-
-  private[this] def __computeSerializedValue(): _root_.scala.Int = {
-    var __size = 0
-
-    {
-      val __value = name
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(1, __value)
-    };
-
-    {
-      val __value = gender
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(2, __value)
-    };
-
-    {
-      val __value = profession
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(3, __value)
-    };
-    __size += unknownFields.serializedSize
-    __size
-  }
-
-  override def serializedSize: _root_.scala.Int = {
-    var read = __serializedSizeCachedValue
-    if (read == 0) {
-      read = __computeSerializedValue()
-      __serializedSizeCachedValue = read
+    name: _root_.scala.Predef.String,
+    gender: _root_.scala.Int,
+    profession: _root_.scala.Int,
+    unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
+    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[CS10021] {
+    @transient
+    private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
+    private[this] def __computeSerializedValue(): _root_.scala.Int = {
+      var __size = 0
+      
+      {
+        val __value = name
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(1, __value)
+      };
+      
+      {
+        val __value = gender
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(2, __value)
+      };
+      
+      {
+        val __value = profession
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(3, __value)
+      };
+      __size += unknownFields.serializedSize
+      __size
     }
-    read
-  }
-
-  def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
-
-    {
-      val __v = name
-      _output__.writeString(1, __v)
-    };
-
-    {
-      val __v = gender
-      _output__.writeInt32(2, __v)
-    };
-
-    {
-      val __v = profession
-      _output__.writeInt32(3, __v)
-    };
-    unknownFields.writeTo(_output__)
-  }
-
-  def withName(__v: _root_.scala.Predef.String): CS10021 = copy(name = __v)
-
-  def withGender(__v: _root_.scala.Int): CS10021 = copy(gender = __v)
-
-  def withProfession(__v: _root_.scala.Int): CS10021 = copy(profession = __v)
-
-  def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
-
-  def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
-
-  def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
-    (__fieldNumber: @_root_.scala.unchecked) match {
-      case 1 => name
-      case 2 => gender
-      case 3 => profession
+    override def serializedSize: _root_.scala.Int = {
+      var read = __serializedSizeCachedValue
+      if (read == 0) {
+        read = __computeSerializedValue()
+        __serializedSizeCachedValue = read
+      }
+      read
     }
-  }
-
-  def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
-    _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
-    (__field.number: @_root_.scala.unchecked) match {
-      case 1 => _root_.scalapb.descriptors.PString(name)
-      case 2 => _root_.scalapb.descriptors.PInt(gender)
-      case 3 => _root_.scalapb.descriptors.PInt(profession)
+    def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
+      
+      {
+        val __v = name
+        _output__.writeString(1, __v)
+      };
+      
+      {
+        val __v = gender
+        _output__.writeInt32(2, __v)
+      };
+      
+      {
+        val __v = profession
+        _output__.writeInt32(3, __v)
+      };
+      unknownFields.writeTo(_output__)
     }
-  }
-
-  def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
-
-  def companion = protocol.player.CS10021
-  // @@protoc_insertion_point(GeneratedMessage[protocol.CS10021])
+    def withName(__v: _root_.scala.Predef.String): CS10021 = copy(name = __v)
+    def withGender(__v: _root_.scala.Int): CS10021 = copy(gender = __v)
+    def withProfession(__v: _root_.scala.Int): CS10021 = copy(profession = __v)
+    def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
+    def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
+    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
+      (__fieldNumber: @_root_.scala.unchecked) match {
+        case 1 => name
+        case 2 => gender
+        case 3 => profession
+      }
+    }
+    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
+      _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
+      (__field.number: @_root_.scala.unchecked) match {
+        case 1 => _root_.scalapb.descriptors.PString(name)
+        case 2 => _root_.scalapb.descriptors.PInt(gender)
+        case 3 => _root_.scalapb.descriptors.PInt(profession)
+      }
+    }
+    def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
+    def companion = protocol.player.CS10021
+    // @@protoc_insertion_point(GeneratedMessage[protocol.CS10021])
 }
 
 object CS10021 extends scalapb.GeneratedMessageCompanion[protocol.player.CS10021] with scalapb.HasBuilder[protocol.player.CS10021] with scalapb.JavaProtoSupport[protocol.player.CS10021, protocol.Player.CS10021] {
@@ -120,10 +108,8 @@ object CS10021 extends scalapb.GeneratedMessageCompanion[protocol.player.CS10021
     gender = javaPbSource.getGender.intValue,
     profession = javaPbSource.getProfession.intValue
   )
-
   def merge(`_message__`: protocol.player.CS10021, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.player.CS10021 = newBuilder(_message__).merge(_input__).result()
-
-  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.player.CS10021] = _root_.scalapb.descriptors.Reads {
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.player.CS10021] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
       protocol.player.CS10021(
@@ -133,31 +119,23 @@ object CS10021 extends scalapb.GeneratedMessageCompanion[protocol.player.CS10021
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-
   def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = PlayerProto.javaDescriptor.getMessageTypes().get(3)
-
   def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = PlayerProto.scalaDescriptor.messages(3)
-
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
-
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
-
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
-
   lazy val defaultInstance = protocol.player.CS10021(
     name = "",
     gender = 0,
     profession = 0
   )
-
-  final class Builder private(
-                               private var __name: _root_.scala.Predef.String,
-                               private var __gender: _root_.scala.Int,
-                               private var __profession: _root_.scala.Int,
-                               private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
-                             ) extends _root_.scalapb.MessageBuilder[protocol.player.CS10021] {
+  final class Builder private (
+    private var __name: _root_.scala.Predef.String,
+    private var __gender: _root_.scala.Int,
+    private var __profession: _root_.scala.Int,
+    private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
+  ) extends _root_.scalapb.MessageBuilder[protocol.player.CS10021] {
     private var __requiredFields0: _root_.scala.Long = 0x7L
-
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
       while (!_done__) {
@@ -183,9 +161,7 @@ object CS10021 extends scalapb.GeneratedMessageCompanion[protocol.player.CS10021
       this
     }
     def result(): protocol.player.CS10021 = {
-      if (__requiredFields0 != 0L) {
-        throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
-      }
+      if (__requiredFields0 != 0L) { throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.") } 
       protocol.player.CS10021(
         name = __name,
         gender = __gender,
@@ -202,10 +178,10 @@ object CS10021 extends scalapb.GeneratedMessageCompanion[protocol.player.CS10021
       `_unknownFields__` = null
     )
     def apply(`_message__`: protocol.player.CS10021): Builder = new Builder(
-      __name = _message__.name,
-      __gender = _message__.gender,
-      __profession = _message__.profession,
-      `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
+        __name = _message__.name,
+        __gender = _message__.gender,
+        __profession = _message__.profession,
+        `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
   def newBuilder: Builder = protocol.player.CS10021.Builder()
@@ -218,12 +194,11 @@ object CS10021 extends scalapb.GeneratedMessageCompanion[protocol.player.CS10021
   final val NAME_FIELD_NUMBER = 1
   final val GENDER_FIELD_NUMBER = 2
   final val PROFESSION_FIELD_NUMBER = 3
-
   def of(
-          name: _root_.scala.Predef.String,
-          gender: _root_.scala.Int,
-          profession: _root_.scala.Int
-        ): _root_.protocol.player.CS10021 = _root_.protocol.player.CS10021(
+    name: _root_.scala.Predef.String,
+    gender: _root_.scala.Int,
+    profession: _root_.scala.Int
+  ): _root_.protocol.player.CS10021 = _root_.protocol.player.CS10021(
     name,
     gender,
     profession

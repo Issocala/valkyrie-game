@@ -139,7 +139,7 @@ object S2C_AllLands extends scalapb.GeneratedMessageCompanion[protocol.battle.S2
   }
   final val LANDS_FIELD_NUMBER = 1
   def of(
-          lands: _root_.scala.Seq[protocol.battle.S2C_OneLand]
+    lands: _root_.scala.Seq[protocol.battle.S2C_OneLand]
   ): _root_.protocol.battle.S2C_AllLands = _root_.protocol.battle.S2C_AllLands(
     lands
   )

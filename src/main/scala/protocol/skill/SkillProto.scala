@@ -17,8 +17,8 @@ object SkillProto extends _root_.scalapb.GeneratedFileObject {
       protocol.skill.SC10052
     )
   private lazy val ProtoBytes: Array[Byte] =
-    scalapb.Encoding.fromBase64(scala.collection.immutable.Seq(
-      """Cgtza2lsbC5wcm90bxIIcHJvdG9jb2wiCQoHQ1MxMDA1MCIJCgdTQzEwMDUwInEKB0NTMTAwNTESPgoPZmlnaHRPcmdhbmlzb
+      scalapb.Encoding.fromBase64(scala.collection.immutable.Seq(
+  """Cgtza2lsbC5wcm90bxIIcHJvdG9jb2wiCQoHQ1MxMDA1MCIJCgdTQzEwMDUwInEKB0NTMTAwNTESPgoPZmlnaHRPcmdhbmlzb
   UlkGAEgAigDQhTiPxESD2ZpZ2h0T3JnYW5pc21JZFIPZmlnaHRPcmdhbmlzbUlkEiYKB3NraWxsSWQYAiACKAVCDOI/CRIHc2tpb
   GxJZFIHc2tpbGxJZCIJCgdTQzEwMDUxIosDCgdDUzEwMDUyEj4KD2ZpZ2h0T3JnYW5pc21JZBgBIAIoA0IU4j8REg9maWdodE9yZ
   2FuaXNtSWRSD2ZpZ2h0T3JnYW5pc21JZBImCgdza2lsbElkGAIgAigFQgziPwkSB3NraWxsSWRSB3NraWxsSWQSKQoIdGFyZ2V0S
@@ -26,7 +26,7 @@ object SkillProto extends _root_.scalapb.GeneratedFileObject {
   GlvbhI7Cg5za2lsbFBvc2l0aW9uWBgFIAIoAkIT4j8QEg5za2lsbFBvc2l0aW9uWFIOc2tpbGxQb3NpdGlvblgSOwoOc2tpbGxQb
   3NpdGlvblkYBiACKAJCE+I/EBIOc2tpbGxQb3NpdGlvbllSDnNraWxsUG9zaXRpb25ZEh0KBHRpbWUYByABKANCCeI/BhIEdGltZ
   VIEdGltZRImCgdzY2VuZUlkGAggAigDQgziPwkSB3NjZW5lSWRSB3NjZW5lSWQiCQoHU0MxMDA1Mg=="""
-    ).mkString)
+      ).mkString)
   lazy val scalaDescriptor: _root_.scalapb.descriptors.FileDescriptor = {
     val scalaProto = com.google.protobuf.descriptor.FileDescriptorProto.parseFrom(ProtoBytes)
     _root_.scalapb.descriptors.FileDescriptor.buildFrom(scalaProto, dependencies.map(_.scalaDescriptor))

@@ -84,8 +84,7 @@ object C2S_ChangeInputDir extends scalapb.GeneratedMessageCompanion[protocol.bat
     nowInputDir = javaPbSource.getNowInputDir.floatValue
   )
   def merge(`_message__`: protocol.battle.C2S_ChangeInputDir, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.battle.C2S_ChangeInputDir = newBuilder(_message__).merge(_input__).result()
-
-  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.battle.C2S_ChangeInputDir] = _root_.scalapb.descriptors.Reads {
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.battle.C2S_ChangeInputDir] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
       protocol.battle.C2S_ChangeInputDir(
@@ -94,29 +93,21 @@ object C2S_ChangeInputDir extends scalapb.GeneratedMessageCompanion[protocol.bat
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-
   def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = BattleProto.javaDescriptor.getMessageTypes().get(11)
-
   def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = BattleProto.scalaDescriptor.messages(11)
-
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
-
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
-
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
-
   lazy val defaultInstance = protocol.battle.C2S_ChangeInputDir(
     nowInput = false,
     nowInputDir = 0.0f
   )
-
-  final class Builder private(
-                               private var __nowInput: _root_.scala.Boolean,
-                               private var __nowInputDir: _root_.scala.Float,
-                               private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
-                             ) extends _root_.scalapb.MessageBuilder[protocol.battle.C2S_ChangeInputDir] {
+  final class Builder private (
+    private var __nowInput: _root_.scala.Boolean,
+    private var __nowInputDir: _root_.scala.Float,
+    private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
+  ) extends _root_.scalapb.MessageBuilder[protocol.battle.C2S_ChangeInputDir] {
     private var __requiredFields0: _root_.scala.Long = 0x3L
-
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
       while (!_done__) {

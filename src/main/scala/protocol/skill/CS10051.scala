@@ -6,82 +6,71 @@
 package protocol.skill
 
 /** 学习技能
- */
+  */
 @SerialVersionUID(0L)
 final case class CS10051(
-                          fightOrganismId: _root_.scala.Long,
-                          skillId: _root_.scala.Int,
-                          unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
-                        ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[CS10051] {
-  @transient
-  private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
-
-  private[this] def __computeSerializedValue(): _root_.scala.Int = {
-    var __size = 0
-
-    {
-      val __value = fightOrganismId
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(1, __value)
-    };
-
-    {
-      val __value = skillId
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(2, __value)
-    };
-    __size += unknownFields.serializedSize
-    __size
-  }
-
-  override def serializedSize: _root_.scala.Int = {
-    var read = __serializedSizeCachedValue
-    if (read == 0) {
-      read = __computeSerializedValue()
-      __serializedSizeCachedValue = read
+    fightOrganismId: _root_.scala.Long,
+    skillId: _root_.scala.Int,
+    unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
+    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[CS10051] {
+    @transient
+    private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
+    private[this] def __computeSerializedValue(): _root_.scala.Int = {
+      var __size = 0
+      
+      {
+        val __value = fightOrganismId
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(1, __value)
+      };
+      
+      {
+        val __value = skillId
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(2, __value)
+      };
+      __size += unknownFields.serializedSize
+      __size
     }
-    read
-  }
-
-  def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
-
-    {
-      val __v = fightOrganismId
-      _output__.writeInt64(1, __v)
-    };
-
-    {
-      val __v = skillId
-      _output__.writeInt32(2, __v)
-    };
-    unknownFields.writeTo(_output__)
-  }
-
-  def withFightOrganismId(__v: _root_.scala.Long): CS10051 = copy(fightOrganismId = __v)
-
-  def withSkillId(__v: _root_.scala.Int): CS10051 = copy(skillId = __v)
-
-  def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
-
-  def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
-
-  def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
-    (__fieldNumber: @_root_.scala.unchecked) match {
-      case 1 => fightOrganismId
-      case 2 => skillId
+    override def serializedSize: _root_.scala.Int = {
+      var read = __serializedSizeCachedValue
+      if (read == 0) {
+        read = __computeSerializedValue()
+        __serializedSizeCachedValue = read
+      }
+      read
     }
-  }
-
-  def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
-    _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
-    (__field.number: @_root_.scala.unchecked) match {
-      case 1 => _root_.scalapb.descriptors.PLong(fightOrganismId)
-      case 2 => _root_.scalapb.descriptors.PInt(skillId)
+    def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
+      
+      {
+        val __v = fightOrganismId
+        _output__.writeInt64(1, __v)
+      };
+      
+      {
+        val __v = skillId
+        _output__.writeInt32(2, __v)
+      };
+      unknownFields.writeTo(_output__)
     }
-  }
-
-  def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
-
-  def companion = protocol.skill.CS10051
-  // @@protoc_insertion_point(GeneratedMessage[protocol.CS10051])
+    def withFightOrganismId(__v: _root_.scala.Long): CS10051 = copy(fightOrganismId = __v)
+    def withSkillId(__v: _root_.scala.Int): CS10051 = copy(skillId = __v)
+    def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
+    def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
+    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
+      (__fieldNumber: @_root_.scala.unchecked) match {
+        case 1 => fightOrganismId
+        case 2 => skillId
+      }
+    }
+    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
+      _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
+      (__field.number: @_root_.scala.unchecked) match {
+        case 1 => _root_.scalapb.descriptors.PLong(fightOrganismId)
+        case 2 => _root_.scalapb.descriptors.PInt(skillId)
+      }
+    }
+    def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
+    def companion = protocol.skill.CS10051
+    // @@protoc_insertion_point(GeneratedMessage[protocol.CS10051])
 }
 
 object CS10051 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10051] with scalapb.HasBuilder[protocol.skill.CS10051] with scalapb.JavaProtoSupport[protocol.skill.CS10051, protocol.Skill.CS10051] {
@@ -96,10 +85,8 @@ object CS10051 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10051]
     fightOrganismId = javaPbSource.getFightOrganismId.longValue,
     skillId = javaPbSource.getSkillId.intValue
   )
-
   def merge(`_message__`: protocol.skill.CS10051, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.skill.CS10051 = newBuilder(_message__).merge(_input__).result()
-
-  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.skill.CS10051] = _root_.scalapb.descriptors.Reads {
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.skill.CS10051] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
       protocol.skill.CS10051(
@@ -108,29 +95,21 @@ object CS10051 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10051]
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-
   def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SkillProto.javaDescriptor.getMessageTypes().get(2)
-
   def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SkillProto.scalaDescriptor.messages(2)
-
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
-
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
-
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
-
   lazy val defaultInstance = protocol.skill.CS10051(
     fightOrganismId = 0L,
     skillId = 0
   )
-
-  final class Builder private(
-                               private var __fightOrganismId: _root_.scala.Long,
-                               private var __skillId: _root_.scala.Int,
-                               private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
-                             ) extends _root_.scalapb.MessageBuilder[protocol.skill.CS10051] {
+  final class Builder private (
+    private var __fightOrganismId: _root_.scala.Long,
+    private var __skillId: _root_.scala.Int,
+    private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
+  ) extends _root_.scalapb.MessageBuilder[protocol.skill.CS10051] {
     private var __requiredFields0: _root_.scala.Long = 0x3L
-
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
       while (!_done__) {
@@ -153,9 +132,7 @@ object CS10051 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10051]
       this
     }
     def result(): protocol.skill.CS10051 = {
-      if (__requiredFields0 != 0L) {
-        throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
-      }
+      if (__requiredFields0 != 0L) { throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.") } 
       protocol.skill.CS10051(
         fightOrganismId = __fightOrganismId,
         skillId = __skillId,
@@ -170,9 +147,9 @@ object CS10051 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10051]
       `_unknownFields__` = null
     )
     def apply(`_message__`: protocol.skill.CS10051): Builder = new Builder(
-      __fightOrganismId = _message__.fightOrganismId,
-      __skillId = _message__.skillId,
-      `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
+        __fightOrganismId = _message__.fightOrganismId,
+        __skillId = _message__.skillId,
+        `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
   def newBuilder: Builder = protocol.skill.CS10051.Builder()
@@ -183,11 +160,10 @@ object CS10051 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10051]
   }
   final val FIGHTORGANISMID_FIELD_NUMBER = 1
   final val SKILLID_FIELD_NUMBER = 2
-
   def of(
-          fightOrganismId: _root_.scala.Long,
-          skillId: _root_.scala.Int
-        ): _root_.protocol.skill.CS10051 = _root_.protocol.skill.CS10051(
+    fightOrganismId: _root_.scala.Long,
+    skillId: _root_.scala.Int
+  ): _root_.protocol.skill.CS10051 = _root_.protocol.skill.CS10051(
     fightOrganismId,
     skillId
   )

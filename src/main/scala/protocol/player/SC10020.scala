@@ -7,73 +7,60 @@ package protocol.player
 import _root_.scalapb.internal.compat.JavaConverters._
 
 /** 返回基本玩家角色信息
- */
+  */
 @SerialVersionUID(0L)
 final case class SC10020(
-                          playerInfo: _root_.scala.Seq[protocol.player.PlayerInfo] = _root_.scala.Seq.empty,
-                          unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
-                        ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SC10020] {
-  @transient
-  private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
-
-  private[this] def __computeSerializedValue(): _root_.scala.Int = {
-    var __size = 0
-    playerInfo.foreach { __item =>
-      val __value = __item
-      __size += 1 + _root_.com.google.protobuf.CodedOutputStream.computeUInt32SizeNoTag(__value.serializedSize) + __value.serializedSize
+    playerInfo: _root_.scala.Seq[protocol.player.PlayerInfo] = _root_.scala.Seq.empty,
+    unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
+    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SC10020] {
+    @transient
+    private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
+    private[this] def __computeSerializedValue(): _root_.scala.Int = {
+      var __size = 0
+      playerInfo.foreach { __item =>
+        val __value = __item
+        __size += 1 + _root_.com.google.protobuf.CodedOutputStream.computeUInt32SizeNoTag(__value.serializedSize) + __value.serializedSize
+      }
+      __size += unknownFields.serializedSize
+      __size
     }
-    __size += unknownFields.serializedSize
-    __size
-  }
-
-  override def serializedSize: _root_.scala.Int = {
-    var read = __serializedSizeCachedValue
-    if (read == 0) {
-      read = __computeSerializedValue()
-      __serializedSizeCachedValue = read
+    override def serializedSize: _root_.scala.Int = {
+      var read = __serializedSizeCachedValue
+      if (read == 0) {
+        read = __computeSerializedValue()
+        __serializedSizeCachedValue = read
+      }
+      read
     }
-    read
-  }
-
-  def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
-    playerInfo.foreach { __v =>
-      val __m = __v
-      _output__.writeTag(1, 2)
-      _output__.writeUInt32NoTag(__m.serializedSize)
-      __m.writeTo(_output__)
-    };
-    unknownFields.writeTo(_output__)
-  }
-
-  def clearPlayerInfo = copy(playerInfo = _root_.scala.Seq.empty)
-
-  def addPlayerInfo(__vs: protocol.player.PlayerInfo*): SC10020 = addAllPlayerInfo(__vs)
-
-  def addAllPlayerInfo(__vs: Iterable[protocol.player.PlayerInfo]): SC10020 = copy(playerInfo = playerInfo ++ __vs)
-
-  def withPlayerInfo(__v: _root_.scala.Seq[protocol.player.PlayerInfo]): SC10020 = copy(playerInfo = __v)
-
-  def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
-
-  def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
-
-  def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
-    (__fieldNumber: @_root_.scala.unchecked) match {
-      case 1 => playerInfo
+    def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
+      playerInfo.foreach { __v =>
+        val __m = __v
+        _output__.writeTag(1, 2)
+        _output__.writeUInt32NoTag(__m.serializedSize)
+        __m.writeTo(_output__)
+      };
+      unknownFields.writeTo(_output__)
     }
-  }
-
-  def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
-    _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
-    (__field.number: @_root_.scala.unchecked) match {
-      case 1 => _root_.scalapb.descriptors.PRepeated(playerInfo.iterator.map(_.toPMessage).toVector)
+    def clearPlayerInfo = copy(playerInfo = _root_.scala.Seq.empty)
+    def addPlayerInfo(__vs: protocol.player.PlayerInfo*): SC10020 = addAllPlayerInfo(__vs)
+    def addAllPlayerInfo(__vs: Iterable[protocol.player.PlayerInfo]): SC10020 = copy(playerInfo = playerInfo ++ __vs)
+    def withPlayerInfo(__v: _root_.scala.Seq[protocol.player.PlayerInfo]): SC10020 = copy(playerInfo = __v)
+    def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
+    def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
+    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
+      (__fieldNumber: @_root_.scala.unchecked) match {
+        case 1 => playerInfo
+      }
     }
-  }
-
-  def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
-
-  def companion = protocol.player.SC10020
-  // @@protoc_insertion_point(GeneratedMessage[protocol.SC10020])
+    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
+      _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
+      (__field.number: @_root_.scala.unchecked) match {
+        case 1 => _root_.scalapb.descriptors.PRepeated(playerInfo.iterator.map(_.toPMessage).toVector)
+      }
+    }
+    def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
+    def companion = protocol.player.SC10020
+    // @@protoc_insertion_point(GeneratedMessage[protocol.SC10020])
 }
 
 object SC10020 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10020] with scalapb.HasBuilder[protocol.player.SC10020] with scalapb.JavaProtoSupport[protocol.player.SC10020, protocol.Player.SC10020] {
@@ -86,10 +73,8 @@ object SC10020 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10020
   def fromJavaProto(javaPbSource: protocol.Player.SC10020): protocol.player.SC10020 = protocol.player.SC10020(
     playerInfo = javaPbSource.getPlayerInfoList.asScala.iterator.map(protocol.player.PlayerInfo.fromJavaProto(_)).toSeq
   )
-
   def merge(`_message__`: protocol.player.SC10020, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.player.SC10020 = newBuilder(_message__).merge(_input__).result()
-
-  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.player.SC10020] = _root_.scalapb.descriptors.Reads {
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.player.SC10020] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
       protocol.player.SC10020(
@@ -97,7 +82,6 @@ object SC10020 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10020
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-
   def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = PlayerProto.javaDescriptor.getMessageTypes().get(2)
   def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = PlayerProto.scalaDescriptor.messages(2)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
@@ -107,19 +91,15 @@ object SC10020 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10020
     }
     __out
   }
-
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
-
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
-
   lazy val defaultInstance = protocol.player.SC10020(
     playerInfo = _root_.scala.Seq.empty
   )
-
-  final class Builder private(
-                               private val __playerInfo: _root_.scala.collection.immutable.VectorBuilder[protocol.player.PlayerInfo],
-                               private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
-                             ) extends _root_.scalapb.MessageBuilder[protocol.player.SC10020] {
+  final class Builder private (
+    private val __playerInfo: _root_.scala.collection.immutable.VectorBuilder[protocol.player.PlayerInfo],
+    private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
+  ) extends _root_.scalapb.MessageBuilder[protocol.player.SC10020] {
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
       while (!_done__) {
@@ -150,8 +130,8 @@ object SC10020 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10020
       `_unknownFields__` = null
     )
     def apply(`_message__`: protocol.player.SC10020): Builder = new Builder(
-      __playerInfo = new _root_.scala.collection.immutable.VectorBuilder[protocol.player.PlayerInfo] ++= _message__.playerInfo,
-      `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
+        __playerInfo = new _root_.scala.collection.immutable.VectorBuilder[protocol.player.PlayerInfo] ++= _message__.playerInfo,
+        `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
   def newBuilder: Builder = protocol.player.SC10020.Builder()
@@ -160,10 +140,9 @@ object SC10020 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10020
     def playerInfo: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[protocol.player.PlayerInfo]] = field(_.playerInfo)((c_, f_) => c_.copy(playerInfo = f_))
   }
   final val PLAYERINFO_FIELD_NUMBER = 1
-
   def of(
-          playerInfo: _root_.scala.Seq[protocol.player.PlayerInfo]
-        ): _root_.protocol.player.SC10020 = _root_.protocol.player.SC10020(
+    playerInfo: _root_.scala.Seq[protocol.player.PlayerInfo]
+  ): _root_.protocol.player.SC10020 = _root_.protocol.player.SC10020(
     playerInfo
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.SC10020])

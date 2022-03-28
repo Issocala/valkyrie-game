@@ -1,7 +1,7 @@
 package protocol;
 
 
-message MoveInfo
+message MoveInfo 
 {
   required float positionX = 1;
   required float positionY = 2;
@@ -24,7 +24,7 @@ message JumpInfo
   required float highestPosY = 4;
   required float finalPosX = 5;
   required float finalPosY = 6;
-  required float face = 7;//面部朝向(0代表看向右边(默认),1代表看向左边)
+  required int32 face = 7;//面部朝向(0代表看向右边(默认),1代表看向左边)
 }
 
 //玩家进入场景

@@ -6,195 +6,172 @@
 package protocol.skill
 
 /** 使用技能
- *
- * @param fightOrganismId
- * 技能的战斗单位id
- * @param skillId
- * 技能id
- * @param targetId
- * 目标战斗单位id
- * @param direction
- * 释放方向
- * @param skillPositionX
- * 技能横坐标
- * @param skillPositionY
- * 技能纵坐标
- * @param time
- * 释放时间戳
- * @param sceneId
- * 释放场景
- */
+  *
+  * @param fightOrganismId
+  *  技能的战斗单位id
+  * @param skillId
+  *  技能id
+  * @param targetId
+  *  目标战斗单位id
+  * @param direction
+  *  释放方向
+  * @param skillPositionX
+  *  技能横坐标
+  * @param skillPositionY
+  *  技能纵坐标
+  * @param time
+  *  释放时间戳
+  * @param sceneId
+  *  释放场景
+  */
 @SerialVersionUID(0L)
 final case class CS10052(
-                          fightOrganismId: _root_.scala.Long,
-                          skillId: _root_.scala.Int,
-                          targetId: _root_.scala.Option[_root_.scala.Long] = _root_.scala.None,
-                          direction: _root_.scala.Option[_root_.scala.Int] = _root_.scala.None,
-                          skillPositionX: _root_.scala.Float,
-                          skillPositionY: _root_.scala.Float,
-                          time: _root_.scala.Option[_root_.scala.Long] = _root_.scala.None,
-                          sceneId: _root_.scala.Long,
-                          unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
-                        ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[CS10052] {
-  @transient
-  private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
-
-  private[this] def __computeSerializedValue(): _root_.scala.Int = {
-    var __size = 0
-
-    {
-      val __value = fightOrganismId
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(1, __value)
-    };
-
-    {
-      val __value = skillId
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(2, __value)
-    };
-    if (targetId.isDefined) {
-      val __value = targetId.get
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(3, __value)
-    };
-    if (direction.isDefined) {
-      val __value = direction.get
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(4, __value)
-    };
-
-    {
-      val __value = skillPositionX
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeFloatSize(5, __value)
-    };
-
-    {
-      val __value = skillPositionY
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeFloatSize(6, __value)
-    };
-    if (time.isDefined) {
-      val __value = time.get
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(7, __value)
-    };
-
-    {
-      val __value = sceneId
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(8, __value)
-    };
-    __size += unknownFields.serializedSize
-    __size
-  }
-
-  override def serializedSize: _root_.scala.Int = {
-    var read = __serializedSizeCachedValue
-    if (read == 0) {
-      read = __computeSerializedValue()
-      __serializedSizeCachedValue = read
+    fightOrganismId: _root_.scala.Long,
+    skillId: _root_.scala.Int,
+    targetId: _root_.scala.Option[_root_.scala.Long] = _root_.scala.None,
+    direction: _root_.scala.Option[_root_.scala.Int] = _root_.scala.None,
+    skillPositionX: _root_.scala.Float,
+    skillPositionY: _root_.scala.Float,
+    time: _root_.scala.Option[_root_.scala.Long] = _root_.scala.None,
+    sceneId: _root_.scala.Long,
+    unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
+    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[CS10052] {
+    @transient
+    private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
+    private[this] def __computeSerializedValue(): _root_.scala.Int = {
+      var __size = 0
+      
+      {
+        val __value = fightOrganismId
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(1, __value)
+      };
+      
+      {
+        val __value = skillId
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(2, __value)
+      };
+      if (targetId.isDefined) {
+        val __value = targetId.get
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(3, __value)
+      };
+      if (direction.isDefined) {
+        val __value = direction.get
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(4, __value)
+      };
+      
+      {
+        val __value = skillPositionX
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeFloatSize(5, __value)
+      };
+      
+      {
+        val __value = skillPositionY
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeFloatSize(6, __value)
+      };
+      if (time.isDefined) {
+        val __value = time.get
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(7, __value)
+      };
+      
+      {
+        val __value = sceneId
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(8, __value)
+      };
+      __size += unknownFields.serializedSize
+      __size
     }
-    read
-  }
-
-  def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
-
-    {
-      val __v = fightOrganismId
-      _output__.writeInt64(1, __v)
-    };
-
-    {
-      val __v = skillId
-      _output__.writeInt32(2, __v)
-    };
-    targetId.foreach { __v =>
-      val __m = __v
-      _output__.writeInt64(3, __m)
-    };
-    direction.foreach { __v =>
-      val __m = __v
-      _output__.writeInt32(4, __m)
-    };
-
-    {
-      val __v = skillPositionX
-      _output__.writeFloat(5, __v)
-    };
-
-    {
-      val __v = skillPositionY
-      _output__.writeFloat(6, __v)
-    };
-    time.foreach { __v =>
-      val __m = __v
-      _output__.writeInt64(7, __m)
-    };
-
-    {
-      val __v = sceneId
-      _output__.writeInt64(8, __v)
-    };
-    unknownFields.writeTo(_output__)
-  }
-
-  def withFightOrganismId(__v: _root_.scala.Long): CS10052 = copy(fightOrganismId = __v)
-
-  def withSkillId(__v: _root_.scala.Int): CS10052 = copy(skillId = __v)
-
-  def getTargetId: _root_.scala.Long = targetId.getOrElse(0L)
-
-  def clearTargetId: CS10052 = copy(targetId = _root_.scala.None)
-
-  def withTargetId(__v: _root_.scala.Long): CS10052 = copy(targetId = Option(__v))
-
-  def getDirection: _root_.scala.Int = direction.getOrElse(0)
-
-  def clearDirection: CS10052 = copy(direction = _root_.scala.None)
-
-  def withDirection(__v: _root_.scala.Int): CS10052 = copy(direction = Option(__v))
-
-  def withSkillPositionX(__v: _root_.scala.Float): CS10052 = copy(skillPositionX = __v)
-
-  def withSkillPositionY(__v: _root_.scala.Float): CS10052 = copy(skillPositionY = __v)
-
-  def getTime: _root_.scala.Long = time.getOrElse(0L)
-
-  def clearTime: CS10052 = copy(time = _root_.scala.None)
-
-  def withTime(__v: _root_.scala.Long): CS10052 = copy(time = Option(__v))
-
-  def withSceneId(__v: _root_.scala.Long): CS10052 = copy(sceneId = __v)
-
-  def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
-
-  def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
-
-  def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
-    (__fieldNumber: @_root_.scala.unchecked) match {
-      case 1 => fightOrganismId
-      case 2 => skillId
-      case 3 => targetId.orNull
-      case 4 => direction.orNull
-      case 5 => skillPositionX
-      case 6 => skillPositionY
-      case 7 => time.orNull
-      case 8 => sceneId
+    override def serializedSize: _root_.scala.Int = {
+      var read = __serializedSizeCachedValue
+      if (read == 0) {
+        read = __computeSerializedValue()
+        __serializedSizeCachedValue = read
+      }
+      read
     }
-  }
-
-  def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
-    _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
-    (__field.number: @_root_.scala.unchecked) match {
-      case 1 => _root_.scalapb.descriptors.PLong(fightOrganismId)
-      case 2 => _root_.scalapb.descriptors.PInt(skillId)
-      case 3 => targetId.map(_root_.scalapb.descriptors.PLong(_)).getOrElse(_root_.scalapb.descriptors.PEmpty)
-      case 4 => direction.map(_root_.scalapb.descriptors.PInt(_)).getOrElse(_root_.scalapb.descriptors.PEmpty)
-      case 5 => _root_.scalapb.descriptors.PFloat(skillPositionX)
-      case 6 => _root_.scalapb.descriptors.PFloat(skillPositionY)
-      case 7 => time.map(_root_.scalapb.descriptors.PLong(_)).getOrElse(_root_.scalapb.descriptors.PEmpty)
-      case 8 => _root_.scalapb.descriptors.PLong(sceneId)
+    def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
+      
+      {
+        val __v = fightOrganismId
+        _output__.writeInt64(1, __v)
+      };
+      
+      {
+        val __v = skillId
+        _output__.writeInt32(2, __v)
+      };
+      targetId.foreach { __v =>
+        val __m = __v
+        _output__.writeInt64(3, __m)
+      };
+      direction.foreach { __v =>
+        val __m = __v
+        _output__.writeInt32(4, __m)
+      };
+      
+      {
+        val __v = skillPositionX
+        _output__.writeFloat(5, __v)
+      };
+      
+      {
+        val __v = skillPositionY
+        _output__.writeFloat(6, __v)
+      };
+      time.foreach { __v =>
+        val __m = __v
+        _output__.writeInt64(7, __m)
+      };
+      
+      {
+        val __v = sceneId
+        _output__.writeInt64(8, __v)
+      };
+      unknownFields.writeTo(_output__)
     }
-  }
-
-  def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
-
-  def companion = protocol.skill.CS10052
-  // @@protoc_insertion_point(GeneratedMessage[protocol.CS10052])
+    def withFightOrganismId(__v: _root_.scala.Long): CS10052 = copy(fightOrganismId = __v)
+    def withSkillId(__v: _root_.scala.Int): CS10052 = copy(skillId = __v)
+    def getTargetId: _root_.scala.Long = targetId.getOrElse(0L)
+    def clearTargetId: CS10052 = copy(targetId = _root_.scala.None)
+    def withTargetId(__v: _root_.scala.Long): CS10052 = copy(targetId = Option(__v))
+    def getDirection: _root_.scala.Int = direction.getOrElse(0)
+    def clearDirection: CS10052 = copy(direction = _root_.scala.None)
+    def withDirection(__v: _root_.scala.Int): CS10052 = copy(direction = Option(__v))
+    def withSkillPositionX(__v: _root_.scala.Float): CS10052 = copy(skillPositionX = __v)
+    def withSkillPositionY(__v: _root_.scala.Float): CS10052 = copy(skillPositionY = __v)
+    def getTime: _root_.scala.Long = time.getOrElse(0L)
+    def clearTime: CS10052 = copy(time = _root_.scala.None)
+    def withTime(__v: _root_.scala.Long): CS10052 = copy(time = Option(__v))
+    def withSceneId(__v: _root_.scala.Long): CS10052 = copy(sceneId = __v)
+    def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
+    def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
+    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
+      (__fieldNumber: @_root_.scala.unchecked) match {
+        case 1 => fightOrganismId
+        case 2 => skillId
+        case 3 => targetId.orNull
+        case 4 => direction.orNull
+        case 5 => skillPositionX
+        case 6 => skillPositionY
+        case 7 => time.orNull
+        case 8 => sceneId
+      }
+    }
+    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
+      _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
+      (__field.number: @_root_.scala.unchecked) match {
+        case 1 => _root_.scalapb.descriptors.PLong(fightOrganismId)
+        case 2 => _root_.scalapb.descriptors.PInt(skillId)
+        case 3 => targetId.map(_root_.scalapb.descriptors.PLong(_)).getOrElse(_root_.scalapb.descriptors.PEmpty)
+        case 4 => direction.map(_root_.scalapb.descriptors.PInt(_)).getOrElse(_root_.scalapb.descriptors.PEmpty)
+        case 5 => _root_.scalapb.descriptors.PFloat(skillPositionX)
+        case 6 => _root_.scalapb.descriptors.PFloat(skillPositionY)
+        case 7 => time.map(_root_.scalapb.descriptors.PLong(_)).getOrElse(_root_.scalapb.descriptors.PEmpty)
+        case 8 => _root_.scalapb.descriptors.PLong(sceneId)
+      }
+    }
+    def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
+    def companion = protocol.skill.CS10052
+    // @@protoc_insertion_point(GeneratedMessage[protocol.CS10052])
 }
 
 object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052] with scalapb.HasBuilder[protocol.skill.CS10052] with scalapb.JavaProtoSupport[protocol.skill.CS10052, protocol.Skill.CS10052] {
@@ -221,10 +198,8 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
     time = if (javaPbSource.hasTime) Some(javaPbSource.getTime.longValue) else _root_.scala.None,
     sceneId = javaPbSource.getSceneId.longValue
   )
-
   def merge(`_message__`: protocol.skill.CS10052, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.skill.CS10052 = newBuilder(_message__).merge(_input__).result()
-
-  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.skill.CS10052] = _root_.scalapb.descriptors.Reads {
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.skill.CS10052] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
       protocol.skill.CS10052(
@@ -244,7 +219,6 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
-
   lazy val defaultInstance = protocol.skill.CS10052(
     fightOrganismId = 0L,
     skillId = 0,
@@ -255,20 +229,18 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
     time = _root_.scala.None,
     sceneId = 0L
   )
-
-  final class Builder private(
-                               private var __fightOrganismId: _root_.scala.Long,
-                               private var __skillId: _root_.scala.Int,
-                               private var __targetId: _root_.scala.Option[_root_.scala.Long],
-                               private var __direction: _root_.scala.Option[_root_.scala.Int],
-                               private var __skillPositionX: _root_.scala.Float,
-                               private var __skillPositionY: _root_.scala.Float,
-                               private var __time: _root_.scala.Option[_root_.scala.Long],
-                               private var __sceneId: _root_.scala.Long,
-                               private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
-                             ) extends _root_.scalapb.MessageBuilder[protocol.skill.CS10052] {
+  final class Builder private (
+    private var __fightOrganismId: _root_.scala.Long,
+    private var __skillId: _root_.scala.Int,
+    private var __targetId: _root_.scala.Option[_root_.scala.Long],
+    private var __direction: _root_.scala.Option[_root_.scala.Int],
+    private var __skillPositionX: _root_.scala.Float,
+    private var __skillPositionY: _root_.scala.Float,
+    private var __time: _root_.scala.Option[_root_.scala.Long],
+    private var __sceneId: _root_.scala.Long,
+    private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
+  ) extends _root_.scalapb.MessageBuilder[protocol.skill.CS10052] {
     private var __requiredFields0: _root_.scala.Long = 0x1fL
-
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
       while (!_done__) {
@@ -306,9 +278,7 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
       this
     }
     def result(): protocol.skill.CS10052 = {
-      if (__requiredFields0 != 0L) {
-        throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
-      }
+      if (__requiredFields0 != 0L) { throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.") } 
       protocol.skill.CS10052(
         fightOrganismId = __fightOrganismId,
         skillId = __skillId,
@@ -335,15 +305,15 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
       `_unknownFields__` = null
     )
     def apply(`_message__`: protocol.skill.CS10052): Builder = new Builder(
-      __fightOrganismId = _message__.fightOrganismId,
-      __skillId = _message__.skillId,
-      __targetId = _message__.targetId,
-      __direction = _message__.direction,
-      __skillPositionX = _message__.skillPositionX,
-      __skillPositionY = _message__.skillPositionY,
-      __time = _message__.time,
-      __sceneId = _message__.sceneId,
-      `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
+        __fightOrganismId = _message__.fightOrganismId,
+        __skillId = _message__.skillId,
+        __targetId = _message__.targetId,
+        __direction = _message__.direction,
+        __skillPositionX = _message__.skillPositionX,
+        __skillPositionY = _message__.skillPositionY,
+        __time = _message__.time,
+        __sceneId = _message__.sceneId,
+        `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
   def newBuilder: Builder = protocol.skill.CS10052.Builder()
@@ -369,17 +339,16 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
   final val SKILLPOSITIONY_FIELD_NUMBER = 6
   final val TIME_FIELD_NUMBER = 7
   final val SCENEID_FIELD_NUMBER = 8
-
   def of(
-          fightOrganismId: _root_.scala.Long,
-          skillId: _root_.scala.Int,
-          targetId: _root_.scala.Option[_root_.scala.Long],
-          direction: _root_.scala.Option[_root_.scala.Int],
-          skillPositionX: _root_.scala.Float,
-          skillPositionY: _root_.scala.Float,
-          time: _root_.scala.Option[_root_.scala.Long],
-          sceneId: _root_.scala.Long
-        ): _root_.protocol.skill.CS10052 = _root_.protocol.skill.CS10052(
+    fightOrganismId: _root_.scala.Long,
+    skillId: _root_.scala.Int,
+    targetId: _root_.scala.Option[_root_.scala.Long],
+    direction: _root_.scala.Option[_root_.scala.Int],
+    skillPositionX: _root_.scala.Float,
+    skillPositionY: _root_.scala.Float,
+    time: _root_.scala.Option[_root_.scala.Long],
+    sceneId: _root_.scala.Long
+  ): _root_.protocol.skill.CS10052 = _root_.protocol.skill.CS10052(
     fightOrganismId,
     skillId,
     targetId,

@@ -6,98 +6,86 @@
 package protocol.scene
 
 /** @param face
- * 面部朝向(0代表看向右边(默认),1代表看向左边)
- */
+  *  面部朝向(0代表看向右边(默认),1代表看向左边)
+  */
 @SerialVersionUID(0L)
 final case class StopInfo(
-                           positionX: _root_.scala.Float,
-                           positionY: _root_.scala.Float,
-                           face: _root_.scala.Int,
-                           unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
-                         ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[StopInfo] {
-  @transient
-  private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
-
-  private[this] def __computeSerializedValue(): _root_.scala.Int = {
-    var __size = 0
-
-    {
-      val __value = positionX
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeFloatSize(1, __value)
-    };
-
-    {
-      val __value = positionY
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeFloatSize(2, __value)
-    };
-
-    {
-      val __value = face
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(3, __value)
-    };
-    __size += unknownFields.serializedSize
-    __size
-  }
-
-  override def serializedSize: _root_.scala.Int = {
-    var read = __serializedSizeCachedValue
-    if (read == 0) {
-      read = __computeSerializedValue()
-      __serializedSizeCachedValue = read
+    positionX: _root_.scala.Float,
+    positionY: _root_.scala.Float,
+    face: _root_.scala.Int,
+    unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
+    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[StopInfo] {
+    @transient
+    private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
+    private[this] def __computeSerializedValue(): _root_.scala.Int = {
+      var __size = 0
+      
+      {
+        val __value = positionX
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeFloatSize(1, __value)
+      };
+      
+      {
+        val __value = positionY
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeFloatSize(2, __value)
+      };
+      
+      {
+        val __value = face
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(3, __value)
+      };
+      __size += unknownFields.serializedSize
+      __size
     }
-    read
-  }
-
-  def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
-
-    {
-      val __v = positionX
-      _output__.writeFloat(1, __v)
-    };
-
-    {
-      val __v = positionY
-      _output__.writeFloat(2, __v)
-    };
-
-    {
-      val __v = face
-      _output__.writeInt32(3, __v)
-    };
-    unknownFields.writeTo(_output__)
-  }
-
-  def withPositionX(__v: _root_.scala.Float): StopInfo = copy(positionX = __v)
-
-  def withPositionY(__v: _root_.scala.Float): StopInfo = copy(positionY = __v)
-
-  def withFace(__v: _root_.scala.Int): StopInfo = copy(face = __v)
-
-  def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
-
-  def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
-
-  def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
-    (__fieldNumber: @_root_.scala.unchecked) match {
-      case 1 => positionX
-      case 2 => positionY
-      case 3 => face
+    override def serializedSize: _root_.scala.Int = {
+      var read = __serializedSizeCachedValue
+      if (read == 0) {
+        read = __computeSerializedValue()
+        __serializedSizeCachedValue = read
+      }
+      read
     }
-  }
-
-  def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
-    _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
-    (__field.number: @_root_.scala.unchecked) match {
-      case 1 => _root_.scalapb.descriptors.PFloat(positionX)
-      case 2 => _root_.scalapb.descriptors.PFloat(positionY)
-      case 3 => _root_.scalapb.descriptors.PInt(face)
+    def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
+      
+      {
+        val __v = positionX
+        _output__.writeFloat(1, __v)
+      };
+      
+      {
+        val __v = positionY
+        _output__.writeFloat(2, __v)
+      };
+      
+      {
+        val __v = face
+        _output__.writeInt32(3, __v)
+      };
+      unknownFields.writeTo(_output__)
     }
-  }
-
-  def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
-
-  def companion = protocol.scene.StopInfo
-  // @@protoc_insertion_point(GeneratedMessage[protocol.StopInfo])
+    def withPositionX(__v: _root_.scala.Float): StopInfo = copy(positionX = __v)
+    def withPositionY(__v: _root_.scala.Float): StopInfo = copy(positionY = __v)
+    def withFace(__v: _root_.scala.Int): StopInfo = copy(face = __v)
+    def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
+    def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
+    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
+      (__fieldNumber: @_root_.scala.unchecked) match {
+        case 1 => positionX
+        case 2 => positionY
+        case 3 => face
+      }
+    }
+    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
+      _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
+      (__field.number: @_root_.scala.unchecked) match {
+        case 1 => _root_.scalapb.descriptors.PFloat(positionX)
+        case 2 => _root_.scalapb.descriptors.PFloat(positionY)
+        case 3 => _root_.scalapb.descriptors.PInt(face)
+      }
+    }
+    def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
+    def companion = protocol.scene.StopInfo
+    // @@protoc_insertion_point(GeneratedMessage[protocol.StopInfo])
 }
 
 object StopInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.StopInfo] with scalapb.HasBuilder[protocol.scene.StopInfo] with scalapb.JavaProtoSupport[protocol.scene.StopInfo, protocol.Scene.StopInfo] {
@@ -114,10 +102,8 @@ object StopInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.StopInf
     positionY = javaPbSource.getPositionY.floatValue,
     face = javaPbSource.getFace.intValue
   )
-
   def merge(`_message__`: protocol.scene.StopInfo, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.scene.StopInfo = newBuilder(_message__).merge(_input__).result()
-
-  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.scene.StopInfo] = _root_.scalapb.descriptors.Reads {
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.scene.StopInfo] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
       protocol.scene.StopInfo(
@@ -127,31 +113,23 @@ object StopInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.StopInf
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-
   def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SceneProto.javaDescriptor.getMessageTypes().get(1)
-
   def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SceneProto.scalaDescriptor.messages(1)
-
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
-
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
-
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
-
   lazy val defaultInstance = protocol.scene.StopInfo(
     positionX = 0.0f,
     positionY = 0.0f,
     face = 0
   )
-
-  final class Builder private(
-                               private var __positionX: _root_.scala.Float,
-                               private var __positionY: _root_.scala.Float,
-                               private var __face: _root_.scala.Int,
-                               private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
-                             ) extends _root_.scalapb.MessageBuilder[protocol.scene.StopInfo] {
+  final class Builder private (
+    private var __positionX: _root_.scala.Float,
+    private var __positionY: _root_.scala.Float,
+    private var __face: _root_.scala.Int,
+    private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
+  ) extends _root_.scalapb.MessageBuilder[protocol.scene.StopInfo] {
     private var __requiredFields0: _root_.scala.Long = 0x7L
-
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
       while (!_done__) {
@@ -177,9 +155,7 @@ object StopInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.StopInf
       this
     }
     def result(): protocol.scene.StopInfo = {
-      if (__requiredFields0 != 0L) {
-        throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
-      }
+      if (__requiredFields0 != 0L) { throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.") } 
       protocol.scene.StopInfo(
         positionX = __positionX,
         positionY = __positionY,
@@ -196,10 +172,10 @@ object StopInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.StopInf
       `_unknownFields__` = null
     )
     def apply(`_message__`: protocol.scene.StopInfo): Builder = new Builder(
-      __positionX = _message__.positionX,
-      __positionY = _message__.positionY,
-      __face = _message__.face,
-      `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
+        __positionX = _message__.positionX,
+        __positionY = _message__.positionY,
+        __face = _message__.face,
+        `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
   def newBuilder: Builder = protocol.scene.StopInfo.Builder()
@@ -212,12 +188,11 @@ object StopInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.StopInf
   final val POSITIONX_FIELD_NUMBER = 1
   final val POSITIONY_FIELD_NUMBER = 2
   final val FACE_FIELD_NUMBER = 3
-
   def of(
-          positionX: _root_.scala.Float,
-          positionY: _root_.scala.Float,
-          face: _root_.scala.Int
-        ): _root_.protocol.scene.StopInfo = _root_.protocol.scene.StopInfo(
+    positionX: _root_.scala.Float,
+    positionY: _root_.scala.Float,
+    face: _root_.scala.Int
+  ): _root_.protocol.scene.StopInfo = _root_.protocol.scene.StopInfo(
     positionX,
     positionY,
     face
