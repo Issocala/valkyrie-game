@@ -4,6 +4,7 @@ import akka.actor.Props;
 import application.module.state.data.domain.StateEntity;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
+import com.cala.orm.cache.DataInit;
 import com.cala.orm.message.DataBase;
 
 import java.util.HashMap;
@@ -23,6 +24,11 @@ public class StateData extends AbstractDataCacheManager<StateEntity> {
     private final Map<Long, Long> fightOrganismId2Mgr = new HashMap<>();
 
     private StateData() {
+    }
+
+    @Override
+    protected void dataInit(DataInit dataInit) {
+
     }
 
     @Override

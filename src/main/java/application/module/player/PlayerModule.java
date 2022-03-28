@@ -192,8 +192,8 @@ public class PlayerModule extends AbstractModule {
     private void login(Client.ReceivedFromClient r, PlayerEntity playerEntity) {
         r.client().tell(new application.client.Client.SendToClientJ(PlayerProtocols.LOGIN,
                 PlayerProtocolBuilder.getSc10022(true, playerEntity.getId())), self());
-        this.sceneData.tell(new PlayerLogin(r, playerEntity.getId()), self());
-        this.attributeData.tell(new PlayerLogin(r, playerEntity.getId()), self());
+        this.playerEntityData.tell(new PlayerLogin(r, playerEntity.getId()), self());
+//        this.attributeData.tell(new PlayerLogin(r), self());
         r.client().tell(new application.client.Client.LoginSuccess(playerEntity.getId()), self());
     }
 

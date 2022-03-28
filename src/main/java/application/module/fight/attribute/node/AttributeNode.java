@@ -1,18 +1,11 @@
 package application.module.fight.attribute.node;
 
-import akka.actor.ActorRef;
-import application.module.fight.attribute.AttributeTemplateIdContainer;
-import application.module.fight.attribute.data.message.AttributeUpdateFightAttribute;
 import application.module.fight.attribute.provider.AttributeProvider;
 import application.util.AttributeMapUtil;
 import application.util.UpdateAttributeObject;
 import com.google.common.base.Preconditions;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import static application.module.fight.attribute.data.AttributeData.doAddAttribute;
 
 /**
  * <p>
@@ -25,38 +18,22 @@ import static application.module.fight.attribute.data.AttributeData.doAddAttribu
  * @date 2022-2-16
  * @Source 1.0
  */
-public record AttributeNode(short typeId, AttributeNode fatherNode, List<AttributeNode> childList,
-                            Map<Short, Long> id2AllFightAttributeMap,
+public record AttributeNode(short typeId, Map<Short, Long> id2AllFightAttributeMap,
                             AttributeProvider attributeProvider) {
 
-    public void update(UpdateAttributeObject<?> o, long playerId, ActorRef sceneData) {
+    public Map<Short, Long> update(UpdateAttributeObject<?> o) {
         Preconditions.checkNotNull(attributeProvider, "战力提供函数为空,策划配置函数名和代码函数名不一致！！！");
         Map<Short, Long> id2FightAttributeMap;
 
-        id2FightAttributeMap = attributeProvider.subProvider(o);
-
-        //属性并未变化
-        if (Objects.isNull(id2FightAttributeMap) || id2FightAttributeMap.isEmpty()) {
-            return;
-        }
-        Map<Short, Long> reduces = AttributeTemplateIdContainer.reducePartExt(id2AllFightAttributeMap, id2FightAttributeMap.keySet());
-        AttributeMapUtil.add(id2AllFightAttributeMap, id2FightAttributeMap);
-        Map<Short, Long> addExtMap = AttributeTemplateIdContainer.finalPartResult(id2AllFightAttributeMap, id2FightAttributeMap.keySet());
-        //TODO 计算模块战力
-
-        if (Objects.nonNull(fatherNode)) {
-            Map<Short, Long> fatherId2AllFightAttributeMap = fatherNode.id2AllFightAttributeMap;
-            AttributeMapUtil.sub(fatherId2AllFightAttributeMap, reduces);
-            AttributeMapUtil.add(fatherId2AllFightAttributeMap, addExtMap);
-
-            doAddAttribute(fatherId2AllFightAttributeMap, id2FightAttributeMap);
-            sceneData.tell(new AttributeUpdateFightAttribute(fatherId2AllFightAttributeMap, playerId), null);
-            //TODO 计算整体战力
-
-        }
-    }
-
-    public void addChildList(AttributeNode attributeNode) {
-        this.childList.add(attributeNode);
+        id2FightAttributeMap = attributeProvider.provider(o);
+        Map<Short, Long> subMap = AttributeMapUtil.sub(id2FightAttributeMap, id2AllFightAttributeMap);
+        AttributeMapUtil.add(id2AllFightAttributeMap, subMap);
+//        //旧的系统百分比算出的额外值
+//        Map<Short, Long> reduces = AttributeTemplateIdContainer.reducePartExt(id2AllFightAttributeMap);
+//        Map<Short, Long> addExtMap = AttributeTemplateIdContainer.finalPartResult(id2AllFightAttributeMap, id2FightAttributeMap.keySet());
+//        Map<Short, Long> addPublic = AttributeMapUtil.sub(addExtMap, reduces);
+//        //TODO 计算模块战力
+//        AttributeMapUtil.add(id2FightAttributeMap, addPublic);
+        return subMap;
     }
 }

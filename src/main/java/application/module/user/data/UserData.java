@@ -6,6 +6,7 @@ import application.module.user.data.message.UserGetByAccount;
 import application.module.user.data.message.UserInsertByAccount;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
+import com.cala.orm.cache.DataInit;
 import com.cala.orm.db.message.DbInsert;
 import com.cala.orm.db.message.DbQueryOneBySql;
 import com.cala.orm.message.DataBase;
@@ -18,6 +19,11 @@ import com.cala.orm.message.DataBase;
 public class UserData extends AbstractDataCacheManager<User> {
 
     private UserData() {
+    }
+
+    @Override
+    protected void dataInit(DataInit dataInit) {
+
     }
 
     public static Props create() {

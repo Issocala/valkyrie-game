@@ -24,14 +24,14 @@ public class SceneProtocolBuilder {
 
     public static Scene.SC10032 getSc10032(long playerId, Scene.CS10032 cs10032) {
         return Scene.SC10032.newBuilder()
-                .setPlayerId(playerId)
+                .setOrganismId(playerId)
                 .setMoveInfo(cs10032.getMoveInfo())
                 .build();
     }
 
     public static Scene.SC10033 getSc10033(long playerId, Scene.CS10033 cs10033) {
         return Scene.SC10033.newBuilder()
-                .setPlayerId(playerId)
+                .setOrganismId(playerId)
                 .setStopInfo(cs10033.getStopInfo())
                 .build();
     }

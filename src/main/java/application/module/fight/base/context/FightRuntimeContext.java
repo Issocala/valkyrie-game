@@ -1,16 +1,12 @@
 package application.module.fight.base.context;
 
-import akka.actor.Props;
-import akka.actor.UntypedAbstractActor;
 import application.module.fight.attribute.AttributeTemplateId;
-import application.module.fight.attribute.data.message.AttributeUpdateFightAttribute;
+import application.module.fight.attribute.data.message.UpdateFightAttribute;
 import application.module.fight.attribute.fight.FightAttributeMgr;
 import application.module.fight.base.skill.FightSkillWrap;
 import application.module.fight.base.skill.FightSkillWrapContainer;
 import application.module.fight.base.skill.SkillCDController;
 import application.module.fight.base.skill.invoker.FightSkillInvoker;
-import application.module.fight.skill.data.message.SkillUse;
-import application.module.scene.operate.info.SkillUseInfo;
 import template.FightSkillTemplate;
 
 /**
@@ -20,11 +16,7 @@ import template.FightSkillTemplate;
  * @date 2022-2-22
  * @Source 1.0
  */
-public class FightRuntimeContext extends UntypedAbstractActor {
-
-    public static Props create() {
-        return Props.create(FightRuntimeContext.class);
-    }
+public class FightRuntimeContext {
 
     /**
      * 技能cd控制器
@@ -35,7 +27,6 @@ public class FightRuntimeContext extends UntypedAbstractActor {
      * 战斗数据
      */
     private final FightAttributeMgr fightAttributeMgr = new FightAttributeMgr();
-
 
     public void castSkill(FightSkillWrap fightSkillWrap, UseSkillDataTemp useSkillDataTemp) {
         if (!inCDTime(fightSkillWrap)) {
@@ -64,22 +55,11 @@ public class FightRuntimeContext extends UntypedAbstractActor {
         return fightAttributeMgr;
     }
 
-    @Override
-    public void onReceive(Object message) {
-        switch (message) {
-            case SkillUse skillUse -> skillUse(skillUse);
-            case AttributeUpdateFightAttribute attributeUpdateFightAttribute -> attributeUpdateFightAttribute(attributeUpdateFightAttribute);
-            default -> throw new IllegalStateException("Unexpected value: " + message);
-        }
+    public void updateFightAttribute(UpdateFightAttribute updateFightAttribute) {
+        fightAttributeMgr.addTemplateAttributeMap(updateFightAttribute.result());
     }
 
-    private void attributeUpdateFightAttribute(AttributeUpdateFightAttribute attributeUpdateFightAttribute) {
-        fightAttributeMgr.setTemplateAttributeMap(attributeUpdateFightAttribute.result());
-    }
-
-    private void skillUse(SkillUse skillUse) {
-        SkillUseInfo skillUseInfo = (SkillUseInfo) skillUse.operateTypeInfo();
-        UseSkillDataTemp useSkillDataTemp = skillUseInfo.useSkillDataTemp();
+    public void skillUse(UseSkillDataTemp useSkillDataTemp) {
         FightSkillWrap fightSkillWrap = FightSkillWrapContainer.getFightSkillWrap(useSkillDataTemp.getSkillId());
         castSkill(fightSkillWrap, useSkillDataTemp);
     }

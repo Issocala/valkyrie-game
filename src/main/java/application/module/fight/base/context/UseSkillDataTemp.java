@@ -62,8 +62,11 @@ public class UseSkillDataTemp {
     }
 
 
-    public static UseSkillDataTemp of() {
-        return new UseSkillDataTemp();
+    public static UseSkillDataTemp of(Skill.CS10052 cs10052, ActorRef scene) {
+        UseSkillDataTemp useSkillDataTemp = new UseSkillDataTemp(cs10052.getSkillId(), cs10052.getFightOrganismId(), cs10052.getTargetId(),
+                cs10052.getSkillPositionX(), cs10052.getSkillPositionY(), 0, 0, cs10052.getSceneId());
+        useSkillDataTemp.setScene(scene);
+        return useSkillDataTemp;
     }
 
     public static UseSkillDataTemp of(Skill.CS10052 cs10052) {

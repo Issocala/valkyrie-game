@@ -206,7 +206,8 @@ public class AttributeTemplateIdContainer {
         }));
     }
 
-    public static Map<Short, Long> reducePartExt(Map<Short, Long> attributes, Set<Short> set) {
+    public static Map<Short, Long> reducePartExt(Map<Short, Long> attributes) {
+        Set<Short> set = attributes.keySet();
         Map<Short, Long> reduces = new HashMap<>();
         set.stream().filter(PART_RATIO_VALUE::containsKey).forEach(aShort -> PART_RATIO_VALUE.get(aShort).forEach(sonShort -> {
             long ext = attributes.getOrDefault(sonShort, 0L) * attributes.getOrDefault(aShort, 0L) / 10000;

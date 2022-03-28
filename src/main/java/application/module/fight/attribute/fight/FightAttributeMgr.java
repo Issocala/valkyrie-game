@@ -34,43 +34,41 @@ public class FightAttributeMgr {
     public FightAttributeMgr() {
     }
 
-    private Map<Short, Long> templateAttributeMap = new HashMap<>();
-
     /**
      * 当前的战斗属性数据快照
-     * 当前存储hp和mp
      */
-    private final Map<Short, Long> fightAttributeMap = new HashMap<>();
-
-    /**
-     * 当前buff添加的属性
-     */
-    private final Map<Short, Long> buffAttributeMap = new HashMap<>();
+    private Map<Short, Long> fightAttributeMap = new HashMap<>();
 
     public Long getValue(short id) {
+        return getValue(fightAttributeMap, id);
+    }
+
+    public Long getValue(Map<Short, Long> map, short id) {
         long extValue = 0;
         if (AttributeTemplateIdContainer.VALUE_EXTRA.containsKey(id)) {
             short ext = AttributeTemplateIdContainer.VALUE_EXTRA.get(id);
-            extValue = templateAttributeMap.getOrDefault(ext, 0L) + buffAttributeMap.getOrDefault(ext, 0L);
+            extValue = map.getOrDefault(ext, 0L);
         }
-        long value = templateAttributeMap.getOrDefault(id, 0L);
-        long buffValue = buffAttributeMap.getOrDefault(id, 0L);
-        return value + buffValue + extValue;
+        long value = map.getOrDefault(id, 0L);
+        return value + extValue;
     }
 
     public Map<Short, Long> getCurrAttribute() {
         Map<Short, Long> map = new HashMap<>();
-        AttributeMapUtil.add(map, templateAttributeMap);
-        AttributeMapUtil.add(map, buffAttributeMap);
+        AttributeMapUtil.add(map, fightAttributeMap);
         return map;
     }
 
-    public void setTemplateAttributeMap(Map<Short, Long> templateAttributeMap) {
-        long addHp = templateAttributeMap.get(MAX_HP) - this.templateAttributeMap.get(MAX_HP);
-        long addMp = templateAttributeMap.get(MAX_MP) - this.templateAttributeMap.get(MAX_MP);
+    public void addTemplateAttributeMap(Map<Short, Long> fightAttributeMap) {
+        long preHp = this.fightAttributeMap.get(MAX_HP);
+        long preMp = this.fightAttributeMap.get(MAX_MP);
+
+        this.fightAttributeMap = fightAttributeMap;
+
+        long addHp = this.fightAttributeMap.get(MAX_HP) - preHp;
+        long addMp = this.fightAttributeMap.get(MAX_MP) - preMp;
         addHp(addHp);
         addMp(addMp);
-        this.templateAttributeMap = templateAttributeMap;
     }
 
     public void addHp(long hp) {
@@ -78,7 +76,7 @@ public class FightAttributeMgr {
         if (currHp < 0) {
             currHp = 0;
         }
-        currHp = Math.min(templateAttributeMap.get(MAX_HP), currHp);
+        currHp = Math.min(fightAttributeMap.get(MAX_HP), currHp);
         fightAttributeMap.put(VAR_HP, currHp);
     }
 
@@ -87,7 +85,7 @@ public class FightAttributeMgr {
         if (currMp < 0) {
             currMp = 0;
         }
-        currMp = Math.min(templateAttributeMap.get(MAX_MP), currMp);
+        currMp = Math.min(fightAttributeMap.get(MAX_MP), currMp);
         fightAttributeMap.put(VAR_MP, currMp);
     }
 
@@ -202,14 +200,5 @@ public class FightAttributeMgr {
         return blockRate > RandomUtil.randomDouble1();
     }
 
-    public Long getValue(Map<Short, Long> map, short id) {
-        long extValue = 0;
-        if (AttributeTemplateIdContainer.VALUE_EXTRA.containsKey(id)) {
-            short ext = AttributeTemplateIdContainer.VALUE_EXTRA.get(id);
-            extValue = map.getOrDefault(ext, 0L);
-        }
-        long value = map.getOrDefault(id, 0L);
-        return value + extValue;
-    }
 
 }

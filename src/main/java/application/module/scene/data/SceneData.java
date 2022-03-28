@@ -2,12 +2,9 @@ package application.module.scene.data;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
-import application.client.Client;
-import application.module.fight.attribute.data.message.AttributeUpdateFightAttribute;
+import application.module.fight.attribute.data.message.UpdateFightAttribute;
 import application.module.fight.skill.data.message.SkillUse;
 import application.module.player.data.message.PlayerLogin;
-import application.module.scene.SceneProtocolBuilder;
-import application.module.scene.SceneProtocols;
 import application.module.scene.data.domain.Scene;
 import application.module.scene.data.domain.SceneEntity;
 import application.module.scene.data.message.SceneInit;
@@ -18,6 +15,7 @@ import application.module.scene.operate.SceneStop;
 import application.util.CommonOperateTypeInfo;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
+import com.cala.orm.cache.DataInit;
 import com.cala.orm.message.DataBase;
 import protocol.Skill;
 
@@ -39,6 +37,11 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
     private SceneData() {
     }
 
+    @Override
+    protected void dataInit(DataInit dataInit) {
+
+    }
+
     private final Map<Long, Long> playerId2SceneIdMap = new HashMap<>();
 
     private final Map<Long, ActorRef> sceneId2SceneMap = new HashMap<>();
@@ -53,14 +56,14 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
             case ScenePlayerExit scenePlayerExit -> scenePlayerExit(scenePlayerExit);
             case PlayerLogin playerLogin -> playerLogin(playerLogin);
             case SceneInit sceneInit -> sceneInit(sceneInit);
-            case AttributeUpdateFightAttribute attributeUpdateFightAttribute -> attributeUpdateFightAttribute(attributeUpdateFightAttribute);
+            case UpdateFightAttribute updateFightAttribute -> attributeUpdateFightAttribute(updateFightAttribute);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase);
         }
     }
 
     private void playerLogin(PlayerLogin playerLogin) {
+        // TODO 场景id应该是保存起来的离线场景，或者是主城id，看策划怎么设计
         sceneId2SceneMap.get(20003L).tell(playerLogin, self());
-        playerLogin.r().client().tell(new Client.SendToClientJ(SceneProtocols.SCENE_ENTER, SceneProtocolBuilder.getSc10030(20003L)), self());
     }
 
     private void sceneStop(SceneStop sceneStop) {
@@ -95,12 +98,12 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         }
     }
 
-    private void attributeUpdateFightAttribute(AttributeUpdateFightAttribute attributeUpdateFightAttribute) {
-        long playerId = attributeUpdateFightAttribute.playerId();
+    private void attributeUpdateFightAttribute(UpdateFightAttribute updateFightAttribute) {
+        long playerId = updateFightAttribute.playerId();
         if (playerId2SceneIdMap.containsKey(playerId)) {
             long sceneId = playerId2SceneIdMap.get(playerId);
             ActorRef scene = sceneId2SceneMap.get(sceneId);
-            scene.tell(attributeUpdateFightAttribute, self());
+            scene.tell(updateFightAttribute, self());
         }
     }
 

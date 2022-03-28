@@ -11,9 +11,6 @@ import java.util.Map;
  */
 public interface AttributeProvider {
 
-    /**
-     * 计算当前参数和上一级参数的属性差值
-     */
-    Map<Short, Long> subProvider(UpdateAttributeObject<?> o);
+    Map<Short, Long> provider(UpdateAttributeObject<?> o);
 
 }

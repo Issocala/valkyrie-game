@@ -14,7 +14,7 @@ import application.module.state.data.StateData;
 import application.module.user.data.UserData;
 import com.cala.orm.OrmProcessor;
 import com.cala.orm.cache.AbstractDataCacheManager;
-import com.cala.orm.cache.CacheManagerInit;
+import com.cala.orm.cache.DataInit;
 import com.cala.orm.ddl.SchemaUpdate;
 import com.cala.orm.message.DataBase;
 import com.cala.orm.util.DbConnection;
@@ -131,7 +131,7 @@ public class ActorDataDispatcher extends AbstractActor {
         }
         try {
             actorRef = getContext().actorOf((Props) method.invoke(PROPS_CREATE_METHOD), name);
-            actorRef.tell(new CacheManagerInit(), self());
+            actorRef.tell(new DataInit(), self());
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
