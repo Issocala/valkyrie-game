@@ -20,4 +20,6 @@ public interface SceneProtocols {
 
     int SCENE_RETURN_ENTITY = GameProtocols.SCENE + 4;
 
+    int SCENE_JUMP = GameProtocols.SCENE + 5;
+
 }

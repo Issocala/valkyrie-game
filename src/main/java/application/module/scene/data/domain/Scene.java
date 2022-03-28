@@ -13,10 +13,7 @@ import application.module.organism.OrganismType;
 import application.module.player.data.message.PlayerLogin;
 import application.module.scene.SceneProtocolBuilder;
 import application.module.scene.SceneProtocols;
-import application.module.scene.operate.SceneMove;
-import application.module.scene.operate.ScenePlayerEntry;
-import application.module.scene.operate.ScenePlayerExit;
-import application.module.scene.operate.SceneStop;
+import application.module.scene.operate.*;
 import application.util.CommonOperateTypeInfo;
 import mobius.modular.client.Client;
 import protocol.Skill;
@@ -65,6 +62,7 @@ public class Scene extends UntypedAbstractActor {
         switch (message) {
             case SceneMove sceneMove -> sceneMove(sceneMove);
             case SceneStop sceneStop -> sceneStop(sceneStop);
+            case SceneJump sceneJump -> sceneJump(sceneJump);
             case SkillUse skillUse -> skillUse(skillUse);
             case ScenePlayerEntry scenePlayerEntry -> scenePlayerEntry(scenePlayerEntry);
             case ScenePlayerExit scenePlayerExit -> scenePlayerExit(scenePlayerExit);
@@ -72,6 +70,20 @@ public class Scene extends UntypedAbstractActor {
             case PlayerLogin playerLogin -> playerLogin(playerLogin);
             default -> throw new IllegalStateException("Unexpected value: " + message);
         }
+    }
+
+    private void sceneJump(SceneJump sceneJump) {
+        Client.ReceivedFromClient r = sceneJump.r();
+        protocol.Scene.CS10035 cs10035 = sceneJump.cs10035();
+        protocol.Scene.JumpInfo jumpInfo = cs10035.getJumpInfo();
+        positionInfoMap.put(r.uID(), new PositionInfo(jumpInfo.getPositionX(), jumpInfo.getPositionY(), jumpInfo.getFace()));
+        //TODO 需要根据时间加速度，判断是否移动位置距离上一次同步合理
+        clientMap.forEach((id, client) -> {
+            if (id != r.uID()) {
+                client.tell(new application.client.Client.SendToClientJ(r.protoID(),
+                        SceneProtocolBuilder.getSc10035(r.uID(), cs10035)), self());
+            }
+        });
     }
 
     private void playerLogin(PlayerLogin playerLogin) {
@@ -84,15 +96,24 @@ public class Scene extends UntypedAbstractActor {
         protocol.Scene.StopInfo stopInfo = cs10033.getStopInfo();
         positionInfoMap.put(r.uID(), new PositionInfo(stopInfo.getPositionX(), stopInfo.getPositionY(), stopInfo.getFace()));
         //TODO 需要根据时间加速度，判断是否移动位置距离上一次同步合理
-        clientMap.values().forEach(client -> client.tell(new application.client.Client.SendToClientJ(r.protoID(),
-                SceneProtocolBuilder.getSc10033(r.uID(), cs10033)), self()));
+        clientMap.forEach((id, client) -> {
+            if (id != r.uID()) {
+                client.tell(new application.client.Client.SendToClientJ(r.protoID(),
+                        SceneProtocolBuilder.getSc10033(r.uID(), cs10033)), self());
+            }
+        });
     }
 
     private void scenePlayerExit(ScenePlayerExit scenePlayerExit) {
         Client.ReceivedFromClient r = scenePlayerExit.r();
         long playerId = r.uID();
-        clientMap.values().forEach(client -> client.tell(new application.client.Client.SendToClientJ(r.protoID(),
-                SceneProtocolBuilder.getSc10031(playerId)), self()));
+        clientMap.forEach((id, client) -> {
+            if (id != playerId) {
+                client.tell(new application.client.Client.SendToClientJ(r.protoID(),
+                        SceneProtocolBuilder.getSc10031(playerId)), self());
+            }
+        });
+        positionInfoMap.remove(playerId);
         clientMap.remove(r.uID(), r.client());
         //TODO 退出场景，玩家信息需要清空
     }
@@ -118,7 +139,7 @@ public class Scene extends UntypedAbstractActor {
         });
         //获取场景实体的数据
         positionInfoMap.forEach((id, positionInfo) -> r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
-                SceneProtocolBuilder.getSc10034(playerId, OrganismType.PLAYER, positionInfo)), self()));
+                SceneProtocolBuilder.getSc10034(id, OrganismType.PLAYER, positionInfo)), self()));
     }
 
     private void sceneMove(SceneMove sceneMove) {
@@ -127,8 +148,12 @@ public class Scene extends UntypedAbstractActor {
         protocol.Scene.MoveInfo moveInfo = cs10032.getMoveInfo();
         positionInfoMap.put(r.uID(), new PositionInfo(moveInfo.getPositionX(), moveInfo.getPositionY(), moveInfo.getFace()));
         //TODO 需要根据时间加速度，判断是否移动位置距离上一次同步合理
-        clientMap.values().forEach(client -> client.tell(new application.client.Client.SendToClientJ(r.protoID(),
-                SceneProtocolBuilder.getSc10032(r.uID(), cs10032)), self()));
+        clientMap.forEach((id, client) -> {
+            if (id != r.uID()) {
+                client.tell(new application.client.Client.SendToClientJ(r.protoID(),
+                        SceneProtocolBuilder.getSc10032(r.uID(), cs10032)), self());
+            }
+        });
     }
 
     private void attributeUpdateFightAttribute(UpdateFightAttribute updateFightAttribute) {

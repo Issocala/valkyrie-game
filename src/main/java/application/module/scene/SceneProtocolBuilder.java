@@ -45,4 +45,11 @@ public class SceneProtocolBuilder {
                 .setFace(positionInfo.face())
                 .build();
     }
+
+    public static Scene.SC10035 getSc10035(long organismId, Scene.CS10035 cs10035) {
+        return Scene.SC10035.newBuilder()
+                .setOrganismId(organismId)
+                .setJumpInfo(cs10035.getJumpInfo())
+                .build();
+    }
 }
