@@ -9497,37 +9497,43 @@ public final class Battle {
        */
       public Builder clearNowInput() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        nowInput_ = false;
-        onChanged();
-        return this;
-      }
-
-      private float nowInputDir_ ;
-      /**
-       * <code>required float NowInputDir = 2;</code>
-       * @return Whether the nowInputDir field is set.
-       */
-      public boolean hasNowInputDir() {
-        return ((bitField0_ & 0x00000002) != 0);
-      }
-      /**
-       * <code>required float NowInputDir = 2;</code>
-       * @return The nowInputDir.
-       */
-      public float getNowInputDir() {
-        return nowInputDir_;
-      }
-      /**
-       * <code>required float NowInputDir = 2;</code>
-       * @param value The nowInputDir to set.
-       * @return This builder for chaining.
-       */
-      public Builder setNowInputDir(float value) {
-        bitField0_ |= 0x00000002;
-        nowInputDir_ = value;
+          nowInput_ = false;
           onChanged();
           return this;
       }
+
+        private float nowInputDir_;
+
+        /**
+         * <code>required float NowInputDir = 2;</code>
+         *
+         * @return Whether the nowInputDir field is set.
+         */
+        public boolean hasNowInputDir() {
+            return ((bitField0_ & 0x00000002) != 0);
+        }
+
+        /**
+         * <code>required float NowInputDir = 2;</code>
+         *
+         * @return The nowInputDir.
+         */
+        public float getNowInputDir() {
+            return nowInputDir_;
+        }
+
+        /**
+         * <code>required float NowInputDir = 2;</code>
+         *
+         * @param value The nowInputDir to set.
+         * @return This builder for chaining.
+         */
+        public Builder setNowInputDir(float value) {
+            bitField0_ |= 0x00000002;
+            nowInputDir_ = value;
+            onChanged();
+            return this;
+        }
 
         /**
          * <code>required float NowInputDir = 2;</code>

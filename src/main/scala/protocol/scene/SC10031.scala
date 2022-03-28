@@ -71,13 +71,11 @@ final case class SC10031(
 
 object SC10031 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10031] with scalapb.HasBuilder[protocol.scene.SC10031] with scalapb.JavaProtoSupport[protocol.scene.SC10031, protocol.Scene.SC10031] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.scene.SC10031] with scalapb.HasBuilder[protocol.scene.SC10031] with scalapb.JavaProtoSupport[protocol.scene.SC10031, protocol.Scene.SC10031] = this
-
   def toJavaProto(scalaPbSource: protocol.scene.SC10031): protocol.Scene.SC10031 = {
     val javaPbOut = protocol.Scene.SC10031.newBuilder
     javaPbOut.setPlayerId(scalaPbSource.playerId)
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Scene.SC10031): protocol.scene.SC10031 = protocol.scene.SC10031(
     playerId = javaPbSource.getPlayerId.longValue
   )
@@ -131,7 +129,6 @@ object SC10031 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10031]
       }
       this
     }
-
     def result(): protocol.scene.SC10031 = {
       if (__requiredFields0 != 0L) {
         throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
@@ -142,27 +139,21 @@ object SC10031 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10031]
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.scene.SC10031, protocol.scene.SC10031.Builder] {
     def apply(): Builder = new Builder(
       __playerId = 0L,
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.scene.SC10031): Builder = new Builder(
       __playerId = _message__.playerId,
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.scene.SC10031.Builder()
-
   def newBuilder(`_message__`: protocol.scene.SC10031): Builder = protocol.scene.SC10031.Builder(_message__)
-
   implicit class SC10031Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.scene.SC10031]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.scene.SC10031](_l) {
     def playerId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.playerId)((c_, f_) => c_.copy(playerId = f_))
   }
-
   final val PLAYERID_FIELD_NUMBER = 1
 
   def of(

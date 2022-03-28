@@ -297,8 +297,8 @@ public final class Player {
                 return b;
             } else {
                 return (com.google.protobuf.ByteString) ref;
-      }
-    }
+            }
+        }
 
     public static final int LEVEL_FIELD_NUMBER = 3;
     private int level_;
@@ -324,25 +324,29 @@ public final class Player {
      * @return Whether the gender field is set.
      */
     public boolean hasGender() {
-      return ((bitField0_ & 0x00000008) != 0);
-    }
-    /**
-     * <code>required int32 gender = 4;</code>
-     * @return The gender.
-     */
-    public int getGender() {
-      return gender_;
+        return ((bitField0_ & 0x00000008) != 0);
     }
 
-    public static final int PROFESSION_FIELD_NUMBER = 5;
-    private int profession_;
-    /**
-     * <code>required int32 profession = 5;</code>
-     * @return Whether the profession field is set.
-     */
-    public boolean hasProfession() {
-        return ((bitField0_ & 0x00000010) != 0);
-    }
+        /**
+         * <code>required int32 gender = 4;</code>
+         *
+         * @return The gender.
+         */
+        public int getGender() {
+            return gender_;
+        }
+
+        public static final int PROFESSION_FIELD_NUMBER = 5;
+        private int profession_;
+
+        /**
+         * <code>required int32 profession = 5;</code>
+         *
+         * @return Whether the profession field is set.
+         */
+        public boolean hasProfession() {
+            return ((bitField0_ & 0x00000010) != 0);
+        }
 
         /**
          * <code>required int32 profession = 5;</code>
@@ -870,32 +874,37 @@ public final class Player {
                 try {
                     parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
                 } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (protocol.Player.PlayerInfo) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
+                    parsedMessage = (protocol.Player.PlayerInfo) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
 
-      private long roleId_ ;
-      /**
-       * <code>required int64 roleId = 1;</code>
-       * @return Whether the roleId field is set.
-       */
-      public boolean hasRoleId() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>required int64 roleId = 1;</code>
-       * @return The roleId.
-       */
-      public long getRoleId() {
-          return roleId_;
-      }
+            private int bitField0_;
+
+            private long roleId_;
+
+            /**
+             * <code>required int64 roleId = 1;</code>
+             *
+             * @return Whether the roleId field is set.
+             */
+            public boolean hasRoleId() {
+                return ((bitField0_ & 0x00000001) != 0);
+            }
+
+            /**
+             * <code>required int64 roleId = 1;</code>
+             *
+             * @return The roleId.
+             */
+            public long getRoleId() {
+                return roleId_;
+            }
 
             /**
              * <code>required int64 roleId = 1;</code>
@@ -1014,11 +1023,11 @@ public final class Player {
                 }
                 bitField0_ |= 0x00000002;
                 name_ = value;
-        onChanged();
-        return this;
-      }
+                onChanged();
+                return this;
+            }
 
-      private int level_;
+            private int level_;
 
             /**
              * <code>required int32 level = 3;</code>
@@ -1040,53 +1049,60 @@ public final class Player {
 
             /**
              * <code>required int32 level = 3;</code>
-             *
              * @param value The level to set.
-             * @return This builder for chaining.
+       * @return This builder for chaining.
              */
             public Builder setLevel(int value) {
                 bitField0_ |= 0x00000004;
                 level_ = value;
                 onChanged();
-        return this;
-      }
-      /**
-       * <code>required int32 level = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearLevel() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        level_ = 0;
-        onChanged();
-        return this;
-      }
+                return this;
+            }
 
-      private int gender_ ;
-      /**
-       * <code>required int32 gender = 4;</code>
-       * @return Whether the gender field is set.
-       */
-      public boolean hasGender() {
-        return ((bitField0_ & 0x00000008) != 0);
-      }
-      /**
-       * <code>required int32 gender = 4;</code>
-       * @return The gender.
-       */
-      public int getGender() {
-        return gender_;
-      }
-      /**
-       * <code>required int32 gender = 4;</code>
-       * @param value The gender to set.
-       * @return This builder for chaining.
-       */
-      public Builder setGender(int value) {
-        bitField0_ |= 0x00000008;
-          gender_ = value;
-          onChanged();
-          return this;
-      }
+            /**
+             * <code>required int32 level = 3;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearLevel() {
+                bitField0_ = (bitField0_ & ~0x00000004);
+                level_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private int gender_;
+
+            /**
+             * <code>required int32 gender = 4;</code>
+             *
+             * @return Whether the gender field is set.
+             */
+            public boolean hasGender() {
+                return ((bitField0_ & 0x00000008) != 0);
+            }
+
+            /**
+             * <code>required int32 gender = 4;</code>
+             *
+             * @return The gender.
+             */
+            public int getGender() {
+                return gender_;
+            }
+
+            /**
+             * <code>required int32 gender = 4;</code>
+             *
+             * @param value The gender to set.
+             * @return This builder for chaining.
+             */
+            public Builder setGender(int value) {
+                bitField0_ |= 0x00000008;
+                gender_ = value;
+                onChanged();
+                return this;
+            }
 
             /**
              * <code>required int32 gender = 4;</code>
@@ -6031,9 +6047,9 @@ public final class Player {
                         "\025\n\rlastLoginTime\030\006 \002(\003\"\t\n\007CS10020\"3\n\007SC1" +
                         "0020\022(\n\nplayerInfo\030\001 \003(\0132\024.protocol.Play" +
                         "erInfo\";\n\007CS10021\022\014\n\004name\030\001 \002(\t\022\016\n\006gende" +
-                        "r\030\002 \002(\005\022\022\n\nprofession\030\003 \002(\005\";\n\007SC10021\022\017" +
-                        "\n\007success\030\001 \002(\010\022\016\n\006roleId\030\002 \001(\003\022\017\n\007conte" +
-                        "nt\030\003 \001(\t\"\031\n\007CS10022\022\016\n\006roleId\030\001 \002(\003\";\n\007S" +
+      "r\030\002 \002(\005\022\022\n\nprofession\030\003 \002(\005\";\n\007SC10021\022\017" +
+      "\n\007success\030\001 \002(\010\022\016\n\006roleId\030\002 \001(\003\022\017\n\007conte" +
+      "nt\030\003 \001(\t\"\031\n\007CS10022\022\016\n\006roleId\030\001 \002(\003\";\n\007S" +
       "C10022\022\017\n\007success\030\001 \002(\010\022\016\n\006roleId\030\002 \001(\003\022" +
       "\017\n\007content\030\003 \001(\t"
     };

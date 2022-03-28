@@ -9,7 +9,7 @@ package protocol.scene
  */
 @SerialVersionUID(0L)
 final case class SC10032(
-                          playerId: _root_.scala.Long,
+                          organismId: _root_.scala.Long,
                           moveInfo: protocol.scene.MoveInfo,
                           unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
                         ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SC10032] {
@@ -20,7 +20,7 @@ final case class SC10032(
     var __size = 0
 
     {
-      val __value = playerId
+      val __value = organismId
       __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(1, __value)
     };
 
@@ -44,7 +44,7 @@ final case class SC10032(
   def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
 
     {
-      val __v = playerId
+      val __v = organismId
       _output__.writeInt64(1, __v)
     };
 
@@ -57,7 +57,7 @@ final case class SC10032(
     unknownFields.writeTo(_output__)
   }
 
-  def withPlayerId(__v: _root_.scala.Long): SC10032 = copy(playerId = __v)
+  def withOrganismId(__v: _root_.scala.Long): SC10032 = copy(organismId = __v)
 
   def withMoveInfo(__v: protocol.scene.MoveInfo): SC10032 = copy(moveInfo = __v)
 
@@ -67,7 +67,7 @@ final case class SC10032(
 
   def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
     (__fieldNumber: @_root_.scala.unchecked) match {
-      case 1 => playerId
+      case 1 => organismId
       case 2 => moveInfo
     }
   }
@@ -75,7 +75,7 @@ final case class SC10032(
   def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
     _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
     (__field.number: @_root_.scala.unchecked) match {
-      case 1 => _root_.scalapb.descriptors.PLong(playerId)
+      case 1 => _root_.scalapb.descriptors.PLong(organismId)
       case 2 => moveInfo.toPMessage
     }
   }
@@ -88,16 +88,14 @@ final case class SC10032(
 
 object SC10032 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10032] with scalapb.HasBuilder[protocol.scene.SC10032] with scalapb.JavaProtoSupport[protocol.scene.SC10032, protocol.Scene.SC10032] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.scene.SC10032] with scalapb.HasBuilder[protocol.scene.SC10032] with scalapb.JavaProtoSupport[protocol.scene.SC10032, protocol.Scene.SC10032] = this
-
   def toJavaProto(scalaPbSource: protocol.scene.SC10032): protocol.Scene.SC10032 = {
     val javaPbOut = protocol.Scene.SC10032.newBuilder
-    javaPbOut.setPlayerId(scalaPbSource.playerId)
+    javaPbOut.setOrganismId(scalaPbSource.organismId)
     javaPbOut.setMoveInfo(protocol.scene.MoveInfo.toJavaProto(scalaPbSource.moveInfo))
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Scene.SC10032): protocol.scene.SC10032 = protocol.scene.SC10032(
-    playerId = javaPbSource.getPlayerId.longValue,
+    organismId = javaPbSource.getOrganismId.longValue,
     moveInfo = protocol.scene.MoveInfo.fromJavaProto(javaPbSource.getMoveInfo)
   )
 
@@ -107,16 +105,14 @@ object SC10032 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10032]
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
       protocol.scene.SC10032(
-        playerId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).get.as[_root_.scala.Long],
+        organismId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).get.as[_root_.scala.Long],
         moveInfo = __fieldsMap.get(scalaDescriptor.findFieldByNumber(2).get).get.as[protocol.scene.MoveInfo]
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
 
   def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SceneProto.javaDescriptor.getMessageTypes().get(8)
-
   def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SceneProto.scalaDescriptor.messages(8)
-
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
     var __out: _root_.scalapb.GeneratedMessageCompanion[_] = null
     (__number: @_root_.scala.unchecked) match {
@@ -130,12 +126,12 @@ object SC10032 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10032]
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
 
   lazy val defaultInstance = protocol.scene.SC10032(
-    playerId = 0L,
+    organismId = 0L,
     moveInfo = protocol.scene.MoveInfo.defaultInstance
   )
 
   final class Builder private(
-                               private var __playerId: _root_.scala.Long,
+                               private var __organismId: _root_.scala.Long,
                                private var __moveInfo: _root_.scala.Option[protocol.scene.MoveInfo],
                                private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
                              ) extends _root_.scalapb.MessageBuilder[protocol.scene.SC10032] {
@@ -148,7 +144,7 @@ object SC10032 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10032]
         _tag__ match {
           case 0 => _done__ = true
           case 8 =>
-            __playerId = _input__.readInt64()
+            __organismId = _input__.readInt64()
             __requiredFields0 &= 0xfffffffffffffffeL
           case 18 =>
             __moveInfo = _root_.scala.Some(__moveInfo.fold(_root_.scalapb.LiteParser.readMessage[protocol.scene.MoveInfo](_input__))(_root_.scalapb.LiteParser.readMessage(_input__, _)))
@@ -162,51 +158,45 @@ object SC10032 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10032]
       }
       this
     }
-
     def result(): protocol.scene.SC10032 = {
       if (__requiredFields0 != 0L) {
         throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
       }
       protocol.scene.SC10032(
-        playerId = __playerId,
+        organismId = __organismId,
         moveInfo = __moveInfo.getOrElse(protocol.scene.MoveInfo.defaultInstance),
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.scene.SC10032, protocol.scene.SC10032.Builder] {
     def apply(): Builder = new Builder(
-      __playerId = 0L,
+      __organismId = 0L,
       __moveInfo = _root_.scala.None,
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.scene.SC10032): Builder = new Builder(
-      __playerId = _message__.playerId,
+      __organismId = _message__.organismId,
       __moveInfo = _root_.scala.Some(_message__.moveInfo),
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.scene.SC10032.Builder()
-
   def newBuilder(`_message__`: protocol.scene.SC10032): Builder = protocol.scene.SC10032.Builder(_message__)
-
   implicit class SC10032Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.scene.SC10032]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.scene.SC10032](_l) {
-    def playerId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.playerId)((c_, f_) => c_.copy(playerId = f_))
+    def organismId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.organismId)((c_, f_) => c_.copy(organismId = f_))
 
     def moveInfo: _root_.scalapb.lenses.Lens[UpperPB, protocol.scene.MoveInfo] = field(_.moveInfo)((c_, f_) => c_.copy(moveInfo = f_))
   }
 
-  final val PLAYERID_FIELD_NUMBER = 1
+  final val ORGANISMID_FIELD_NUMBER = 1
   final val MOVEINFO_FIELD_NUMBER = 2
 
   def of(
-          playerId: _root_.scala.Long,
+          organismId: _root_.scala.Long,
           moveInfo: protocol.scene.MoveInfo
         ): _root_.protocol.scene.SC10032 = _root_.protocol.scene.SC10032(
-    playerId,
+    organismId,
     moveInfo
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.SC10032])

@@ -6,7 +6,7 @@ message MoveInfo
   required float positionX = 1;
   required float positionY = 2;
   required int32 face = 3; //面部朝向(0代表看向右边(默认),1代表看向左边)
-  optional int32 direction = 4; //人物移动方向(如果和面部朝向一样可以不用赋值)
+  required float direction = 4; //人物移动方向(0右,90下,-90上,180左)
 }
 
 message StopInfo
@@ -16,23 +16,16 @@ message StopInfo
   required int32 face = 3; //面部朝向(0代表看向右边(默认),1代表看向左边)
 }
 
-//玩家角色基本
-// message PlayerInfo
-// {
-//   required int64 playerId = 1;
-//   required string name = 2;
-//   required int32 level = 3;
-//   required int32 gender = 4;
-//   required int32 profession = 5;
-//   repeated AttributeMap AttributeMap = 6;
-// }
-
-message AttributeMap
+message JumpInfo
 {
-  required int32 id = 1;
-  required int64 value = 2;
+  required float positionX = 1;
+  required float positionY = 2;
+  required float highestPosX = 3;
+  required float highestPosY = 4;
+  required float finalPosX = 5;
+  required float finalPosY = 6;
+  required float face = 7;//面部朝向(0代表看向右边(默认),1代表看向左边)
 }
-
 
 //玩家进入场景
 message CS10030
@@ -68,7 +61,7 @@ message CS10032
 //返回玩家移动
 message SC10032
 {
-  required int64 playerId = 1;
+  required int64 organismId = 1;
   required MoveInfo moveInfo = 2;
 }
 
@@ -81,7 +74,7 @@ message CS10033
 //返回玩家停止移动
 message SC10033
 {
-  required int64 playerId = 1;
+  required int64 organismId = 1;
   required StopInfo stopInfo = 2;
 }
 
@@ -89,8 +82,20 @@ message SC10033
 message SC10034
 {
   required int64 organismId = 1;
-  required int32 organismType = 2;
+  required int32 organismType = 2; //1->player,2->boss
   required float positionX = 3;
   required float positionY = 4;
   required int32 face = 5;
+}
+
+//玩家跳跃
+message CS10035
+{
+  required JumpInfo jumpInfo = 1;
+}
+
+//返回玩家跳跃
+message SC10035{
+  required int64 organismId = 1;
+  required JumpInfo jumpInfo = 2;
 }

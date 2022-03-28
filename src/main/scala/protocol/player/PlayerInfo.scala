@@ -281,17 +281,11 @@ object PlayerInfo extends scalapb.GeneratedMessageCompanion[protocol.player.Play
   def newBuilder(`_message__`: protocol.player.PlayerInfo): Builder = protocol.player.PlayerInfo.Builder(_message__)
   implicit class PlayerInfoLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.player.PlayerInfo]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.player.PlayerInfo](_l) {
     def roleId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.roleId)((c_, f_) => c_.copy(roleId = f_))
-
     def name: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.getName)((c_, f_) => c_.copy(name = Option(f_)))
-
     def optionalName: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Predef.String]] = field(_.name)((c_, f_) => c_.copy(name = f_))
-
     def level: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.level)((c_, f_) => c_.copy(level = f_))
-
     def gender: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.gender)((c_, f_) => c_.copy(gender = f_))
-
     def profession: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.profession)((c_, f_) => c_.copy(profession = f_))
-
     def lastLoginTime: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.lastLoginTime)((c_, f_) => c_.copy(lastLoginTime = f_))
   }
   final val ROLEID_FIELD_NUMBER = 1

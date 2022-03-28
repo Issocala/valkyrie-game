@@ -203,23 +203,15 @@ object SC10021 extends scalapb.GeneratedMessageCompanion[protocol.player.SC10021
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.player.SC10021.Builder()
-
   def newBuilder(`_message__`: protocol.player.SC10021): Builder = protocol.player.SC10021.Builder(_message__)
-
   implicit class SC10021Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.player.SC10021]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.player.SC10021](_l) {
     def success: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.success)((c_, f_) => c_.copy(success = f_))
-
     def roleId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.getRoleId)((c_, f_) => c_.copy(roleId = Option(f_)))
-
     def optionalRoleId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Long]] = field(_.roleId)((c_, f_) => c_.copy(roleId = f_))
-
     def content: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.getContent)((c_, f_) => c_.copy(content = Option(f_)))
-
     def optionalContent: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Predef.String]] = field(_.content)((c_, f_) => c_.copy(content = f_))
   }
-
   final val SUCCESS_FIELD_NUMBER = 1
   final val ROLEID_FIELD_NUMBER = 2
   final val CONTENT_FIELD_NUMBER = 3

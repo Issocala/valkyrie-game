@@ -8,14 +8,14 @@ package protocol.scene
 /** @param face
  * 面部朝向(0代表看向右边(默认),1代表看向左边)
  * @param direction
- * 人物移动方向(如果和面部朝向一样可以不用赋值)
+ * 人物移动方向(0右,90下,-90上,180左)
  */
 @SerialVersionUID(0L)
 final case class MoveInfo(
                            positionX: _root_.scala.Float,
                            positionY: _root_.scala.Float,
                            face: _root_.scala.Int,
-                           direction: _root_.scala.Option[_root_.scala.Int] = _root_.scala.None,
+                           direction: _root_.scala.Float,
                            unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
                          ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[MoveInfo] {
   @transient
@@ -38,9 +38,10 @@ final case class MoveInfo(
       val __value = face
       __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(3, __value)
     };
-    if (direction.isDefined) {
-      val __value = direction.get
-      __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(4, __value)
+
+    {
+      val __value = direction
+      __size += _root_.com.google.protobuf.CodedOutputStream.computeFloatSize(4, __value)
     };
     __size += unknownFields.serializedSize
     __size
@@ -71,9 +72,10 @@ final case class MoveInfo(
       val __v = face
       _output__.writeInt32(3, __v)
     };
-    direction.foreach { __v =>
-      val __m = __v
-      _output__.writeInt32(4, __m)
+
+    {
+      val __v = direction
+      _output__.writeFloat(4, __v)
     };
     unknownFields.writeTo(_output__)
   }
@@ -84,11 +86,7 @@ final case class MoveInfo(
 
   def withFace(__v: _root_.scala.Int): MoveInfo = copy(face = __v)
 
-  def getDirection: _root_.scala.Int = direction.getOrElse(0)
-
-  def clearDirection: MoveInfo = copy(direction = _root_.scala.None)
-
-  def withDirection(__v: _root_.scala.Int): MoveInfo = copy(direction = Option(__v))
+  def withDirection(__v: _root_.scala.Float): MoveInfo = copy(direction = __v)
 
   def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
 
@@ -99,7 +97,7 @@ final case class MoveInfo(
       case 1 => positionX
       case 2 => positionY
       case 3 => face
-      case 4 => direction.orNull
+      case 4 => direction
     }
   }
 
@@ -109,7 +107,7 @@ final case class MoveInfo(
       case 1 => _root_.scalapb.descriptors.PFloat(positionX)
       case 2 => _root_.scalapb.descriptors.PFloat(positionY)
       case 3 => _root_.scalapb.descriptors.PInt(face)
-      case 4 => direction.map(_root_.scalapb.descriptors.PInt(_)).getOrElse(_root_.scalapb.descriptors.PEmpty)
+      case 4 => _root_.scalapb.descriptors.PFloat(direction)
     }
   }
 
@@ -121,21 +119,19 @@ final case class MoveInfo(
 
 object MoveInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.MoveInfo] with scalapb.HasBuilder[protocol.scene.MoveInfo] with scalapb.JavaProtoSupport[protocol.scene.MoveInfo, protocol.Scene.MoveInfo] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.scene.MoveInfo] with scalapb.HasBuilder[protocol.scene.MoveInfo] with scalapb.JavaProtoSupport[protocol.scene.MoveInfo, protocol.Scene.MoveInfo] = this
-
   def toJavaProto(scalaPbSource: protocol.scene.MoveInfo): protocol.Scene.MoveInfo = {
     val javaPbOut = protocol.Scene.MoveInfo.newBuilder
     javaPbOut.setPositionX(scalaPbSource.positionX)
     javaPbOut.setPositionY(scalaPbSource.positionY)
     javaPbOut.setFace(scalaPbSource.face)
-    scalaPbSource.direction.foreach(javaPbOut.setDirection)
+    javaPbOut.setDirection(scalaPbSource.direction)
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Scene.MoveInfo): protocol.scene.MoveInfo = protocol.scene.MoveInfo(
     positionX = javaPbSource.getPositionX.floatValue,
     positionY = javaPbSource.getPositionY.floatValue,
     face = javaPbSource.getFace.intValue,
-    direction = if (javaPbSource.hasDirection) Some(javaPbSource.getDirection.intValue) else _root_.scala.None
+    direction = javaPbSource.getDirection.floatValue
   )
 
   def merge(`_message__`: protocol.scene.MoveInfo, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.scene.MoveInfo = newBuilder(_message__).merge(_input__).result()
@@ -147,11 +143,10 @@ object MoveInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.MoveInf
         positionX = __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).get.as[_root_.scala.Float],
         positionY = __fieldsMap.get(scalaDescriptor.findFieldByNumber(2).get).get.as[_root_.scala.Float],
         face = __fieldsMap.get(scalaDescriptor.findFieldByNumber(3).get).get.as[_root_.scala.Int],
-        direction = __fieldsMap.get(scalaDescriptor.findFieldByNumber(4).get).flatMap(_.as[_root_.scala.Option[_root_.scala.Int]])
+        direction = __fieldsMap.get(scalaDescriptor.findFieldByNumber(4).get).get.as[_root_.scala.Float]
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-
   def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SceneProto.javaDescriptor.getMessageTypes().get(0)
 
   def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SceneProto.scalaDescriptor.messages(0)
@@ -166,17 +161,17 @@ object MoveInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.MoveInf
     positionX = 0.0f,
     positionY = 0.0f,
     face = 0,
-    direction = _root_.scala.None
+    direction = 0.0f
   )
 
   final class Builder private(
                                private var __positionX: _root_.scala.Float,
                                private var __positionY: _root_.scala.Float,
                                private var __face: _root_.scala.Int,
-                               private var __direction: _root_.scala.Option[_root_.scala.Int],
+                               private var __direction: _root_.scala.Float,
                                private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
                              ) extends _root_.scalapb.MessageBuilder[protocol.scene.MoveInfo] {
-    private var __requiredFields0: _root_.scala.Long = 0x7L
+    private var __requiredFields0: _root_.scala.Long = 0xfL
 
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
@@ -193,8 +188,9 @@ object MoveInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.MoveInf
           case 24 =>
             __face = _input__.readInt32()
             __requiredFields0 &= 0xfffffffffffffffbL
-          case 32 =>
-            __direction = Option(_input__.readInt32())
+          case 37 =>
+            __direction = _input__.readFloat()
+            __requiredFields0 &= 0xfffffffffffffff7L
           case tag =>
             if (_unknownFields__ == null) {
               _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -204,7 +200,6 @@ object MoveInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.MoveInf
       }
       this
     }
-
     def result(): protocol.scene.MoveInfo = {
       if (__requiredFields0 != 0L) {
         throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
@@ -218,16 +213,14 @@ object MoveInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.MoveInf
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.scene.MoveInfo, protocol.scene.MoveInfo.Builder] {
     def apply(): Builder = new Builder(
       __positionX = 0.0f,
       __positionY = 0.0f,
       __face = 0,
-      __direction = _root_.scala.None,
+      __direction = 0.0f,
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.scene.MoveInfo): Builder = new Builder(
       __positionX = _message__.positionX,
       __positionY = _message__.positionY,
@@ -236,23 +229,16 @@ object MoveInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.MoveInf
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.scene.MoveInfo.Builder()
-
   def newBuilder(`_message__`: protocol.scene.MoveInfo): Builder = protocol.scene.MoveInfo.Builder(_message__)
-
   implicit class MoveInfoLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.scene.MoveInfo]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.scene.MoveInfo](_l) {
     def positionX: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.positionX)((c_, f_) => c_.copy(positionX = f_))
-
     def positionY: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.positionY)((c_, f_) => c_.copy(positionY = f_))
 
     def face: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.face)((c_, f_) => c_.copy(face = f_))
 
-    def direction: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.getDirection)((c_, f_) => c_.copy(direction = Option(f_)))
-
-    def optionalDirection: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Int]] = field(_.direction)((c_, f_) => c_.copy(direction = f_))
+    def direction: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.direction)((c_, f_) => c_.copy(direction = f_))
   }
-
   final val POSITIONX_FIELD_NUMBER = 1
   final val POSITIONY_FIELD_NUMBER = 2
   final val FACE_FIELD_NUMBER = 3
@@ -262,7 +248,7 @@ object MoveInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.MoveInf
           positionX: _root_.scala.Float,
           positionY: _root_.scala.Float,
           face: _root_.scala.Int,
-          direction: _root_.scala.Option[_root_.scala.Int]
+          direction: _root_.scala.Float
         ): _root_.protocol.scene.MoveInfo = _root_.protocol.scene.MoveInfo(
     positionX,
     positionY,

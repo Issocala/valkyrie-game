@@ -73,13 +73,11 @@ final case class CS10032(
 
 object CS10032 extends scalapb.GeneratedMessageCompanion[protocol.scene.CS10032] with scalapb.HasBuilder[protocol.scene.CS10032] with scalapb.JavaProtoSupport[protocol.scene.CS10032, protocol.Scene.CS10032] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.scene.CS10032] with scalapb.HasBuilder[protocol.scene.CS10032] with scalapb.JavaProtoSupport[protocol.scene.CS10032, protocol.Scene.CS10032] = this
-
   def toJavaProto(scalaPbSource: protocol.scene.CS10032): protocol.Scene.CS10032 = {
     val javaPbOut = protocol.Scene.CS10032.newBuilder
     javaPbOut.setMoveInfo(protocol.scene.MoveInfo.toJavaProto(scalaPbSource.moveInfo))
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Scene.CS10032): protocol.scene.CS10032 = protocol.scene.CS10032(
     moveInfo = protocol.scene.MoveInfo.fromJavaProto(javaPbSource.getMoveInfo)
   )
@@ -96,9 +94,7 @@ object CS10032 extends scalapb.GeneratedMessageCompanion[protocol.scene.CS10032]
   }
 
   def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SceneProto.javaDescriptor.getMessageTypes().get(7)
-
   def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SceneProto.scalaDescriptor.messages(7)
-
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
     var __out: _root_.scalapb.GeneratedMessageCompanion[_] = null
     (__number: @_root_.scala.unchecked) match {
@@ -139,7 +135,6 @@ object CS10032 extends scalapb.GeneratedMessageCompanion[protocol.scene.CS10032]
       }
       this
     }
-
     def result(): protocol.scene.CS10032 = {
       if (__requiredFields0 != 0L) {
         throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
@@ -150,27 +145,21 @@ object CS10032 extends scalapb.GeneratedMessageCompanion[protocol.scene.CS10032]
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.scene.CS10032, protocol.scene.CS10032.Builder] {
     def apply(): Builder = new Builder(
       __moveInfo = _root_.scala.None,
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.scene.CS10032): Builder = new Builder(
       __moveInfo = _root_.scala.Some(_message__.moveInfo),
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.scene.CS10032.Builder()
-
   def newBuilder(`_message__`: protocol.scene.CS10032): Builder = protocol.scene.CS10032.Builder(_message__)
-
   implicit class CS10032Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.scene.CS10032]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.scene.CS10032](_l) {
     def moveInfo: _root_.scalapb.lenses.Lens[UpperPB, protocol.scene.MoveInfo] = field(_.moveInfo)((c_, f_) => c_.copy(moveInfo = f_))
   }
-
   final val MOVEINFO_FIELD_NUMBER = 1
 
   def of(

@@ -73,10 +73,10 @@ public final class Scene {
 
         /**
          * <pre>
-         * 人物移动方向(如果和面部朝向一样可以不用赋值)
+         * 人物移动方向(0右,90下,-90上,180左)
          * </pre>
          *
-         * <code>optional int32 direction = 4;</code>
+         * <code>required float direction = 4;</code>
          *
          * @return Whether the direction field is set.
          */
@@ -84,14 +84,14 @@ public final class Scene {
 
         /**
          * <pre>
-         * 人物移动方向(如果和面部朝向一样可以不用赋值)
+         * 人物移动方向(0右,90下,-90上,180左)
          * </pre>
          *
-         * <code>optional int32 direction = 4;</code>
+         * <code>required float direction = 4;</code>
          *
          * @return The direction.
          */
-        int getDirection();
+        float getDirection();
     }
 
     /**
@@ -158,9 +158,9 @@ public final class Scene {
                             face_ = input.readInt32();
                             break;
                         }
-                        case 32: {
+                        case 37: {
                             bitField0_ |= 0x00000008;
-                            direction_ = input.readInt32();
+                            direction_ = input.readFloat();
                             break;
                         }
                         default: {
@@ -269,14 +269,14 @@ public final class Scene {
         }
 
         public static final int DIRECTION_FIELD_NUMBER = 4;
-        private int direction_;
+        private float direction_;
 
         /**
          * <pre>
-         * 人物移动方向(如果和面部朝向一样可以不用赋值)
+         * 人物移动方向(0右,90下,-90上,180左)
          * </pre>
          *
-         * <code>optional int32 direction = 4;</code>
+         * <code>required float direction = 4;</code>
          *
          * @return Whether the direction field is set.
          */
@@ -286,14 +286,14 @@ public final class Scene {
 
         /**
          * <pre>
-         * 人物移动方向(如果和面部朝向一样可以不用赋值)
+         * 人物移动方向(0右,90下,-90上,180左)
          * </pre>
          *
-         * <code>optional int32 direction = 4;</code>
+         * <code>required float direction = 4;</code>
          *
          * @return The direction.
          */
-        public int getDirection() {
+        public float getDirection() {
             return direction_;
         }
 
@@ -317,6 +317,10 @@ public final class Scene {
                 memoizedIsInitialized = 0;
                 return false;
             }
+            if (!hasDirection()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
             memoizedIsInitialized = 1;
             return true;
         }
@@ -334,7 +338,7 @@ public final class Scene {
                 output.writeInt32(3, face_);
             }
             if (((bitField0_ & 0x00000008) != 0)) {
-                output.writeInt32(4, direction_);
+                output.writeFloat(4, direction_);
             }
             unknownFields.writeTo(output);
         }
@@ -359,7 +363,7 @@ public final class Scene {
             }
             if (((bitField0_ & 0x00000008) != 0)) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeInt32Size(4, direction_);
+                        .computeFloatSize(4, direction_);
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
@@ -395,8 +399,9 @@ public final class Scene {
             }
             if (hasDirection() != other.hasDirection()) return false;
             if (hasDirection()) {
-                if (getDirection()
-                        != other.getDirection()) return false;
+                if (java.lang.Float.floatToIntBits(getDirection())
+                        != java.lang.Float.floatToIntBits(
+                        other.getDirection())) return false;
             }
             if (!unknownFields.equals(other.unknownFields)) return false;
             return true;
@@ -425,7 +430,8 @@ public final class Scene {
             }
             if (hasDirection()) {
                 hash = (37 * hash) + DIRECTION_FIELD_NUMBER;
-                hash = (53 * hash) + getDirection();
+                hash = (53 * hash) + java.lang.Float.floatToIntBits(
+                        getDirection());
             }
             hash = (29 * hash) + unknownFields.hashCode();
             memoizedHashCode = hash;
@@ -585,7 +591,7 @@ public final class Scene {
                 bitField0_ = (bitField0_ & ~0x00000002);
                 face_ = 0;
                 bitField0_ = (bitField0_ & ~0x00000004);
-                direction_ = 0;
+                direction_ = 0F;
                 bitField0_ = (bitField0_ & ~0x00000008);
                 return this;
             }
@@ -712,6 +718,9 @@ public final class Scene {
                     return false;
                 }
                 if (!hasFace()) {
+                    return false;
+                }
+                if (!hasDirection()) {
                     return false;
                 }
                 return true;
@@ -889,14 +898,14 @@ public final class Scene {
                 return this;
             }
 
-            private int direction_;
+            private float direction_;
 
             /**
              * <pre>
-             * 人物移动方向(如果和面部朝向一样可以不用赋值)
+             * 人物移动方向(0右,90下,-90上,180左)
              * </pre>
              *
-             * <code>optional int32 direction = 4;</code>
+             * <code>required float direction = 4;</code>
              *
              * @return Whether the direction field is set.
              */
@@ -906,28 +915,28 @@ public final class Scene {
 
             /**
              * <pre>
-             * 人物移动方向(如果和面部朝向一样可以不用赋值)
+             * 人物移动方向(0右,90下,-90上,180左)
              * </pre>
              *
-             * <code>optional int32 direction = 4;</code>
+             * <code>required float direction = 4;</code>
              *
              * @return The direction.
              */
-            public int getDirection() {
+            public float getDirection() {
                 return direction_;
             }
 
             /**
              * <pre>
-             * 人物移动方向(如果和面部朝向一样可以不用赋值)
+             * 人物移动方向(0右,90下,-90上,180左)
              * </pre>
              *
-             * <code>optional int32 direction = 4;</code>
+             * <code>required float direction = 4;</code>
              *
              * @param value The direction to set.
              * @return This builder for chaining.
              */
-            public Builder setDirection(int value) {
+            public Builder setDirection(float value) {
                 bitField0_ |= 0x00000008;
                 direction_ = value;
                 onChanged();
@@ -936,16 +945,16 @@ public final class Scene {
 
             /**
              * <pre>
-             * 人物移动方向(如果和面部朝向一样可以不用赋值)
+             * 人物移动方向(0右,90下,-90上,180左)
              * </pre>
              *
-             * <code>optional int32 direction = 4;</code>
+             * <code>required float direction = 4;</code>
              *
              * @return This builder for chaining.
              */
             public Builder clearDirection() {
                 bitField0_ = (bitField0_ & ~0x00000008);
-                direction_ = 0;
+                direction_ = 0F;
                 onChanged();
                 return this;
             }
@@ -1851,61 +1860,139 @@ public final class Scene {
 
     }
 
-    public interface AttributeMapOrBuilder extends
-            // @@protoc_insertion_point(interface_extends:protocol.AttributeMap)
+    public interface JumpInfoOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:protocol.JumpInfo)
             com.google.protobuf.MessageOrBuilder {
 
         /**
-         * <code>required int32 id = 1;</code>
+         * <code>required float positionX = 1;</code>
          *
-         * @return Whether the id field is set.
+         * @return Whether the positionX field is set.
          */
-        boolean hasId();
+        boolean hasPositionX();
 
         /**
-         * <code>required int32 id = 1;</code>
+         * <code>required float positionX = 1;</code>
          *
-         * @return The id.
+         * @return The positionX.
          */
-        int getId();
+        float getPositionX();
 
         /**
-         * <code>required int64 value = 2;</code>
+         * <code>required float positionY = 2;</code>
          *
-         * @return Whether the value field is set.
+         * @return Whether the positionY field is set.
          */
-        boolean hasValue();
+        boolean hasPositionY();
 
         /**
-         * <code>required int64 value = 2;</code>
+         * <code>required float positionY = 2;</code>
          *
-         * @return The value.
+         * @return The positionY.
          */
-        long getValue();
+        float getPositionY();
+
+        /**
+         * <code>required float highestPosX = 3;</code>
+         *
+         * @return Whether the highestPosX field is set.
+         */
+        boolean hasHighestPosX();
+
+        /**
+         * <code>required float highestPosX = 3;</code>
+         *
+         * @return The highestPosX.
+         */
+        float getHighestPosX();
+
+        /**
+         * <code>required float highestPosY = 4;</code>
+         *
+         * @return Whether the highestPosY field is set.
+         */
+        boolean hasHighestPosY();
+
+        /**
+         * <code>required float highestPosY = 4;</code>
+         *
+         * @return The highestPosY.
+         */
+        float getHighestPosY();
+
+        /**
+         * <code>required float finalPosX = 5;</code>
+         *
+         * @return Whether the finalPosX field is set.
+         */
+        boolean hasFinalPosX();
+
+        /**
+         * <code>required float finalPosX = 5;</code>
+         *
+         * @return The finalPosX.
+         */
+        float getFinalPosX();
+
+        /**
+         * <code>required float finalPosY = 6;</code>
+         *
+         * @return Whether the finalPosY field is set.
+         */
+        boolean hasFinalPosY();
+
+        /**
+         * <code>required float finalPosY = 6;</code>
+         *
+         * @return The finalPosY.
+         */
+        float getFinalPosY();
+
+        /**
+         * <pre>
+         * 面部朝向(0代表看向右边(默认),1代表看向左边)
+         * </pre>
+         *
+         * <code>required float face = 7;</code>
+         *
+         * @return Whether the face field is set.
+         */
+        boolean hasFace();
+
+        /**
+         * <pre>
+         * 面部朝向(0代表看向右边(默认),1代表看向左边)
+         * </pre>
+         *
+         * <code>required float face = 7;</code>
+         *
+         * @return The face.
+         */
+        float getFace();
     }
 
     /**
-     * Protobuf type {@code protocol.AttributeMap}
+     * Protobuf type {@code protocol.JumpInfo}
      */
-    public static final class AttributeMap extends
+    public static final class JumpInfo extends
             com.google.protobuf.GeneratedMessageV3 implements
-            // @@protoc_insertion_point(message_implements:protocol.AttributeMap)
-            AttributeMapOrBuilder {
+            // @@protoc_insertion_point(message_implements:protocol.JumpInfo)
+            JumpInfoOrBuilder {
         private static final long serialVersionUID = 0L;
 
-        // Use AttributeMap.newBuilder() to construct.
-        private AttributeMap(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        // Use JumpInfo.newBuilder() to construct.
+        private JumpInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
             super(builder);
         }
 
-        private AttributeMap() {
+        private JumpInfo() {
         }
 
         @java.lang.Override
         @SuppressWarnings({"unused"})
         protected java.lang.Object newInstance(
                 UnusedPrivateParameter unused) {
-            return new AttributeMap();
+            return new JumpInfo();
         }
 
         @java.lang.Override
@@ -1914,7 +2001,7 @@ public final class Scene {
             return this.unknownFields;
         }
 
-        private AttributeMap(
+        private JumpInfo(
                 com.google.protobuf.CodedInputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1933,14 +2020,39 @@ public final class Scene {
                         case 0:
                             done = true;
                             break;
-                        case 8: {
+                        case 13: {
                             bitField0_ |= 0x00000001;
-                            id_ = input.readInt32();
+                            positionX_ = input.readFloat();
                             break;
                         }
-                        case 16: {
+                        case 21: {
                             bitField0_ |= 0x00000002;
-                            value_ = input.readInt64();
+                            positionY_ = input.readFloat();
+                            break;
+                        }
+                        case 29: {
+                            bitField0_ |= 0x00000004;
+                            highestPosX_ = input.readFloat();
+                            break;
+                        }
+                        case 37: {
+                            bitField0_ |= 0x00000008;
+                            highestPosY_ = input.readFloat();
+                            break;
+                        }
+                        case 45: {
+                            bitField0_ |= 0x00000010;
+                            finalPosX_ = input.readFloat();
+                            break;
+                        }
+                        case 53: {
+                            bitField0_ |= 0x00000020;
+                            finalPosY_ = input.readFloat();
+                            break;
+                        }
+                        case 61: {
+                            bitField0_ |= 0x00000040;
+                            face_ = input.readFloat();
                             break;
                         }
                         default: {
@@ -1965,58 +2077,171 @@ public final class Scene {
 
         public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-            return protocol.Scene.internal_static_protocol_AttributeMap_descriptor;
+            return protocol.Scene.internal_static_protocol_JumpInfo_descriptor;
         }
 
         @java.lang.Override
         protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-            return protocol.Scene.internal_static_protocol_AttributeMap_fieldAccessorTable
+            return protocol.Scene.internal_static_protocol_JumpInfo_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
-                            protocol.Scene.AttributeMap.class, protocol.Scene.AttributeMap.Builder.class);
+                            protocol.Scene.JumpInfo.class, protocol.Scene.JumpInfo.Builder.class);
         }
 
         private int bitField0_;
-        public static final int ID_FIELD_NUMBER = 1;
-        private int id_;
+        public static final int POSITIONX_FIELD_NUMBER = 1;
+        private float positionX_;
 
         /**
-         * <code>required int32 id = 1;</code>
+         * <code>required float positionX = 1;</code>
          *
-         * @return Whether the id field is set.
+         * @return Whether the positionX field is set.
          */
-        public boolean hasId() {
+        public boolean hasPositionX() {
             return ((bitField0_ & 0x00000001) != 0);
         }
 
         /**
-         * <code>required int32 id = 1;</code>
+         * <code>required float positionX = 1;</code>
          *
-         * @return The id.
+         * @return The positionX.
          */
-        public int getId() {
-            return id_;
+        public float getPositionX() {
+            return positionX_;
         }
 
-        public static final int VALUE_FIELD_NUMBER = 2;
-        private long value_;
+        public static final int POSITIONY_FIELD_NUMBER = 2;
+        private float positionY_;
 
         /**
-         * <code>required int64 value = 2;</code>
+         * <code>required float positionY = 2;</code>
          *
-         * @return Whether the value field is set.
+         * @return Whether the positionY field is set.
          */
-        public boolean hasValue() {
+        public boolean hasPositionY() {
             return ((bitField0_ & 0x00000002) != 0);
         }
 
         /**
-         * <code>required int64 value = 2;</code>
+         * <code>required float positionY = 2;</code>
          *
-         * @return The value.
+         * @return The positionY.
          */
-        public long getValue() {
-            return value_;
+        public float getPositionY() {
+            return positionY_;
+        }
+
+        public static final int HIGHESTPOSX_FIELD_NUMBER = 3;
+        private float highestPosX_;
+
+        /**
+         * <code>required float highestPosX = 3;</code>
+         *
+         * @return Whether the highestPosX field is set.
+         */
+        public boolean hasHighestPosX() {
+            return ((bitField0_ & 0x00000004) != 0);
+        }
+
+        /**
+         * <code>required float highestPosX = 3;</code>
+         *
+         * @return The highestPosX.
+         */
+        public float getHighestPosX() {
+            return highestPosX_;
+        }
+
+        public static final int HIGHESTPOSY_FIELD_NUMBER = 4;
+        private float highestPosY_;
+
+        /**
+         * <code>required float highestPosY = 4;</code>
+         *
+         * @return Whether the highestPosY field is set.
+         */
+        public boolean hasHighestPosY() {
+            return ((bitField0_ & 0x00000008) != 0);
+        }
+
+        /**
+         * <code>required float highestPosY = 4;</code>
+         *
+         * @return The highestPosY.
+         */
+        public float getHighestPosY() {
+            return highestPosY_;
+        }
+
+        public static final int FINALPOSX_FIELD_NUMBER = 5;
+        private float finalPosX_;
+
+        /**
+         * <code>required float finalPosX = 5;</code>
+         *
+         * @return Whether the finalPosX field is set.
+         */
+        public boolean hasFinalPosX() {
+            return ((bitField0_ & 0x00000010) != 0);
+        }
+
+        /**
+         * <code>required float finalPosX = 5;</code>
+         *
+         * @return The finalPosX.
+         */
+        public float getFinalPosX() {
+            return finalPosX_;
+        }
+
+        public static final int FINALPOSY_FIELD_NUMBER = 6;
+        private float finalPosY_;
+
+        /**
+         * <code>required float finalPosY = 6;</code>
+         *
+         * @return Whether the finalPosY field is set.
+         */
+        public boolean hasFinalPosY() {
+            return ((bitField0_ & 0x00000020) != 0);
+        }
+
+        /**
+         * <code>required float finalPosY = 6;</code>
+         *
+         * @return The finalPosY.
+         */
+        public float getFinalPosY() {
+            return finalPosY_;
+        }
+
+        public static final int FACE_FIELD_NUMBER = 7;
+        private float face_;
+
+        /**
+         * <pre>
+         * 面部朝向(0代表看向右边(默认),1代表看向左边)
+         * </pre>
+         *
+         * <code>required float face = 7;</code>
+         *
+         * @return Whether the face field is set.
+         */
+        public boolean hasFace() {
+            return ((bitField0_ & 0x00000040) != 0);
+        }
+
+        /**
+         * <pre>
+         * 面部朝向(0代表看向右边(默认),1代表看向左边)
+         * </pre>
+         *
+         * <code>required float face = 7;</code>
+         *
+         * @return The face.
+         */
+        public float getFace() {
+            return face_;
         }
 
         private byte memoizedIsInitialized = -1;
@@ -2027,11 +2252,31 @@ public final class Scene {
             if (isInitialized == 1) return true;
             if (isInitialized == 0) return false;
 
-            if (!hasId()) {
+            if (!hasPositionX()) {
                 memoizedIsInitialized = 0;
                 return false;
             }
-            if (!hasValue()) {
+            if (!hasPositionY()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasHighestPosX()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasHighestPosY()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasFinalPosX()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasFinalPosY()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasFace()) {
                 memoizedIsInitialized = 0;
                 return false;
             }
@@ -2043,10 +2288,25 @@ public final class Scene {
         public void writeTo(com.google.protobuf.CodedOutputStream output)
                 throws java.io.IOException {
             if (((bitField0_ & 0x00000001) != 0)) {
-                output.writeInt32(1, id_);
+                output.writeFloat(1, positionX_);
             }
             if (((bitField0_ & 0x00000002) != 0)) {
-                output.writeInt64(2, value_);
+                output.writeFloat(2, positionY_);
+            }
+            if (((bitField0_ & 0x00000004) != 0)) {
+                output.writeFloat(3, highestPosX_);
+            }
+            if (((bitField0_ & 0x00000008) != 0)) {
+                output.writeFloat(4, highestPosY_);
+            }
+            if (((bitField0_ & 0x00000010) != 0)) {
+                output.writeFloat(5, finalPosX_);
+            }
+            if (((bitField0_ & 0x00000020) != 0)) {
+                output.writeFloat(6, finalPosY_);
+            }
+            if (((bitField0_ & 0x00000040) != 0)) {
+                output.writeFloat(7, face_);
             }
             unknownFields.writeTo(output);
         }
@@ -2059,11 +2319,31 @@ public final class Scene {
             size = 0;
             if (((bitField0_ & 0x00000001) != 0)) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeInt32Size(1, id_);
+                        .computeFloatSize(1, positionX_);
             }
             if (((bitField0_ & 0x00000002) != 0)) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeInt64Size(2, value_);
+                        .computeFloatSize(2, positionY_);
+            }
+            if (((bitField0_ & 0x00000004) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeFloatSize(3, highestPosX_);
+            }
+            if (((bitField0_ & 0x00000008) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeFloatSize(4, highestPosY_);
+            }
+            if (((bitField0_ & 0x00000010) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeFloatSize(5, finalPosX_);
+            }
+            if (((bitField0_ & 0x00000020) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeFloatSize(6, finalPosY_);
+            }
+            if (((bitField0_ & 0x00000040) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeFloatSize(7, face_);
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
@@ -2075,20 +2355,52 @@ public final class Scene {
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof protocol.Scene.AttributeMap)) {
+            if (!(obj instanceof protocol.Scene.JumpInfo)) {
                 return super.equals(obj);
             }
-            protocol.Scene.AttributeMap other = (protocol.Scene.AttributeMap) obj;
+            protocol.Scene.JumpInfo other = (protocol.Scene.JumpInfo) obj;
 
-            if (hasId() != other.hasId()) return false;
-            if (hasId()) {
-                if (getId()
-                        != other.getId()) return false;
+            if (hasPositionX() != other.hasPositionX()) return false;
+            if (hasPositionX()) {
+                if (java.lang.Float.floatToIntBits(getPositionX())
+                        != java.lang.Float.floatToIntBits(
+                        other.getPositionX())) return false;
             }
-            if (hasValue() != other.hasValue()) return false;
-            if (hasValue()) {
-                if (getValue()
-                        != other.getValue()) return false;
+            if (hasPositionY() != other.hasPositionY()) return false;
+            if (hasPositionY()) {
+                if (java.lang.Float.floatToIntBits(getPositionY())
+                        != java.lang.Float.floatToIntBits(
+                        other.getPositionY())) return false;
+            }
+            if (hasHighestPosX() != other.hasHighestPosX()) return false;
+            if (hasHighestPosX()) {
+                if (java.lang.Float.floatToIntBits(getHighestPosX())
+                        != java.lang.Float.floatToIntBits(
+                        other.getHighestPosX())) return false;
+            }
+            if (hasHighestPosY() != other.hasHighestPosY()) return false;
+            if (hasHighestPosY()) {
+                if (java.lang.Float.floatToIntBits(getHighestPosY())
+                        != java.lang.Float.floatToIntBits(
+                        other.getHighestPosY())) return false;
+            }
+            if (hasFinalPosX() != other.hasFinalPosX()) return false;
+            if (hasFinalPosX()) {
+                if (java.lang.Float.floatToIntBits(getFinalPosX())
+                        != java.lang.Float.floatToIntBits(
+                        other.getFinalPosX())) return false;
+            }
+            if (hasFinalPosY() != other.hasFinalPosY()) return false;
+            if (hasFinalPosY()) {
+                if (java.lang.Float.floatToIntBits(getFinalPosY())
+                        != java.lang.Float.floatToIntBits(
+                        other.getFinalPosY())) return false;
+            }
+            if (hasFace() != other.hasFace()) return false;
+            if (hasFace()) {
+                if (java.lang.Float.floatToIntBits(getFace())
+                        != java.lang.Float.floatToIntBits(
+                        other.getFace())) return false;
             }
             if (!unknownFields.equals(other.unknownFields)) return false;
             return true;
@@ -2101,65 +2413,91 @@ public final class Scene {
             }
             int hash = 41;
             hash = (19 * hash) + getDescriptor().hashCode();
-            if (hasId()) {
-                hash = (37 * hash) + ID_FIELD_NUMBER;
-                hash = (53 * hash) + getId();
+            if (hasPositionX()) {
+                hash = (37 * hash) + POSITIONX_FIELD_NUMBER;
+                hash = (53 * hash) + java.lang.Float.floatToIntBits(
+                        getPositionX());
             }
-            if (hasValue()) {
-                hash = (37 * hash) + VALUE_FIELD_NUMBER;
-                hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-                        getValue());
+            if (hasPositionY()) {
+                hash = (37 * hash) + POSITIONY_FIELD_NUMBER;
+                hash = (53 * hash) + java.lang.Float.floatToIntBits(
+                        getPositionY());
+            }
+            if (hasHighestPosX()) {
+                hash = (37 * hash) + HIGHESTPOSX_FIELD_NUMBER;
+                hash = (53 * hash) + java.lang.Float.floatToIntBits(
+                        getHighestPosX());
+            }
+            if (hasHighestPosY()) {
+                hash = (37 * hash) + HIGHESTPOSY_FIELD_NUMBER;
+                hash = (53 * hash) + java.lang.Float.floatToIntBits(
+                        getHighestPosY());
+            }
+            if (hasFinalPosX()) {
+                hash = (37 * hash) + FINALPOSX_FIELD_NUMBER;
+                hash = (53 * hash) + java.lang.Float.floatToIntBits(
+                        getFinalPosX());
+            }
+            if (hasFinalPosY()) {
+                hash = (37 * hash) + FINALPOSY_FIELD_NUMBER;
+                hash = (53 * hash) + java.lang.Float.floatToIntBits(
+                        getFinalPosY());
+            }
+            if (hasFace()) {
+                hash = (37 * hash) + FACE_FIELD_NUMBER;
+                hash = (53 * hash) + java.lang.Float.floatToIntBits(
+                        getFace());
             }
             hash = (29 * hash) + unknownFields.hashCode();
             memoizedHashCode = hash;
             return hash;
         }
 
-        public static protocol.Scene.AttributeMap parseFrom(
+        public static protocol.Scene.JumpInfo parseFrom(
                 java.nio.ByteBuffer data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static protocol.Scene.AttributeMap parseFrom(
+        public static protocol.Scene.JumpInfo parseFrom(
                 java.nio.ByteBuffer data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static protocol.Scene.AttributeMap parseFrom(
+        public static protocol.Scene.JumpInfo parseFrom(
                 com.google.protobuf.ByteString data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static protocol.Scene.AttributeMap parseFrom(
+        public static protocol.Scene.JumpInfo parseFrom(
                 com.google.protobuf.ByteString data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static protocol.Scene.AttributeMap parseFrom(byte[] data)
+        public static protocol.Scene.JumpInfo parseFrom(byte[] data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static protocol.Scene.AttributeMap parseFrom(
+        public static protocol.Scene.JumpInfo parseFrom(
                 byte[] data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static protocol.Scene.AttributeMap parseFrom(java.io.InputStream input)
+        public static protocol.Scene.JumpInfo parseFrom(java.io.InputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseWithIOException(PARSER, input);
         }
 
-        public static protocol.Scene.AttributeMap parseFrom(
+        public static protocol.Scene.JumpInfo parseFrom(
                 java.io.InputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -2167,13 +2505,13 @@ public final class Scene {
                     .parseWithIOException(PARSER, input, extensionRegistry);
         }
 
-        public static protocol.Scene.AttributeMap parseDelimitedFrom(java.io.InputStream input)
+        public static protocol.Scene.JumpInfo parseDelimitedFrom(java.io.InputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseDelimitedWithIOException(PARSER, input);
         }
 
-        public static protocol.Scene.AttributeMap parseDelimitedFrom(
+        public static protocol.Scene.JumpInfo parseDelimitedFrom(
                 java.io.InputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -2181,14 +2519,14 @@ public final class Scene {
                     .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
         }
 
-        public static protocol.Scene.AttributeMap parseFrom(
+        public static protocol.Scene.JumpInfo parseFrom(
                 com.google.protobuf.CodedInputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseWithIOException(PARSER, input);
         }
 
-        public static protocol.Scene.AttributeMap parseFrom(
+        public static protocol.Scene.JumpInfo parseFrom(
                 com.google.protobuf.CodedInputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -2205,7 +2543,7 @@ public final class Scene {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(protocol.Scene.AttributeMap prototype) {
+        public static Builder newBuilder(protocol.Scene.JumpInfo prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
@@ -2223,26 +2561,26 @@ public final class Scene {
         }
 
         /**
-         * Protobuf type {@code protocol.AttributeMap}
+         * Protobuf type {@code protocol.JumpInfo}
          */
         public static final class Builder extends
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-                // @@protoc_insertion_point(builder_implements:protocol.AttributeMap)
-                protocol.Scene.AttributeMapOrBuilder {
+                // @@protoc_insertion_point(builder_implements:protocol.JumpInfo)
+                protocol.Scene.JumpInfoOrBuilder {
             public static final com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
-                return protocol.Scene.internal_static_protocol_AttributeMap_descriptor;
+                return protocol.Scene.internal_static_protocol_JumpInfo_descriptor;
             }
 
             @java.lang.Override
             protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internalGetFieldAccessorTable() {
-                return protocol.Scene.internal_static_protocol_AttributeMap_fieldAccessorTable
+                return protocol.Scene.internal_static_protocol_JumpInfo_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
-                                protocol.Scene.AttributeMap.class, protocol.Scene.AttributeMap.Builder.class);
+                                protocol.Scene.JumpInfo.class, protocol.Scene.JumpInfo.Builder.class);
             }
 
-            // Construct using protocol.Scene.AttributeMap.newBuilder()
+            // Construct using protocol.Scene.JumpInfo.newBuilder()
             private Builder() {
                 maybeForceBuilderInitialization();
             }
@@ -2262,27 +2600,37 @@ public final class Scene {
             @java.lang.Override
             public Builder clear() {
                 super.clear();
-                id_ = 0;
+                positionX_ = 0F;
                 bitField0_ = (bitField0_ & ~0x00000001);
-                value_ = 0L;
+                positionY_ = 0F;
                 bitField0_ = (bitField0_ & ~0x00000002);
+                highestPosX_ = 0F;
+                bitField0_ = (bitField0_ & ~0x00000004);
+                highestPosY_ = 0F;
+                bitField0_ = (bitField0_ & ~0x00000008);
+                finalPosX_ = 0F;
+                bitField0_ = (bitField0_ & ~0x00000010);
+                finalPosY_ = 0F;
+                bitField0_ = (bitField0_ & ~0x00000020);
+                face_ = 0F;
+                bitField0_ = (bitField0_ & ~0x00000040);
                 return this;
             }
 
             @java.lang.Override
             public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-                return protocol.Scene.internal_static_protocol_AttributeMap_descriptor;
+                return protocol.Scene.internal_static_protocol_JumpInfo_descriptor;
             }
 
             @java.lang.Override
-            public protocol.Scene.AttributeMap getDefaultInstanceForType() {
-                return protocol.Scene.AttributeMap.getDefaultInstance();
+            public protocol.Scene.JumpInfo getDefaultInstanceForType() {
+                return protocol.Scene.JumpInfo.getDefaultInstance();
             }
 
             @java.lang.Override
-            public protocol.Scene.AttributeMap build() {
-                protocol.Scene.AttributeMap result = buildPartial();
+            public protocol.Scene.JumpInfo build() {
+                protocol.Scene.JumpInfo result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
                 }
@@ -2290,17 +2638,37 @@ public final class Scene {
             }
 
             @java.lang.Override
-            public protocol.Scene.AttributeMap buildPartial() {
-                protocol.Scene.AttributeMap result = new protocol.Scene.AttributeMap(this);
+            public protocol.Scene.JumpInfo buildPartial() {
+                protocol.Scene.JumpInfo result = new protocol.Scene.JumpInfo(this);
                 int from_bitField0_ = bitField0_;
                 int to_bitField0_ = 0;
                 if (((from_bitField0_ & 0x00000001) != 0)) {
-                    result.id_ = id_;
+                    result.positionX_ = positionX_;
                     to_bitField0_ |= 0x00000001;
                 }
                 if (((from_bitField0_ & 0x00000002) != 0)) {
-                    result.value_ = value_;
+                    result.positionY_ = positionY_;
                     to_bitField0_ |= 0x00000002;
+                }
+                if (((from_bitField0_ & 0x00000004) != 0)) {
+                    result.highestPosX_ = highestPosX_;
+                    to_bitField0_ |= 0x00000004;
+                }
+                if (((from_bitField0_ & 0x00000008) != 0)) {
+                    result.highestPosY_ = highestPosY_;
+                    to_bitField0_ |= 0x00000008;
+                }
+                if (((from_bitField0_ & 0x00000010) != 0)) {
+                    result.finalPosX_ = finalPosX_;
+                    to_bitField0_ |= 0x00000010;
+                }
+                if (((from_bitField0_ & 0x00000020) != 0)) {
+                    result.finalPosY_ = finalPosY_;
+                    to_bitField0_ |= 0x00000020;
+                }
+                if (((from_bitField0_ & 0x00000040) != 0)) {
+                    result.face_ = face_;
+                    to_bitField0_ |= 0x00000040;
                 }
                 result.bitField0_ = to_bitField0_;
                 onBuilt();
@@ -2347,21 +2715,36 @@ public final class Scene {
 
             @java.lang.Override
             public Builder mergeFrom(com.google.protobuf.Message other) {
-                if (other instanceof protocol.Scene.AttributeMap) {
-                    return mergeFrom((protocol.Scene.AttributeMap) other);
+                if (other instanceof protocol.Scene.JumpInfo) {
+                    return mergeFrom((protocol.Scene.JumpInfo) other);
                 } else {
                     super.mergeFrom(other);
                     return this;
                 }
             }
 
-            public Builder mergeFrom(protocol.Scene.AttributeMap other) {
-                if (other == protocol.Scene.AttributeMap.getDefaultInstance()) return this;
-                if (other.hasId()) {
-                    setId(other.getId());
+            public Builder mergeFrom(protocol.Scene.JumpInfo other) {
+                if (other == protocol.Scene.JumpInfo.getDefaultInstance()) return this;
+                if (other.hasPositionX()) {
+                    setPositionX(other.getPositionX());
                 }
-                if (other.hasValue()) {
-                    setValue(other.getValue());
+                if (other.hasPositionY()) {
+                    setPositionY(other.getPositionY());
+                }
+                if (other.hasHighestPosX()) {
+                    setHighestPosX(other.getHighestPosX());
+                }
+                if (other.hasHighestPosY()) {
+                    setHighestPosY(other.getHighestPosY());
+                }
+                if (other.hasFinalPosX()) {
+                    setFinalPosX(other.getFinalPosX());
+                }
+                if (other.hasFinalPosY()) {
+                    setFinalPosY(other.getFinalPosY());
+                }
+                if (other.hasFace()) {
+                    setFace(other.getFace());
                 }
                 this.mergeUnknownFields(other.unknownFields);
                 onChanged();
@@ -2370,10 +2753,25 @@ public final class Scene {
 
             @java.lang.Override
             public final boolean isInitialized() {
-                if (!hasId()) {
+                if (!hasPositionX()) {
                     return false;
                 }
-                if (!hasValue()) {
+                if (!hasPositionY()) {
+                    return false;
+                }
+                if (!hasHighestPosX()) {
+                    return false;
+                }
+                if (!hasHighestPosY()) {
+                    return false;
+                }
+                if (!hasFinalPosX()) {
+                    return false;
+                }
+                if (!hasFinalPosY()) {
+                    return false;
+                }
+                if (!hasFace()) {
                     return false;
                 }
                 return true;
@@ -2384,11 +2782,11 @@ public final class Scene {
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
-                protocol.Scene.AttributeMap parsedMessage = null;
+                protocol.Scene.JumpInfo parsedMessage = null;
                 try {
                     parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
                 } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                    parsedMessage = (protocol.Scene.AttributeMap) e.getUnfinishedMessage();
+                    parsedMessage = (protocol.Scene.JumpInfo) e.getUnfinishedMessage();
                     throw e.unwrapIOException();
                 } finally {
                     if (parsedMessage != null) {
@@ -2400,92 +2798,333 @@ public final class Scene {
 
             private int bitField0_;
 
-            private int id_;
+            private float positionX_;
 
             /**
-             * <code>required int32 id = 1;</code>
+             * <code>required float positionX = 1;</code>
              *
-             * @return Whether the id field is set.
+             * @return Whether the positionX field is set.
              */
-            public boolean hasId() {
+            public boolean hasPositionX() {
                 return ((bitField0_ & 0x00000001) != 0);
             }
 
             /**
-             * <code>required int32 id = 1;</code>
+             * <code>required float positionX = 1;</code>
              *
-             * @return The id.
+             * @return The positionX.
              */
-            public int getId() {
-                return id_;
+            public float getPositionX() {
+                return positionX_;
             }
 
             /**
-             * <code>required int32 id = 1;</code>
+             * <code>required float positionX = 1;</code>
              *
-             * @param value The id to set.
+             * @param value The positionX to set.
              * @return This builder for chaining.
              */
-            public Builder setId(int value) {
+            public Builder setPositionX(float value) {
                 bitField0_ |= 0x00000001;
-                id_ = value;
+                positionX_ = value;
                 onChanged();
                 return this;
             }
 
             /**
-             * <code>required int32 id = 1;</code>
+             * <code>required float positionX = 1;</code>
              *
              * @return This builder for chaining.
              */
-            public Builder clearId() {
+            public Builder clearPositionX() {
                 bitField0_ = (bitField0_ & ~0x00000001);
-                id_ = 0;
+                positionX_ = 0F;
                 onChanged();
                 return this;
             }
 
-            private long value_;
+            private float positionY_;
 
             /**
-             * <code>required int64 value = 2;</code>
+             * <code>required float positionY = 2;</code>
              *
-             * @return Whether the value field is set.
+             * @return Whether the positionY field is set.
              */
-            public boolean hasValue() {
+            public boolean hasPositionY() {
                 return ((bitField0_ & 0x00000002) != 0);
             }
 
             /**
-             * <code>required int64 value = 2;</code>
+             * <code>required float positionY = 2;</code>
              *
-             * @return The value.
+             * @return The positionY.
              */
-            public long getValue() {
-                return value_;
+            public float getPositionY() {
+                return positionY_;
             }
 
             /**
-             * <code>required int64 value = 2;</code>
+             * <code>required float positionY = 2;</code>
              *
-             * @param value The value to set.
+             * @param value The positionY to set.
              * @return This builder for chaining.
              */
-            public Builder setValue(long value) {
+            public Builder setPositionY(float value) {
                 bitField0_ |= 0x00000002;
-                value_ = value;
+                positionY_ = value;
                 onChanged();
                 return this;
             }
 
             /**
-             * <code>required int64 value = 2;</code>
+             * <code>required float positionY = 2;</code>
              *
              * @return This builder for chaining.
              */
-            public Builder clearValue() {
+            public Builder clearPositionY() {
                 bitField0_ = (bitField0_ & ~0x00000002);
-                value_ = 0L;
+                positionY_ = 0F;
+                onChanged();
+                return this;
+            }
+
+            private float highestPosX_;
+
+            /**
+             * <code>required float highestPosX = 3;</code>
+             *
+             * @return Whether the highestPosX field is set.
+             */
+            public boolean hasHighestPosX() {
+                return ((bitField0_ & 0x00000004) != 0);
+            }
+
+            /**
+             * <code>required float highestPosX = 3;</code>
+             *
+             * @return The highestPosX.
+             */
+            public float getHighestPosX() {
+                return highestPosX_;
+            }
+
+            /**
+             * <code>required float highestPosX = 3;</code>
+             *
+             * @param value The highestPosX to set.
+             * @return This builder for chaining.
+             */
+            public Builder setHighestPosX(float value) {
+                bitField0_ |= 0x00000004;
+                highestPosX_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>required float highestPosX = 3;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearHighestPosX() {
+                bitField0_ = (bitField0_ & ~0x00000004);
+                highestPosX_ = 0F;
+                onChanged();
+                return this;
+            }
+
+            private float highestPosY_;
+
+            /**
+             * <code>required float highestPosY = 4;</code>
+             *
+             * @return Whether the highestPosY field is set.
+             */
+            public boolean hasHighestPosY() {
+                return ((bitField0_ & 0x00000008) != 0);
+            }
+
+            /**
+             * <code>required float highestPosY = 4;</code>
+             *
+             * @return The highestPosY.
+             */
+            public float getHighestPosY() {
+                return highestPosY_;
+            }
+
+            /**
+             * <code>required float highestPosY = 4;</code>
+             *
+             * @param value The highestPosY to set.
+             * @return This builder for chaining.
+             */
+            public Builder setHighestPosY(float value) {
+                bitField0_ |= 0x00000008;
+                highestPosY_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>required float highestPosY = 4;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearHighestPosY() {
+                bitField0_ = (bitField0_ & ~0x00000008);
+                highestPosY_ = 0F;
+                onChanged();
+                return this;
+            }
+
+            private float finalPosX_;
+
+            /**
+             * <code>required float finalPosX = 5;</code>
+             *
+             * @return Whether the finalPosX field is set.
+             */
+            public boolean hasFinalPosX() {
+                return ((bitField0_ & 0x00000010) != 0);
+            }
+
+            /**
+             * <code>required float finalPosX = 5;</code>
+             *
+             * @return The finalPosX.
+             */
+            public float getFinalPosX() {
+                return finalPosX_;
+            }
+
+            /**
+             * <code>required float finalPosX = 5;</code>
+             *
+             * @param value The finalPosX to set.
+             * @return This builder for chaining.
+             */
+            public Builder setFinalPosX(float value) {
+                bitField0_ |= 0x00000010;
+                finalPosX_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>required float finalPosX = 5;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearFinalPosX() {
+                bitField0_ = (bitField0_ & ~0x00000010);
+                finalPosX_ = 0F;
+                onChanged();
+                return this;
+            }
+
+            private float finalPosY_;
+
+            /**
+             * <code>required float finalPosY = 6;</code>
+             *
+             * @return Whether the finalPosY field is set.
+             */
+            public boolean hasFinalPosY() {
+                return ((bitField0_ & 0x00000020) != 0);
+            }
+
+            /**
+             * <code>required float finalPosY = 6;</code>
+             *
+             * @return The finalPosY.
+             */
+            public float getFinalPosY() {
+                return finalPosY_;
+            }
+
+            /**
+             * <code>required float finalPosY = 6;</code>
+             *
+             * @param value The finalPosY to set.
+             * @return This builder for chaining.
+             */
+            public Builder setFinalPosY(float value) {
+                bitField0_ |= 0x00000020;
+                finalPosY_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>required float finalPosY = 6;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearFinalPosY() {
+                bitField0_ = (bitField0_ & ~0x00000020);
+                finalPosY_ = 0F;
+                onChanged();
+                return this;
+            }
+
+            private float face_;
+
+            /**
+             * <pre>
+             * 面部朝向(0代表看向右边(默认),1代表看向左边)
+             * </pre>
+             *
+             * <code>required float face = 7;</code>
+             *
+             * @return Whether the face field is set.
+             */
+            public boolean hasFace() {
+                return ((bitField0_ & 0x00000040) != 0);
+            }
+
+            /**
+             * <pre>
+             * 面部朝向(0代表看向右边(默认),1代表看向左边)
+             * </pre>
+             *
+             * <code>required float face = 7;</code>
+             *
+             * @return The face.
+             */
+            public float getFace() {
+                return face_;
+            }
+
+            /**
+             * <pre>
+             * 面部朝向(0代表看向右边(默认),1代表看向左边)
+             * </pre>
+             *
+             * <code>required float face = 7;</code>
+             *
+             * @param value The face to set.
+             * @return This builder for chaining.
+             */
+            public Builder setFace(float value) {
+                bitField0_ |= 0x00000040;
+                face_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 面部朝向(0代表看向右边(默认),1代表看向左边)
+             * </pre>
+             *
+             * <code>required float face = 7;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearFace() {
+                bitField0_ = (bitField0_ & ~0x00000040);
+                face_ = 0F;
                 onChanged();
                 return this;
             }
@@ -2503,43 +3142,43 @@ public final class Scene {
             }
 
 
-            // @@protoc_insertion_point(builder_scope:protocol.AttributeMap)
+            // @@protoc_insertion_point(builder_scope:protocol.JumpInfo)
         }
 
-        // @@protoc_insertion_point(class_scope:protocol.AttributeMap)
-        private static final protocol.Scene.AttributeMap DEFAULT_INSTANCE;
+        // @@protoc_insertion_point(class_scope:protocol.JumpInfo)
+        private static final protocol.Scene.JumpInfo DEFAULT_INSTANCE;
 
         static {
-            DEFAULT_INSTANCE = new protocol.Scene.AttributeMap();
+            DEFAULT_INSTANCE = new protocol.Scene.JumpInfo();
         }
 
-        public static protocol.Scene.AttributeMap getDefaultInstance() {
+        public static protocol.Scene.JumpInfo getDefaultInstance() {
             return DEFAULT_INSTANCE;
         }
 
         @java.lang.Deprecated
-        public static final com.google.protobuf.Parser<AttributeMap>
-                PARSER = new com.google.protobuf.AbstractParser<AttributeMap>() {
+        public static final com.google.protobuf.Parser<JumpInfo>
+                PARSER = new com.google.protobuf.AbstractParser<JumpInfo>() {
             @java.lang.Override
-            public AttributeMap parsePartialFrom(
+            public JumpInfo parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
-                return new AttributeMap(input, extensionRegistry);
+                return new JumpInfo(input, extensionRegistry);
             }
         };
 
-        public static com.google.protobuf.Parser<AttributeMap> parser() {
+        public static com.google.protobuf.Parser<JumpInfo> parser() {
             return PARSER;
         }
 
         @java.lang.Override
-        public com.google.protobuf.Parser<AttributeMap> getParserForType() {
+        public com.google.protobuf.Parser<JumpInfo> getParserForType() {
             return PARSER;
         }
 
         @java.lang.Override
-        public protocol.Scene.AttributeMap getDefaultInstanceForType() {
+        public protocol.Scene.JumpInfo getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
 
@@ -5596,18 +6235,18 @@ public final class Scene {
             com.google.protobuf.MessageOrBuilder {
 
         /**
-         * <code>required int64 playerId = 1;</code>
+         * <code>required int64 organismId = 1;</code>
          *
-         * @return Whether the playerId field is set.
+         * @return Whether the organismId field is set.
          */
-        boolean hasPlayerId();
+        boolean hasOrganismId();
 
         /**
-         * <code>required int64 playerId = 1;</code>
+         * <code>required int64 organismId = 1;</code>
          *
-         * @return The playerId.
+         * @return The organismId.
          */
-        long getPlayerId();
+        long getOrganismId();
 
         /**
          * <code>required .protocol.MoveInfo moveInfo = 2;</code>
@@ -5684,7 +6323,7 @@ public final class Scene {
                             break;
                         case 8: {
                             bitField0_ |= 0x00000001;
-                            playerId_ = input.readInt64();
+                            organismId_ = input.readInt64();
                             break;
                         }
                         case 18: {
@@ -5734,25 +6373,25 @@ public final class Scene {
         }
 
         private int bitField0_;
-        public static final int PLAYERID_FIELD_NUMBER = 1;
-        private long playerId_;
+        public static final int ORGANISMID_FIELD_NUMBER = 1;
+        private long organismId_;
 
         /**
-         * <code>required int64 playerId = 1;</code>
+         * <code>required int64 organismId = 1;</code>
          *
-         * @return Whether the playerId field is set.
+         * @return Whether the organismId field is set.
          */
-        public boolean hasPlayerId() {
+        public boolean hasOrganismId() {
             return ((bitField0_ & 0x00000001) != 0);
         }
 
         /**
-         * <code>required int64 playerId = 1;</code>
+         * <code>required int64 organismId = 1;</code>
          *
-         * @return The playerId.
+         * @return The organismId.
          */
-        public long getPlayerId() {
-            return playerId_;
+        public long getOrganismId() {
+            return organismId_;
         }
 
         public static final int MOVEINFO_FIELD_NUMBER = 2;
@@ -5791,7 +6430,7 @@ public final class Scene {
             if (isInitialized == 1) return true;
             if (isInitialized == 0) return false;
 
-            if (!hasPlayerId()) {
+            if (!hasOrganismId()) {
                 memoizedIsInitialized = 0;
                 return false;
             }
@@ -5811,7 +6450,7 @@ public final class Scene {
         public void writeTo(com.google.protobuf.CodedOutputStream output)
                 throws java.io.IOException {
             if (((bitField0_ & 0x00000001) != 0)) {
-                output.writeInt64(1, playerId_);
+                output.writeInt64(1, organismId_);
             }
             if (((bitField0_ & 0x00000002) != 0)) {
                 output.writeMessage(2, getMoveInfo());
@@ -5827,7 +6466,7 @@ public final class Scene {
             size = 0;
             if (((bitField0_ & 0x00000001) != 0)) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeInt64Size(1, playerId_);
+                        .computeInt64Size(1, organismId_);
             }
             if (((bitField0_ & 0x00000002) != 0)) {
                 size += com.google.protobuf.CodedOutputStream
@@ -5848,10 +6487,10 @@ public final class Scene {
             }
             protocol.Scene.SC10032 other = (protocol.Scene.SC10032) obj;
 
-            if (hasPlayerId() != other.hasPlayerId()) return false;
-            if (hasPlayerId()) {
-                if (getPlayerId()
-                        != other.getPlayerId()) return false;
+            if (hasOrganismId() != other.hasOrganismId()) return false;
+            if (hasOrganismId()) {
+                if (getOrganismId()
+                        != other.getOrganismId()) return false;
             }
             if (hasMoveInfo() != other.hasMoveInfo()) return false;
             if (hasMoveInfo()) {
@@ -5869,10 +6508,10 @@ public final class Scene {
             }
             int hash = 41;
             hash = (19 * hash) + getDescriptor().hashCode();
-            if (hasPlayerId()) {
-                hash = (37 * hash) + PLAYERID_FIELD_NUMBER;
+            if (hasOrganismId()) {
+                hash = (37 * hash) + ORGANISMID_FIELD_NUMBER;
                 hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-                        getPlayerId());
+                        getOrganismId());
             }
             if (hasMoveInfo()) {
                 hash = (37 * hash) + MOVEINFO_FIELD_NUMBER;
@@ -6035,7 +6674,7 @@ public final class Scene {
             @java.lang.Override
             public Builder clear() {
                 super.clear();
-                playerId_ = 0L;
+                organismId_ = 0L;
                 bitField0_ = (bitField0_ & ~0x00000001);
                 if (moveInfoBuilder_ == null) {
                     moveInfo_ = null;
@@ -6072,7 +6711,7 @@ public final class Scene {
                 int from_bitField0_ = bitField0_;
                 int to_bitField0_ = 0;
                 if (((from_bitField0_ & 0x00000001) != 0)) {
-                    result.playerId_ = playerId_;
+                    result.organismId_ = organismId_;
                     to_bitField0_ |= 0x00000001;
                 }
                 if (((from_bitField0_ & 0x00000002) != 0)) {
@@ -6138,8 +6777,8 @@ public final class Scene {
 
             public Builder mergeFrom(protocol.Scene.SC10032 other) {
                 if (other == protocol.Scene.SC10032.getDefaultInstance()) return this;
-                if (other.hasPlayerId()) {
-                    setPlayerId(other.getPlayerId());
+                if (other.hasOrganismId()) {
+                    setOrganismId(other.getOrganismId());
                 }
                 if (other.hasMoveInfo()) {
                     mergeMoveInfo(other.getMoveInfo());
@@ -6151,7 +6790,7 @@ public final class Scene {
 
             @java.lang.Override
             public final boolean isInitialized() {
-                if (!hasPlayerId()) {
+                if (!hasOrganismId()) {
                     return false;
                 }
                 if (!hasMoveInfo()) {
@@ -6184,47 +6823,47 @@ public final class Scene {
 
             private int bitField0_;
 
-            private long playerId_;
+            private long organismId_;
 
             /**
-             * <code>required int64 playerId = 1;</code>
+             * <code>required int64 organismId = 1;</code>
              *
-             * @return Whether the playerId field is set.
+             * @return Whether the organismId field is set.
              */
-            public boolean hasPlayerId() {
+            public boolean hasOrganismId() {
                 return ((bitField0_ & 0x00000001) != 0);
             }
 
             /**
-             * <code>required int64 playerId = 1;</code>
+             * <code>required int64 organismId = 1;</code>
              *
-             * @return The playerId.
+             * @return The organismId.
              */
-            public long getPlayerId() {
-                return playerId_;
+            public long getOrganismId() {
+                return organismId_;
             }
 
             /**
-             * <code>required int64 playerId = 1;</code>
+             * <code>required int64 organismId = 1;</code>
              *
-             * @param value The playerId to set.
+             * @param value The organismId to set.
              * @return This builder for chaining.
              */
-            public Builder setPlayerId(long value) {
+            public Builder setOrganismId(long value) {
                 bitField0_ |= 0x00000001;
-                playerId_ = value;
+                organismId_ = value;
                 onChanged();
                 return this;
             }
 
             /**
-             * <code>required int64 playerId = 1;</code>
+             * <code>required int64 organismId = 1;</code>
              *
              * @return This builder for chaining.
              */
-            public Builder clearPlayerId() {
+            public Builder clearOrganismId() {
                 bitField0_ = (bitField0_ & ~0x00000001);
-                playerId_ = 0L;
+                organismId_ = 0L;
                 onChanged();
                 return this;
             }
@@ -7126,18 +7765,18 @@ public final class Scene {
             com.google.protobuf.MessageOrBuilder {
 
         /**
-         * <code>required int64 playerId = 1;</code>
+         * <code>required int64 organismId = 1;</code>
          *
-         * @return Whether the playerId field is set.
+         * @return Whether the organismId field is set.
          */
-        boolean hasPlayerId();
+        boolean hasOrganismId();
 
         /**
-         * <code>required int64 playerId = 1;</code>
+         * <code>required int64 organismId = 1;</code>
          *
-         * @return The playerId.
+         * @return The organismId.
          */
-        long getPlayerId();
+        long getOrganismId();
 
         /**
          * <code>required .protocol.StopInfo stopInfo = 2;</code>
@@ -7214,7 +7853,7 @@ public final class Scene {
                             break;
                         case 8: {
                             bitField0_ |= 0x00000001;
-                            playerId_ = input.readInt64();
+                            organismId_ = input.readInt64();
                             break;
                         }
                         case 18: {
@@ -7264,25 +7903,25 @@ public final class Scene {
         }
 
         private int bitField0_;
-        public static final int PLAYERID_FIELD_NUMBER = 1;
-        private long playerId_;
+        public static final int ORGANISMID_FIELD_NUMBER = 1;
+        private long organismId_;
 
         /**
-         * <code>required int64 playerId = 1;</code>
+         * <code>required int64 organismId = 1;</code>
          *
-         * @return Whether the playerId field is set.
+         * @return Whether the organismId field is set.
          */
-        public boolean hasPlayerId() {
+        public boolean hasOrganismId() {
             return ((bitField0_ & 0x00000001) != 0);
         }
 
         /**
-         * <code>required int64 playerId = 1;</code>
+         * <code>required int64 organismId = 1;</code>
          *
-         * @return The playerId.
+         * @return The organismId.
          */
-        public long getPlayerId() {
-            return playerId_;
+        public long getOrganismId() {
+            return organismId_;
         }
 
         public static final int STOPINFO_FIELD_NUMBER = 2;
@@ -7321,7 +7960,7 @@ public final class Scene {
             if (isInitialized == 1) return true;
             if (isInitialized == 0) return false;
 
-            if (!hasPlayerId()) {
+            if (!hasOrganismId()) {
                 memoizedIsInitialized = 0;
                 return false;
             }
@@ -7341,7 +7980,7 @@ public final class Scene {
         public void writeTo(com.google.protobuf.CodedOutputStream output)
                 throws java.io.IOException {
             if (((bitField0_ & 0x00000001) != 0)) {
-                output.writeInt64(1, playerId_);
+                output.writeInt64(1, organismId_);
             }
             if (((bitField0_ & 0x00000002) != 0)) {
                 output.writeMessage(2, getStopInfo());
@@ -7357,7 +7996,7 @@ public final class Scene {
             size = 0;
             if (((bitField0_ & 0x00000001) != 0)) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeInt64Size(1, playerId_);
+                        .computeInt64Size(1, organismId_);
             }
             if (((bitField0_ & 0x00000002) != 0)) {
                 size += com.google.protobuf.CodedOutputStream
@@ -7378,10 +8017,10 @@ public final class Scene {
             }
             protocol.Scene.SC10033 other = (protocol.Scene.SC10033) obj;
 
-            if (hasPlayerId() != other.hasPlayerId()) return false;
-            if (hasPlayerId()) {
-                if (getPlayerId()
-                        != other.getPlayerId()) return false;
+            if (hasOrganismId() != other.hasOrganismId()) return false;
+            if (hasOrganismId()) {
+                if (getOrganismId()
+                        != other.getOrganismId()) return false;
             }
             if (hasStopInfo() != other.hasStopInfo()) return false;
             if (hasStopInfo()) {
@@ -7399,10 +8038,10 @@ public final class Scene {
             }
             int hash = 41;
             hash = (19 * hash) + getDescriptor().hashCode();
-            if (hasPlayerId()) {
-                hash = (37 * hash) + PLAYERID_FIELD_NUMBER;
+            if (hasOrganismId()) {
+                hash = (37 * hash) + ORGANISMID_FIELD_NUMBER;
                 hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-                        getPlayerId());
+                        getOrganismId());
             }
             if (hasStopInfo()) {
                 hash = (37 * hash) + STOPINFO_FIELD_NUMBER;
@@ -7565,7 +8204,7 @@ public final class Scene {
             @java.lang.Override
             public Builder clear() {
                 super.clear();
-                playerId_ = 0L;
+                organismId_ = 0L;
                 bitField0_ = (bitField0_ & ~0x00000001);
                 if (stopInfoBuilder_ == null) {
                     stopInfo_ = null;
@@ -7602,7 +8241,7 @@ public final class Scene {
                 int from_bitField0_ = bitField0_;
                 int to_bitField0_ = 0;
                 if (((from_bitField0_ & 0x00000001) != 0)) {
-                    result.playerId_ = playerId_;
+                    result.organismId_ = organismId_;
                     to_bitField0_ |= 0x00000001;
                 }
                 if (((from_bitField0_ & 0x00000002) != 0)) {
@@ -7668,8 +8307,8 @@ public final class Scene {
 
             public Builder mergeFrom(protocol.Scene.SC10033 other) {
                 if (other == protocol.Scene.SC10033.getDefaultInstance()) return this;
-                if (other.hasPlayerId()) {
-                    setPlayerId(other.getPlayerId());
+                if (other.hasOrganismId()) {
+                    setOrganismId(other.getOrganismId());
                 }
                 if (other.hasStopInfo()) {
                     mergeStopInfo(other.getStopInfo());
@@ -7681,7 +8320,7 @@ public final class Scene {
 
             @java.lang.Override
             public final boolean isInitialized() {
-                if (!hasPlayerId()) {
+                if (!hasOrganismId()) {
                     return false;
                 }
                 if (!hasStopInfo()) {
@@ -7714,47 +8353,47 @@ public final class Scene {
 
             private int bitField0_;
 
-            private long playerId_;
+            private long organismId_;
 
             /**
-             * <code>required int64 playerId = 1;</code>
+             * <code>required int64 organismId = 1;</code>
              *
-             * @return Whether the playerId field is set.
+             * @return Whether the organismId field is set.
              */
-            public boolean hasPlayerId() {
+            public boolean hasOrganismId() {
                 return ((bitField0_ & 0x00000001) != 0);
             }
 
             /**
-             * <code>required int64 playerId = 1;</code>
+             * <code>required int64 organismId = 1;</code>
              *
-             * @return The playerId.
+             * @return The organismId.
              */
-            public long getPlayerId() {
-                return playerId_;
+            public long getOrganismId() {
+                return organismId_;
             }
 
             /**
-             * <code>required int64 playerId = 1;</code>
+             * <code>required int64 organismId = 1;</code>
              *
-             * @param value The playerId to set.
+             * @param value The organismId to set.
              * @return This builder for chaining.
              */
-            public Builder setPlayerId(long value) {
+            public Builder setOrganismId(long value) {
                 bitField0_ |= 0x00000001;
-                playerId_ = value;
+                organismId_ = value;
                 onChanged();
                 return this;
             }
 
             /**
-             * <code>required int64 playerId = 1;</code>
+             * <code>required int64 organismId = 1;</code>
              *
              * @return This builder for chaining.
              */
-            public Builder clearPlayerId() {
+            public Builder clearOrganismId() {
                 bitField0_ = (bitField0_ & ~0x00000001);
-                playerId_ = 0L;
+                organismId_ = 0L;
                 onChanged();
                 return this;
             }
@@ -7964,6 +8603,10 @@ public final class Scene {
         long getOrganismId();
 
         /**
+         * <pre>
+         * 1-&gt;player,2-&gt;boss
+         * </pre>
+         *
          * <code>required int32 organismType = 2;</code>
          *
          * @return Whether the organismType field is set.
@@ -7971,6 +8614,10 @@ public final class Scene {
         boolean hasOrganismType();
 
         /**
+         * <pre>
+         * 1-&gt;player,2-&gt;boss
+         * </pre>
+         *
          * <code>required int32 organismType = 2;</code>
          *
          * @return The organismType.
@@ -8157,6 +8804,10 @@ public final class Scene {
         private int organismType_;
 
         /**
+         * <pre>
+         * 1-&gt;player,2-&gt;boss
+         * </pre>
+         *
          * <code>required int32 organismType = 2;</code>
          *
          * @return Whether the organismType field is set.
@@ -8166,6 +8817,10 @@ public final class Scene {
         }
 
         /**
+         * <pre>
+         * 1-&gt;player,2-&gt;boss
+         * </pre>
+         *
          * <code>required int32 organismType = 2;</code>
          *
          * @return The organismType.
@@ -8770,6 +9425,10 @@ public final class Scene {
             private int organismType_;
 
             /**
+             * <pre>
+             * 1-&gt;player,2-&gt;boss
+             * </pre>
+             *
              * <code>required int32 organismType = 2;</code>
              *
              * @return Whether the organismType field is set.
@@ -8779,6 +9438,10 @@ public final class Scene {
             }
 
             /**
+             * <pre>
+             * 1-&gt;player,2-&gt;boss
+             * </pre>
+             *
              * <code>required int32 organismType = 2;</code>
              *
              * @return The organismType.
@@ -8788,6 +9451,10 @@ public final class Scene {
             }
 
             /**
+             * <pre>
+             * 1-&gt;player,2-&gt;boss
+             * </pre>
+             *
              * <code>required int32 organismType = 2;</code>
              *
              * @param value The organismType to set.
@@ -8801,6 +9468,10 @@ public final class Scene {
             }
 
             /**
+             * <pre>
+             * 1-&gt;player,2-&gt;boss
+             * </pre>
+             *
              * <code>required int32 organismType = 2;</code>
              *
              * @return This builder for chaining.
@@ -9002,6 +9673,1536 @@ public final class Scene {
 
     }
 
+    public interface CS10035OrBuilder extends
+            // @@protoc_insertion_point(interface_extends:protocol.CS10035)
+            com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+         *
+         * @return Whether the jumpInfo field is set.
+         */
+        boolean hasJumpInfo();
+
+        /**
+         * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+         *
+         * @return The jumpInfo.
+         */
+        protocol.Scene.JumpInfo getJumpInfo();
+
+        /**
+         * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+         */
+        protocol.Scene.JumpInfoOrBuilder getJumpInfoOrBuilder();
+    }
+
+    /**
+     * <pre>
+     * 玩家跳跃
+     * </pre>
+     * <p>
+     * Protobuf type {@code protocol.CS10035}
+     */
+    public static final class CS10035 extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:protocol.CS10035)
+            CS10035OrBuilder {
+        private static final long serialVersionUID = 0L;
+
+        // Use CS10035.newBuilder() to construct.
+        private CS10035(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
+        }
+
+        private CS10035() {
+        }
+
+        @java.lang.Override
+        @SuppressWarnings({"unused"})
+        protected java.lang.Object newInstance(
+                UnusedPrivateParameter unused) {
+            return new CS10035();
+        }
+
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
+        }
+
+        private CS10035(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        case 10: {
+                            protocol.Scene.JumpInfo.Builder subBuilder = null;
+                            if (((bitField0_ & 0x00000001) != 0)) {
+                                subBuilder = jumpInfo_.toBuilder();
+                            }
+                            jumpInfo_ = input.readMessage(protocol.Scene.JumpInfo.PARSER, extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(jumpInfo_);
+                                jumpInfo_ = subBuilder.buildPartial();
+                            }
+                            bitField0_ |= 0x00000001;
+                            break;
+                        }
+                        default: {
+                            if (!parseUnknownField(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
+        }
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return protocol.Scene.internal_static_protocol_CS10035_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return protocol.Scene.internal_static_protocol_CS10035_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            protocol.Scene.CS10035.class, protocol.Scene.CS10035.Builder.class);
+        }
+
+        private int bitField0_;
+        public static final int JUMPINFO_FIELD_NUMBER = 1;
+        private protocol.Scene.JumpInfo jumpInfo_;
+
+        /**
+         * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+         *
+         * @return Whether the jumpInfo field is set.
+         */
+        public boolean hasJumpInfo() {
+            return ((bitField0_ & 0x00000001) != 0);
+        }
+
+        /**
+         * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+         *
+         * @return The jumpInfo.
+         */
+        public protocol.Scene.JumpInfo getJumpInfo() {
+            return jumpInfo_ == null ? protocol.Scene.JumpInfo.getDefaultInstance() : jumpInfo_;
+        }
+
+        /**
+         * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+         */
+        public protocol.Scene.JumpInfoOrBuilder getJumpInfoOrBuilder() {
+            return jumpInfo_ == null ? protocol.Scene.JumpInfo.getDefaultInstance() : jumpInfo_;
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            if (!hasJumpInfo()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!getJumpInfo().isInitialized()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        @java.lang.Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (((bitField0_ & 0x00000001) != 0)) {
+                output.writeMessage(1, getJumpInfo());
+            }
+            unknownFields.writeTo(output);
+        }
+
+        @java.lang.Override
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (((bitField0_ & 0x00000001) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(1, getJumpInfo());
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof protocol.Scene.CS10035)) {
+                return super.equals(obj);
+            }
+            protocol.Scene.CS10035 other = (protocol.Scene.CS10035) obj;
+
+            if (hasJumpInfo() != other.hasJumpInfo()) return false;
+            if (hasJumpInfo()) {
+                if (!getJumpInfo()
+                        .equals(other.getJumpInfo())) return false;
+            }
+            if (!unknownFields.equals(other.unknownFields)) return false;
+            return true;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            if (hasJumpInfo()) {
+                hash = (37 * hash) + JUMPINFO_FIELD_NUMBER;
+                hash = (53 * hash) + getJumpInfo().hashCode();
+            }
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static protocol.Scene.CS10035 parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static protocol.Scene.CS10035 parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static protocol.Scene.CS10035 parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static protocol.Scene.CS10035 parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static protocol.Scene.CS10035 parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static protocol.Scene.CS10035 parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static protocol.Scene.CS10035 parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static protocol.Scene.CS10035 parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static protocol.Scene.CS10035 parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static protocol.Scene.CS10035 parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static protocol.Scene.CS10035 parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static protocol.Scene.CS10035 parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        @java.lang.Override
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(protocol.Scene.CS10035 prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        @java.lang.Override
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * <pre>
+         * 玩家跳跃
+         * </pre>
+         * <p>
+         * Protobuf type {@code protocol.CS10035}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:protocol.CS10035)
+                protocol.Scene.CS10035OrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return protocol.Scene.internal_static_protocol_CS10035_descriptor;
+            }
+
+            @java.lang.Override
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return protocol.Scene.internal_static_protocol_CS10035_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                protocol.Scene.CS10035.class, protocol.Scene.CS10035.Builder.class);
+            }
+
+            // Construct using protocol.Scene.CS10035.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                    getJumpInfoFieldBuilder();
+                }
+            }
+
+            @java.lang.Override
+            public Builder clear() {
+                super.clear();
+                if (jumpInfoBuilder_ == null) {
+                    jumpInfo_ = null;
+                } else {
+                    jumpInfoBuilder_.clear();
+                }
+                bitField0_ = (bitField0_ & ~0x00000001);
+                return this;
+            }
+
+            @java.lang.Override
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return protocol.Scene.internal_static_protocol_CS10035_descriptor;
+            }
+
+            @java.lang.Override
+            public protocol.Scene.CS10035 getDefaultInstanceForType() {
+                return protocol.Scene.CS10035.getDefaultInstance();
+            }
+
+            @java.lang.Override
+            public protocol.Scene.CS10035 build() {
+                protocol.Scene.CS10035 result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            @java.lang.Override
+            public protocol.Scene.CS10035 buildPartial() {
+                protocol.Scene.CS10035 result = new protocol.Scene.CS10035(this);
+                int from_bitField0_ = bitField0_;
+                int to_bitField0_ = 0;
+                if (((from_bitField0_ & 0x00000001) != 0)) {
+                    if (jumpInfoBuilder_ == null) {
+                        result.jumpInfo_ = jumpInfo_;
+                    } else {
+                        result.jumpInfo_ = jumpInfoBuilder_.build();
+                    }
+                    to_bitField0_ |= 0x00000001;
+                }
+                result.bitField0_ = to_bitField0_;
+                onBuilt();
+                return result;
+            }
+
+            @java.lang.Override
+            public Builder clone() {
+                return super.clone();
+            }
+
+            @java.lang.Override
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.setField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return super.clearField(field);
+            }
+
+            @java.lang.Override
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return super.clearOneof(oneof);
+            }
+
+            @java.lang.Override
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return super.setRepeatedField(field, index, value);
+            }
+
+            @java.lang.Override
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.addRepeatedField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof protocol.Scene.CS10035) {
+                    return mergeFrom((protocol.Scene.CS10035) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(protocol.Scene.CS10035 other) {
+                if (other == protocol.Scene.CS10035.getDefaultInstance()) return this;
+                if (other.hasJumpInfo()) {
+                    mergeJumpInfo(other.getJumpInfo());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            @java.lang.Override
+            public final boolean isInitialized() {
+                if (!hasJumpInfo()) {
+                    return false;
+                }
+                if (!getJumpInfo().isInitialized()) {
+                    return false;
+                }
+                return true;
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                protocol.Scene.CS10035 parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (protocol.Scene.CS10035) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private int bitField0_;
+
+            private protocol.Scene.JumpInfo jumpInfo_;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    protocol.Scene.JumpInfo, protocol.Scene.JumpInfo.Builder, protocol.Scene.JumpInfoOrBuilder> jumpInfoBuilder_;
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+             *
+             * @return Whether the jumpInfo field is set.
+             */
+            public boolean hasJumpInfo() {
+                return ((bitField0_ & 0x00000001) != 0);
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+             *
+             * @return The jumpInfo.
+             */
+            public protocol.Scene.JumpInfo getJumpInfo() {
+                if (jumpInfoBuilder_ == null) {
+                    return jumpInfo_ == null ? protocol.Scene.JumpInfo.getDefaultInstance() : jumpInfo_;
+                } else {
+                    return jumpInfoBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+             */
+            public Builder setJumpInfo(protocol.Scene.JumpInfo value) {
+                if (jumpInfoBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    jumpInfo_ = value;
+                    onChanged();
+                } else {
+                    jumpInfoBuilder_.setMessage(value);
+                }
+                bitField0_ |= 0x00000001;
+                return this;
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+             */
+            public Builder setJumpInfo(
+                    protocol.Scene.JumpInfo.Builder builderForValue) {
+                if (jumpInfoBuilder_ == null) {
+                    jumpInfo_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    jumpInfoBuilder_.setMessage(builderForValue.build());
+                }
+                bitField0_ |= 0x00000001;
+                return this;
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+             */
+            public Builder mergeJumpInfo(protocol.Scene.JumpInfo value) {
+                if (jumpInfoBuilder_ == null) {
+                    if (((bitField0_ & 0x00000001) != 0) &&
+                            jumpInfo_ != null &&
+                            jumpInfo_ != protocol.Scene.JumpInfo.getDefaultInstance()) {
+                        jumpInfo_ =
+                                protocol.Scene.JumpInfo.newBuilder(jumpInfo_).mergeFrom(value).buildPartial();
+                    } else {
+                        jumpInfo_ = value;
+                    }
+                    onChanged();
+                } else {
+                    jumpInfoBuilder_.mergeFrom(value);
+                }
+                bitField0_ |= 0x00000001;
+                return this;
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+             */
+            public Builder clearJumpInfo() {
+                if (jumpInfoBuilder_ == null) {
+                    jumpInfo_ = null;
+                    onChanged();
+                } else {
+                    jumpInfoBuilder_.clear();
+                }
+                bitField0_ = (bitField0_ & ~0x00000001);
+                return this;
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+             */
+            public protocol.Scene.JumpInfo.Builder getJumpInfoBuilder() {
+                bitField0_ |= 0x00000001;
+                onChanged();
+                return getJumpInfoFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+             */
+            public protocol.Scene.JumpInfoOrBuilder getJumpInfoOrBuilder() {
+                if (jumpInfoBuilder_ != null) {
+                    return jumpInfoBuilder_.getMessageOrBuilder();
+                } else {
+                    return jumpInfo_ == null ?
+                            protocol.Scene.JumpInfo.getDefaultInstance() : jumpInfo_;
+                }
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 1;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    protocol.Scene.JumpInfo, protocol.Scene.JumpInfo.Builder, protocol.Scene.JumpInfoOrBuilder>
+            getJumpInfoFieldBuilder() {
+                if (jumpInfoBuilder_ == null) {
+                    jumpInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            protocol.Scene.JumpInfo, protocol.Scene.JumpInfo.Builder, protocol.Scene.JumpInfoOrBuilder>(
+                            getJumpInfo(),
+                            getParentForChildren(),
+                            isClean());
+                    jumpInfo_ = null;
+                }
+                return jumpInfoBuilder_;
+            }
+
+            @java.lang.Override
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFields(unknownFields);
+            }
+
+            @java.lang.Override
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
+
+
+            // @@protoc_insertion_point(builder_scope:protocol.CS10035)
+        }
+
+        // @@protoc_insertion_point(class_scope:protocol.CS10035)
+        private static final protocol.Scene.CS10035 DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new protocol.Scene.CS10035();
+        }
+
+        public static protocol.Scene.CS10035 getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        @java.lang.Deprecated
+        public static final com.google.protobuf.Parser<CS10035>
+                PARSER = new com.google.protobuf.AbstractParser<CS10035>() {
+            @java.lang.Override
+            public CS10035 parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new CS10035(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<CS10035> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<CS10035> getParserForType() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public protocol.Scene.CS10035 getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
+    }
+
+    public interface SC10035OrBuilder extends
+            // @@protoc_insertion_point(interface_extends:protocol.SC10035)
+            com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>required int64 organismId = 1;</code>
+         *
+         * @return Whether the organismId field is set.
+         */
+        boolean hasOrganismId();
+
+        /**
+         * <code>required int64 organismId = 1;</code>
+         *
+         * @return The organismId.
+         */
+        long getOrganismId();
+
+        /**
+         * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+         *
+         * @return Whether the jumpInfo field is set.
+         */
+        boolean hasJumpInfo();
+
+        /**
+         * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+         *
+         * @return The jumpInfo.
+         */
+        protocol.Scene.JumpInfo getJumpInfo();
+
+        /**
+         * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+         */
+        protocol.Scene.JumpInfoOrBuilder getJumpInfoOrBuilder();
+    }
+
+    /**
+     * <pre>
+     * 返回玩家跳跃
+     * </pre>
+     * <p>
+     * Protobuf type {@code protocol.SC10035}
+     */
+    public static final class SC10035 extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:protocol.SC10035)
+            SC10035OrBuilder {
+        private static final long serialVersionUID = 0L;
+
+        // Use SC10035.newBuilder() to construct.
+        private SC10035(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
+        }
+
+        private SC10035() {
+        }
+
+        @java.lang.Override
+        @SuppressWarnings({"unused"})
+        protected java.lang.Object newInstance(
+                UnusedPrivateParameter unused) {
+            return new SC10035();
+        }
+
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
+        }
+
+        private SC10035(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        case 8: {
+                            bitField0_ |= 0x00000001;
+                            organismId_ = input.readInt64();
+                            break;
+                        }
+                        case 18: {
+                            protocol.Scene.JumpInfo.Builder subBuilder = null;
+                            if (((bitField0_ & 0x00000002) != 0)) {
+                                subBuilder = jumpInfo_.toBuilder();
+                            }
+                            jumpInfo_ = input.readMessage(protocol.Scene.JumpInfo.PARSER, extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(jumpInfo_);
+                                jumpInfo_ = subBuilder.buildPartial();
+                            }
+                            bitField0_ |= 0x00000002;
+                            break;
+                        }
+                        default: {
+                            if (!parseUnknownField(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
+        }
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return protocol.Scene.internal_static_protocol_SC10035_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return protocol.Scene.internal_static_protocol_SC10035_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            protocol.Scene.SC10035.class, protocol.Scene.SC10035.Builder.class);
+        }
+
+        private int bitField0_;
+        public static final int ORGANISMID_FIELD_NUMBER = 1;
+        private long organismId_;
+
+        /**
+         * <code>required int64 organismId = 1;</code>
+         *
+         * @return Whether the organismId field is set.
+         */
+        public boolean hasOrganismId() {
+            return ((bitField0_ & 0x00000001) != 0);
+        }
+
+        /**
+         * <code>required int64 organismId = 1;</code>
+         *
+         * @return The organismId.
+         */
+        public long getOrganismId() {
+            return organismId_;
+        }
+
+        public static final int JUMPINFO_FIELD_NUMBER = 2;
+        private protocol.Scene.JumpInfo jumpInfo_;
+
+        /**
+         * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+         *
+         * @return Whether the jumpInfo field is set.
+         */
+        public boolean hasJumpInfo() {
+            return ((bitField0_ & 0x00000002) != 0);
+        }
+
+        /**
+         * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+         *
+         * @return The jumpInfo.
+         */
+        public protocol.Scene.JumpInfo getJumpInfo() {
+            return jumpInfo_ == null ? protocol.Scene.JumpInfo.getDefaultInstance() : jumpInfo_;
+        }
+
+        /**
+         * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+         */
+        public protocol.Scene.JumpInfoOrBuilder getJumpInfoOrBuilder() {
+            return jumpInfo_ == null ? protocol.Scene.JumpInfo.getDefaultInstance() : jumpInfo_;
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            if (!hasOrganismId()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasJumpInfo()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!getJumpInfo().isInitialized()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        @java.lang.Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (((bitField0_ & 0x00000001) != 0)) {
+                output.writeInt64(1, organismId_);
+            }
+            if (((bitField0_ & 0x00000002) != 0)) {
+                output.writeMessage(2, getJumpInfo());
+            }
+            unknownFields.writeTo(output);
+        }
+
+        @java.lang.Override
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (((bitField0_ & 0x00000001) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(1, organismId_);
+            }
+            if (((bitField0_ & 0x00000002) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(2, getJumpInfo());
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof protocol.Scene.SC10035)) {
+                return super.equals(obj);
+            }
+            protocol.Scene.SC10035 other = (protocol.Scene.SC10035) obj;
+
+            if (hasOrganismId() != other.hasOrganismId()) return false;
+            if (hasOrganismId()) {
+                if (getOrganismId()
+                        != other.getOrganismId()) return false;
+            }
+            if (hasJumpInfo() != other.hasJumpInfo()) return false;
+            if (hasJumpInfo()) {
+                if (!getJumpInfo()
+                        .equals(other.getJumpInfo())) return false;
+            }
+            if (!unknownFields.equals(other.unknownFields)) return false;
+            return true;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            if (hasOrganismId()) {
+                hash = (37 * hash) + ORGANISMID_FIELD_NUMBER;
+                hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                        getOrganismId());
+            }
+            if (hasJumpInfo()) {
+                hash = (37 * hash) + JUMPINFO_FIELD_NUMBER;
+                hash = (53 * hash) + getJumpInfo().hashCode();
+            }
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static protocol.Scene.SC10035 parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static protocol.Scene.SC10035 parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static protocol.Scene.SC10035 parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static protocol.Scene.SC10035 parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static protocol.Scene.SC10035 parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static protocol.Scene.SC10035 parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static protocol.Scene.SC10035 parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static protocol.Scene.SC10035 parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static protocol.Scene.SC10035 parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static protocol.Scene.SC10035 parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static protocol.Scene.SC10035 parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static protocol.Scene.SC10035 parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        @java.lang.Override
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(protocol.Scene.SC10035 prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        @java.lang.Override
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * <pre>
+         * 返回玩家跳跃
+         * </pre>
+         * <p>
+         * Protobuf type {@code protocol.SC10035}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:protocol.SC10035)
+                protocol.Scene.SC10035OrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return protocol.Scene.internal_static_protocol_SC10035_descriptor;
+            }
+
+            @java.lang.Override
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return protocol.Scene.internal_static_protocol_SC10035_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                protocol.Scene.SC10035.class, protocol.Scene.SC10035.Builder.class);
+            }
+
+            // Construct using protocol.Scene.SC10035.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                    getJumpInfoFieldBuilder();
+                }
+            }
+
+            @java.lang.Override
+            public Builder clear() {
+                super.clear();
+                organismId_ = 0L;
+                bitField0_ = (bitField0_ & ~0x00000001);
+                if (jumpInfoBuilder_ == null) {
+                    jumpInfo_ = null;
+                } else {
+                    jumpInfoBuilder_.clear();
+                }
+                bitField0_ = (bitField0_ & ~0x00000002);
+                return this;
+            }
+
+            @java.lang.Override
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return protocol.Scene.internal_static_protocol_SC10035_descriptor;
+            }
+
+            @java.lang.Override
+            public protocol.Scene.SC10035 getDefaultInstanceForType() {
+                return protocol.Scene.SC10035.getDefaultInstance();
+            }
+
+            @java.lang.Override
+            public protocol.Scene.SC10035 build() {
+                protocol.Scene.SC10035 result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            @java.lang.Override
+            public protocol.Scene.SC10035 buildPartial() {
+                protocol.Scene.SC10035 result = new protocol.Scene.SC10035(this);
+                int from_bitField0_ = bitField0_;
+                int to_bitField0_ = 0;
+                if (((from_bitField0_ & 0x00000001) != 0)) {
+                    result.organismId_ = organismId_;
+                    to_bitField0_ |= 0x00000001;
+                }
+                if (((from_bitField0_ & 0x00000002) != 0)) {
+                    if (jumpInfoBuilder_ == null) {
+                        result.jumpInfo_ = jumpInfo_;
+                    } else {
+                        result.jumpInfo_ = jumpInfoBuilder_.build();
+                    }
+                    to_bitField0_ |= 0x00000002;
+                }
+                result.bitField0_ = to_bitField0_;
+                onBuilt();
+                return result;
+            }
+
+            @java.lang.Override
+            public Builder clone() {
+                return super.clone();
+            }
+
+            @java.lang.Override
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.setField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return super.clearField(field);
+            }
+
+            @java.lang.Override
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return super.clearOneof(oneof);
+            }
+
+            @java.lang.Override
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return super.setRepeatedField(field, index, value);
+            }
+
+            @java.lang.Override
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.addRepeatedField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof protocol.Scene.SC10035) {
+                    return mergeFrom((protocol.Scene.SC10035) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(protocol.Scene.SC10035 other) {
+                if (other == protocol.Scene.SC10035.getDefaultInstance()) return this;
+                if (other.hasOrganismId()) {
+                    setOrganismId(other.getOrganismId());
+                }
+                if (other.hasJumpInfo()) {
+                    mergeJumpInfo(other.getJumpInfo());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            @java.lang.Override
+            public final boolean isInitialized() {
+                if (!hasOrganismId()) {
+                    return false;
+                }
+                if (!hasJumpInfo()) {
+                    return false;
+                }
+                if (!getJumpInfo().isInitialized()) {
+                    return false;
+                }
+                return true;
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                protocol.Scene.SC10035 parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (protocol.Scene.SC10035) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private int bitField0_;
+
+            private long organismId_;
+
+            /**
+             * <code>required int64 organismId = 1;</code>
+             *
+             * @return Whether the organismId field is set.
+             */
+            public boolean hasOrganismId() {
+                return ((bitField0_ & 0x00000001) != 0);
+            }
+
+            /**
+             * <code>required int64 organismId = 1;</code>
+             *
+             * @return The organismId.
+             */
+            public long getOrganismId() {
+                return organismId_;
+            }
+
+            /**
+             * <code>required int64 organismId = 1;</code>
+             *
+             * @param value The organismId to set.
+             * @return This builder for chaining.
+             */
+            public Builder setOrganismId(long value) {
+                bitField0_ |= 0x00000001;
+                organismId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>required int64 organismId = 1;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearOrganismId() {
+                bitField0_ = (bitField0_ & ~0x00000001);
+                organismId_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private protocol.Scene.JumpInfo jumpInfo_;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    protocol.Scene.JumpInfo, protocol.Scene.JumpInfo.Builder, protocol.Scene.JumpInfoOrBuilder> jumpInfoBuilder_;
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+             *
+             * @return Whether the jumpInfo field is set.
+             */
+            public boolean hasJumpInfo() {
+                return ((bitField0_ & 0x00000002) != 0);
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+             *
+             * @return The jumpInfo.
+             */
+            public protocol.Scene.JumpInfo getJumpInfo() {
+                if (jumpInfoBuilder_ == null) {
+                    return jumpInfo_ == null ? protocol.Scene.JumpInfo.getDefaultInstance() : jumpInfo_;
+                } else {
+                    return jumpInfoBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+             */
+            public Builder setJumpInfo(protocol.Scene.JumpInfo value) {
+                if (jumpInfoBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    jumpInfo_ = value;
+                    onChanged();
+                } else {
+                    jumpInfoBuilder_.setMessage(value);
+                }
+                bitField0_ |= 0x00000002;
+                return this;
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+             */
+            public Builder setJumpInfo(
+                    protocol.Scene.JumpInfo.Builder builderForValue) {
+                if (jumpInfoBuilder_ == null) {
+                    jumpInfo_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    jumpInfoBuilder_.setMessage(builderForValue.build());
+                }
+                bitField0_ |= 0x00000002;
+                return this;
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+             */
+            public Builder mergeJumpInfo(protocol.Scene.JumpInfo value) {
+                if (jumpInfoBuilder_ == null) {
+                    if (((bitField0_ & 0x00000002) != 0) &&
+                            jumpInfo_ != null &&
+                            jumpInfo_ != protocol.Scene.JumpInfo.getDefaultInstance()) {
+                        jumpInfo_ =
+                                protocol.Scene.JumpInfo.newBuilder(jumpInfo_).mergeFrom(value).buildPartial();
+                    } else {
+                        jumpInfo_ = value;
+                    }
+                    onChanged();
+                } else {
+                    jumpInfoBuilder_.mergeFrom(value);
+                }
+                bitField0_ |= 0x00000002;
+                return this;
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+             */
+            public Builder clearJumpInfo() {
+                if (jumpInfoBuilder_ == null) {
+                    jumpInfo_ = null;
+                    onChanged();
+                } else {
+                    jumpInfoBuilder_.clear();
+                }
+                bitField0_ = (bitField0_ & ~0x00000002);
+                return this;
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+             */
+            public protocol.Scene.JumpInfo.Builder getJumpInfoBuilder() {
+                bitField0_ |= 0x00000002;
+                onChanged();
+                return getJumpInfoFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+             */
+            public protocol.Scene.JumpInfoOrBuilder getJumpInfoOrBuilder() {
+                if (jumpInfoBuilder_ != null) {
+                    return jumpInfoBuilder_.getMessageOrBuilder();
+                } else {
+                    return jumpInfo_ == null ?
+                            protocol.Scene.JumpInfo.getDefaultInstance() : jumpInfo_;
+                }
+            }
+
+            /**
+             * <code>required .protocol.JumpInfo jumpInfo = 2;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    protocol.Scene.JumpInfo, protocol.Scene.JumpInfo.Builder, protocol.Scene.JumpInfoOrBuilder>
+            getJumpInfoFieldBuilder() {
+                if (jumpInfoBuilder_ == null) {
+                    jumpInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            protocol.Scene.JumpInfo, protocol.Scene.JumpInfo.Builder, protocol.Scene.JumpInfoOrBuilder>(
+                            getJumpInfo(),
+                            getParentForChildren(),
+                            isClean());
+                    jumpInfo_ = null;
+                }
+                return jumpInfoBuilder_;
+            }
+
+            @java.lang.Override
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFields(unknownFields);
+            }
+
+            @java.lang.Override
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
+
+
+            // @@protoc_insertion_point(builder_scope:protocol.SC10035)
+        }
+
+        // @@protoc_insertion_point(class_scope:protocol.SC10035)
+        private static final protocol.Scene.SC10035 DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new protocol.Scene.SC10035();
+        }
+
+        public static protocol.Scene.SC10035 getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        @java.lang.Deprecated
+        public static final com.google.protobuf.Parser<SC10035>
+                PARSER = new com.google.protobuf.AbstractParser<SC10035>() {
+            @java.lang.Override
+            public SC10035 parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new SC10035(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<SC10035> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<SC10035> getParserForType() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public protocol.Scene.SC10035 getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
+    }
+
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_protocol_MoveInfo_descriptor;
     private static final
@@ -9013,10 +11214,10 @@ public final class Scene {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internal_static_protocol_StopInfo_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_protocol_AttributeMap_descriptor;
+            internal_static_protocol_JumpInfo_descriptor;
     private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_protocol_AttributeMap_fieldAccessorTable;
+            internal_static_protocol_JumpInfo_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_protocol_CS10030_descriptor;
     private static final
@@ -9062,6 +11263,16 @@ public final class Scene {
     private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internal_static_protocol_SC10034_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_protocol_CS10035_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_protocol_CS10035_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_protocol_SC10035_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_protocol_SC10035_fieldAccessorTable;
 
     public static com.google.protobuf.Descriptors.FileDescriptor
     getDescriptor() {
@@ -9075,21 +11286,27 @@ public final class Scene {
         java.lang.String[] descriptorData = {
                 "\n\013scene.proto\022\010protocol\"Q\n\010MoveInfo\022\021\n\tp" +
                         "ositionX\030\001 \002(\002\022\021\n\tpositionY\030\002 \002(\002\022\014\n\004fac" +
-                        "e\030\003 \002(\005\022\021\n\tdirection\030\004 \001(\005\">\n\010StopInfo\022\021" +
+                        "e\030\003 \002(\005\022\021\n\tdirection\030\004 \002(\002\">\n\010StopInfo\022\021" +
                         "\n\tpositionX\030\001 \002(\002\022\021\n\tpositionY\030\002 \002(\002\022\014\n\004" +
-                        "face\030\003 \002(\005\")\n\014AttributeMap\022\n\n\002id\030\001 \002(\005\022\r" +
-                        "\n\005value\030\002 \002(\003\"\032\n\007CS10030\022\017\n\007sceneId\030\001 \002(" +
-                        "\003\"\032\n\007SC10030\022\017\n\007sceneId\030\001 \002(\003\"\032\n\007CS10031" +
-                        "\022\017\n\007sceneId\030\001 \002(\003\"\033\n\007SC10031\022\020\n\010playerId" +
-                        "\030\001 \002(\003\"/\n\007CS10032\022$\n\010moveInfo\030\001 \002(\0132\022.pr" +
-                        "otocol.MoveInfo\"A\n\007SC10032\022\020\n\010playerId\030\001" +
-                        " \002(\003\022$\n\010moveInfo\030\002 \002(\0132\022.protocol.MoveIn" +
-                        "fo\"/\n\007CS10033\022$\n\010stopInfo\030\001 \002(\0132\022.protoc" +
-                        "ol.StopInfo\"A\n\007SC10033\022\020\n\010playerId\030\001 \002(\003" +
-                        "\022$\n\010stopInfo\030\002 \002(\0132\022.protocol.StopInfo\"g" +
-                        "\n\007SC10034\022\022\n\norganismId\030\001 \002(\003\022\024\n\014organis" +
-                        "mType\030\002 \002(\005\022\021\n\tpositionX\030\003 \002(\002\022\021\n\tpositi" +
-                        "onY\030\004 \002(\002\022\014\n\004face\030\005 \002(\005"
+                        "face\030\003 \002(\005\"\216\001\n\010JumpInfo\022\021\n\tpositionX\030\001 \002" +
+                        "(\002\022\021\n\tpositionY\030\002 \002(\002\022\023\n\013highestPosX\030\003 \002" +
+                        "(\002\022\023\n\013highestPosY\030\004 \002(\002\022\021\n\tfinalPosX\030\005 \002" +
+                        "(\002\022\021\n\tfinalPosY\030\006 \002(\002\022\014\n\004face\030\007 \002(\002\"\032\n\007C" +
+                        "S10030\022\017\n\007sceneId\030\001 \002(\003\"\032\n\007SC10030\022\017\n\007sc" +
+                        "eneId\030\001 \002(\003\"\032\n\007CS10031\022\017\n\007sceneId\030\001 \002(\003\"" +
+                        "\033\n\007SC10031\022\020\n\010playerId\030\001 \002(\003\"/\n\007CS10032\022" +
+                        "$\n\010moveInfo\030\001 \002(\0132\022.protocol.MoveInfo\"C\n" +
+                        "\007SC10032\022\022\n\norganismId\030\001 \002(\003\022$\n\010moveInfo" +
+                        "\030\002 \002(\0132\022.protocol.MoveInfo\"/\n\007CS10033\022$\n" +
+                        "\010stopInfo\030\001 \002(\0132\022.protocol.StopInfo\"C\n\007S" +
+                        "C10033\022\022\n\norganismId\030\001 \002(\003\022$\n\010stopInfo\030\002" +
+                        " \002(\0132\022.protocol.StopInfo\"g\n\007SC10034\022\022\n\no" +
+                        "rganismId\030\001 \002(\003\022\024\n\014organismType\030\002 \002(\005\022\021\n" +
+                        "\tpositionX\030\003 \002(\002\022\021\n\tpositionY\030\004 \002(\002\022\014\n\004f" +
+                        "ace\030\005 \002(\005\"/\n\007CS10035\022$\n\010jumpInfo\030\001 \002(\0132\022" +
+                        ".protocol.JumpInfo\"C\n\007SC10035\022\022\n\norganis" +
+                        "mId\030\001 \002(\003\022$\n\010jumpInfo\030\002 \002(\0132\022.protocol.J" +
+                        "umpInfo"
         };
         descriptor = com.google.protobuf.Descriptors.FileDescriptor
                 .internalBuildGeneratedFileFrom(descriptorData,
@@ -9107,12 +11324,12 @@ public final class Scene {
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_protocol_StopInfo_descriptor,
                 new java.lang.String[]{"PositionX", "PositionY", "Face",});
-        internal_static_protocol_AttributeMap_descriptor =
+        internal_static_protocol_JumpInfo_descriptor =
                 getDescriptor().getMessageTypes().get(2);
-        internal_static_protocol_AttributeMap_fieldAccessorTable = new
+        internal_static_protocol_JumpInfo_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_protocol_AttributeMap_descriptor,
-                new java.lang.String[]{"Id", "Value",});
+                internal_static_protocol_JumpInfo_descriptor,
+                new java.lang.String[]{"PositionX", "PositionY", "HighestPosX", "HighestPosY", "FinalPosX", "FinalPosY", "Face",});
         internal_static_protocol_CS10030_descriptor =
                 getDescriptor().getMessageTypes().get(3);
         internal_static_protocol_CS10030_fieldAccessorTable = new
@@ -9148,7 +11365,7 @@ public final class Scene {
         internal_static_protocol_SC10032_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_protocol_SC10032_descriptor,
-                new java.lang.String[]{"PlayerId", "MoveInfo",});
+                new java.lang.String[]{"OrganismId", "MoveInfo",});
         internal_static_protocol_CS10033_descriptor =
                 getDescriptor().getMessageTypes().get(9);
         internal_static_protocol_CS10033_fieldAccessorTable = new
@@ -9160,13 +11377,25 @@ public final class Scene {
         internal_static_protocol_SC10033_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_protocol_SC10033_descriptor,
-                new java.lang.String[]{"PlayerId", "StopInfo",});
+                new java.lang.String[]{"OrganismId", "StopInfo",});
         internal_static_protocol_SC10034_descriptor =
                 getDescriptor().getMessageTypes().get(11);
         internal_static_protocol_SC10034_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_protocol_SC10034_descriptor,
                 new java.lang.String[]{"OrganismId", "OrganismType", "PositionX", "PositionY", "Face",});
+        internal_static_protocol_CS10035_descriptor =
+                getDescriptor().getMessageTypes().get(12);
+        internal_static_protocol_CS10035_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_protocol_CS10035_descriptor,
+                new java.lang.String[]{"JumpInfo",});
+        internal_static_protocol_SC10035_descriptor =
+                getDescriptor().getMessageTypes().get(13);
+        internal_static_protocol_SC10035_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_protocol_SC10035_descriptor,
+                new java.lang.String[]{"OrganismId", "JumpInfo",});
     }
 
     // @@protoc_insertion_point(outer_class_scope)

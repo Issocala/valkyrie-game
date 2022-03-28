@@ -6,6 +6,9 @@
 package protocol.scene
 
 /** 返回创建某实体
+ *
+ * @param organismType
+ * 1-&gt;player,2-&gt;boss
  */
 @SerialVersionUID(0L)
 final case class SC10034(
@@ -131,7 +134,6 @@ final case class SC10034(
 
 object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034] with scalapb.HasBuilder[protocol.scene.SC10034] with scalapb.JavaProtoSupport[protocol.scene.SC10034, protocol.Scene.SC10034] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.scene.SC10034] with scalapb.HasBuilder[protocol.scene.SC10034] with scalapb.JavaProtoSupport[protocol.scene.SC10034, protocol.Scene.SC10034] = this
-
   def toJavaProto(scalaPbSource: protocol.scene.SC10034): protocol.Scene.SC10034 = {
     val javaPbOut = protocol.Scene.SC10034.newBuilder
     javaPbOut.setOrganismId(scalaPbSource.organismId)
@@ -141,7 +143,6 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
     javaPbOut.setFace(scalaPbSource.face)
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Scene.SC10034): protocol.scene.SC10034 = protocol.scene.SC10034(
     organismId = javaPbSource.getOrganismId.longValue,
     organismType = javaPbSource.getOrganismType.intValue,
@@ -164,9 +165,7 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-
   def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SceneProto.javaDescriptor.getMessageTypes().get(11)
-
   def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SceneProto.scalaDescriptor.messages(11)
 
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
@@ -223,7 +222,6 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
       }
       this
     }
-
     def result(): protocol.scene.SC10034 = {
       if (__requiredFields0 != 0L) {
         throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
@@ -238,7 +236,6 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.scene.SC10034, protocol.scene.SC10034.Builder] {
     def apply(): Builder = new Builder(
       __organismId = 0L,
@@ -248,7 +245,6 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
       __face = 0,
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.scene.SC10034): Builder = new Builder(
       __organismId = _message__.organismId,
       __organismType = _message__.organismType,
@@ -258,23 +254,15 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.scene.SC10034.Builder()
-
   def newBuilder(`_message__`: protocol.scene.SC10034): Builder = protocol.scene.SC10034.Builder(_message__)
-
   implicit class SC10034Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.scene.SC10034]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.scene.SC10034](_l) {
     def organismId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.organismId)((c_, f_) => c_.copy(organismId = f_))
-
     def organismType: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.organismType)((c_, f_) => c_.copy(organismType = f_))
-
     def positionX: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.positionX)((c_, f_) => c_.copy(positionX = f_))
-
     def positionY: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.positionY)((c_, f_) => c_.copy(positionY = f_))
-
     def face: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.face)((c_, f_) => c_.copy(face = f_))
   }
-
   final val ORGANISMID_FIELD_NUMBER = 1
   final val ORGANISMTYPE_FIELD_NUMBER = 2
   final val POSITIONX_FIELD_NUMBER = 3

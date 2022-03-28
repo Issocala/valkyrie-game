@@ -102,7 +102,6 @@ final case class StopInfo(
 
 object StopInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.StopInfo] with scalapb.HasBuilder[protocol.scene.StopInfo] with scalapb.JavaProtoSupport[protocol.scene.StopInfo, protocol.Scene.StopInfo] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.scene.StopInfo] with scalapb.HasBuilder[protocol.scene.StopInfo] with scalapb.JavaProtoSupport[protocol.scene.StopInfo, protocol.Scene.StopInfo] = this
-
   def toJavaProto(scalaPbSource: protocol.scene.StopInfo): protocol.Scene.StopInfo = {
     val javaPbOut = protocol.Scene.StopInfo.newBuilder
     javaPbOut.setPositionX(scalaPbSource.positionX)
@@ -110,7 +109,6 @@ object StopInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.StopInf
     javaPbOut.setFace(scalaPbSource.face)
     javaPbOut.build
   }
-
   def fromJavaProto(javaPbSource: protocol.Scene.StopInfo): protocol.scene.StopInfo = protocol.scene.StopInfo(
     positionX = javaPbSource.getPositionX.floatValue,
     positionY = javaPbSource.getPositionY.floatValue,
@@ -178,7 +176,6 @@ object StopInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.StopInf
       }
       this
     }
-
     def result(): protocol.scene.StopInfo = {
       if (__requiredFields0 != 0L) {
         throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.")
@@ -191,7 +188,6 @@ object StopInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.StopInf
       )
     }
   }
-
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.scene.StopInfo, protocol.scene.StopInfo.Builder] {
     def apply(): Builder = new Builder(
       __positionX = 0.0f,
@@ -199,7 +195,6 @@ object StopInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.StopInf
       __face = 0,
       `_unknownFields__` = null
     )
-
     def apply(`_message__`: protocol.scene.StopInfo): Builder = new Builder(
       __positionX = _message__.positionX,
       __positionY = _message__.positionY,
@@ -207,19 +202,13 @@ object StopInfo extends scalapb.GeneratedMessageCompanion[protocol.scene.StopInf
       `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-
   def newBuilder: Builder = protocol.scene.StopInfo.Builder()
-
   def newBuilder(`_message__`: protocol.scene.StopInfo): Builder = protocol.scene.StopInfo.Builder(_message__)
-
   implicit class StopInfoLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.scene.StopInfo]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.scene.StopInfo](_l) {
     def positionX: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.positionX)((c_, f_) => c_.copy(positionX = f_))
-
     def positionY: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.positionY)((c_, f_) => c_.copy(positionY = f_))
-
     def face: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.face)((c_, f_) => c_.copy(face = f_))
   }
-
   final val POSITIONX_FIELD_NUMBER = 1
   final val POSITIONY_FIELD_NUMBER = 2
   final val FACE_FIELD_NUMBER = 3

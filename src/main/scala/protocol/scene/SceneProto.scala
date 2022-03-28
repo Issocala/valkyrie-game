@@ -11,7 +11,7 @@ object SceneProto extends _root_.scalapb.GeneratedFileObject {
     Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]](
       protocol.scene.MoveInfo,
       protocol.scene.StopInfo,
-      protocol.scene.AttributeMap,
+      protocol.scene.JumpInfo,
       protocol.scene.CS10030,
       protocol.scene.SC10030,
       protocol.scene.CS10031,
@@ -20,27 +20,35 @@ object SceneProto extends _root_.scalapb.GeneratedFileObject {
       protocol.scene.SC10032,
       protocol.scene.CS10033,
       protocol.scene.SC10033,
-      protocol.scene.SC10034
+      protocol.scene.SC10034,
+      protocol.scene.CS10035,
+      protocol.scene.SC10035
     )
   private lazy val ProtoBytes: Array[Byte] =
     scalapb.Encoding.fromBase64(scala.collection.immutable.Seq(
       """CgtzY2VuZS5wcm90bxIIcHJvdG9jb2wiswEKCE1vdmVJbmZvEiwKCXBvc2l0aW9uWBgBIAIoAkIO4j8LEglwb3NpdGlvblhSC
   XBvc2l0aW9uWBIsCglwb3NpdGlvblkYAiACKAJCDuI/CxIJcG9zaXRpb25ZUglwb3NpdGlvblkSHQoEZmFjZRgDIAIoBUIJ4j8GE
-  gRmYWNlUgRmYWNlEiwKCWRpcmVjdGlvbhgEIAEoBUIO4j8LEglkaXJlY3Rpb25SCWRpcmVjdGlvbiKFAQoIU3RvcEluZm8SLAoJc
+  gRmYWNlUgRmYWNlEiwKCWRpcmVjdGlvbhgEIAIoAkIO4j8LEglkaXJlY3Rpb25SCWRpcmVjdGlvbiKFAQoIU3RvcEluZm8SLAoJc
   G9zaXRpb25YGAEgAigCQg7iPwsSCXBvc2l0aW9uWFIJcG9zaXRpb25YEiwKCXBvc2l0aW9uWRgCIAIoAkIO4j8LEglwb3NpdGlvb
-  llSCXBvc2l0aW9uWRIdCgRmYWNlGAMgAigFQgniPwYSBGZhY2VSBGZhY2UiSQoMQXR0cmlidXRlTWFwEhcKAmlkGAEgAigFQgfiP
-  wQSAmlkUgJpZBIgCgV2YWx1ZRgCIAIoA0IK4j8HEgV2YWx1ZVIFdmFsdWUiMQoHQ1MxMDAzMBImCgdzY2VuZUlkGAEgAigDQgziP
-  wkSB3NjZW5lSWRSB3NjZW5lSWQiMQoHU0MxMDAzMBImCgdzY2VuZUlkGAEgAigDQgziPwkSB3NjZW5lSWRSB3NjZW5lSWQiMQoHQ
-  1MxMDAzMRImCgdzY2VuZUlkGAEgAigDQgziPwkSB3NjZW5lSWRSB3NjZW5lSWQiNAoHU0MxMDAzMRIpCghwbGF5ZXJJZBgBIAIoA
-  0IN4j8KEghwbGF5ZXJJZFIIcGxheWVySWQiSAoHQ1MxMDAzMhI9Cghtb3ZlSW5mbxgBIAIoCzISLnByb3RvY29sLk1vdmVJbmZvQ
-  g3iPwoSCG1vdmVJbmZvUghtb3ZlSW5mbyJzCgdTQzEwMDMyEikKCHBsYXllcklkGAEgAigDQg3iPwoSCHBsYXllcklkUghwbGF5Z
-  XJJZBI9Cghtb3ZlSW5mbxgCIAIoCzISLnByb3RvY29sLk1vdmVJbmZvQg3iPwoSCG1vdmVJbmZvUghtb3ZlSW5mbyJICgdDUzEwM
-  DMzEj0KCHN0b3BJbmZvGAEgAigLMhIucHJvdG9jb2wuU3RvcEluZm9CDeI/ChIIc3RvcEluZm9SCHN0b3BJbmZvInMKB1NDMTAwM
-  zMSKQoIcGxheWVySWQYASACKANCDeI/ChIIcGxheWVySWRSCHBsYXllcklkEj0KCHN0b3BJbmZvGAIgAigLMhIucHJvdG9jb2wuU
-  3RvcEluZm9CDeI/ChIIc3RvcEluZm9SCHN0b3BJbmZvIuwBCgdTQzEwMDM0Ei8KCm9yZ2FuaXNtSWQYASACKANCD+I/DBIKb3JnY
-  W5pc21JZFIKb3JnYW5pc21JZBI1CgxvcmdhbmlzbVR5cGUYAiACKAVCEeI/DhIMb3JnYW5pc21UeXBlUgxvcmdhbmlzbVR5cGUSL
-  AoJcG9zaXRpb25YGAMgAigCQg7iPwsSCXBvc2l0aW9uWFIJcG9zaXRpb25YEiwKCXBvc2l0aW9uWRgEIAIoAkIO4j8LEglwb3Npd
-  GlvbllSCXBvc2l0aW9uWRIdCgRmYWNlGAUgAigFQgniPwYSBGZhY2VSBGZhY2U="""
+  llSCXBvc2l0aW9uWRIdCgRmYWNlGAMgAigFQgniPwYSBGZhY2VSBGZhY2UiyQIKCEp1bXBJbmZvEiwKCXBvc2l0aW9uWBgBIAIoA
+  kIO4j8LEglwb3NpdGlvblhSCXBvc2l0aW9uWBIsCglwb3NpdGlvblkYAiACKAJCDuI/CxIJcG9zaXRpb25ZUglwb3NpdGlvblkSM
+  goLaGlnaGVzdFBvc1gYAyACKAJCEOI/DRILaGlnaGVzdFBvc1hSC2hpZ2hlc3RQb3NYEjIKC2hpZ2hlc3RQb3NZGAQgAigCQhDiP
+  w0SC2hpZ2hlc3RQb3NZUgtoaWdoZXN0UG9zWRIsCglmaW5hbFBvc1gYBSACKAJCDuI/CxIJZmluYWxQb3NYUglmaW5hbFBvc1gSL
+  AoJZmluYWxQb3NZGAYgAigCQg7iPwsSCWZpbmFsUG9zWVIJZmluYWxQb3NZEh0KBGZhY2UYByACKAJCCeI/BhIEZmFjZVIEZmFjZ
+  SIxCgdDUzEwMDMwEiYKB3NjZW5lSWQYASACKANCDOI/CRIHc2NlbmVJZFIHc2NlbmVJZCIxCgdTQzEwMDMwEiYKB3NjZW5lSWQYA
+  SACKANCDOI/CRIHc2NlbmVJZFIHc2NlbmVJZCIxCgdDUzEwMDMxEiYKB3NjZW5lSWQYASACKANCDOI/CRIHc2NlbmVJZFIHc2Nlb
+  mVJZCI0CgdTQzEwMDMxEikKCHBsYXllcklkGAEgAigDQg3iPwoSCHBsYXllcklkUghwbGF5ZXJJZCJICgdDUzEwMDMyEj0KCG1vd
+  mVJbmZvGAEgAigLMhIucHJvdG9jb2wuTW92ZUluZm9CDeI/ChIIbW92ZUluZm9SCG1vdmVJbmZvInkKB1NDMTAwMzISLwoKb3JnY
+  W5pc21JZBgBIAIoA0IP4j8MEgpvcmdhbmlzbUlkUgpvcmdhbmlzbUlkEj0KCG1vdmVJbmZvGAIgAigLMhIucHJvdG9jb2wuTW92Z
+  UluZm9CDeI/ChIIbW92ZUluZm9SCG1vdmVJbmZvIkgKB0NTMTAwMzMSPQoIc3RvcEluZm8YASACKAsyEi5wcm90b2NvbC5TdG9wS
+  W5mb0IN4j8KEghzdG9wSW5mb1IIc3RvcEluZm8ieQoHU0MxMDAzMxIvCgpvcmdhbmlzbUlkGAEgAigDQg/iPwwSCm9yZ2FuaXNtS
+  WRSCm9yZ2FuaXNtSWQSPQoIc3RvcEluZm8YAiACKAsyEi5wcm90b2NvbC5TdG9wSW5mb0IN4j8KEghzdG9wSW5mb1IIc3RvcEluZ
+  m8i7AEKB1NDMTAwMzQSLwoKb3JnYW5pc21JZBgBIAIoA0IP4j8MEgpvcmdhbmlzbUlkUgpvcmdhbmlzbUlkEjUKDG9yZ2FuaXNtV
+  HlwZRgCIAIoBUIR4j8OEgxvcmdhbmlzbVR5cGVSDG9yZ2FuaXNtVHlwZRIsCglwb3NpdGlvblgYAyACKAJCDuI/CxIJcG9zaXRpb
+  25YUglwb3NpdGlvblgSLAoJcG9zaXRpb25ZGAQgAigCQg7iPwsSCXBvc2l0aW9uWVIJcG9zaXRpb25ZEh0KBGZhY2UYBSACKAVCC
+  eI/BhIEZmFjZVIEZmFjZSJICgdDUzEwMDM1Ej0KCGp1bXBJbmZvGAEgAigLMhIucHJvdG9jb2wuSnVtcEluZm9CDeI/ChIIanVtc
+  EluZm9SCGp1bXBJbmZvInkKB1NDMTAwMzUSLwoKb3JnYW5pc21JZBgBIAIoA0IP4j8MEgpvcmdhbmlzbUlkUgpvcmdhbmlzbUlkE
+  j0KCGp1bXBJbmZvGAIgAigLMhIucHJvdG9jb2wuSnVtcEluZm9CDeI/ChIIanVtcEluZm9SCGp1bXBJbmZv"""
     ).mkString)
   lazy val scalaDescriptor: _root_.scalapb.descriptors.FileDescriptor = {
     val scalaProto = com.google.protobuf.descriptor.FileDescriptorProto.parseFrom(ProtoBytes)
@@ -48,7 +56,6 @@ object SceneProto extends _root_.scalapb.GeneratedFileObject {
   }
   lazy val javaDescriptor: com.google.protobuf.Descriptors.FileDescriptor =
     protocol.Scene.getDescriptor()
-
   @deprecated("Use javaDescriptor instead. In a future version this will refer to scalaDescriptor.", "ScalaPB 0.5.47")
   def descriptor: com.google.protobuf.Descriptors.FileDescriptor = javaDescriptor
 }
