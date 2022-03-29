@@ -12,10 +12,10 @@ import java.util.List;
  */
 public class AttributeModuleHolder extends AbstractModuleHolder {
 
-    private static final AttributeModule ATTRIBUTE_MODULE = new AttributeModule();
+    private static final AttributeModuleHolder ATTRIBUTE_MODULE_HOLDER = new AttributeModuleHolder();
 
-    public static AttributeModule getAttributeModule() {
-        return ATTRIBUTE_MODULE;
+    public static AttributeModuleHolder getAttributeModuleHolder() {
+        return ATTRIBUTE_MODULE_HOLDER;
     }
 
     @Override
