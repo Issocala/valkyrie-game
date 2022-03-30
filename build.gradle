@@ -38,8 +38,8 @@ repositories {
     }
 
     maven {
-         url 'http://maven.aliyun.com/nexus/content/groups/public/' 
-         allowInsecureProtocol = true
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        allowInsecureProtocol = true
     }
     // Use Maven Central for resolving dependencies.
     mavenCentral()
@@ -55,11 +55,10 @@ description = 'valkyrie.game'
 sourceSets {
     main {
         java { srcDirs = [] }
-        scala { srcDirs = ["src/main/scala","src/main/java"] }
+        scala { srcDirs = ["src/main/scala", "src/main/java"] }
 
     }
 }
-
 
 dependencies {
     // Use Scala 2.13 in our library project
@@ -69,6 +68,7 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:30.1.1-jre'
+    implementation 'org.jetbrains:annotations:20.1.0'
 
     // Use Scalatest for testing our library
     testImplementation 'junit:junit:4.13.2'
@@ -100,9 +100,9 @@ dependencies {
     implementation "com.mobius:mobius-net_${libraryVersion.scalaMain}:${libraryVersion.mobius}"
     implementation "com.mobius:mobius-db_${libraryVersion.scalaMain}:${libraryVersion.mobius}"
     implementation "com.mobius:mobius-modular_${libraryVersion.scalaMain}:${libraryVersion.mobius}"
-    implementation 'com.cala:orm-framework:0.0.8'
+    implementation 'com.cala:orm-framework:0.0.11'
     implementation 'javax.persistence:persistence-api:1.0.2'
-    implementation"com.fasterxml.jackson.core:jackson-databind:2.13.0"
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.13.0"
     implementation 'com.github.ben-manes.caffeine:caffeine:3.0.4'
     implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
 }
