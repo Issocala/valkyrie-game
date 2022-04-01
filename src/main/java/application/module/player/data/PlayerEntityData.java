@@ -46,7 +46,7 @@ public class PlayerEntityData extends AbstractDataCacheManager<PlayerEntity> {
 
     private void getPlayerByUserIdAndProfession(PlayerDataMessage.PlayerByUserIdAndProfession playerByUserIdAndProfession) {
         PlayerEntity playerEntity = (PlayerEntity) playerByUserIdAndProfession.abstractEntityBase();
-        String sql = "select * from playerEntity where accountId = " +
+        String sql = "select * from playerentity where accountId = " +
                 playerEntity.getId() +
                 " and profession = " +
                 playerEntity.getProfession();
@@ -56,7 +56,7 @@ public class PlayerEntityData extends AbstractDataCacheManager<PlayerEntity> {
 
     private void getPlayerByUserId(PlayerDataMessage.PlayerByUserId playerByUserId) {
         AbstractEntityBase abstractEntityBase = playerByUserId.abstractEntityBase();
-        String sql = "select * from playerEntity where accountId = " + abstractEntityBase.getId();
+        String sql = "select * from playerentity where accountId = " + abstractEntityBase.getId();
         getDbManager().tell(new DbQueryManyBySql(playerByUserId.ref(),
                 sql, PlayerEntity.class, playerByUserId.operateType()), self());
     }
