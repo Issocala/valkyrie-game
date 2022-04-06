@@ -14,7 +14,7 @@ public class AttributeModuleHolder extends AbstractModuleHolder {
 
     private static final AttributeModuleHolder ATTRIBUTE_MODULE_HOLDER = new AttributeModuleHolder();
 
-    public static AttributeModuleHolder getAttributeModuleHolder() {
+    public static AttributeModuleHolder getInstance() {
         return ATTRIBUTE_MODULE_HOLDER;
     }
 
@@ -25,6 +25,6 @@ public class AttributeModuleHolder extends AbstractModuleHolder {
 
     @Override
     public List<Integer> getProtocols() {
-        return List.of();
+        return List.of(AttributeProtocols.FIGHT_ATTRIBUTE_GET);
     }
 }

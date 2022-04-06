@@ -4,12 +4,12 @@ import akka.actor.ActorRef;
 import application.module.common.data.domain.DataMessage;
 import application.module.fight.attribute.data.AttributeData;
 import application.module.fight.attribute.provider.AttributeRegister;
-import application.module.scene.data.SceneData;
+import application.module.player.data.PlayerEntityData;
+import application.module.player.data.message.PlayerLogin;
 import com.cala.orm.message.DataReturnMessage;
+import com.cala.orm.message.SubscribeEvent;
 import mobius.modular.client.Client;
 import mobius.modular.module.api.AbstractModule;
-
-import java.util.Map;
 
 /**
  * @author Luo Yong
@@ -18,16 +18,15 @@ import java.util.Map;
  */
 public class AttributeModule extends AbstractModule {
 
-    private ActorRef fightAttributeData;
+    private ActorRef attributeData;
 
-    private ActorRef sceneData;
-
+    private ActorRef playerEntityData;
 
     @Override
     public void initData() {
         AttributeRegister.register();
         this.dataAgent().tell(new DataMessage.RequestData(AttributeData.class), self());
-        this.dataAgent().tell(new DataMessage.RequestData(SceneData.class), self());
+        this.dataAgent().tell(new DataMessage.RequestData(PlayerEntityData.class), self());
     }
 
 
@@ -37,7 +36,12 @@ public class AttributeModule extends AbstractModule {
                 .match(Client.ReceivedFromClient.class, this::receivedFromClient)
                 .match(DataMessage.DataResult.class, this::dataResult)
                 .match(DataReturnMessage.class, this::dataResultMessage)
+                .match(PlayerLogin.class, this::playerLogin)
                 .build();
+    }
+
+    private void playerLogin(PlayerLogin playerLogin) {
+        attributeData.tell(playerLogin, self());
     }
 
 
@@ -51,14 +55,10 @@ public class AttributeModule extends AbstractModule {
 
     private void dataResult(DataMessage.DataResult dataResult) {
         if (dataResult.clazz() == AttributeData.class) {
-            this.fightAttributeData = dataResult.actorRef();
-        } else if (dataResult.clazz() == SceneData.class) {
-            this.sceneData = dataResult.actorRef();
+            this.attributeData = dataResult.actorRef();
+        } else if (dataResult.clazz() == PlayerLogin.class) {
+            this.playerEntityData = dataResult.actorRef();
+            this.playerEntityData.tell(new SubscribeEvent(PlayerLogin.class, self()), self());
         }
-    }
-
-
-    public static long calculateFighting(Map<Short, Long> result) {
-        return 0;
     }
 }

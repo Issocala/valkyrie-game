@@ -5,8 +5,8 @@ import application.module.fight.base.context.UseSkillDataTemp;
 import application.module.organism.OrganismType;
 import application.module.player.PlayerConfig;
 import application.util.AttributeMapUtil;
+import application.util.MathConstant;
 import application.util.RandomUtil;
-import template.FightSkillProcessTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class FightAttributeMgr {
     private final static double PARAMETER_B = 2;
     private final static double PARAMETER_C = 2;
 
-    private final static double TEN_THOUSAND_RATIO = 10000;
+    private final static double TEN_THOUSAND_RATIO = MathConstant.TEN_THOUSAND;
 
     public FightAttributeMgr() {
     }
@@ -72,6 +72,9 @@ public class FightAttributeMgr {
     }
 
     public void addHp(long hp) {
+        if (hp == 0) {
+            return;
+        }
         long currHp = fightAttributeMap.getOrDefault(VAR_HP, 0L) + hp;
         if (currHp < 0) {
             currHp = 0;
@@ -81,6 +84,9 @@ public class FightAttributeMgr {
     }
 
     public void addMp(long mp) {
+        if (mp == 0) {
+            return;
+        }
         long currMp = fightAttributeMap.getOrDefault(VAR_MP, 0L) + mp;
         if (currMp < 0) {
             currMp = 0;
@@ -89,11 +95,11 @@ public class FightAttributeMgr {
         fightAttributeMap.put(VAR_MP, currMp);
     }
 
-    private void basicAttack(FightSkillProcessTemplate fightSkillProcessTemplate, UseSkillDataTemp useSkillDataTemp,
+    public void basicAttack(UseSkillDataTemp useSkillDataTemp,
                              final int skillFixedDamage, final int skillFixedDamageRate) {
 
         useSkillDataTemp.getTargetParameters().forEach(targetParameter -> {
-            Map<Short, Long> targetAttributeMap = targetParameter.attributeMap();
+            Map<Short, Long> targetAttributeMap = targetParameter.getAttributeMap();
             long attack = 0;
             long pierce = 0;
             long targetDefence = 0;
@@ -141,7 +147,7 @@ public class FightAttributeMgr {
             long targetReduceTrueDamage = getValue(targetAttributeMap, REDUCE_TRUE_DAMAGE);
 
             double missRate = Math.min(Math.max((targetMiss - hit) / (double) ((targetMiss - hit) * 3
-                    + targetParameter.targetLevel() * 100L) + (targetMissRatio - hitRatio) / TEN_THOUSAND_RATIO, 0), 0.8);
+                    + targetParameter.getTargetLevel() * 100L) + (targetMissRatio - hitRatio) / TEN_THOUSAND_RATIO, 0), 0.8);
             double ignoreDefenceRate = Math.min(Math.max(ignoreDefenceRatio - targetReduceIgnoreDefenceRatio, 0), 0.8);
             double critRate = Math.min(Math.max((crit - targetReduceCrit) / (double) ((crit + targetReduceCrit) * 3
                     + useSkillDataTemp.getAttackLevel() * 100L) + (critRatio - targetReduceCritRatio) / TEN_THOUSAND_RATIO, 0), 0.8);
@@ -170,9 +176,9 @@ public class FightAttributeMgr {
 
             double specialDamage = Math.max(Math.min(critDamage - blockDamage, 4), -0.7);
             double extDamageExt = 0;
-            if (targetParameter.OrganismType() == OrganismType.PLAYER) {
+            if (targetParameter.getOrganismType() == OrganismType.PLAYER) {
                 extDamageExt = (playerDamageRatio - targetReducePlayerDamageRatio) / TEN_THOUSAND_RATIO;
-            } else if (targetParameter.OrganismType() == OrganismType.BOSS) {
+            } else if (targetParameter.getOrganismType() == OrganismType.BOSS) {
                 extDamageExt = (bossDamageRatio - targetReduceBossDamageRatio) / TEN_THOUSAND_RATIO;
             }
             double extDamage = (finalDamageRatio - targetReduceFinalDamageRatio) / TEN_THOUSAND_RATIO + extDamageExt;

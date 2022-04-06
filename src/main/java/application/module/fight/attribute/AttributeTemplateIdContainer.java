@@ -1,5 +1,7 @@
 package application.module.fight.attribute;
 
+import application.util.MathConstant;
+
 import java.util.*;
 
 import static application.module.fight.attribute.AttributeTemplateId.*;
@@ -200,7 +202,7 @@ public class AttributeTemplateIdContainer {
 
     public static void reducePublicExt(Map<Short, Long> attributes, Set<Short> set) {
         set.stream().filter(PUBLIC_BASE::containsKey).forEach(aShort -> PUBLIC_BASE.get(aShort).forEach(sonShort -> {
-            long ext = attributes.getOrDefault(sonShort, 0L) * attributes.getOrDefault(aShort, 0L) / 10000;
+            long ext = attributes.getOrDefault(sonShort, 0L) * attributes.getOrDefault(aShort, 0L) / MathConstant.TEN_THOUSAND;
             short extId = VALUE_EXTRA.get(aShort);
             attributes.put(extId, attributes.getOrDefault(extId, 0L) - ext);
         }));
@@ -210,7 +212,7 @@ public class AttributeTemplateIdContainer {
         Set<Short> set = attributes.keySet();
         Map<Short, Long> reduces = new HashMap<>();
         set.stream().filter(PART_RATIO_VALUE::containsKey).forEach(aShort -> PART_RATIO_VALUE.get(aShort).forEach(sonShort -> {
-            long ext = attributes.getOrDefault(sonShort, 0L) * attributes.getOrDefault(aShort, 0L) / 10000;
+            long ext = attributes.getOrDefault(sonShort, 0L) * attributes.getOrDefault(aShort, 0L) / MathConstant.TEN_THOUSAND;
             short extId = VALUE_EXTRA.get(aShort);
             attributes.put(extId, attributes.getOrDefault(extId, 0L) - ext);
             reduces.put(extId, ext);
@@ -225,7 +227,7 @@ public class AttributeTemplateIdContainer {
         PUBLIC_BASE.forEach((e, set) -> {
             if (attributes.containsKey(e)) {
                 set.stream().filter(attributes::containsKey).forEach(aShort -> {
-                    long ext = attributes.get(aShort) * attributes.getOrDefault(e, 0L) / 10000;
+                    long ext = attributes.get(aShort) * attributes.getOrDefault(e, 0L) / MathConstant.TEN_THOUSAND;
                     short extId = VALUE_EXTRA.get(aShort);
                     attributes.put(extId, attributes.getOrDefault(extId, 0L) + ext);
                 });
@@ -242,7 +244,7 @@ public class AttributeTemplateIdContainer {
             Set<Short> set = PART_RATIO_VALUE.get(id);
             if (Objects.nonNull(set)) {
                 set.stream().filter(attributes::containsKey).forEach(aShort -> {
-                    long ext = attributes.get(aShort) * attributes.getOrDefault(id, 0L) / 10000;
+                    long ext = attributes.get(aShort) * attributes.getOrDefault(id, 0L) / MathConstant.TEN_THOUSAND;
                     short extId = VALUE_EXTRA.get(aShort);
                     long add = ext - attributes.getOrDefault(extId, 0L);
                     addExtMap.put(extId, add);

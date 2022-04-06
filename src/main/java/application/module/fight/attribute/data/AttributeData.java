@@ -1,16 +1,20 @@
 package application.module.fight.attribute.data;
 
 import akka.actor.Props;
+import application.module.fight.attribute.AttributeProtocolBuilder;
+import application.module.fight.attribute.AttributeProtocols;
 import application.module.fight.attribute.AttributeTemplateIdContainer;
 import application.module.fight.attribute.data.domain.Attribute;
 import application.module.fight.attribute.data.domain.TypeAttribute;
 import application.module.fight.attribute.data.message.UpdateAttribute;
 import application.module.fight.attribute.data.message.UpdateFightAttribute;
+import application.module.player.data.message.PlayerLogin;
 import application.util.AttributeMapUtil;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
 import com.cala.orm.cache.DataInit;
 import com.cala.orm.message.DataBase;
+import mobius.modular.client.Client;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,8 +46,13 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
         switch (dataBase) {
             case UpdateAttribute updateAttribute -> updateAttribute(updateAttribute);
             case UpdateFightAttribute updateFightAttribute -> updateFightAttribute(updateFightAttribute);
+            case PlayerLogin playerLogin -> playerLogin(playerLogin);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase);
         }
+    }
+
+    private void playerLogin(PlayerLogin playerLogin) {
+
     }
 
     private void updateFightAttribute(UpdateFightAttribute updateFightAttribute) {
@@ -54,6 +63,8 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
             playerId2TypeAttributeMap.put(playerId, typeAttribute);
         }
         typeAttribute.addFightAttribute(updateFightAttribute.result());
+
+        returnClient(playerId, updateFightAttribute.r(), typeAttribute.getFightAttributeMap());
     }
 
     private void updateAttribute(UpdateAttribute updateAttribute) {
@@ -65,6 +76,8 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
         }
 
         typeAttribute.addAttribute(updateAttribute);
+
+        returnClient(playerId, updateAttribute.r(), typeAttribute.getFightAttributeMap());
     }
 
     @Override
@@ -94,5 +107,10 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
         AttributeTemplateIdContainer.reducePublicExt(allFightAttributeMap, id2FightAttributeMap.keySet());
         AttributeMapUtil.sub(allFightAttributeMap, id2FightAttributeMap);
         AttributeTemplateIdContainer.finalFatherResult(allFightAttributeMap);
+    }
+
+    private void returnClient(long fightOrganismId, Client.ReceivedFromClient r, Map<Short, Long> attributeMap) {
+        r.client().tell(new application.client.Client.SendToClientJ(AttributeProtocols.FIGHT_ATTRIBUTE_GET,
+                AttributeProtocolBuilder.get10040(fightOrganismId, attributeMap)), self());
     }
 }

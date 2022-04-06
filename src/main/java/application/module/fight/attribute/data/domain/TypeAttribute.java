@@ -42,4 +42,15 @@ public class TypeAttribute {
         doAddAttribute(fightAttributeMap, map);
     }
 
+    public Map<Short, AttributeNode> getTypeId2AttributeMap() {
+        return typeId2AttributeMap;
+    }
+
+    public Map<Short, Long> getAllTemplateAttributeMap() {
+        return allTemplateAttributeMap;
+    }
+
+    public Map<Short, Long> getFightAttributeMap() {
+        return fightAttributeMap;
+    }
 }

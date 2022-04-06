@@ -19,9 +19,7 @@ public class AttributeRegister {
         Set<Class<?>> set = ClassScanningUtil.findClassBySuper(AttributeRegister.class.getPackageName(), AttributeProvider.class);
         set.forEach(e -> {
             try {
-                if (e == AttributeProvider.class) {
-                    register.put(e.getSimpleName(), (AttributeProvider) e.getDeclaredConstructor().newInstance());
-                }
+                register.put(e.getSimpleName(), (AttributeProvider) e.getDeclaredConstructor().newInstance());
             } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
                 ex.printStackTrace();
             }
