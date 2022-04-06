@@ -1,12 +1,12 @@
 package template;
 
 public class TemplateParser {
-    public static void parse(CustomByteBuffer cbb) {
-        while (cbb.byteBuffer.hasRemaining()) {
+    public static void parse(CustomByteBuffer cbb){
+        while (cbb.byteBuffer.hasRemaining()){
             var tableName = cbb.getString();
             var length = cbb.getInt();
             for (int i = 0; i < length; i++) {
-                switch (tableName) {
+                switch(tableName) {
                     case "Test" -> TestTemplateHolder.addData(TestTemplate.parse(cbb));
                     case "SceneUnits" -> SceneUnitsTemplateHolder.addData(SceneUnitsTemplate.parse(cbb));
                     case "BuffData" -> BuffDataTemplateHolder.addData(BuffDataTemplate.parse(cbb));
@@ -18,6 +18,9 @@ public class TemplateParser {
                     case "InputOrder" -> InputOrderTemplateHolder.addData(InputOrderTemplate.parse(cbb));
                     case "UnitType" -> UnitTypeTemplateHolder.addData(UnitTypeTemplate.parse(cbb));
                     case "AIAction" -> AIActionTemplateHolder.addData(AIActionTemplate.parse(cbb));
+                    case "FightSkill" -> FightSkillTemplateHolder.addData(FightSkillTemplate.parse(cbb));
+                    case "FightSkillProcess" -> FightSkillProcessTemplateHolder.addData(FightSkillProcessTemplate.parse(cbb));
+                    case "FightBuff" -> FightBuffTemplateHolder.addData(FightBuffTemplate.parse(cbb));
 
                 }
             }

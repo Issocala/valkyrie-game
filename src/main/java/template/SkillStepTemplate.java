@@ -1,22 +1,9 @@
 /* 由程序自动生成，请勿修改。*/
 package template;
 
-public record SkillStepTemplate(int id, String name, int time_start_in_ms, int time_end_in_ms, int delta_time_in_ms,
-                                String condition, int check_buff, int config_group_type, int select_target,
-                                String select_target_group, String set_pos, float set_pos_max_dis, String x_move_speed,
-                                String y_move_speed, int jump_in_air, int no_check_land_time_in_ms,
-                                int check_ladder_time_in_ms, float turn_speed, String face_dir, int summon_unit_id,
-                                String summon_pos, String summon_face, int summon_skill, String summon_skill_param,
-                                int control_unit, int end_self_skill, int break_this_frame, int cast_skill,
-                                String cast_skill_copy_unit_group, String play_anim, float anim_crossfade_time,
-                                float anim_speed, String set_param_name, String set_param_formula, String action_group,
-                                int repeat_action, int hp_damage_type, String hp_damage, String mana, int add_buff,
-                                int buff_time_in_ms, int remove_buff, int only_remove_buff_by_me,
-                                String partical_effect_name, int partical_scale, String lightning_name,
-                                String lightning_pos_1, String lightning_pos_2, int set_cold_down_skill,
-                                int set_cold_down_time_ms, String log_string) {
+public record SkillStepTemplate(int id,String name,int time_start_in_ms,int time_end_in_ms,int delta_time_in_ms,String condition,int check_buff,int config_group_type,int select_target,String select_target_group,String set_pos,float set_pos_max_dis,String x_move_speed,String y_move_speed,int jump_in_air,int no_check_land_time_in_ms,int check_ladder_time_in_ms,float turn_speed,String face_dir,int summon_unit_id,String summon_pos,String summon_face,int summon_skill,String summon_skill_param,int control_unit,int end_self_skill,int break_this_frame,int cast_skill,String cast_skill_copy_unit_group,String play_anim,float anim_crossfade_time,float anim_speed,String set_param_name,String set_param_formula,String action_group,int repeat_action,int hp_damage_type,String hp_damage,String mana,int add_buff,int buff_time_in_ms,int remove_buff,int only_remove_buff_by_me,String partical_effect_name,int partical_scale,String lightning_name,String lightning_pos_1,String lightning_pos_2,int set_cold_down_skill,int set_cold_down_time_ms,String log_string){
 
-    public static SkillStepTemplate parse(CustomByteBuffer cbb) {
+    public static SkillStepTemplate parse(CustomByteBuffer cbb){
         var id = cbb.getInt();
         var name = cbb.getString();
         var time_start_in_ms = cbb.getInt();
@@ -69,7 +56,7 @@ public record SkillStepTemplate(int id, String name, int time_start_in_ms, int t
         var set_cold_down_time_ms = cbb.getInt();
         var log_string = cbb.getString();
 
-        var temp = new SkillStepTemplate(id, name, time_start_in_ms, time_end_in_ms, delta_time_in_ms, condition, check_buff, config_group_type, select_target, select_target_group, set_pos, set_pos_max_dis, x_move_speed, y_move_speed, jump_in_air, no_check_land_time_in_ms, check_ladder_time_in_ms, turn_speed, face_dir, summon_unit_id, summon_pos, summon_face, summon_skill, summon_skill_param, control_unit, end_self_skill, break_this_frame, cast_skill, cast_skill_copy_unit_group, play_anim, anim_crossfade_time, anim_speed, set_param_name, set_param_formula, action_group, repeat_action, hp_damage_type, hp_damage, mana, add_buff, buff_time_in_ms, remove_buff, only_remove_buff_by_me, partical_effect_name, partical_scale, lightning_name, lightning_pos_1, lightning_pos_2, set_cold_down_skill, set_cold_down_time_ms, log_string);
+        var temp = new SkillStepTemplate(id,name,time_start_in_ms,time_end_in_ms,delta_time_in_ms,condition,check_buff,config_group_type,select_target,select_target_group,set_pos,set_pos_max_dis,x_move_speed,y_move_speed,jump_in_air,no_check_land_time_in_ms,check_ladder_time_in_ms,turn_speed,face_dir,summon_unit_id,summon_pos,summon_face,summon_skill,summon_skill_param,control_unit,end_self_skill,break_this_frame,cast_skill,cast_skill_copy_unit_group,play_anim,anim_crossfade_time,anim_speed,set_param_name,set_param_formula,action_group,repeat_action,hp_damage_type,hp_damage,mana,add_buff,buff_time_in_ms,remove_buff,only_remove_buff_by_me,partical_effect_name,partical_scale,lightning_name,lightning_pos_1,lightning_pos_2,set_cold_down_skill,set_cold_down_time_ms,log_string);
         return temp;
     }
 }

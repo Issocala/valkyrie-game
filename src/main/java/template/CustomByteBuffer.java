@@ -26,31 +26,27 @@ public class CustomByteBuffer {
         return byteBuffer.getChar();
     }
 
-    public float getFloat() {
+    public float getFloat(){
         return byteBuffer.getFloat();
     }
 
-    public double getDouble() {
+    public double getDouble(){
         return byteBuffer.getDouble();
     }
 
-    public boolean getBoolean() {
-        return byteBuffer.get() != 0;
+    public boolean getBoolean(){
+        return  byteBuffer.get() != 0;
     }
 
-    public byte get() {
-        return byteBuffer.get();
-    }
+    public byte get() { return byteBuffer.get(); }
 
-    public short getShort() {
-        return byteBuffer.getShort();
-    }
+    public short getShort() { return byteBuffer.getShort(); }
 
-    public String getString() {
+    public String getString(){
 
         int length = byteBuffer.getInt();
         byte[] bytes = new byte[length];
-        byteBuffer.get(bytes, 0, length);
+        byteBuffer.get(bytes,0,length);
         return new String(bytes, StandardCharsets.UTF_8);
     }
 }

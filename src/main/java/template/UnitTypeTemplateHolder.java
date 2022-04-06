@@ -4,17 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public class UnitTypeTemplateHolder {
-    private static final HashMap<Integer, UnitTypeTemplate> hash = new HashMap<>();
+	private static final HashMap<Integer, UnitTypeTemplate> hash = new HashMap<>();
 
-    public static UnitTypeTemplate getData(int id) {
-        return hash.get(id);
-    }
+	public static UnitTypeTemplate getData(int id){ return hash.get(id); }
 
-    public static void addData(UnitTypeTemplate data) {
-        hash.put(data.id(), data);
-    }
+	public static void addData(UnitTypeTemplate data){
+		hash.put(data.id(),data);
+	}
 
-    public static List<UnitTypeTemplate> getValues() {
-        return List.copyOf(hash.values());
-    }
+	public static List<UnitTypeTemplate> getValues() {
+		return List.copyOf(hash.values());
+	}
 }
