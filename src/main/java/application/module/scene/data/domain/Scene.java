@@ -3,10 +3,13 @@ package application.module.scene.data.domain;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedAbstractActor;
-import application.module.fight.attribute.data.message.UpdateFightAttribute;
-import application.module.fight.base.context.FightRuntimeContext;
+import application.client.Client.SendToClientJ;
+import application.module.common.CommonProtocolBuilder;
+import application.module.common.CommonProtocols;
 import application.module.fight.base.context.UseSkillDataTemp;
-import application.module.fight.skill.data.message.SkillUse;
+import application.module.fight.skill.data.message.SkillUseScene;
+import application.module.fight.skill.data.message.SkillUseState;
+import application.module.fight.skill.operate.info.SkillUseInfo;
 import application.module.fight.skill.util.SkillAimType;
 import application.module.organism.OrganismFaceType;
 import application.module.organism.OrganismType;
@@ -14,6 +17,7 @@ import application.module.player.data.message.PlayerLogin;
 import application.module.scene.SceneProtocolBuilder;
 import application.module.scene.SceneProtocols;
 import application.module.scene.operate.*;
+import application.util.ApplicationErrorCode;
 import application.util.CommonOperateTypeInfo;
 import mobius.modular.client.Client;
 import protocol.Skill;
@@ -33,15 +37,14 @@ public class Scene extends UntypedAbstractActor {
     private final long sceneId;
 
     /**
-     * key: FightOrganismId
-     */
-    private final Map<Long, FightRuntimeContext> fightRuntimeContextMap = new HashMap<>();
-
-    /**
      * key : 当前场景的玩家id
      * value : Client ActorRef
      */
     private final Map<Long, ActorRef> clientMap = new HashMap<>();
+
+    public final static float DEFAULT_X = 0;
+    public final static float DEFAULT_Y = 5;
+    public final static int DEFAULT_FACE = OrganismFaceType.RIGHT;
 
     /**
      * key: FightOrganismId
@@ -63,10 +66,9 @@ public class Scene extends UntypedAbstractActor {
             case SceneMove sceneMove -> sceneMove(sceneMove);
             case SceneStop sceneStop -> sceneStop(sceneStop);
             case SceneJump sceneJump -> sceneJump(sceneJump);
-            case SkillUse skillUse -> skillUse(skillUse);
+            case SkillUseState skillUseScene -> skillUseScene(skillUseScene);
             case ScenePlayerEntry scenePlayerEntry -> scenePlayerEntry(scenePlayerEntry);
             case ScenePlayerExit scenePlayerExit -> scenePlayerExit(scenePlayerExit);
-            case UpdateFightAttribute updateFightAttribute -> attributeUpdateFightAttribute(updateFightAttribute);
             case PlayerLogin playerLogin -> playerLogin(playerLogin);
             default -> throw new IllegalStateException("Unexpected value: " + message);
         }
@@ -125,7 +127,7 @@ public class Scene extends UntypedAbstractActor {
     private void scenePlayerEntry(Client.ReceivedFromClient r, long playerId) {
         clientMap.put(playerId, r.client());
         if (!positionInfoMap.containsKey(playerId)) {
-            positionInfoMap.put(playerId, new PositionInfo(5.0f, 0, OrganismFaceType.right));
+            positionInfoMap.put(playerId, new PositionInfo(DEFAULT_X, DEFAULT_Y, DEFAULT_FACE));
         }
         r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_ENTER,
                 SceneProtocolBuilder.getSc10030(sceneId)), self());
@@ -156,29 +158,27 @@ public class Scene extends UntypedAbstractActor {
         });
     }
 
-    private void attributeUpdateFightAttribute(UpdateFightAttribute updateFightAttribute) {
-        long playerId = updateFightAttribute.playerId();
-        if (fightRuntimeContextMap.containsKey(playerId)) {
-            FightRuntimeContext fightRuntimeContext = fightRuntimeContextMap.get(playerId);
-            fightRuntimeContext.updateFightAttribute(updateFightAttribute);
-        }
-    }
 
-    private void skillUse(SkillUse skillUse) {
-        CommonOperateTypeInfo commonOperateTypeInfo = (CommonOperateTypeInfo) skillUse.operateTypeInfo();
+    private void skillUseScene(SkillUseState skillUseScene) {
+        CommonOperateTypeInfo commonOperateTypeInfo = (CommonOperateTypeInfo) skillUseScene.operateTypeInfo();
         Skill.CS10052 cs10052 = (Skill.CS10052) commonOperateTypeInfo.message();
         long organismId = cs10052.getFightOrganismId();
-        if (fightRuntimeContextMap.containsKey(organismId)) {
-            FightRuntimeContext fightRuntimeContext = fightRuntimeContextMap.get(organismId);
-            fightRuntimeContext.skillUse(getTarget(cs10052));
+        //TODO 判断当前场景是否可以释放技能，或者当前玩家位置是否可以放技能。
+        if (true) {
+            sender().tell(new SkillUseScene(new SkillUseInfo(commonOperateTypeInfo.r(), getTarget(commonOperateTypeInfo))), self());
+        }else {
+            commonOperateTypeInfo.r().client().tell(new SendToClientJ(CommonProtocols.APPLICATION_ERROR,
+                    CommonProtocolBuilder.getSc10080(ApplicationErrorCode.USE_SKILL_SCENE)), self());
         }
     }
 
-    private UseSkillDataTemp getTarget(Skill.CS10052 cs10052) {
+    private UseSkillDataTemp getTarget(CommonOperateTypeInfo commonOperateTypeInfo) {
+        Skill.CS10052 cs10052 = (Skill.CS10052) commonOperateTypeInfo.message();
         FightSkillTemplate fightSkillTemplate = FightSkillTemplateHolder.getData(cs10052.getSkillId());
         //生成技能释放上下文
         UseSkillDataTemp useSkillDataTemp = UseSkillDataTemp.of(cs10052, self());
         useSkillDataTemp.setScene(self());
+        useSkillDataTemp.setR(commonOperateTypeInfo.r());
         //TODO 获取目标
         if (SkillAimType.isOne(fightSkillTemplate)) {
         }

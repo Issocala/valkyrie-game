@@ -7,7 +7,7 @@ package application.module.organism;
  */
 public interface OrganismFaceType {
 
-    byte right = 0;
+    byte RIGHT = 0;
 
-    byte left = 1;
+    byte LEFT = 1;
 }
