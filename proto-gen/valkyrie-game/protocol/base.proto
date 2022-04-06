@@ -6,3 +6,9 @@ message AccountInfo
     required string account=1; 
     required string password=2;
 }
+
+message AttributeMap
+{
+    required int32 key = 1;
+    required int64 value = 2;
+}

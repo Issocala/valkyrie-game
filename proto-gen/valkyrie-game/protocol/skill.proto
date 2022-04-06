@@ -1,3 +1,4 @@
+import "base.proto";
 package protocol;
 
 //获取全部技能
@@ -7,7 +8,7 @@ message CS10050
 
 message SC10050
 {
-  
+  repeated int32 skillId = 1 [packed = true];
 }
 
 
@@ -20,7 +21,7 @@ message CS10051
 
 message SC10051
 {
-
+  required int32 skillId = 1;
 }
 
 //使用技能
@@ -28,16 +29,28 @@ message CS10052
 {
   required int64 fightOrganismId = 1; //技能的战斗单位id
   required int32 skillId = 2; //技能id
-  optional int64 targetId = 3;  //目标战斗单位id
-  optional int32 direction = 4; //释放方向
+  repeated int64 targetId = 3 [packed = true];  //目标战斗单位id
+  optional float direction = 4; //释放方向
   required float skillPositionX = 5;  //技能横坐标
   required float skillPositionY = 6;  //技能纵坐标
   optional int64 time = 7;  //释放时间戳
-  required int64 sceneId = 8; //释放场景
-
 }
 
 message SC10052
 {
-  
+  required int32 skillId = 1; //技能id
+  required int64 attackId = 2; //施法战斗者
+  required int64 targetId = 3; //目标战斗者
+  required int32 damageType = 4; //位运算计算伤害类型汇总
+  required int64 damage = 5; //伤害数值
+}
+
+message CS10053
+{
+  required int32 skillId = 1;
+}
+
+message SC10054
+{
+  required bool success = 1;
 }

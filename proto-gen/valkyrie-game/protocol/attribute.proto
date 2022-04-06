@@ -1,0 +1,14 @@
+import "base.proto";
+package protocol;
+
+
+//请求战斗数值
+message CS10040
+{
+}
+
+message SC10040
+{
+    required int64 fightOrganismId = 1;
+    repeated AttributeMap attributeMap = 2;
+}

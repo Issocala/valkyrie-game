@@ -3,27 +3,29 @@
 //
 // Protofile syntax: PROTO2
 
-package protocol.base
+package protocol.attribute
 
-object BaseProto extends _root_.scalapb.GeneratedFileObject {
-  lazy val dependencies: Seq[_root_.scalapb.GeneratedFileObject] = Seq.empty
+object AttributeProto extends _root_.scalapb.GeneratedFileObject {
+  lazy val dependencies: Seq[_root_.scalapb.GeneratedFileObject] = Seq(
+    protocol.base.BaseProto
+  )
   lazy val messagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] =
     Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]](
-      protocol.base.AccountInfo,
-      protocol.base.AttributeMap
+      protocol.attribute.CS10040,
+      protocol.attribute.SC10040
     )
   private lazy val ProtoBytes: Array[Byte] =
       scalapb.Encoding.fromBase64(scala.collection.immutable.Seq(
-  """CgpiYXNlLnByb3RvEghwcm90b2NvbCJgCgtBY2NvdW50SW5mbxImCgdhY2NvdW50GAEgAigJQgziPwkSB2FjY291bnRSB2FjY
-  291bnQSKQoIcGFzc3dvcmQYAiACKAlCDeI/ChIIcGFzc3dvcmRSCHBhc3N3b3JkIkwKDEF0dHJpYnV0ZU1hcBIaCgNrZXkYASACK
-  AVCCOI/BRIDa2V5UgNrZXkSIAoFdmFsdWUYAiACKANCCuI/BxIFdmFsdWVSBXZhbHVl"""
+  """Cg9hdHRyaWJ1dGUucHJvdG8SCHByb3RvY29sGgpiYXNlLnByb3RvIgkKB0NTMTAwNDAimAEKB1NDMTAwNDASPgoPZmlnaHRPc
+  mdhbmlzbUlkGAEgAigDQhTiPxESD2ZpZ2h0T3JnYW5pc21JZFIPZmlnaHRPcmdhbmlzbUlkEk0KDGF0dHJpYnV0ZU1hcBgCIAMoC
+  zIWLnByb3RvY29sLkF0dHJpYnV0ZU1hcEIR4j8OEgxhdHRyaWJ1dGVNYXBSDGF0dHJpYnV0ZU1hcA=="""
       ).mkString)
   lazy val scalaDescriptor: _root_.scalapb.descriptors.FileDescriptor = {
     val scalaProto = com.google.protobuf.descriptor.FileDescriptorProto.parseFrom(ProtoBytes)
     _root_.scalapb.descriptors.FileDescriptor.buildFrom(scalaProto, dependencies.map(_.scalaDescriptor))
   }
   lazy val javaDescriptor: com.google.protobuf.Descriptors.FileDescriptor =
-    protocol.Base.getDescriptor()
+    protocol.Attribute.getDescriptor()
   @deprecated("Use javaDescriptor instead. In a future version this will refer to scalaDescriptor.", "ScalaPB 0.5.47")
   def descriptor: com.google.protobuf.Descriptors.FileDescriptor = javaDescriptor
 }

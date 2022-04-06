@@ -4,15 +4,30 @@
 // Protofile syntax: PROTO2
 
 package protocol.skill
+import _root_.scalapb.internal.compat.JavaConverters._
 
 @SerialVersionUID(0L)
 final case class SC10050(
+    skillId: _root_.scala.Seq[_root_.scala.Int] = _root_.scala.Seq.empty,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SC10050] {
+    private[this] def skillIdSerializedSize = {
+      if (__skillIdSerializedSizeField == 0) __skillIdSerializedSizeField = {
+        var __s: _root_.scala.Int = 0
+        skillId.foreach(__i => __s += _root_.com.google.protobuf.CodedOutputStream.computeInt32SizeNoTag(__i))
+        __s
+      }
+      __skillIdSerializedSizeField
+    }
+    @transient private[this] var __skillIdSerializedSizeField: _root_.scala.Int = 0
     @transient
     private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
     private[this] def __computeSerializedValue(): _root_.scala.Int = {
       var __size = 0
+      if (skillId.nonEmpty) {
+        val __localsize = skillIdSerializedSize
+        __size += 1 + _root_.com.google.protobuf.CodedOutputStream.computeUInt32SizeNoTag(__localsize) + __localsize
+      }
       __size += unknownFields.serializedSize
       __size
     }
@@ -25,12 +40,30 @@ final case class SC10050(
       read
     }
     def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
+      if (skillId.nonEmpty) {
+        _output__.writeTag(1, 2)
+        _output__.writeUInt32NoTag(skillIdSerializedSize)
+        skillId.foreach(_output__.writeInt32NoTag)
+      };
       unknownFields.writeTo(_output__)
     }
+    def clearSkillId = copy(skillId = _root_.scala.Seq.empty)
+    def addSkillId(__vs: _root_.scala.Int*): SC10050 = addAllSkillId(__vs)
+    def addAllSkillId(__vs: Iterable[_root_.scala.Int]): SC10050 = copy(skillId = skillId ++ __vs)
+    def withSkillId(__v: _root_.scala.Seq[_root_.scala.Int]): SC10050 = copy(skillId = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
-    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = throw new MatchError(__fieldNumber)
-    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = throw new MatchError(__field)
+    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
+      (__fieldNumber: @_root_.scala.unchecked) match {
+        case 1 => skillId
+      }
+    }
+    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
+      _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
+      (__field.number: @_root_.scala.unchecked) match {
+        case 1 => _root_.scalapb.descriptors.PRepeated(skillId.iterator.map(_root_.scalapb.descriptors.PInt(_)).toVector)
+      }
+    }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
     def companion = protocol.skill.SC10050
     // @@protoc_insertion_point(GeneratedMessage[protocol.SC10050])
@@ -40,15 +73,18 @@ object SC10050 extends scalapb.GeneratedMessageCompanion[protocol.skill.SC10050]
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.skill.SC10050] with scalapb.HasBuilder[protocol.skill.SC10050] with scalapb.JavaProtoSupport[protocol.skill.SC10050, protocol.Skill.SC10050] = this
   def toJavaProto(scalaPbSource: protocol.skill.SC10050): protocol.Skill.SC10050 = {
     val javaPbOut = protocol.Skill.SC10050.newBuilder
+    javaPbOut.addAllSkillId(_root_.scalapb.internal.compat.toIterable(scalaPbSource.skillId.iterator.map(_root_.scala.Int.box(_))).asJava)
     javaPbOut.build
   }
   def fromJavaProto(javaPbSource: protocol.Skill.SC10050): protocol.skill.SC10050 = protocol.skill.SC10050(
+    skillId = javaPbSource.getSkillIdList.asScala.iterator.map(_.intValue).toSeq
   )
   def merge(`_message__`: protocol.skill.SC10050, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.skill.SC10050 = newBuilder(_message__).merge(_input__).result()
   implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.skill.SC10050] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
       protocol.skill.SC10050(
+        skillId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).map(_.as[_root_.scala.Seq[_root_.scala.Int]]).getOrElse(_root_.scala.Seq.empty)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
@@ -58,8 +94,10 @@ object SC10050 extends scalapb.GeneratedMessageCompanion[protocol.skill.SC10050]
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = protocol.skill.SC10050(
+    skillId = _root_.scala.Seq.empty
   )
   final class Builder private (
+    private val __skillId: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Int],
     private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
   ) extends _root_.scalapb.MessageBuilder[protocol.skill.SC10050] {
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
@@ -68,6 +106,16 @@ object SC10050 extends scalapb.GeneratedMessageCompanion[protocol.skill.SC10050]
         val _tag__ = _input__.readTag()
         _tag__ match {
           case 0 => _done__ = true
+          case 8 =>
+            __skillId += _input__.readInt32()
+          case 10 => {
+            val length = _input__.readRawVarint32()
+            val oldLimit = _input__.pushLimit(length)
+            while (_input__.getBytesUntilLimit > 0) {
+              __skillId += _input__.readInt32()
+            }
+            _input__.popLimit(oldLimit)
+          }
           case tag =>
             if (_unknownFields__ == null) {
               _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -79,24 +127,31 @@ object SC10050 extends scalapb.GeneratedMessageCompanion[protocol.skill.SC10050]
     }
     def result(): protocol.skill.SC10050 = {
       protocol.skill.SC10050(
+        skillId = __skillId.result(),
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
       )
     }
   }
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.skill.SC10050, protocol.skill.SC10050.Builder] {
     def apply(): Builder = new Builder(
+      __skillId = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Int],
       `_unknownFields__` = null
     )
     def apply(`_message__`: protocol.skill.SC10050): Builder = new Builder(
+        __skillId = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Int] ++= _message__.skillId,
         `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
   def newBuilder: Builder = protocol.skill.SC10050.Builder()
   def newBuilder(`_message__`: protocol.skill.SC10050): Builder = protocol.skill.SC10050.Builder(_message__)
   implicit class SC10050Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.skill.SC10050]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.skill.SC10050](_l) {
+    def skillId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Int]] = field(_.skillId)((c_, f_) => c_.copy(skillId = f_))
   }
+  final val SKILLID_FIELD_NUMBER = 1
   def of(
+    skillId: _root_.scala.Seq[_root_.scala.Int]
   ): _root_.protocol.skill.SC10050 = _root_.protocol.skill.SC10050(
+    skillId
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.SC10050])
 }
