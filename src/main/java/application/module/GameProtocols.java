@@ -24,4 +24,6 @@ public interface GameProtocols {
     int STATE = 10060;
 
     int BUFF = 10070;
+
+    int COMMON = 10080;
 }
