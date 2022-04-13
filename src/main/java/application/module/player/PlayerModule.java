@@ -8,7 +8,8 @@ import application.module.player.data.PlayerEntityData;
 import application.module.player.data.domain.PlayerData;
 import application.module.player.data.domain.PlayerEntity;
 import application.module.player.data.domain.PlayerInfo;
-import application.module.player.data.message.PlayerLogin;
+import application.module.player.data.message.PlayerRegister;
+import application.module.player.data.message.event.PlayerLogin;
 import application.module.player.operate.PlayerCreateInsertType;
 import application.module.player.operate.PlayerCreateSelectType;
 import application.module.player.operate.PlayerGetAllType;
@@ -21,6 +22,7 @@ import com.cala.orm.cache.message.DataInsert;
 import com.cala.orm.message.DataReturnManyMessage;
 import com.cala.orm.message.DataReturnMessage;
 import com.cala.orm.message.OperateType;
+import com.cala.orm.message.Publish;
 import com.google.protobuf.InvalidProtocolBufferException;
 import mobius.modular.client.Client;
 import mobius.modular.module.api.AbstractModule;
@@ -121,6 +123,7 @@ public class PlayerModule extends AbstractModule {
         //TODO 处理注册成功后的情况
         var playerOperateTypeInfo = (PlayerOperateTypeInfo) playerCreateInsertType.operateTypeInfo();
         PlayerEntity playerEntity = (PlayerEntity) dataReturnMessage.message();
+        this.playerEntityData.tell(new Publish(new PlayerRegister(playerOperateTypeInfo.r(), playerEntity.getId())), self());
         playerOperateTypeInfo.r().client().tell(new application.client.Client.SendToClientJ(PlayerProtocols.CREATE,
                 PlayerProtocolBuilder.getSc10021(true, playerEntity.getId())), self());
     }
@@ -144,13 +147,18 @@ public class PlayerModule extends AbstractModule {
     }
 
     private PlayerEntity createPlayerEntity(Player.CS10021 cs10021, long uId) {
-        return new PlayerEntity.Builder(IdUtils.fastSimpleUUIDLong())
+        long id = IdUtils.fastSimpleUUIDLong();
+        byte gender = (byte) cs10021.getGender();
+        byte profession = (byte) cs10021.getProfession();
+        long lastLoginTime = System.currentTimeMillis();
+        return new PlayerEntity.Builder(id)
                 .setName(cs10021.getName())
                 .setAccountId(uId)
-                .setGender((byte) cs10021.getGender())
-                .setProfession((byte) cs10021.getProfession())
-                .setLastLoginTime(System.currentTimeMillis())
-                .setPlayerInfo(new PlayerInfo())
+                .setGender(gender)
+                .setProfession(profession)
+                .setLevel(1)
+                .setLastLoginTime(lastLoginTime)
+                .setPlayerInfo(new PlayerInfo(id, cs10021.getName(), 1, gender, profession, lastLoginTime))
                 .setPlayerData(new PlayerData(cs10021.getName(), 0))
                 .build();
     }
@@ -192,7 +200,7 @@ public class PlayerModule extends AbstractModule {
     private void login(Client.ReceivedFromClient r, PlayerEntity playerEntity) {
         r.client().tell(new application.client.Client.SendToClientJ(PlayerProtocols.LOGIN,
                 PlayerProtocolBuilder.getSc10022(true, playerEntity.getId())), self());
-        this.playerEntityData.tell(new PlayerLogin(r, playerEntity.getId()), self());
+        this.playerEntityData.tell(new Publish(new PlayerLogin(r, playerEntity.getPlayerInfo())), self());
 //        this.attributeData.tell(new PlayerLogin(r), self());
         r.client().tell(new application.client.Client.LoginSuccess(playerEntity.getId()), self());
     }
