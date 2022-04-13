@@ -123,7 +123,7 @@ public class PlayerModule extends AbstractModule {
         //TODO 处理注册成功后的情况
         var playerOperateTypeInfo = (PlayerOperateTypeInfo) playerCreateInsertType.operateTypeInfo();
         PlayerEntity playerEntity = (PlayerEntity) dataReturnMessage.message();
-        this.playerEntityData.tell(new Publish(new PlayerRegister(playerOperateTypeInfo.r(), playerEntity.getId())), self());
+        this.playerEntityData.tell(new Publish(new PlayerRegister(playerOperateTypeInfo.r(), playerEntity.getPlayerInfo())), self());
         playerOperateTypeInfo.r().client().tell(new application.client.Client.SendToClientJ(PlayerProtocols.CREATE,
                 PlayerProtocolBuilder.getSc10021(true, playerEntity.getId())), self());
     }
