@@ -193,7 +193,7 @@ public class PlayerEntity extends AbstractEntityBase {
 
     public static PlayerEntity of(Long id) {
         return new PlayerEntity(id, null, (byte) 0, 0, null, 0,
-                (byte) 0, (byte) 0, 0L, 0, new PlayerInfo(), new PlayerData("1", 1));
+                (byte) 0, (byte) 0, 0L, 0, new PlayerInfo(id, null, 0, (byte)0, (byte)0, 0), new PlayerData("1", 1));
     }
 
     public String getName() {

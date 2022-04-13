@@ -23,10 +23,10 @@ public interface PlayerConfig {
      * 职业限制
      */
     interface Profession {
-        byte WARRIOR = 0;
-        byte MAGE = 1;
-        byte WARLOCK = 2;
-        byte ARCHER = 3;
+        byte WARRIOR = 1;
+        byte MAGE = 2;
+        byte WARLOCK = 3;
+        byte ARCHER = 4;
 
         static boolean valid(byte profession) {
             return profession == WARRIOR || profession == MAGE || profession == WARLOCK;
