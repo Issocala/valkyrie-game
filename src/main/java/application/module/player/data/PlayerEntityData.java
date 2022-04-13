@@ -3,7 +3,6 @@ package application.module.player.data;
 import akka.actor.Props;
 import application.module.player.PlayerDataMessage;
 import application.module.player.data.domain.PlayerEntity;
-import application.module.player.data.message.PlayerLogin;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
 import com.cala.orm.cache.DataInit;
@@ -35,13 +34,8 @@ public class PlayerEntityData extends AbstractDataCacheManager<PlayerEntity> {
         switch (dataBase) {
             case PlayerDataMessage.PlayerByUserId playerByUserId -> getPlayerByUserId(playerByUserId);
             case PlayerDataMessage.PlayerByUserIdAndProfession playerByUserIdAndProfession -> getPlayerByUserIdAndProfession(playerByUserIdAndProfession);
-            case PlayerLogin playerLogin -> playerLogin(playerLogin);
-            default -> throw new IllegalStateException("Unexpected value: " + dataBase);
+            default -> throw new IllegalStateException("Unexpected value: " + dataBase.getClass().getName());
         }
-    }
-
-    private void playerLogin(PlayerLogin playerLogin) {
-        this.publish(playerLogin);
     }
 
     private void getPlayerByUserIdAndProfession(PlayerDataMessage.PlayerByUserIdAndProfession playerByUserIdAndProfession) {
