@@ -26,4 +26,7 @@ public interface GameProtocols {
     int BUFF = 10070;
 
     int COMMON = 10080;
+
+    int GM = 10090;
+
 }
