@@ -29,7 +29,7 @@ public interface PlayerConfig {
         byte ARCHER = 4;
 
         static boolean valid(byte profession) {
-            return profession == WARRIOR || profession == MAGE || profession == WARLOCK;
+            return profession == WARRIOR || profession == MAGE || profession == WARLOCK || profession == ARCHER;
         }
 
         static boolean isAttackDamage(byte profession) {
@@ -40,6 +40,4 @@ public interface PlayerConfig {
             return profession == MAGE || profession == WARLOCK;
         }
     }
-
-
 }
