@@ -18,6 +18,8 @@ import mobius.core.digest.Codec;
 import mobius.modular.client.Client;
 import mobius.modular.module.api.AbstractModule;
 
+import java.util.Objects;
+
 /**
  * @author Luo Yong
  * @date 2022-1-17
@@ -76,6 +78,12 @@ public class UserModule extends AbstractModule {
 
     private void userLoginOk(UserLoginType userLoginType, DataReturnMessage dataReturnMessage) {
         var user = (User) dataReturnMessage.message();
+        if (Objects.isNull(user)) {
+            var commonOperateTypeInfo = (CommonOperateTypeInfo) userLoginType.operateTypeInfo();
+            commonOperateTypeInfo.r().client().tell(
+                    new application.client.Client.SendToClientJ(UserProtocols.LOGIN, UserProtocolBuilder.getSc10011("大概率你账号都不存在吧！！！")), self());
+            return;
+        }
         var commonOperateTypeInfo = (CommonOperateTypeInfo) userLoginType.operateTypeInfo();
         var cs10011 = (protocol.User.CS10011) commonOperateTypeInfo.message();
         if (user.getPassword().equals(codecPassword(cs10011.getAccount().getPassword()))) {
