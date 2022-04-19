@@ -1,0 +1,13 @@
+package application.module.fight.skill.data.message;
+
+import application.module.fight.skill.base.context.UseSkillDataTemp;
+import com.cala.orm.message.DataBase;
+import com.cala.orm.message.OperateType;
+
+/**
+ * @author Luo Yong
+ * @date 2022-3-28
+ * @Source 1.0
+ */
+public record SkillGetAllAttribute(UseSkillDataTemp useSkillDataTemp) implements DataBase, OperateType {
+}

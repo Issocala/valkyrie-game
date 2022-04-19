@@ -11,13 +11,20 @@ import java.util.List;
  * @Source 1.0
  */
 public class FightSkillModuleHolder extends AbstractModuleHolder {
+
+    private final static FightSkillModuleHolder INSTANCE = new FightSkillModuleHolder();
+
+    public static FightSkillModuleHolder getInstance() {
+        return INSTANCE;
+    }
+
     @Override
     public Props props() {
-        return null;
+        return Props.create(FightSkillModule.class);
     }
 
     @Override
     public List<Integer> getProtocols() {
-        return null;
+        return List.of(FightSkillProtocols.GET_ALL, FightSkillProtocols.LEARN, FightSkillProtocols.USE, FightSkillProtocols.CANCEL_SKILL);
     }
 }

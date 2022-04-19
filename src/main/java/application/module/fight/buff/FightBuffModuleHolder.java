@@ -11,13 +11,20 @@ import java.util.List;
  * @Source 1.0
  */
 public class FightBuffModuleHolder extends AbstractModuleHolder {
+
+    private final static FightBuffModuleHolder INSTANCE = new FightBuffModuleHolder();
+
+    public static FightBuffModuleHolder getInstance() {
+        return INSTANCE;
+    }
+
     @Override
     public Props props() {
-        return null;
+        return Props.create(FightBuffModule.class);
     }
 
     @Override
     public List<Integer> getProtocols() {
-        return null;
+        return List.of(FightBuffProtocols.GET, FightBuffProtocols.ADD, FightBuffProtocols.REMOVE);
     }
 }

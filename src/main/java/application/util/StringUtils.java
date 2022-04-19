@@ -1,5 +1,8 @@
 package application.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Luo Yong
  * @date 2022-2-28
@@ -25,6 +28,39 @@ public class StringUtils {
             is[i] = Integer.parseInt(ss[i]);
         }
         return is;
+    }
+
+    public static Map<Short, Long> toAttributeMap(String s) {
+        if (isEmpty(s)) {
+            return null;
+        }
+        Map<Short, Long> attributeMap = new HashMap<>();
+        String[] ss = s.split(DEFAULT_SPLIT);
+        for (String s1 : ss) {
+            String[] ss1 = s.split(":");
+            if (ss1.length != 2) {
+                throw new RuntimeException("你的AttributeMap配错格式了!");
+            }
+            short key = Short.parseShort(ss1[0]);
+            long value = Long.parseLong(ss1[1]);
+            attributeMap.put(key, value);
+        }
+        return attributeMap;
+    }
+
+    public static Map<Short, Long> toAttributeMap(int[][] ints) {
+        Map<Short, Long> attributeMap = new HashMap<>();
+        for (int[] ints1 : ints) {
+            short key = (short) ints1[0];
+            long value = ints1[1];
+            attributeMap.put(key, value);
+        }
+        return attributeMap;
+    }
+
+
+    public static boolean isEmpty(String s) {
+        return s == null || s.length() == 0;
     }
 
 }

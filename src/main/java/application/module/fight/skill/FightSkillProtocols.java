@@ -24,7 +24,16 @@ public interface FightSkillProtocols {
     /**
      * 使用技能
      */
-    int USE_SKILL = GameProtocols.SKILL + 2;
+    int USE = GameProtocols.SKILL + 2;
 
+    /**
+     * 技能战报结果
+     */
+    int USE_RESULT = GameProtocols.SKILL + 3;
+
+    /**
+     * 取消技能
+     */
+    int CANCEL_SKILL = GameProtocols.SKILL + 4;
 
 }

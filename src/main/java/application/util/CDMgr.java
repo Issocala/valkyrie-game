@@ -114,14 +114,14 @@ public class CDMgr {
         this.id2CDTimeManagerMap.put(cdManager.getId(), cdManager);
     }
 
-    public CDTimeManager getCDManager(int id) {
+    public CDTimeManager getCDManager(long id) {
         return this.id2CDTimeManagerMap.get(id);
     }
 
     public void startCD(int id, long fightCDMillis) {
         CDTimeManager cdManager = getCDManager(id);
         if (cdManager == null) {
-            addCDManager(this.new CDTimeManager(id, fightCDMillis));
+            addCDManager(new CDTimeManager(id, fightCDMillis));
         }
         checkNotNull(getCDManager(id));
     }
@@ -129,14 +129,14 @@ public class CDMgr {
     public void startCD(int id, long fightCDMillis, long startFromWhen) {
         CDTimeManager cdManager = getCDManager(id);
         if (cdManager == null) {
-            addCDManager(this.new CDTimeManager(id, fightCDMillis, startFromWhen));
+            addCDManager(new CDTimeManager(id, fightCDMillis, startFromWhen));
         }
         checkNotNull(getCDManager(id));
     }
 
     public void resetCD(int id, long fightCDMillis) {
         if (getCDManager(id) == null) {
-            addCDManager(this.new CDTimeManager(id, fightCDMillis, 0L));
+            addCDManager(new CDTimeManager(id, fightCDMillis, 0L));
         }
         CDTimeManager cdManager = getCDManager(id);
         cdManager.setFightCDMillis(fightCDMillis);
@@ -148,7 +148,6 @@ public class CDMgr {
      */
     public boolean isOutOfCD(int id) {
         CDTimeManager cdManager = getCDManager(id);
-        checkArgument(cdManager != null, "CD of id " + id + " is not started.");
         return !cdManager.isOutOfCD();
     }
 
@@ -173,9 +172,9 @@ public class CDMgr {
         cdManager.update(now);
     }
 
-    public boolean isCDStarted(int id) {
+    public boolean isCDStarted(long id) {
         CDTimeManager cdManager = this.id2CDTimeManagerMap.get(id);
-        return cdManager == null || !cdManager.isCDStarted();
+        return cdManager != null && cdManager.isCDStarted();
     }
 
     public void setPublicFightCDMillis(long publicFightCDMillis) {
@@ -227,7 +226,6 @@ public class CDMgr {
             startCD(id, CDTime * 1000);
             return false;
         }
-
         return isOutOfCD(id);
     }
 

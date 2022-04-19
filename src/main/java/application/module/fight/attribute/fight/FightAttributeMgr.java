@@ -1,14 +1,18 @@
 package application.module.fight.attribute.fight;
 
 import application.module.fight.attribute.AttributeTemplateIdContainer;
-import application.module.fight.base.context.UseSkillDataTemp;
+import application.module.fight.attribute.data.message.AddHp;
+import application.module.fight.skill.base.context.UseSkillDataTemp;
 import application.module.organism.OrganismType;
 import application.module.player.PlayerConfig;
 import application.util.AttributeMapUtil;
 import application.util.MathConstant;
 import application.util.RandomUtil;
+import protocol.Skill;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static application.module.fight.attribute.AttributeTemplateId.*;
@@ -39,11 +43,7 @@ public class FightAttributeMgr {
      */
     private Map<Short, Long> fightAttributeMap = new HashMap<>();
 
-    public Long getValue(short id) {
-        return getValue(fightAttributeMap, id);
-    }
-
-    public Long getValue(Map<Short, Long> map, short id) {
+    public static Long getValue(Map<Short, Long> map, short id) {
         long extValue = 0;
         if (AttributeTemplateIdContainer.VALUE_EXTRA.containsKey(id)) {
             short ext = AttributeTemplateIdContainer.VALUE_EXTRA.get(id);
@@ -95,42 +95,45 @@ public class FightAttributeMgr {
         fightAttributeMap.put(VAR_MP, currMp);
     }
 
-    public void basicAttack(UseSkillDataTemp useSkillDataTemp,
-                             final int skillFixedDamage, final int skillFixedDamageRate) {
+    public static List<Skill.DamageData> basicAttack(UseSkillDataTemp useSkillDataTemp,
+                                   final int skillFixedDamage, final int skillFixedDamageRate) {
+
+        List<Skill.DamageData> damageDataList = new ArrayList<>();
 
         useSkillDataTemp.getTargetParameters().forEach(targetParameter -> {
+            Skill.DamageData.Builder builder = Skill.DamageData.newBuilder();
             Map<Short, Long> targetAttributeMap = targetParameter.getAttributeMap();
-            long attack = 0;
-            long pierce = 0;
-            long targetDefence = 0;
+            long attack;
+            long pierce;
+            long targetDefence;
             if (PlayerConfig.Profession.isAttackDamage(useSkillDataTemp.getProfession())) {
-                attack = getValue(ATTACK);
-                pierce = getValue(ATTACK_PIERCE);
+                attack = getValue(useSkillDataTemp.getAttackAttributeMap(), ATTACK);
+                pierce = getValue(useSkillDataTemp.getAttackAttributeMap(), ATTACK_PIERCE);
                 targetDefence = getValue(targetAttributeMap, ATTACK_DEFENCE);
             } else {
-                attack = getValue(MAGIC);
-                pierce = getValue(MAGIC_PIERCE);
+                attack = getValue(useSkillDataTemp.getAttackAttributeMap(), MAGIC);
+                pierce = getValue(useSkillDataTemp.getAttackAttributeMap(), MAGIC_PIERCE);
                 targetDefence = getValue(targetAttributeMap, MAGIC_DEFENCE);
             }
-            long roleAttack = getValue(ROLE_ATTACK);
-            long rolePierce = getValue(ROLE_PIERCE);
+            long roleAttack = getValue(useSkillDataTemp.getAttackAttributeMap(), ROLE_ATTACK);
+            long rolePierce = getValue(useSkillDataTemp.getAttackAttributeMap(), ROLE_PIERCE);
             long roleTargetDefence = getValue(targetAttributeMap, ROLE_DEFENCE);
             long finalAttack = attack + roleAttack;
             long finalTargetDefence = targetDefence + roleTargetDefence;
             long finalPierce = pierce + rolePierce;
-            long hit = getValue(HIT);
-            long hitRatio = getValue(HIT_RATIO);
-            long ignoreDefenceRatio = getValue(IGNORE_DEFENCE_RATIO);
-            long crit = getValue(CRIT);
-            long critRatio = getValue(CRIT_RATIO);
-            long reduceBlockRatio = getValue(REDUCE_BLOCK_RATIO);
-            long critAddDamageRatio = getValue(CRIT_ADD_DAMAGE_RATIO);
-            long blockReduceDamageRatio = getValue(BLOCK_REDUCE_DAMAGE_RATIO);
-            long finalDamageRatio = getValue(FINAL_DAMAGE_RATIO);
-            long playerDamageRatio = getValue(PLAYER_DAMAGE_RATIO);
-            long bossDamageRatio = getValue(BOSS_DAMAGE_RATIO);
-            long skillDamageRatio = getValue(SKILL_DAMAGE_RATIO);
-            long trueDamage = getValue(TRUE_DAMAGE);
+            long hit = getValue(useSkillDataTemp.getAttackAttributeMap(), HIT);
+            long hitRatio = getValue(useSkillDataTemp.getAttackAttributeMap(), HIT_RATIO);
+            long ignoreDefenceRatio = getValue(useSkillDataTemp.getAttackAttributeMap(), IGNORE_DEFENCE_RATIO);
+            long crit = getValue(useSkillDataTemp.getAttackAttributeMap(), CRIT);
+            long critRatio = getValue(useSkillDataTemp.getAttackAttributeMap(), CRIT_RATIO);
+            long reduceBlockRatio = getValue(useSkillDataTemp.getAttackAttributeMap(), REDUCE_BLOCK_RATIO);
+            long critAddDamageRatio = getValue(useSkillDataTemp.getAttackAttributeMap(), CRIT_ADD_DAMAGE_RATIO);
+            long blockReduceDamageRatio = getValue(useSkillDataTemp.getAttackAttributeMap(), BLOCK_REDUCE_DAMAGE_RATIO);
+            long finalDamageRatio = getValue(useSkillDataTemp.getAttackAttributeMap(), FINAL_DAMAGE_RATIO);
+            long playerDamageRatio = getValue(useSkillDataTemp.getAttackAttributeMap(), PLAYER_DAMAGE_RATIO);
+            long bossDamageRatio = getValue(useSkillDataTemp.getAttackAttributeMap(), BOSS_DAMAGE_RATIO);
+            long skillDamageRatio = getValue(useSkillDataTemp.getAttackAttributeMap(), SKILL_DAMAGE_RATIO);
+            long trueDamage = getValue(useSkillDataTemp.getAttackAttributeMap(), TRUE_DAMAGE);
 
             long targetMiss = getValue(targetAttributeMap, MISS);
             long targetMissRatio = getValue(targetAttributeMap, MISS_RATIO);
@@ -148,16 +151,20 @@ public class FightAttributeMgr {
 
             double missRate = Math.min(Math.max((targetMiss - hit) / (double) ((targetMiss - hit) * 3
                     + targetParameter.getTargetLevel() * 100L) + (targetMissRatio - hitRatio) / TEN_THOUSAND_RATIO, 0), 0.8);
+
+            boolean miss = isMissRate(missRate, builder);
+
+            if (miss) {
+                useSkillDataTemp.getR().client().tell(null, null);
+                return;
+            }
+
             double ignoreDefenceRate = Math.min(Math.max(ignoreDefenceRatio - targetReduceIgnoreDefenceRatio, 0), 0.8);
             double critRate = Math.min(Math.max((crit - targetReduceCrit) / (double) ((crit + targetReduceCrit) * 3
                     + useSkillDataTemp.getAttackLevel() * 100L) + (critRatio - targetReduceCritRatio) / TEN_THOUSAND_RATIO, 0), 0.8);
             double blockRate = Math.min(Math.max((targetBlockRatio - reduceBlockRatio) / TEN_THOUSAND_RATIO, 0), 1);
 
-            if (isMissRate(missRate)) {
-                useSkillDataTemp.getR().client().tell(null, null);
-            }
-
-            if (isIgnoreDefence(ignoreDefenceRate)) {
+            if (isIgnoreDefence(ignoreDefenceRate, builder)) {
                 finalTargetDefence = 0;
             }
 
@@ -185,24 +192,37 @@ public class FightAttributeMgr {
 
             double skillDamage = baseDamage * skillFixedDamageRate * (1 + (skillDamageRatio - targetReduceSkillDamageRatio)
                     / TEN_THOUSAND_RATIO + skillFixedDamage + trueDamage - targetReduceTrueDamage);
-
             long finalDamage = (long) (skillDamage * (1 + specialDamage) * (1 + extDamage));
+            Skill.DamageData damageData = builder.setDamage(-50).setDamageType(1).setTargetId(targetParameter.getTargetId()).build();
+            damageDataList.add(damageData);
+            useSkillDataTemp.getAttributeData().tell(new AddHp(targetParameter.getTargetId(), useSkillDataTemp.getR(), -finalDamage), null);
         });
+        return damageDataList;
     }
 
-    private boolean isMissRate(double missRate) {
-        return missRate > RandomUtil.randomDouble1();
+    private static boolean isMissRate(double missRate, Skill.DamageData.Builder builder) {
+        boolean miss = missRate > RandomUtil.randomDouble1();
+        if (miss) {
+            builder.setDamageType(1);
+        }
+        return miss;
     }
 
-    private boolean isIgnoreDefence(double ignoreDefenceRate) {
-        return ignoreDefenceRate > RandomUtil.randomDouble1();
+    private static boolean isIgnoreDefence(double ignoreDefenceRate, Skill.DamageData.Builder builder) {
+        boolean ignore = ignoreDefenceRate > RandomUtil.randomDouble1();
+        if (ignore) {
+            int temp = builder.getDamageType();
+            temp |= (1 << 2);
+            builder.setDamageType(temp);
+        }
+        return ignore;
     }
 
-    private boolean isCrit(double critRate) {
+    private static boolean isCrit(double critRate) {
         return critRate > RandomUtil.randomDouble(1);
     }
 
-    private boolean isBlock(double blockRate) {
+    private static boolean isBlock(double blockRate) {
         return blockRate > RandomUtil.randomDouble1();
     }
 

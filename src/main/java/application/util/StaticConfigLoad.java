@@ -1,6 +1,6 @@
 package application.util;
 
-import application.module.fight.base.skill.FightSkillWrapContainer;
+import application.module.fight.skill.base.skill.FightSkillWrapContainer;
 import com.typesafe.config.Config;
 import template.CustomByteBuffer;
 import template.TemplateParser;
