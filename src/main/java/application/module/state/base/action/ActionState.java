@@ -7,7 +7,7 @@ import application.module.state.base.FSMStateBase;
  * @date 2022-3-1
  * @Source 1.0
  */
-public abstract class ActionState extends FSMStateBase<Long> {
+public abstract class ActionState extends FSMStateBase {
     public ActionState(short id) {
         super(id);
     }

@@ -8,7 +8,7 @@ import java.util.Set;
  * @date 2022-2-28
  * @Source 1.0
  */
-public abstract class FSMStateBase<T> {
+public abstract class FSMStateBase {
     /**
      * 状态id
      */
@@ -23,9 +23,9 @@ public abstract class FSMStateBase<T> {
         this.id = id;
     }
 
-    public abstract void enter(T owner);
+    public abstract void enter(FightOrganismState fightOrganismState);
 
-    public abstract void exit(T owner);
+    public abstract void exit(FightOrganismState fightOrganismState);
 
     public void addTransition(short transitionId) {
         transitionSet.add(id);

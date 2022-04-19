@@ -16,24 +16,24 @@ import java.util.Map;
  */
 public class FSMStateContainer {
 
-    private final static Map<Short, FSMStateBase<?>> stateId2StateClassMap = new HashMap<>();
+    private final static Map<Short, FSMStateBase> stateId2StateClassMap = new HashMap<>();
 
     static {
         // MovementState
-        add(MoveState.MOVE_ID, new MoveState(MoveState.MOVE_ID));
-        add(StopState.STOP_ID, new StopState(StopState.STOP_ID));
+        add(StateType.Movement.MOVE_ID, new MoveState(StateType.Movement.MOVE_ID));
+        add(StateType.Movement.STOP_ID, new StopState(StateType.Movement.STOP_ID));
 
         // ActionState
-        add(IdleState.IDLE_STATE, new IdleState(IdleState.IDLE_STATE));
-        add(DeadState.DEAD_STATE, new DeadState(DeadState.DEAD_STATE));
+        add(StateType.ActionType.IDLE_STATE, new IdleState(StateType.ActionType.IDLE_STATE));
+        add(StateType.ActionType.DEAD_STATE, new DeadState(StateType.ActionType.DEAD_STATE));
     }
 
-    private static void add(short id, FSMStateBase<?> fsmStateBase) {
+    private static void add(short id, FSMStateBase fsmStateBase) {
         stateId2StateClassMap.put(id, fsmStateBase);
     }
 
-    public static FSMStateBase<?> getState(final short id) {
-        FSMStateBase<?> fsmStateBase = stateId2StateClassMap.get(id);
+    public static FSMStateBase getState(final short id) {
+        FSMStateBase fsmStateBase = stateId2StateClassMap.get(id);
         Preconditions.checkNotNull(fsmStateBase, "StateId并不存在！！！");
         return fsmStateBase;
     }

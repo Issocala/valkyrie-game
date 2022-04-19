@@ -1,5 +1,8 @@
 package application.module.state.base.action;
 
+import application.module.state.base.FightOrganismState;
+import application.module.state.base.StateType;
+
 /**
  * 活着
  *
@@ -9,19 +12,18 @@ package application.module.state.base.action;
  */
 public class IdleState extends ActionState {
 
-    public final static short IDLE_STATE = 201;
-
     public IdleState(short id) {
         super(id);
+        addTransition(StateType.ActionType.DEAD_STATE);
     }
 
     @Override
-    public void enter(Long owner) {
+    public void enter(FightOrganismState fightOrganismState) {
 
     }
 
     @Override
-    public void exit(Long owner) {
+    public void exit(FightOrganismState fightOrganismState) {
 
     }
 

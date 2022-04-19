@@ -1,21 +1,16 @@
-package application.module.state.base.movement;
+package application.module.state.base.buff;
 
 import application.module.state.base.FightOrganismState;
-import application.module.state.base.StateType;
 
 /**
- * 停止
- *
  * @author Luo Yong
- * @date 2022-3-1
+ * @date 2022-4-18
  * @Source 1.0
  */
-public class StopState extends MovementState {
+public class SuperArmorState extends BuffState{
 
-
-    public StopState(short id) {
+    public SuperArmorState(short id) {
         super(id);
-        addTransition(StateType.Movement.MOVE_ID);
     }
 
     @Override

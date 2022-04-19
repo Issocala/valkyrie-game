@@ -1,5 +1,7 @@
 package application.module.state;
 
+import application.module.GameProtocols;
+
 /**
  * 状态
  *
@@ -9,5 +11,6 @@ package application.module.state;
  */
 public interface StateProtocols {
 
+    int ALL = GameProtocols.STATE;
 
 }

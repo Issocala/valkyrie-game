@@ -12,6 +12,12 @@ import java.util.List;
  */
 public class StateModuleHolder extends AbstractModuleHolder {
 
+    private static final StateModuleHolder INSTANCE = new StateModuleHolder();
+
+    public static StateModuleHolder getInstance() {
+        return INSTANCE;
+    }
+
     @Override
     public Props props() {
         return Props.create(StateModule.class);

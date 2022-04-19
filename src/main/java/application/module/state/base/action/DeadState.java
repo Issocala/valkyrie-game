@@ -1,5 +1,8 @@
 package application.module.state.base.action;
 
+import application.module.state.base.FightOrganismState;
+import application.module.state.base.StateType;
+
 /**
  * 死亡
  *
@@ -9,21 +12,22 @@ package application.module.state.base.action;
  */
 public class DeadState extends ActionState {
 
-    public final static short DEAD_STATE = 302;
 
     public DeadState(short id) {
         super(id);
+        addTransition(StateType.ActionType.IDLE_STATE);
     }
 
     @Override
-    public void enter(Long owner) {
+    public void enter(FightOrganismState fightOrganismState) {
 
     }
 
     @Override
-    public void exit(Long owner) {
+    public void exit(FightOrganismState fightOrganismState) {
 
     }
+
 
     @Override
     public boolean isBroadcast() {

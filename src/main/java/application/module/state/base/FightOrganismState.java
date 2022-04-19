@@ -1,9 +1,8 @@
 package application.module.state.base;
 
+import application.module.fight.skill.data.message.SkillUseState;
 import application.module.state.base.action.ActionState;
-import application.module.state.base.action.IdleState;
 import application.module.state.base.movement.MovementState;
-import application.module.state.base.movement.StopState;
 import application.util.LongId;
 
 import java.util.Objects;
@@ -17,10 +16,10 @@ import java.util.Objects;
  */
 public class FightOrganismState extends LongId {
 
-    public final static short DEFAULT_MOVEMENT_STATE = StopState.STOP_ID;
+    public final static short DEFAULT_MOVEMENT_STATE = StateType.Movement.STOP_ID;
     private MovementState currMovementState;
 
-    public final static short DEFAULT_ACTION_STATE = IdleState.IDLE_STATE;
+    public final static short DEFAULT_ACTION_STATE = StateType.ActionType.IDLE_STATE;
     private ActionState currActionState;
 
     public FightOrganismState(long id) {
@@ -33,7 +32,7 @@ public class FightOrganismState extends LongId {
         return changeState(FSMStateContainer.getState(id));
     }
 
-    public boolean changeState(final FSMStateBase<?> state) {
+    public boolean changeState(final FSMStateBase state) {
         return switch (state) {
             case null -> false;
             case MovementState movementState -> toMovementState(movementState);
@@ -46,7 +45,7 @@ public class FightOrganismState extends LongId {
         return cancelState(FSMStateContainer.getState(id));
     }
 
-    public boolean cancelState(final FSMStateBase<?> state) {
+    public boolean cancelState(final FSMStateBase state) {
         if (Objects.isNull(state)) {
             return false;
         }
@@ -70,8 +69,8 @@ public class FightOrganismState extends LongId {
         if (this.currMovementState == movementState || !this.currMovementState.isTransition(movementState.getId())) {
             return false;
         }
-        this.currMovementState.exit(getId());
-        movementState.enter(getId());
+        this.currMovementState.exit(this);
+        movementState.enter(this);
         this.currMovementState = movementState;
         return true;
     }
@@ -80,8 +79,8 @@ public class FightOrganismState extends LongId {
         if (this.currActionState == actionState || !this.currActionState.isTransition(actionState.getId())) {
             return false;
         }
-        this.currActionState.exit(getId());
-        currActionState.enter(getId());
+        this.currActionState.exit(this);
+        currActionState.enter(this);
         this.currActionState = actionState;
         return true;
     }
@@ -100,6 +99,11 @@ public class FightOrganismState extends LongId {
 
     public ActionState getCurrActionState() {
         return currActionState;
+    }
+
+    //TODO 校验玩家当前状态是否可以释放技能
+    public boolean isSkillUse(SkillUseState skillUseState) {
+        return true;
     }
 
 }

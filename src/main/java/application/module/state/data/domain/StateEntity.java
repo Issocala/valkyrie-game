@@ -13,4 +13,8 @@ public class StateEntity extends AbstractEntityBase {
     public StateEntity(Long id) {
         super(id);
     }
+
+    public static StateEntity of(long playerId) {
+        return new StateEntity(playerId);
+    }
 }

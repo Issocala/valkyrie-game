@@ -1,5 +1,8 @@
 package application.module.state.base.movement;
 
+import application.module.state.base.FightOrganismState;
+import application.module.state.base.StateType;
+
 /**
  * 移动
  *
@@ -9,20 +12,20 @@ package application.module.state.base.movement;
  */
 public class MoveState extends MovementState {
 
-    public final static short MOVE_ID = 101;
 
     public MoveState(short id) {
         super(id);
-        addTransition(StopState.STOP_ID);
+        addTransition(StateType.Movement.STOP_ID);
     }
 
     @Override
-    public void enter(Long owner) {
+    public void enter(FightOrganismState fightOrganismState) {
 
     }
 
     @Override
-    public void exit(Long owner) {
+    public void exit(FightOrganismState fightOrganismState) {
 
     }
+
 }
