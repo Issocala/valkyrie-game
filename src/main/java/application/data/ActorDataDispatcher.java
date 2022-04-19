@@ -7,6 +7,7 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import application.module.common.data.domain.DataMessage;
 import application.module.fight.attribute.data.AttributeData;
+import application.module.fight.buff.data.FightBuffData;
 import application.module.fight.skill.data.SkillData;
 import application.module.player.data.PlayerEntityData;
 import application.module.scene.data.SceneData;
@@ -148,5 +149,6 @@ public class ActorDataDispatcher extends AbstractActor {
         add(SkillData.class);
         add(StateData.class);
         add(SceneData.class);
+        add(FightBuffData.class);
     }
 }
