@@ -1,10 +1,15 @@
 package application.module
 
 import akka.actor.{ActorRef, Props}
+import application.module.common.CommonModuleHolder
 import application.module.example.ExampleModuleHolder
+import application.module.fight.attribute.AttributeModuleHolder
+import application.module.fight.buff.FightBuffModuleHolder
+import application.module.fight.skill.FightSkillModuleHolder
 import application.module.gm.GmModuleHolder
 import application.module.player.PlayerModuleHolder
 import application.module.scene.SceneModuleHolder
+import application.module.state.StateModuleHolder
 import application.module.user.UserModuleHolder
 import mobius.core.ActorExtension.LogActor
 import mobius.modular.module._
@@ -13,7 +18,7 @@ import mobius.modular.module._
  * ActorRef Factory for ModuleAgent
  *
  * Created by RXL on 2018/3/31.
-  */
+ */
 object ModuleAgent {
   private[application] def props(): Props = Props(classOf[ModuleAgent])
 
@@ -24,7 +29,8 @@ object ModuleAgent {
   final case object RequestClientMessageHandler
 
   private[module] val modules = List[ModuleHolder](UserModuleHolder.getInstance(), ExampleModuleHolder.getInstance(),
-    PlayerModuleHolder.getInstance(), SceneModuleHolder.getInstance(), GmModuleHolder.getInstance())
+    PlayerModuleHolder.getInstance(), SceneModuleHolder.getInstance(), AttributeModuleHolder.getInstance(), FightSkillModuleHolder.getInstance(),
+    FightBuffModuleHolder.getInstance(), CommonModuleHolder.getInstance(), StateModuleHolder.getInstance(), GmModuleHolder.getInstance())
 }
 
 
