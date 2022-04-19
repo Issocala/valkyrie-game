@@ -40,9 +40,9 @@ public class SceneProtocolBuilder {
         return Scene.SC10034.newBuilder()
                 .setOrganismId(organismId)
                 .setOrganismType(organismType)
-                .setPositionX(positionInfo.positionX())
-                .setPositionY(positionInfo.positionY())
-                .setFace(positionInfo.face())
+                .setPositionX(positionInfo.getPositionX())
+                .setPositionY(positionInfo.getPositionY())
+                .setFace(positionInfo.getFace())
                 .build();
     }
 

@@ -1,7 +1,7 @@
 package application.module.scene.operate.info;
 
 import akka.actor.ActorRef;
-import application.module.fight.base.context.UseSkillDataTemp;
+import application.module.fight.skill.base.context.UseSkillDataTemp;
 import com.cala.orm.message.OperateTypeInfo;
 import mobius.modular.client.Client;
 

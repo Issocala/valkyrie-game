@@ -3,9 +3,9 @@ package application.module.scene;
 import akka.actor.ActorRef;
 import application.module.common.data.domain.DataMessage;
 import application.module.player.data.PlayerEntityData;
-import application.module.player.data.message.PlayerLogin;
+import application.module.player.data.message.event.PlayerLogin;
+import application.module.player.data.message.event.PlayerLogout;
 import application.module.scene.data.SceneData;
-import application.module.scene.data.message.SceneInit;
 import application.module.scene.operate.*;
 import com.cala.orm.message.DataReturnMessage;
 import com.cala.orm.message.SubscribeEvent;
@@ -37,7 +37,12 @@ public class SceneModule extends AbstractModule {
                 .match(DataMessage.DataResult.class, this::dataResult)
                 .match(DataReturnMessage.class, this::dataResultMessage)
                 .match(PlayerLogin.class, this::playerLogin)
+                .match(PlayerLogout.class, this::playerLogout)
                 .build();
+    }
+
+    private void playerLogout(PlayerLogout playerLogout) {
+        this.sceneData.tell(playerLogout, self());
     }
 
     private void dataResultMessage(DataReturnMessage d) {
@@ -51,6 +56,7 @@ public class SceneModule extends AbstractModule {
         } else if (d.clazz() == PlayerEntityData.class) {
             this.playerEntityData = d.actorRef();
             this.playerEntityData.tell(new SubscribeEvent(PlayerLogin.class, self()), self());
+            this.playerEntityData.tell(new SubscribeEvent(PlayerLogout.class, self()), self());
         }
     }
 
