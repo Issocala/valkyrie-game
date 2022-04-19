@@ -28,4 +28,9 @@ public interface PlayerProtocols {
      */
     int DELETE = GameProtocols.PLAYER + 3;
 
+    /**
+     * 玩家下线
+     */
+    int LOGOUT = GameProtocols.PLAYER + 4;
+
 }

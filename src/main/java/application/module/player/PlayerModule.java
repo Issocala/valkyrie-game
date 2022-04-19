@@ -9,6 +9,7 @@ import application.module.player.data.domain.PlayerData;
 import application.module.player.data.domain.PlayerEntity;
 import application.module.player.data.domain.PlayerInfo;
 import application.module.player.data.message.event.PlayerLogin;
+import application.module.player.data.message.event.PlayerLogout;
 import application.module.player.data.message.event.PlayerRegister;
 import application.module.player.operate.PlayerCreateInsertType;
 import application.module.player.operate.PlayerCreateSelectType;
@@ -39,8 +40,6 @@ import java.util.List;
 public class PlayerModule extends AbstractModule {
 
     private ActorRef playerEntityData;
-    private ActorRef sceneData;
-    private ActorRef attributeData;
 
     @Override
     public void initData() {
@@ -179,7 +178,12 @@ public class PlayerModule extends AbstractModule {
             case PlayerProtocols.CREATE -> create(r);
             case PlayerProtocols.LOGIN -> loginSelect(r);
             case PlayerProtocols.DELETE -> delete(r);
+            case PlayerProtocols.LOGOUT -> logout(r);
         }
+    }
+
+    private void logout(Client.ReceivedFromClient r) {
+        this.playerEntityData.tell(new Publish(new PlayerLogout(r)), self());
     }
 
     private void delete(Client.ReceivedFromClient r) {
@@ -201,7 +205,6 @@ public class PlayerModule extends AbstractModule {
         r.client().tell(new application.client.Client.SendToClientJ(PlayerProtocols.LOGIN,
                 PlayerProtocolBuilder.getSc10022(true, playerEntity.getId())), self());
         this.playerEntityData.tell(new Publish(new PlayerLogin(r, playerEntity.getPlayerInfo())), self());
-//        this.attributeData.tell(new PlayerLogin(r), self());
         r.client().tell(new application.client.Client.LoginSuccess(playerEntity.getId()), self());
     }
 
@@ -231,10 +234,6 @@ public class PlayerModule extends AbstractModule {
     private void dataResult(DataMessage.DataResult dataResult) {
         if (dataResult.clazz() == PlayerEntityData.class) {
             this.playerEntityData = dataResult.actorRef();
-        } else if (dataResult.clazz() == SceneData.class) {
-            this.sceneData = dataResult.actorRef();
-        } else if (dataResult.clazz() == AttributeData.class) {
-            this.attributeData = dataResult.actorRef();
         }
     }
 }
