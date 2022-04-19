@@ -10,7 +10,15 @@ import application.util.LongId;
  * @Source 1.0
  */
 public abstract class Organism extends LongId {
-    public Organism(long id) {
+
+    private final byte organismType;
+
+    public Organism(long id, byte organismType) {
         super(id);
+        this.organismType = organismType;
+    }
+
+    public byte getOrganismType() {
+        return organismType;
     }
 }

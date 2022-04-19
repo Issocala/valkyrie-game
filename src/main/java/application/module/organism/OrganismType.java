@@ -10,4 +10,6 @@ public interface OrganismType {
     byte PLAYER = 1;
 
     byte BOSS = 2;
+
+    byte MONSTER = 3;
 }

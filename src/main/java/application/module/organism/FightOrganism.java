@@ -10,7 +10,8 @@ package application.module.organism;
  */
 public abstract class FightOrganism extends Organism {
 
-    public FightOrganism(long id) {
-        super(id);
+    public FightOrganism(long id, byte organismType) {
+        super(id, organismType);
     }
+
 }
