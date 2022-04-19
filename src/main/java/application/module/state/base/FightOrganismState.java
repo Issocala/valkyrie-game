@@ -33,12 +33,15 @@ public class FightOrganismState extends LongId {
     }
 
     public boolean changeState(final FSMStateBase state) {
-        return switch (state) {
-            case null -> false;
-            case MovementState movementState -> toMovementState(movementState);
-            case ActionState actionState -> toActionState(actionState);
-            default -> throw new IllegalStateException("Unexpected value: " + state);
-        };
+        if (Objects.isNull(state)) {
+            return false;
+        }
+        if (state instanceof MovementState movementState) {
+            return toMovementState(movementState);
+        } else if (state instanceof ActionState actionState) {
+            return toActionState(actionState);
+        }
+        return false;
     }
 
     public boolean cancelState(short id) {
@@ -49,10 +52,10 @@ public class FightOrganismState extends LongId {
         if (Objects.isNull(state)) {
             return false;
         }
-        switch (state) {
-            case MovementState ignored -> cancelMovementState();
-            case ActionState ignored -> cancelActionState();
-            default -> throw new IllegalStateException("Unexpected value: " + state);
+        if (state instanceof MovementState) {
+            cancelMovementState();
+        }else if (state instanceof ActionState){
+            cancelActionState();
         }
         return true;
     }
