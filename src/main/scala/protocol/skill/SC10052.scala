@@ -4,27 +4,48 @@
 // Protofile syntax: PROTO2
 
 package protocol.skill
+import _root_.scalapb.internal.compat.JavaConverters._
 
-/** @param skillId
+/** 播报使用技能
+  *
+  * @param skillId
   *  技能id
   * @param attackId
   *  施法战斗者
   * @param targetId
-  *  目标战斗者
-  * @param damageType
-  *  位运算计算伤害类型汇总
-  * @param damage
-  *  伤害数值
+  *  目标战斗单位id
+  * @param direction
+  *  释放方向
+  * @param skillPositionX
+  *  技能横坐标
+  * @param skillPositionY
+  *  技能纵坐标
+  * @param timestamp
+  *  释放时间戳
+  * @param skillOrganismId
+  *  技能单位id
   */
 @SerialVersionUID(0L)
 final case class SC10052(
     skillId: _root_.scala.Int,
     attackId: _root_.scala.Long,
-    targetId: _root_.scala.Long,
-    damageType: _root_.scala.Int,
-    damage: _root_.scala.Long,
+    targetId: _root_.scala.Seq[_root_.scala.Long] = _root_.scala.Seq.empty,
+    direction: _root_.scala.Option[_root_.scala.Float] = _root_.scala.None,
+    skillPositionX: _root_.scala.Float,
+    skillPositionY: _root_.scala.Float,
+    timestamp: _root_.scala.Option[_root_.scala.Long] = _root_.scala.None,
+    skillOrganismId: _root_.scala.Int,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SC10052] {
+    private[this] def targetIdSerializedSize = {
+      if (__targetIdSerializedSizeField == 0) __targetIdSerializedSizeField = {
+        var __s: _root_.scala.Int = 0
+        targetId.foreach(__i => __s += _root_.com.google.protobuf.CodedOutputStream.computeInt64SizeNoTag(__i))
+        __s
+      }
+      __targetIdSerializedSizeField
+    }
+    @transient private[this] var __targetIdSerializedSizeField: _root_.scala.Int = 0
     @transient
     private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
     private[this] def __computeSerializedValue(): _root_.scala.Int = {
@@ -39,20 +60,32 @@ final case class SC10052(
         val __value = attackId
         __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(2, __value)
       };
-      
-      {
-        val __value = targetId
-        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(3, __value)
+      if (targetId.nonEmpty) {
+        val __localsize = targetIdSerializedSize
+        __size += 1 + _root_.com.google.protobuf.CodedOutputStream.computeUInt32SizeNoTag(__localsize) + __localsize
+      }
+      if (direction.isDefined) {
+        val __value = direction.get
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeFloatSize(4, __value)
       };
       
       {
-        val __value = damageType
-        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(4, __value)
+        val __value = skillPositionX
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeFloatSize(5, __value)
       };
       
       {
-        val __value = damage
-        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(5, __value)
+        val __value = skillPositionY
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeFloatSize(6, __value)
+      };
+      if (timestamp.isDefined) {
+        val __value = timestamp.get
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(7, __value)
+      };
+      
+      {
+        val __value = skillOrganismId
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(8, __value)
       };
       __size += unknownFields.serializedSize
       __size
@@ -76,28 +109,51 @@ final case class SC10052(
         val __v = attackId
         _output__.writeInt64(2, __v)
       };
-      
-      {
-        val __v = targetId
-        _output__.writeInt64(3, __v)
+      if (targetId.nonEmpty) {
+        _output__.writeTag(3, 2)
+        _output__.writeUInt32NoTag(targetIdSerializedSize)
+        targetId.foreach(_output__.writeInt64NoTag)
+      };
+      direction.foreach { __v =>
+        val __m = __v
+        _output__.writeFloat(4, __m)
       };
       
       {
-        val __v = damageType
-        _output__.writeInt32(4, __v)
+        val __v = skillPositionX
+        _output__.writeFloat(5, __v)
       };
       
       {
-        val __v = damage
-        _output__.writeInt64(5, __v)
+        val __v = skillPositionY
+        _output__.writeFloat(6, __v)
+      };
+      timestamp.foreach { __v =>
+        val __m = __v
+        _output__.writeInt64(7, __m)
+      };
+      
+      {
+        val __v = skillOrganismId
+        _output__.writeInt32(8, __v)
       };
       unknownFields.writeTo(_output__)
     }
     def withSkillId(__v: _root_.scala.Int): SC10052 = copy(skillId = __v)
     def withAttackId(__v: _root_.scala.Long): SC10052 = copy(attackId = __v)
-    def withTargetId(__v: _root_.scala.Long): SC10052 = copy(targetId = __v)
-    def withDamageType(__v: _root_.scala.Int): SC10052 = copy(damageType = __v)
-    def withDamage(__v: _root_.scala.Long): SC10052 = copy(damage = __v)
+    def clearTargetId = copy(targetId = _root_.scala.Seq.empty)
+    def addTargetId(__vs: _root_.scala.Long*): SC10052 = addAllTargetId(__vs)
+    def addAllTargetId(__vs: Iterable[_root_.scala.Long]): SC10052 = copy(targetId = targetId ++ __vs)
+    def withTargetId(__v: _root_.scala.Seq[_root_.scala.Long]): SC10052 = copy(targetId = __v)
+    def getDirection: _root_.scala.Float = direction.getOrElse(0.0f)
+    def clearDirection: SC10052 = copy(direction = _root_.scala.None)
+    def withDirection(__v: _root_.scala.Float): SC10052 = copy(direction = Option(__v))
+    def withSkillPositionX(__v: _root_.scala.Float): SC10052 = copy(skillPositionX = __v)
+    def withSkillPositionY(__v: _root_.scala.Float): SC10052 = copy(skillPositionY = __v)
+    def getTimestamp: _root_.scala.Long = timestamp.getOrElse(0L)
+    def clearTimestamp: SC10052 = copy(timestamp = _root_.scala.None)
+    def withTimestamp(__v: _root_.scala.Long): SC10052 = copy(timestamp = Option(__v))
+    def withSkillOrganismId(__v: _root_.scala.Int): SC10052 = copy(skillOrganismId = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -105,8 +161,11 @@ final case class SC10052(
         case 1 => skillId
         case 2 => attackId
         case 3 => targetId
-        case 4 => damageType
-        case 5 => damage
+        case 4 => direction.orNull
+        case 5 => skillPositionX
+        case 6 => skillPositionY
+        case 7 => timestamp.orNull
+        case 8 => skillOrganismId
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -114,9 +173,12 @@ final case class SC10052(
       (__field.number: @_root_.scala.unchecked) match {
         case 1 => _root_.scalapb.descriptors.PInt(skillId)
         case 2 => _root_.scalapb.descriptors.PLong(attackId)
-        case 3 => _root_.scalapb.descriptors.PLong(targetId)
-        case 4 => _root_.scalapb.descriptors.PInt(damageType)
-        case 5 => _root_.scalapb.descriptors.PLong(damage)
+        case 3 => _root_.scalapb.descriptors.PRepeated(targetId.iterator.map(_root_.scalapb.descriptors.PLong(_)).toVector)
+        case 4 => direction.map(_root_.scalapb.descriptors.PFloat(_)).getOrElse(_root_.scalapb.descriptors.PEmpty)
+        case 5 => _root_.scalapb.descriptors.PFloat(skillPositionX)
+        case 6 => _root_.scalapb.descriptors.PFloat(skillPositionY)
+        case 7 => timestamp.map(_root_.scalapb.descriptors.PLong(_)).getOrElse(_root_.scalapb.descriptors.PEmpty)
+        case 8 => _root_.scalapb.descriptors.PInt(skillOrganismId)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -130,17 +192,23 @@ object SC10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.SC10052]
     val javaPbOut = protocol.Skill.SC10052.newBuilder
     javaPbOut.setSkillId(scalaPbSource.skillId)
     javaPbOut.setAttackId(scalaPbSource.attackId)
-    javaPbOut.setTargetId(scalaPbSource.targetId)
-    javaPbOut.setDamageType(scalaPbSource.damageType)
-    javaPbOut.setDamage(scalaPbSource.damage)
+    javaPbOut.addAllTargetId(_root_.scalapb.internal.compat.toIterable(scalaPbSource.targetId.iterator.map(_root_.scala.Long.box(_))).asJava)
+    scalaPbSource.direction.foreach(javaPbOut.setDirection)
+    javaPbOut.setSkillPositionX(scalaPbSource.skillPositionX)
+    javaPbOut.setSkillPositionY(scalaPbSource.skillPositionY)
+    scalaPbSource.timestamp.foreach(javaPbOut.setTimestamp)
+    javaPbOut.setSkillOrganismId(scalaPbSource.skillOrganismId)
     javaPbOut.build
   }
   def fromJavaProto(javaPbSource: protocol.Skill.SC10052): protocol.skill.SC10052 = protocol.skill.SC10052(
     skillId = javaPbSource.getSkillId.intValue,
     attackId = javaPbSource.getAttackId.longValue,
-    targetId = javaPbSource.getTargetId.longValue,
-    damageType = javaPbSource.getDamageType.intValue,
-    damage = javaPbSource.getDamage.longValue
+    targetId = javaPbSource.getTargetIdList.asScala.iterator.map(_.longValue).toSeq,
+    direction = if (javaPbSource.hasDirection) Some(javaPbSource.getDirection.floatValue) else _root_.scala.None,
+    skillPositionX = javaPbSource.getSkillPositionX.floatValue,
+    skillPositionY = javaPbSource.getSkillPositionY.floatValue,
+    timestamp = if (javaPbSource.hasTimestamp) Some(javaPbSource.getTimestamp.longValue) else _root_.scala.None,
+    skillOrganismId = javaPbSource.getSkillOrganismId.intValue
   )
   def merge(`_message__`: protocol.skill.SC10052, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.skill.SC10052 = newBuilder(_message__).merge(_input__).result()
   implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.skill.SC10052] = _root_.scalapb.descriptors.Reads{
@@ -149,30 +217,39 @@ object SC10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.SC10052]
       protocol.skill.SC10052(
         skillId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).get.as[_root_.scala.Int],
         attackId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(2).get).get.as[_root_.scala.Long],
-        targetId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(3).get).get.as[_root_.scala.Long],
-        damageType = __fieldsMap.get(scalaDescriptor.findFieldByNumber(4).get).get.as[_root_.scala.Int],
-        damage = __fieldsMap.get(scalaDescriptor.findFieldByNumber(5).get).get.as[_root_.scala.Long]
+        targetId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(3).get).map(_.as[_root_.scala.Seq[_root_.scala.Long]]).getOrElse(_root_.scala.Seq.empty),
+        direction = __fieldsMap.get(scalaDescriptor.findFieldByNumber(4).get).flatMap(_.as[_root_.scala.Option[_root_.scala.Float]]),
+        skillPositionX = __fieldsMap.get(scalaDescriptor.findFieldByNumber(5).get).get.as[_root_.scala.Float],
+        skillPositionY = __fieldsMap.get(scalaDescriptor.findFieldByNumber(6).get).get.as[_root_.scala.Float],
+        timestamp = __fieldsMap.get(scalaDescriptor.findFieldByNumber(7).get).flatMap(_.as[_root_.scala.Option[_root_.scala.Long]]),
+        skillOrganismId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(8).get).get.as[_root_.scala.Int]
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SkillProto.javaDescriptor.getMessageTypes().get(5)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SkillProto.scalaDescriptor.messages(5)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SkillProto.javaDescriptor.getMessageTypes().get(6)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SkillProto.scalaDescriptor.messages(6)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = protocol.skill.SC10052(
     skillId = 0,
     attackId = 0L,
-    targetId = 0L,
-    damageType = 0,
-    damage = 0L
+    targetId = _root_.scala.Seq.empty,
+    direction = _root_.scala.None,
+    skillPositionX = 0.0f,
+    skillPositionY = 0.0f,
+    timestamp = _root_.scala.None,
+    skillOrganismId = 0
   )
   final class Builder private (
     private var __skillId: _root_.scala.Int,
     private var __attackId: _root_.scala.Long,
-    private var __targetId: _root_.scala.Long,
-    private var __damageType: _root_.scala.Int,
-    private var __damage: _root_.scala.Long,
+    private val __targetId: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Long],
+    private var __direction: _root_.scala.Option[_root_.scala.Float],
+    private var __skillPositionX: _root_.scala.Float,
+    private var __skillPositionY: _root_.scala.Float,
+    private var __timestamp: _root_.scala.Option[_root_.scala.Long],
+    private var __skillOrganismId: _root_.scala.Int,
     private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
   ) extends _root_.scalapb.MessageBuilder[protocol.skill.SC10052] {
     private var __requiredFields0: _root_.scala.Long = 0x1fL
@@ -189,13 +266,27 @@ object SC10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.SC10052]
             __attackId = _input__.readInt64()
             __requiredFields0 &= 0xfffffffffffffffdL
           case 24 =>
-            __targetId = _input__.readInt64()
+            __targetId += _input__.readInt64()
+          case 26 => {
+            val length = _input__.readRawVarint32()
+            val oldLimit = _input__.pushLimit(length)
+            while (_input__.getBytesUntilLimit > 0) {
+              __targetId += _input__.readInt64()
+            }
+            _input__.popLimit(oldLimit)
+          }
+          case 37 =>
+            __direction = Option(_input__.readFloat())
+          case 45 =>
+            __skillPositionX = _input__.readFloat()
             __requiredFields0 &= 0xfffffffffffffffbL
-          case 32 =>
-            __damageType = _input__.readInt32()
+          case 53 =>
+            __skillPositionY = _input__.readFloat()
             __requiredFields0 &= 0xfffffffffffffff7L
-          case 40 =>
-            __damage = _input__.readInt64()
+          case 56 =>
+            __timestamp = Option(_input__.readInt64())
+          case 64 =>
+            __skillOrganismId = _input__.readInt32()
             __requiredFields0 &= 0xffffffffffffffefL
           case tag =>
             if (_unknownFields__ == null) {
@@ -211,9 +302,12 @@ object SC10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.SC10052]
       protocol.skill.SC10052(
         skillId = __skillId,
         attackId = __attackId,
-        targetId = __targetId,
-        damageType = __damageType,
-        damage = __damage,
+        targetId = __targetId.result(),
+        direction = __direction,
+        skillPositionX = __skillPositionX,
+        skillPositionY = __skillPositionY,
+        timestamp = __timestamp,
+        skillOrganismId = __skillOrganismId,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
       )
     }
@@ -222,17 +316,23 @@ object SC10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.SC10052]
     def apply(): Builder = new Builder(
       __skillId = 0,
       __attackId = 0L,
-      __targetId = 0L,
-      __damageType = 0,
-      __damage = 0L,
+      __targetId = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Long],
+      __direction = _root_.scala.None,
+      __skillPositionX = 0.0f,
+      __skillPositionY = 0.0f,
+      __timestamp = _root_.scala.None,
+      __skillOrganismId = 0,
       `_unknownFields__` = null
     )
     def apply(`_message__`: protocol.skill.SC10052): Builder = new Builder(
         __skillId = _message__.skillId,
         __attackId = _message__.attackId,
-        __targetId = _message__.targetId,
-        __damageType = _message__.damageType,
-        __damage = _message__.damage,
+        __targetId = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Long] ++= _message__.targetId,
+        __direction = _message__.direction,
+        __skillPositionX = _message__.skillPositionX,
+        __skillPositionY = _message__.skillPositionY,
+        __timestamp = _message__.timestamp,
+        __skillOrganismId = _message__.skillOrganismId,
         `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
@@ -241,27 +341,41 @@ object SC10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.SC10052]
   implicit class SC10052Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.skill.SC10052]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.skill.SC10052](_l) {
     def skillId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.skillId)((c_, f_) => c_.copy(skillId = f_))
     def attackId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.attackId)((c_, f_) => c_.copy(attackId = f_))
-    def targetId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.targetId)((c_, f_) => c_.copy(targetId = f_))
-    def damageType: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.damageType)((c_, f_) => c_.copy(damageType = f_))
-    def damage: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.damage)((c_, f_) => c_.copy(damage = f_))
+    def targetId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Long]] = field(_.targetId)((c_, f_) => c_.copy(targetId = f_))
+    def direction: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.getDirection)((c_, f_) => c_.copy(direction = Option(f_)))
+    def optionalDirection: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Float]] = field(_.direction)((c_, f_) => c_.copy(direction = f_))
+    def skillPositionX: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.skillPositionX)((c_, f_) => c_.copy(skillPositionX = f_))
+    def skillPositionY: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.skillPositionY)((c_, f_) => c_.copy(skillPositionY = f_))
+    def timestamp: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.getTimestamp)((c_, f_) => c_.copy(timestamp = Option(f_)))
+    def optionalTimestamp: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Long]] = field(_.timestamp)((c_, f_) => c_.copy(timestamp = f_))
+    def skillOrganismId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.skillOrganismId)((c_, f_) => c_.copy(skillOrganismId = f_))
   }
   final val SKILLID_FIELD_NUMBER = 1
   final val ATTACKID_FIELD_NUMBER = 2
   final val TARGETID_FIELD_NUMBER = 3
-  final val DAMAGETYPE_FIELD_NUMBER = 4
-  final val DAMAGE_FIELD_NUMBER = 5
+  final val DIRECTION_FIELD_NUMBER = 4
+  final val SKILLPOSITIONX_FIELD_NUMBER = 5
+  final val SKILLPOSITIONY_FIELD_NUMBER = 6
+  final val TIMESTAMP_FIELD_NUMBER = 7
+  final val SKILLORGANISMID_FIELD_NUMBER = 8
   def of(
     skillId: _root_.scala.Int,
     attackId: _root_.scala.Long,
-    targetId: _root_.scala.Long,
-    damageType: _root_.scala.Int,
-    damage: _root_.scala.Long
+    targetId: _root_.scala.Seq[_root_.scala.Long],
+    direction: _root_.scala.Option[_root_.scala.Float],
+    skillPositionX: _root_.scala.Float,
+    skillPositionY: _root_.scala.Float,
+    timestamp: _root_.scala.Option[_root_.scala.Long],
+    skillOrganismId: _root_.scala.Int
   ): _root_.protocol.skill.SC10052 = _root_.protocol.skill.SC10052(
     skillId,
     attackId,
     targetId,
-    damageType,
-    damage
+    direction,
+    skillPositionX,
+    skillPositionY,
+    timestamp,
+    skillOrganismId
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.SC10052])
 }

@@ -1,7 +1,18 @@
 package protocol;
 
-
+//公用时间
 message SC10080 
 {
     required int32 applicationErrorId = 1;
+}
+
+//请求服务器时间
+message CS10081
+{
+
+}
+//返回服务器时间
+message SC10081
+{
+    required int64 serverTime = 1;
 }

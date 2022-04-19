@@ -52,3 +52,8 @@ message SC10022
   optional int64  roleId = 2;
   optional string content = 3;
 }
+
+message CS10024
+{
+
+}

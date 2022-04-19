@@ -5,9 +5,18 @@
 
 package protocol.skill
 
+/** @param skillId
+  *  技能id
+  * @param attackId
+  *  施法战斗者
+  * @param skillOrganismId
+  *  技能单位id
+  */
 @SerialVersionUID(0L)
 final case class SC10054(
-    success: _root_.scala.Boolean,
+    skillId: _root_.scala.Int,
+    attackId: _root_.scala.Long,
+    skillOrganismId: _root_.scala.Int,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SC10054] {
     @transient
@@ -16,8 +25,18 @@ final case class SC10054(
       var __size = 0
       
       {
-        val __value = success
-        __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(1, __value)
+        val __value = skillId
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(1, __value)
+      };
+      
+      {
+        val __value = attackId
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(2, __value)
+      };
+      
+      {
+        val __value = skillOrganismId
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(3, __value)
       };
       __size += unknownFields.serializedSize
       __size
@@ -33,23 +52,39 @@ final case class SC10054(
     def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
       
       {
-        val __v = success
-        _output__.writeBool(1, __v)
+        val __v = skillId
+        _output__.writeInt32(1, __v)
+      };
+      
+      {
+        val __v = attackId
+        _output__.writeInt64(2, __v)
+      };
+      
+      {
+        val __v = skillOrganismId
+        _output__.writeInt32(3, __v)
       };
       unknownFields.writeTo(_output__)
     }
-    def withSuccess(__v: _root_.scala.Boolean): SC10054 = copy(success = __v)
+    def withSkillId(__v: _root_.scala.Int): SC10054 = copy(skillId = __v)
+    def withAttackId(__v: _root_.scala.Long): SC10054 = copy(attackId = __v)
+    def withSkillOrganismId(__v: _root_.scala.Int): SC10054 = copy(skillOrganismId = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
       (__fieldNumber: @_root_.scala.unchecked) match {
-        case 1 => success
+        case 1 => skillId
+        case 2 => attackId
+        case 3 => skillOrganismId
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
       _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
       (__field.number: @_root_.scala.unchecked) match {
-        case 1 => _root_.scalapb.descriptors.PBoolean(success)
+        case 1 => _root_.scalapb.descriptors.PInt(skillId)
+        case 2 => _root_.scalapb.descriptors.PLong(attackId)
+        case 3 => _root_.scalapb.descriptors.PInt(skillOrganismId)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -61,34 +96,44 @@ object SC10054 extends scalapb.GeneratedMessageCompanion[protocol.skill.SC10054]
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.skill.SC10054] with scalapb.HasBuilder[protocol.skill.SC10054] with scalapb.JavaProtoSupport[protocol.skill.SC10054, protocol.Skill.SC10054] = this
   def toJavaProto(scalaPbSource: protocol.skill.SC10054): protocol.Skill.SC10054 = {
     val javaPbOut = protocol.Skill.SC10054.newBuilder
-    javaPbOut.setSuccess(scalaPbSource.success)
+    javaPbOut.setSkillId(scalaPbSource.skillId)
+    javaPbOut.setAttackId(scalaPbSource.attackId)
+    javaPbOut.setSkillOrganismId(scalaPbSource.skillOrganismId)
     javaPbOut.build
   }
   def fromJavaProto(javaPbSource: protocol.Skill.SC10054): protocol.skill.SC10054 = protocol.skill.SC10054(
-    success = javaPbSource.getSuccess.booleanValue
+    skillId = javaPbSource.getSkillId.intValue,
+    attackId = javaPbSource.getAttackId.longValue,
+    skillOrganismId = javaPbSource.getSkillOrganismId.intValue
   )
   def merge(`_message__`: protocol.skill.SC10054, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.skill.SC10054 = newBuilder(_message__).merge(_input__).result()
   implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.skill.SC10054] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
       protocol.skill.SC10054(
-        success = __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).get.as[_root_.scala.Boolean]
+        skillId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).get.as[_root_.scala.Int],
+        attackId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(2).get).get.as[_root_.scala.Long],
+        skillOrganismId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(3).get).get.as[_root_.scala.Int]
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SkillProto.javaDescriptor.getMessageTypes().get(7)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SkillProto.scalaDescriptor.messages(7)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SkillProto.javaDescriptor.getMessageTypes().get(10)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SkillProto.scalaDescriptor.messages(10)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = protocol.skill.SC10054(
-    success = false
+    skillId = 0,
+    attackId = 0L,
+    skillOrganismId = 0
   )
   final class Builder private (
-    private var __success: _root_.scala.Boolean,
+    private var __skillId: _root_.scala.Int,
+    private var __attackId: _root_.scala.Long,
+    private var __skillOrganismId: _root_.scala.Int,
     private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
   ) extends _root_.scalapb.MessageBuilder[protocol.skill.SC10054] {
-    private var __requiredFields0: _root_.scala.Long = 0x1L
+    private var __requiredFields0: _root_.scala.Long = 0x7L
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
       while (!_done__) {
@@ -96,8 +141,14 @@ object SC10054 extends scalapb.GeneratedMessageCompanion[protocol.skill.SC10054]
         _tag__ match {
           case 0 => _done__ = true
           case 8 =>
-            __success = _input__.readBool()
+            __skillId = _input__.readInt32()
             __requiredFields0 &= 0xfffffffffffffffeL
+          case 16 =>
+            __attackId = _input__.readInt64()
+            __requiredFields0 &= 0xfffffffffffffffdL
+          case 24 =>
+            __skillOrganismId = _input__.readInt32()
+            __requiredFields0 &= 0xfffffffffffffffbL
           case tag =>
             if (_unknownFields__ == null) {
               _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -110,31 +161,45 @@ object SC10054 extends scalapb.GeneratedMessageCompanion[protocol.skill.SC10054]
     def result(): protocol.skill.SC10054 = {
       if (__requiredFields0 != 0L) { throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.") } 
       protocol.skill.SC10054(
-        success = __success,
+        skillId = __skillId,
+        attackId = __attackId,
+        skillOrganismId = __skillOrganismId,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
       )
     }
   }
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.skill.SC10054, protocol.skill.SC10054.Builder] {
     def apply(): Builder = new Builder(
-      __success = false,
+      __skillId = 0,
+      __attackId = 0L,
+      __skillOrganismId = 0,
       `_unknownFields__` = null
     )
     def apply(`_message__`: protocol.skill.SC10054): Builder = new Builder(
-        __success = _message__.success,
+        __skillId = _message__.skillId,
+        __attackId = _message__.attackId,
+        __skillOrganismId = _message__.skillOrganismId,
         `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
   def newBuilder: Builder = protocol.skill.SC10054.Builder()
   def newBuilder(`_message__`: protocol.skill.SC10054): Builder = protocol.skill.SC10054.Builder(_message__)
   implicit class SC10054Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.skill.SC10054]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.skill.SC10054](_l) {
-    def success: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.success)((c_, f_) => c_.copy(success = f_))
+    def skillId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.skillId)((c_, f_) => c_.copy(skillId = f_))
+    def attackId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.attackId)((c_, f_) => c_.copy(attackId = f_))
+    def skillOrganismId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.skillOrganismId)((c_, f_) => c_.copy(skillOrganismId = f_))
   }
-  final val SUCCESS_FIELD_NUMBER = 1
+  final val SKILLID_FIELD_NUMBER = 1
+  final val ATTACKID_FIELD_NUMBER = 2
+  final val SKILLORGANISMID_FIELD_NUMBER = 3
   def of(
-    success: _root_.scala.Boolean
+    skillId: _root_.scala.Int,
+    attackId: _root_.scala.Long,
+    skillOrganismId: _root_.scala.Int
   ): _root_.protocol.skill.SC10054 = _root_.protocol.skill.SC10054(
-    success
+    skillId,
+    attackId,
+    skillOrganismId
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.SC10054])
 }

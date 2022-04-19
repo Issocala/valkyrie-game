@@ -1,22 +1,29 @@
-import "base.proto";
 package protocol;
+
+message DamageData
+{
+  required int64 targetId = 1; //目标战斗者
+  required int32 damageType = 2; //位运算计算伤害类型汇总(闪避,闪避等)
+  required int64 damage = 3; //伤害数值
+}
 
 //获取全部技能
 message CS10050
 {
 }
-
+//返回实体全部可用技能
 message SC10050
 {
-  repeated int32 skillId = 1 [packed = true];
+  required int64 organismId = 1;
+  repeated int32 skillId = 2 [packed = true];
 }
 
 
 //学习技能
 message CS10051
 {
-  required int64 fightOrganismId = 1;
-  required int32 skillId = 2;
+  required int64 fightOrganismId = 1; //战斗单位
+  required int32 skillId = 2; //技能引用id
 }
 
 message SC10051
@@ -27,30 +34,58 @@ message SC10051
 //使用技能
 message CS10052
 {
-  required int64 fightOrganismId = 1; //技能的战斗单位id
+  required int64 fightOrganismId = 1; //施法者单位id
   required int32 skillId = 2; //技能id
   repeated int64 targetId = 3 [packed = true];  //目标战斗单位id
   optional float direction = 4; //释放方向
   required float skillPositionX = 5;  //技能横坐标
   required float skillPositionY = 6;  //技能纵坐标
-  optional int64 time = 7;  //释放时间戳
+  optional int64 timestamp = 7;  //释放时间戳
+  required int32 skillOrganismId = 8; //技能单位id
 }
 
+//播报使用技能
 message SC10052
 {
   required int32 skillId = 1; //技能id
   required int64 attackId = 2; //施法战斗者
-  required int64 targetId = 3; //目标战斗者
-  required int32 damageType = 4; //位运算计算伤害类型汇总
-  required int64 damage = 5; //伤害数值
+  repeated int64 targetId = 3 [packed = true];  //目标战斗单位id
+  optional float direction = 4; //释放方向
+  required float skillPositionX = 5;  //技能横坐标
+  required float skillPositionY = 6;  //技能纵坐标
+  optional int64 timestamp = 7;  //释放时间戳
+  required int32 skillOrganismId = 8; //技能单位id
 }
 
+//技能伤害计算
 message CS10053
 {
+  required int64 fightOrganismId = 1; //施法者单位id
+  required int32 skillId = 2; //技能id
+  repeated int64 targetId = 3 [packed = true];  //目标战斗单位id
+  optional int64 timestamp = 4;  //释放时间戳
+  required int32 skillOrganismId = 5; //技能单位id
+}
+
+//技能结果战报
+message SC10053
+{
+  required int32 skillId = 1; //技能id
+  required int64 attackId = 2; //施法战斗者
+  required int32 processId = 3; //技能过程id
+  repeated DamageData damageData = 4; //目标伤害列表
+}
+
+//取消技能
+message CS10054
+{
   required int32 skillId = 1;
+  required int32 skillOrganismId = 2; //技能单位id
 }
 
 message SC10054
 {
-  required bool success = 1;
+  required int32 skillId = 1; //技能id
+  required int64 attackId = 2; //施法战斗者
+  required int32 skillOrganismId = 3; //技能单位id
 }

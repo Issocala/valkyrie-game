@@ -5,6 +5,8 @@
 
 package protocol.common
 
+/** 公用时间
+  */
 @SerialVersionUID(0L)
 final case class SC10080(
     applicationErrorId: _root_.scala.Int,

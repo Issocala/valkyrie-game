@@ -9,7 +9,7 @@ import _root_.scalapb.internal.compat.JavaConverters._
 /** 使用技能
   *
   * @param fightOrganismId
-  *  技能的战斗单位id
+  *  施法者单位id
   * @param skillId
   *  技能id
   * @param targetId
@@ -20,8 +20,10 @@ import _root_.scalapb.internal.compat.JavaConverters._
   *  技能横坐标
   * @param skillPositionY
   *  技能纵坐标
-  * @param time
+  * @param timestamp
   *  释放时间戳
+  * @param skillOrganismId
+  *  技能单位id
   */
 @SerialVersionUID(0L)
 final case class CS10052(
@@ -31,7 +33,8 @@ final case class CS10052(
     direction: _root_.scala.Option[_root_.scala.Float] = _root_.scala.None,
     skillPositionX: _root_.scala.Float,
     skillPositionY: _root_.scala.Float,
-    time: _root_.scala.Option[_root_.scala.Long] = _root_.scala.None,
+    timestamp: _root_.scala.Option[_root_.scala.Long] = _root_.scala.None,
+    skillOrganismId: _root_.scala.Int,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[CS10052] {
     private[this] def targetIdSerializedSize = {
@@ -75,9 +78,14 @@ final case class CS10052(
         val __value = skillPositionY
         __size += _root_.com.google.protobuf.CodedOutputStream.computeFloatSize(6, __value)
       };
-      if (time.isDefined) {
-        val __value = time.get
+      if (timestamp.isDefined) {
+        val __value = timestamp.get
         __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(7, __value)
+      };
+      
+      {
+        val __value = skillOrganismId
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(8, __value)
       };
       __size += unknownFields.serializedSize
       __size
@@ -120,9 +128,14 @@ final case class CS10052(
         val __v = skillPositionY
         _output__.writeFloat(6, __v)
       };
-      time.foreach { __v =>
+      timestamp.foreach { __v =>
         val __m = __v
         _output__.writeInt64(7, __m)
+      };
+      
+      {
+        val __v = skillOrganismId
+        _output__.writeInt32(8, __v)
       };
       unknownFields.writeTo(_output__)
     }
@@ -137,9 +150,10 @@ final case class CS10052(
     def withDirection(__v: _root_.scala.Float): CS10052 = copy(direction = Option(__v))
     def withSkillPositionX(__v: _root_.scala.Float): CS10052 = copy(skillPositionX = __v)
     def withSkillPositionY(__v: _root_.scala.Float): CS10052 = copy(skillPositionY = __v)
-    def getTime: _root_.scala.Long = time.getOrElse(0L)
-    def clearTime: CS10052 = copy(time = _root_.scala.None)
-    def withTime(__v: _root_.scala.Long): CS10052 = copy(time = Option(__v))
+    def getTimestamp: _root_.scala.Long = timestamp.getOrElse(0L)
+    def clearTimestamp: CS10052 = copy(timestamp = _root_.scala.None)
+    def withTimestamp(__v: _root_.scala.Long): CS10052 = copy(timestamp = Option(__v))
+    def withSkillOrganismId(__v: _root_.scala.Int): CS10052 = copy(skillOrganismId = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -150,7 +164,8 @@ final case class CS10052(
         case 4 => direction.orNull
         case 5 => skillPositionX
         case 6 => skillPositionY
-        case 7 => time.orNull
+        case 7 => timestamp.orNull
+        case 8 => skillOrganismId
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -162,7 +177,8 @@ final case class CS10052(
         case 4 => direction.map(_root_.scalapb.descriptors.PFloat(_)).getOrElse(_root_.scalapb.descriptors.PEmpty)
         case 5 => _root_.scalapb.descriptors.PFloat(skillPositionX)
         case 6 => _root_.scalapb.descriptors.PFloat(skillPositionY)
-        case 7 => time.map(_root_.scalapb.descriptors.PLong(_)).getOrElse(_root_.scalapb.descriptors.PEmpty)
+        case 7 => timestamp.map(_root_.scalapb.descriptors.PLong(_)).getOrElse(_root_.scalapb.descriptors.PEmpty)
+        case 8 => _root_.scalapb.descriptors.PInt(skillOrganismId)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -180,7 +196,8 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
     scalaPbSource.direction.foreach(javaPbOut.setDirection)
     javaPbOut.setSkillPositionX(scalaPbSource.skillPositionX)
     javaPbOut.setSkillPositionY(scalaPbSource.skillPositionY)
-    scalaPbSource.time.foreach(javaPbOut.setTime)
+    scalaPbSource.timestamp.foreach(javaPbOut.setTimestamp)
+    javaPbOut.setSkillOrganismId(scalaPbSource.skillOrganismId)
     javaPbOut.build
   }
   def fromJavaProto(javaPbSource: protocol.Skill.CS10052): protocol.skill.CS10052 = protocol.skill.CS10052(
@@ -190,7 +207,8 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
     direction = if (javaPbSource.hasDirection) Some(javaPbSource.getDirection.floatValue) else _root_.scala.None,
     skillPositionX = javaPbSource.getSkillPositionX.floatValue,
     skillPositionY = javaPbSource.getSkillPositionY.floatValue,
-    time = if (javaPbSource.hasTime) Some(javaPbSource.getTime.longValue) else _root_.scala.None
+    timestamp = if (javaPbSource.hasTimestamp) Some(javaPbSource.getTimestamp.longValue) else _root_.scala.None,
+    skillOrganismId = javaPbSource.getSkillOrganismId.intValue
   )
   def merge(`_message__`: protocol.skill.CS10052, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.skill.CS10052 = newBuilder(_message__).merge(_input__).result()
   implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.skill.CS10052] = _root_.scalapb.descriptors.Reads{
@@ -203,12 +221,13 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
         direction = __fieldsMap.get(scalaDescriptor.findFieldByNumber(4).get).flatMap(_.as[_root_.scala.Option[_root_.scala.Float]]),
         skillPositionX = __fieldsMap.get(scalaDescriptor.findFieldByNumber(5).get).get.as[_root_.scala.Float],
         skillPositionY = __fieldsMap.get(scalaDescriptor.findFieldByNumber(6).get).get.as[_root_.scala.Float],
-        time = __fieldsMap.get(scalaDescriptor.findFieldByNumber(7).get).flatMap(_.as[_root_.scala.Option[_root_.scala.Long]])
+        timestamp = __fieldsMap.get(scalaDescriptor.findFieldByNumber(7).get).flatMap(_.as[_root_.scala.Option[_root_.scala.Long]]),
+        skillOrganismId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(8).get).get.as[_root_.scala.Int]
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SkillProto.javaDescriptor.getMessageTypes().get(4)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SkillProto.scalaDescriptor.messages(4)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SkillProto.javaDescriptor.getMessageTypes().get(5)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SkillProto.scalaDescriptor.messages(5)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
@@ -219,7 +238,8 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
     direction = _root_.scala.None,
     skillPositionX = 0.0f,
     skillPositionY = 0.0f,
-    time = _root_.scala.None
+    timestamp = _root_.scala.None,
+    skillOrganismId = 0
   )
   final class Builder private (
     private var __fightOrganismId: _root_.scala.Long,
@@ -228,10 +248,11 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
     private var __direction: _root_.scala.Option[_root_.scala.Float],
     private var __skillPositionX: _root_.scala.Float,
     private var __skillPositionY: _root_.scala.Float,
-    private var __time: _root_.scala.Option[_root_.scala.Long],
+    private var __timestamp: _root_.scala.Option[_root_.scala.Long],
+    private var __skillOrganismId: _root_.scala.Int,
     private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
   ) extends _root_.scalapb.MessageBuilder[protocol.skill.CS10052] {
-    private var __requiredFields0: _root_.scala.Long = 0xfL
+    private var __requiredFields0: _root_.scala.Long = 0x1fL
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
       while (!_done__) {
@@ -263,7 +284,10 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
             __skillPositionY = _input__.readFloat()
             __requiredFields0 &= 0xfffffffffffffff7L
           case 56 =>
-            __time = Option(_input__.readInt64())
+            __timestamp = Option(_input__.readInt64())
+          case 64 =>
+            __skillOrganismId = _input__.readInt32()
+            __requiredFields0 &= 0xffffffffffffffefL
           case tag =>
             if (_unknownFields__ == null) {
               _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -282,7 +306,8 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
         direction = __direction,
         skillPositionX = __skillPositionX,
         skillPositionY = __skillPositionY,
-        time = __time,
+        timestamp = __timestamp,
+        skillOrganismId = __skillOrganismId,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
       )
     }
@@ -295,7 +320,8 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
       __direction = _root_.scala.None,
       __skillPositionX = 0.0f,
       __skillPositionY = 0.0f,
-      __time = _root_.scala.None,
+      __timestamp = _root_.scala.None,
+      __skillOrganismId = 0,
       `_unknownFields__` = null
     )
     def apply(`_message__`: protocol.skill.CS10052): Builder = new Builder(
@@ -305,7 +331,8 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
         __direction = _message__.direction,
         __skillPositionX = _message__.skillPositionX,
         __skillPositionY = _message__.skillPositionY,
-        __time = _message__.time,
+        __timestamp = _message__.timestamp,
+        __skillOrganismId = _message__.skillOrganismId,
         `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
@@ -319,8 +346,9 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
     def optionalDirection: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Float]] = field(_.direction)((c_, f_) => c_.copy(direction = f_))
     def skillPositionX: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.skillPositionX)((c_, f_) => c_.copy(skillPositionX = f_))
     def skillPositionY: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.skillPositionY)((c_, f_) => c_.copy(skillPositionY = f_))
-    def time: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.getTime)((c_, f_) => c_.copy(time = Option(f_)))
-    def optionalTime: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Long]] = field(_.time)((c_, f_) => c_.copy(time = f_))
+    def timestamp: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.getTimestamp)((c_, f_) => c_.copy(timestamp = Option(f_)))
+    def optionalTimestamp: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[_root_.scala.Long]] = field(_.timestamp)((c_, f_) => c_.copy(timestamp = f_))
+    def skillOrganismId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.skillOrganismId)((c_, f_) => c_.copy(skillOrganismId = f_))
   }
   final val FIGHTORGANISMID_FIELD_NUMBER = 1
   final val SKILLID_FIELD_NUMBER = 2
@@ -328,7 +356,8 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
   final val DIRECTION_FIELD_NUMBER = 4
   final val SKILLPOSITIONX_FIELD_NUMBER = 5
   final val SKILLPOSITIONY_FIELD_NUMBER = 6
-  final val TIME_FIELD_NUMBER = 7
+  final val TIMESTAMP_FIELD_NUMBER = 7
+  final val SKILLORGANISMID_FIELD_NUMBER = 8
   def of(
     fightOrganismId: _root_.scala.Long,
     skillId: _root_.scala.Int,
@@ -336,7 +365,8 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
     direction: _root_.scala.Option[_root_.scala.Float],
     skillPositionX: _root_.scala.Float,
     skillPositionY: _root_.scala.Float,
-    time: _root_.scala.Option[_root_.scala.Long]
+    timestamp: _root_.scala.Option[_root_.scala.Long],
+    skillOrganismId: _root_.scala.Int
   ): _root_.protocol.skill.CS10052 = _root_.protocol.skill.CS10052(
     fightOrganismId,
     skillId,
@@ -344,7 +374,8 @@ object CS10052 extends scalapb.GeneratedMessageCompanion[protocol.skill.CS10052]
     direction,
     skillPositionX,
     skillPositionY,
-    time
+    timestamp,
+    skillOrganismId
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.CS10052])
 }
