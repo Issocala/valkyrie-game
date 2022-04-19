@@ -11,13 +11,20 @@ import java.util.List;
  * @Source 1.0
  */
 public class CommonModuleHolder extends AbstractModuleHolder {
+
+    private static final CommonModuleHolder INSTANCE = new CommonModuleHolder();
+
+    public static CommonModuleHolder getInstance() {
+        return INSTANCE;
+    }
+
     @Override
     public Props props() {
-        return null;
+        return Props.create(CommonModule.class);
     }
 
     @Override
     public List<Integer> getProtocols() {
-        return null;
+        return List.of(CommonProtocols.SERVER_TIME);
     }
 }

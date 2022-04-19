@@ -15,4 +15,10 @@ public class CommonProtocolBuilder {
                 .build();
     }
 
+    public static Common.SC10081 getSc10081() {
+        return Common.SC10081.newBuilder()
+                .setServerTime(System.currentTimeMillis())
+                .build();
+    }
+
 }

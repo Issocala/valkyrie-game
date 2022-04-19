@@ -11,4 +11,6 @@ public interface CommonProtocols {
 
     int APPLICATION_ERROR = GameProtocols.COMMON;
 
+    int SERVER_TIME = GameProtocols.COMMON + 1;
+
 }
