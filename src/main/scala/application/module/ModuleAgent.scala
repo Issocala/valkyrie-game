@@ -2,6 +2,7 @@ package application.module
 
 import akka.actor.{ActorRef, Props}
 import application.module.example.ExampleModuleHolder
+import application.module.gm.GmModuleHolder
 import application.module.player.PlayerModuleHolder
 import application.module.scene.SceneModuleHolder
 import application.module.user.UserModuleHolder
@@ -23,7 +24,7 @@ object ModuleAgent {
   final case object RequestClientMessageHandler
 
   private[module] val modules = List[ModuleHolder](UserModuleHolder.getInstance(), ExampleModuleHolder.getInstance(),
-    PlayerModuleHolder.getInstance(), SceneModuleHolder.getInstance())
+    PlayerModuleHolder.getInstance(), SceneModuleHolder.getInstance(), GmModuleHolder.getInstance())
 }
 
 

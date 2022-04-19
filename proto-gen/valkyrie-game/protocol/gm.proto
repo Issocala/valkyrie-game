@@ -1,0 +1,14 @@
+package protocol;
+
+//请求GM命令
+message CS10090
+{
+    required string cmd = 1; // 命令
+    repeated string args = 2; // 参数列表
+}
+//返回GM命令
+message SC10090
+{
+    required bool ok = 1; // 是否成功
+    repeated string details = 2; // 说明列表
+}
