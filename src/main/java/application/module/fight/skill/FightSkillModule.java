@@ -159,7 +159,6 @@ public class FightSkillModule extends AbstractModule {
             return;
         }
         useSkillDataTemp.getAttributeData().tell(new SkillGetAllAttribute(useSkillDataTemp), self());
-        System.out.println(System.currentTimeMillis()+"===========");
     }
 
     private void dataResult(DataMessage.DataResult dataResult) {
