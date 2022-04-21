@@ -24,6 +24,7 @@ public class TemplateParser {
                     case "Effect" -> EffectTemplateHolder.addData(EffectTemplate.parse(cbb));
                     case "OrganismData" -> OrganismDataTemplateHolder.addData(OrganismDataTemplate.parse(cbb));
                     case "SceneData" -> SceneDataTemplateHolder.addData(SceneDataTemplate.parse(cbb));
+                    case "AttributeTree" -> AttributeTreeTemplateHolder.addData(AttributeTreeTemplate.parse(cbb));
 
                 }
             }

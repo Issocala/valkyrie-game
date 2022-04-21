@@ -3413,6 +3413,28 @@ public final class Scene {
      * @return The sceneId.
      */
     long getSceneId();
+
+    /**
+     * <code>required float positionX = 2;</code>
+     * @return Whether the positionX field is set.
+     */
+    boolean hasPositionX();
+    /**
+     * <code>required float positionX = 2;</code>
+     * @return The positionX.
+     */
+    float getPositionX();
+
+    /**
+     * <code>required float positionY = 3;</code>
+     * @return Whether the positionY field is set.
+     */
+    boolean hasPositionY();
+    /**
+     * <code>required float positionY = 3;</code>
+     * @return The positionY.
+     */
+    float getPositionY();
   }
   /**
    * <pre>
@@ -3469,6 +3491,16 @@ public final class Scene {
               sceneId_ = input.readInt64();
               break;
             }
+            case 21: {
+              bitField0_ |= 0x00000002;
+              positionX_ = input.readFloat();
+              break;
+            }
+            case 29: {
+              bitField0_ |= 0x00000004;
+              positionY_ = input.readFloat();
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -3519,6 +3551,40 @@ public final class Scene {
       return sceneId_;
     }
 
+    public static final int POSITIONX_FIELD_NUMBER = 2;
+    private float positionX_;
+    /**
+     * <code>required float positionX = 2;</code>
+     * @return Whether the positionX field is set.
+     */
+    public boolean hasPositionX() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required float positionX = 2;</code>
+     * @return The positionX.
+     */
+    public float getPositionX() {
+      return positionX_;
+    }
+
+    public static final int POSITIONY_FIELD_NUMBER = 3;
+    private float positionY_;
+    /**
+     * <code>required float positionY = 3;</code>
+     * @return Whether the positionY field is set.
+     */
+    public boolean hasPositionY() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <code>required float positionY = 3;</code>
+     * @return The positionY.
+     */
+    public float getPositionY() {
+      return positionY_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -3527,6 +3593,14 @@ public final class Scene {
       if (isInitialized == 0) return false;
 
       if (!hasSceneId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPositionX()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPositionY()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -3540,6 +3614,12 @@ public final class Scene {
       if (((bitField0_ & 0x00000001) != 0)) {
         output.writeInt64(1, sceneId_);
       }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeFloat(2, positionX_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeFloat(3, positionY_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -3552,6 +3632,14 @@ public final class Scene {
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(1, sceneId_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(2, positionX_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(3, positionY_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3573,6 +3661,18 @@ public final class Scene {
         if (getSceneId()
             != other.getSceneId()) return false;
       }
+      if (hasPositionX() != other.hasPositionX()) return false;
+      if (hasPositionX()) {
+        if (java.lang.Float.floatToIntBits(getPositionX())
+            != java.lang.Float.floatToIntBits(
+                other.getPositionX())) return false;
+      }
+      if (hasPositionY() != other.hasPositionY()) return false;
+      if (hasPositionY()) {
+        if (java.lang.Float.floatToIntBits(getPositionY())
+            != java.lang.Float.floatToIntBits(
+                other.getPositionY())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -3588,6 +3688,16 @@ public final class Scene {
         hash = (37 * hash) + SCENEID_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getSceneId());
+      }
+      if (hasPositionX()) {
+        hash = (37 * hash) + POSITIONX_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getPositionX());
+      }
+      if (hasPositionY()) {
+        hash = (37 * hash) + POSITIONY_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getPositionY());
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -3728,6 +3838,10 @@ public final class Scene {
         super.clear();
         sceneId_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
+        positionX_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        positionY_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -3759,6 +3873,14 @@ public final class Scene {
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.sceneId_ = sceneId_;
           to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.positionX_ = positionX_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.positionY_ = positionY_;
+          to_bitField0_ |= 0x00000004;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -3812,6 +3934,12 @@ public final class Scene {
         if (other.hasSceneId()) {
           setSceneId(other.getSceneId());
         }
+        if (other.hasPositionX()) {
+          setPositionX(other.getPositionX());
+        }
+        if (other.hasPositionY()) {
+          setPositionY(other.getPositionY());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -3820,6 +3948,12 @@ public final class Scene {
       @java.lang.Override
       public final boolean isInitialized() {
         if (!hasSceneId()) {
+          return false;
+        }
+        if (!hasPositionX()) {
+          return false;
+        }
+        if (!hasPositionY()) {
           return false;
         }
         return true;
@@ -3878,6 +4012,80 @@ public final class Scene {
       public Builder clearSceneId() {
         bitField0_ = (bitField0_ & ~0x00000001);
         sceneId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private float positionX_ ;
+      /**
+       * <code>required float positionX = 2;</code>
+       * @return Whether the positionX field is set.
+       */
+      public boolean hasPositionX() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required float positionX = 2;</code>
+       * @return The positionX.
+       */
+      public float getPositionX() {
+        return positionX_;
+      }
+      /**
+       * <code>required float positionX = 2;</code>
+       * @param value The positionX to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPositionX(float value) {
+        bitField0_ |= 0x00000002;
+        positionX_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required float positionX = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPositionX() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        positionX_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float positionY_ ;
+      /**
+       * <code>required float positionY = 3;</code>
+       * @return Whether the positionY field is set.
+       */
+      public boolean hasPositionY() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>required float positionY = 3;</code>
+       * @return The positionY.
+       */
+      public float getPositionY() {
+        return positionY_;
+      }
+      /**
+       * <code>required float positionY = 3;</code>
+       * @param value The positionY to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPositionY(float value) {
+        bitField0_ |= 0x00000004;
+        positionY_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required float positionY = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPositionY() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        positionY_ = 0F;
         onChanged();
         return this;
       }
@@ -10198,6 +10406,1484 @@ public final class Scene {
 
   }
 
+  public interface CS10036OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.CS10036)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required float positionX = 1;</code>
+     * @return Whether the positionX field is set.
+     */
+    boolean hasPositionX();
+    /**
+     * <code>required float positionX = 1;</code>
+     * @return The positionX.
+     */
+    float getPositionX();
+
+    /**
+     * <code>required float positionY = 2;</code>
+     * @return Whether the positionY field is set.
+     */
+    boolean hasPositionY();
+    /**
+     * <code>required float positionY = 2;</code>
+     * @return The positionY.
+     */
+    float getPositionY();
+
+    /**
+     * <code>required int64 organismId = 3;</code>
+     * @return Whether the organismId field is set.
+     */
+    boolean hasOrganismId();
+    /**
+     * <code>required int64 organismId = 3;</code>
+     * @return The organismId.
+     */
+    long getOrganismId();
+  }
+  /**
+   * <pre>
+   *同场景瞬移
+   * </pre>
+   *
+   * Protobuf type {@code protocol.CS10036}
+   */
+  public  static final class CS10036 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.CS10036)
+      CS10036OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use CS10036.newBuilder() to construct.
+    private CS10036(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private CS10036() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CS10036();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CS10036(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 13: {
+              bitField0_ |= 0x00000001;
+              positionX_ = input.readFloat();
+              break;
+            }
+            case 21: {
+              bitField0_ |= 0x00000002;
+              positionY_ = input.readFloat();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              organismId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Scene.internal_static_protocol_CS10036_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Scene.internal_static_protocol_CS10036_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Scene.CS10036.class, protocol.Scene.CS10036.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int POSITIONX_FIELD_NUMBER = 1;
+    private float positionX_;
+    /**
+     * <code>required float positionX = 1;</code>
+     * @return Whether the positionX field is set.
+     */
+    public boolean hasPositionX() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required float positionX = 1;</code>
+     * @return The positionX.
+     */
+    public float getPositionX() {
+      return positionX_;
+    }
+
+    public static final int POSITIONY_FIELD_NUMBER = 2;
+    private float positionY_;
+    /**
+     * <code>required float positionY = 2;</code>
+     * @return Whether the positionY field is set.
+     */
+    public boolean hasPositionY() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required float positionY = 2;</code>
+     * @return The positionY.
+     */
+    public float getPositionY() {
+      return positionY_;
+    }
+
+    public static final int ORGANISMID_FIELD_NUMBER = 3;
+    private long organismId_;
+    /**
+     * <code>required int64 organismId = 3;</code>
+     * @return Whether the organismId field is set.
+     */
+    public boolean hasOrganismId() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <code>required int64 organismId = 3;</code>
+     * @return The organismId.
+     */
+    public long getOrganismId() {
+      return organismId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasPositionX()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPositionY()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasOrganismId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeFloat(1, positionX_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeFloat(2, positionY_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeInt64(3, organismId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(1, positionX_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(2, positionY_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, organismId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Scene.CS10036)) {
+        return super.equals(obj);
+      }
+      protocol.Scene.CS10036 other = (protocol.Scene.CS10036) obj;
+
+      if (hasPositionX() != other.hasPositionX()) return false;
+      if (hasPositionX()) {
+        if (java.lang.Float.floatToIntBits(getPositionX())
+            != java.lang.Float.floatToIntBits(
+                other.getPositionX())) return false;
+      }
+      if (hasPositionY() != other.hasPositionY()) return false;
+      if (hasPositionY()) {
+        if (java.lang.Float.floatToIntBits(getPositionY())
+            != java.lang.Float.floatToIntBits(
+                other.getPositionY())) return false;
+      }
+      if (hasOrganismId() != other.hasOrganismId()) return false;
+      if (hasOrganismId()) {
+        if (getOrganismId()
+            != other.getOrganismId()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasPositionX()) {
+        hash = (37 * hash) + POSITIONX_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getPositionX());
+      }
+      if (hasPositionY()) {
+        hash = (37 * hash) + POSITIONY_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getPositionY());
+      }
+      if (hasOrganismId()) {
+        hash = (37 * hash) + ORGANISMID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getOrganismId());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Scene.CS10036 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Scene.CS10036 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Scene.CS10036 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Scene.CS10036 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Scene.CS10036 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Scene.CS10036 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Scene.CS10036 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Scene.CS10036 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Scene.CS10036 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Scene.CS10036 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Scene.CS10036 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Scene.CS10036 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Scene.CS10036 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *同场景瞬移
+     * </pre>
+     *
+     * Protobuf type {@code protocol.CS10036}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.CS10036)
+        protocol.Scene.CS10036OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Scene.internal_static_protocol_CS10036_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Scene.internal_static_protocol_CS10036_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Scene.CS10036.class, protocol.Scene.CS10036.Builder.class);
+      }
+
+      // Construct using protocol.Scene.CS10036.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        positionX_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        positionY_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        organismId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Scene.internal_static_protocol_CS10036_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Scene.CS10036 getDefaultInstanceForType() {
+        return protocol.Scene.CS10036.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Scene.CS10036 build() {
+        protocol.Scene.CS10036 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Scene.CS10036 buildPartial() {
+        protocol.Scene.CS10036 result = new protocol.Scene.CS10036(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.positionX_ = positionX_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.positionY_ = positionY_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.organismId_ = organismId_;
+          to_bitField0_ |= 0x00000004;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Scene.CS10036) {
+          return mergeFrom((protocol.Scene.CS10036)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Scene.CS10036 other) {
+        if (other == protocol.Scene.CS10036.getDefaultInstance()) return this;
+        if (other.hasPositionX()) {
+          setPositionX(other.getPositionX());
+        }
+        if (other.hasPositionY()) {
+          setPositionY(other.getPositionY());
+        }
+        if (other.hasOrganismId()) {
+          setOrganismId(other.getOrganismId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasPositionX()) {
+          return false;
+        }
+        if (!hasPositionY()) {
+          return false;
+        }
+        if (!hasOrganismId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Scene.CS10036 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Scene.CS10036) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private float positionX_ ;
+      /**
+       * <code>required float positionX = 1;</code>
+       * @return Whether the positionX field is set.
+       */
+      public boolean hasPositionX() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required float positionX = 1;</code>
+       * @return The positionX.
+       */
+      public float getPositionX() {
+        return positionX_;
+      }
+      /**
+       * <code>required float positionX = 1;</code>
+       * @param value The positionX to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPositionX(float value) {
+        bitField0_ |= 0x00000001;
+        positionX_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required float positionX = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPositionX() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        positionX_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float positionY_ ;
+      /**
+       * <code>required float positionY = 2;</code>
+       * @return Whether the positionY field is set.
+       */
+      public boolean hasPositionY() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required float positionY = 2;</code>
+       * @return The positionY.
+       */
+      public float getPositionY() {
+        return positionY_;
+      }
+      /**
+       * <code>required float positionY = 2;</code>
+       * @param value The positionY to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPositionY(float value) {
+        bitField0_ |= 0x00000002;
+        positionY_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required float positionY = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPositionY() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        positionY_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private long organismId_ ;
+      /**
+       * <code>required int64 organismId = 3;</code>
+       * @return Whether the organismId field is set.
+       */
+      public boolean hasOrganismId() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>required int64 organismId = 3;</code>
+       * @return The organismId.
+       */
+      public long getOrganismId() {
+        return organismId_;
+      }
+      /**
+       * <code>required int64 organismId = 3;</code>
+       * @param value The organismId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrganismId(long value) {
+        bitField0_ |= 0x00000004;
+        organismId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 organismId = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOrganismId() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        organismId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.CS10036)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.CS10036)
+    private static final protocol.Scene.CS10036 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Scene.CS10036();
+    }
+
+    public static protocol.Scene.CS10036 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<CS10036>
+        PARSER = new com.google.protobuf.AbstractParser<CS10036>() {
+      @java.lang.Override
+      public CS10036 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CS10036(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CS10036> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CS10036> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Scene.CS10036 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SC10036OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.SC10036)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required float positionX = 1;</code>
+     * @return Whether the positionX field is set.
+     */
+    boolean hasPositionX();
+    /**
+     * <code>required float positionX = 1;</code>
+     * @return The positionX.
+     */
+    float getPositionX();
+
+    /**
+     * <code>required float positionY = 2;</code>
+     * @return Whether the positionY field is set.
+     */
+    boolean hasPositionY();
+    /**
+     * <code>required float positionY = 2;</code>
+     * @return The positionY.
+     */
+    float getPositionY();
+
+    /**
+     * <code>required int64 organismId = 3;</code>
+     * @return Whether the organismId field is set.
+     */
+    boolean hasOrganismId();
+    /**
+     * <code>required int64 organismId = 3;</code>
+     * @return The organismId.
+     */
+    long getOrganismId();
+  }
+  /**
+   * Protobuf type {@code protocol.SC10036}
+   */
+  public  static final class SC10036 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.SC10036)
+      SC10036OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SC10036.newBuilder() to construct.
+    private SC10036(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SC10036() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SC10036();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SC10036(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 13: {
+              bitField0_ |= 0x00000001;
+              positionX_ = input.readFloat();
+              break;
+            }
+            case 21: {
+              bitField0_ |= 0x00000002;
+              positionY_ = input.readFloat();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              organismId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Scene.internal_static_protocol_SC10036_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Scene.internal_static_protocol_SC10036_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Scene.SC10036.class, protocol.Scene.SC10036.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int POSITIONX_FIELD_NUMBER = 1;
+    private float positionX_;
+    /**
+     * <code>required float positionX = 1;</code>
+     * @return Whether the positionX field is set.
+     */
+    public boolean hasPositionX() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required float positionX = 1;</code>
+     * @return The positionX.
+     */
+    public float getPositionX() {
+      return positionX_;
+    }
+
+    public static final int POSITIONY_FIELD_NUMBER = 2;
+    private float positionY_;
+    /**
+     * <code>required float positionY = 2;</code>
+     * @return Whether the positionY field is set.
+     */
+    public boolean hasPositionY() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required float positionY = 2;</code>
+     * @return The positionY.
+     */
+    public float getPositionY() {
+      return positionY_;
+    }
+
+    public static final int ORGANISMID_FIELD_NUMBER = 3;
+    private long organismId_;
+    /**
+     * <code>required int64 organismId = 3;</code>
+     * @return Whether the organismId field is set.
+     */
+    public boolean hasOrganismId() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <code>required int64 organismId = 3;</code>
+     * @return The organismId.
+     */
+    public long getOrganismId() {
+      return organismId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasPositionX()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPositionY()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasOrganismId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeFloat(1, positionX_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeFloat(2, positionY_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeInt64(3, organismId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(1, positionX_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(2, positionY_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, organismId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Scene.SC10036)) {
+        return super.equals(obj);
+      }
+      protocol.Scene.SC10036 other = (protocol.Scene.SC10036) obj;
+
+      if (hasPositionX() != other.hasPositionX()) return false;
+      if (hasPositionX()) {
+        if (java.lang.Float.floatToIntBits(getPositionX())
+            != java.lang.Float.floatToIntBits(
+                other.getPositionX())) return false;
+      }
+      if (hasPositionY() != other.hasPositionY()) return false;
+      if (hasPositionY()) {
+        if (java.lang.Float.floatToIntBits(getPositionY())
+            != java.lang.Float.floatToIntBits(
+                other.getPositionY())) return false;
+      }
+      if (hasOrganismId() != other.hasOrganismId()) return false;
+      if (hasOrganismId()) {
+        if (getOrganismId()
+            != other.getOrganismId()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasPositionX()) {
+        hash = (37 * hash) + POSITIONX_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getPositionX());
+      }
+      if (hasPositionY()) {
+        hash = (37 * hash) + POSITIONY_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getPositionY());
+      }
+      if (hasOrganismId()) {
+        hash = (37 * hash) + ORGANISMID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getOrganismId());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Scene.SC10036 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Scene.SC10036 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Scene.SC10036 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Scene.SC10036 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Scene.SC10036 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Scene.SC10036 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Scene.SC10036 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Scene.SC10036 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Scene.SC10036 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Scene.SC10036 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Scene.SC10036 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Scene.SC10036 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Scene.SC10036 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code protocol.SC10036}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.SC10036)
+        protocol.Scene.SC10036OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Scene.internal_static_protocol_SC10036_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Scene.internal_static_protocol_SC10036_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Scene.SC10036.class, protocol.Scene.SC10036.Builder.class);
+      }
+
+      // Construct using protocol.Scene.SC10036.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        positionX_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        positionY_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        organismId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Scene.internal_static_protocol_SC10036_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Scene.SC10036 getDefaultInstanceForType() {
+        return protocol.Scene.SC10036.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Scene.SC10036 build() {
+        protocol.Scene.SC10036 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Scene.SC10036 buildPartial() {
+        protocol.Scene.SC10036 result = new protocol.Scene.SC10036(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.positionX_ = positionX_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.positionY_ = positionY_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.organismId_ = organismId_;
+          to_bitField0_ |= 0x00000004;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Scene.SC10036) {
+          return mergeFrom((protocol.Scene.SC10036)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Scene.SC10036 other) {
+        if (other == protocol.Scene.SC10036.getDefaultInstance()) return this;
+        if (other.hasPositionX()) {
+          setPositionX(other.getPositionX());
+        }
+        if (other.hasPositionY()) {
+          setPositionY(other.getPositionY());
+        }
+        if (other.hasOrganismId()) {
+          setOrganismId(other.getOrganismId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasPositionX()) {
+          return false;
+        }
+        if (!hasPositionY()) {
+          return false;
+        }
+        if (!hasOrganismId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Scene.SC10036 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Scene.SC10036) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private float positionX_ ;
+      /**
+       * <code>required float positionX = 1;</code>
+       * @return Whether the positionX field is set.
+       */
+      public boolean hasPositionX() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required float positionX = 1;</code>
+       * @return The positionX.
+       */
+      public float getPositionX() {
+        return positionX_;
+      }
+      /**
+       * <code>required float positionX = 1;</code>
+       * @param value The positionX to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPositionX(float value) {
+        bitField0_ |= 0x00000001;
+        positionX_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required float positionX = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPositionX() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        positionX_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float positionY_ ;
+      /**
+       * <code>required float positionY = 2;</code>
+       * @return Whether the positionY field is set.
+       */
+      public boolean hasPositionY() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required float positionY = 2;</code>
+       * @return The positionY.
+       */
+      public float getPositionY() {
+        return positionY_;
+      }
+      /**
+       * <code>required float positionY = 2;</code>
+       * @param value The positionY to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPositionY(float value) {
+        bitField0_ |= 0x00000002;
+        positionY_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required float positionY = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPositionY() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        positionY_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private long organismId_ ;
+      /**
+       * <code>required int64 organismId = 3;</code>
+       * @return Whether the organismId field is set.
+       */
+      public boolean hasOrganismId() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>required int64 organismId = 3;</code>
+       * @return The organismId.
+       */
+      public long getOrganismId() {
+        return organismId_;
+      }
+      /**
+       * <code>required int64 organismId = 3;</code>
+       * @param value The organismId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrganismId(long value) {
+        bitField0_ |= 0x00000004;
+        organismId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 organismId = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOrganismId() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        organismId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.SC10036)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.SC10036)
+    private static final protocol.Scene.SC10036 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Scene.SC10036();
+    }
+
+    public static protocol.Scene.SC10036 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SC10036>
+        PARSER = new com.google.protobuf.AbstractParser<SC10036>() {
+      @java.lang.Override
+      public SC10036 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SC10036(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SC10036> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SC10036> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Scene.SC10036 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_protocol_MoveInfo_descriptor;
   private static final 
@@ -10268,6 +11954,16 @@ public final class Scene {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_protocol_SC10035_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_CS10036_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_CS10036_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_SC10036_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_SC10036_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -10285,21 +11981,25 @@ public final class Scene {
       "(\002\022\021\n\tpositionY\030\002 \002(\002\022\023\n\013highestPosX\030\003 \002" +
       "(\002\022\023\n\013highestPosY\030\004 \002(\002\022\021\n\tfinalPosX\030\005 \002" +
       "(\002\022\021\n\tfinalPosY\030\006 \002(\002\022\014\n\004face\030\007 \002(\005\"\032\n\007C" +
-      "S10030\022\017\n\007sceneId\030\001 \002(\003\"\032\n\007SC10030\022\017\n\007sc" +
-      "eneId\030\001 \002(\003\"\032\n\007CS10031\022\017\n\007sceneId\030\001 \002(\003\"" +
-      "\033\n\007SC10031\022\020\n\010playerId\030\001 \002(\003\"/\n\007CS10032\022" +
-      "$\n\010moveInfo\030\001 \002(\0132\022.protocol.MoveInfo\"C\n" +
-      "\007SC10032\022\022\n\norganismId\030\001 \002(\003\022$\n\010moveInfo" +
-      "\030\002 \002(\0132\022.protocol.MoveInfo\"/\n\007CS10033\022$\n" +
-      "\010stopInfo\030\001 \002(\0132\022.protocol.StopInfo\"C\n\007S" +
-      "C10033\022\022\n\norganismId\030\001 \002(\003\022$\n\010stopInfo\030\002" +
-      " \002(\0132\022.protocol.StopInfo\"g\n\007SC10034\022\022\n\no" +
-      "rganismId\030\001 \002(\003\022\024\n\014organismType\030\002 \002(\005\022\021\n" +
-      "\tpositionX\030\003 \002(\002\022\021\n\tpositionY\030\004 \002(\002\022\014\n\004f" +
-      "ace\030\005 \002(\005\"/\n\007CS10035\022$\n\010jumpInfo\030\001 \002(\0132\022" +
-      ".protocol.JumpInfo\"C\n\007SC10035\022\022\n\norganis" +
-      "mId\030\001 \002(\003\022$\n\010jumpInfo\030\002 \002(\0132\022.protocol.J" +
-      "umpInfo"
+      "S10030\022\017\n\007sceneId\030\001 \002(\003\"@\n\007SC10030\022\017\n\007sc" +
+      "eneId\030\001 \002(\003\022\021\n\tpositionX\030\002 \002(\002\022\021\n\tpositi" +
+      "onY\030\003 \002(\002\"\032\n\007CS10031\022\017\n\007sceneId\030\001 \002(\003\"\033\n" +
+      "\007SC10031\022\020\n\010playerId\030\001 \002(\003\"/\n\007CS10032\022$\n" +
+      "\010moveInfo\030\001 \002(\0132\022.protocol.MoveInfo\"C\n\007S" +
+      "C10032\022\022\n\norganismId\030\001 \002(\003\022$\n\010moveInfo\030\002" +
+      " \002(\0132\022.protocol.MoveInfo\"/\n\007CS10033\022$\n\010s" +
+      "topInfo\030\001 \002(\0132\022.protocol.StopInfo\"C\n\007SC1" +
+      "0033\022\022\n\norganismId\030\001 \002(\003\022$\n\010stopInfo\030\002 \002" +
+      "(\0132\022.protocol.StopInfo\"g\n\007SC10034\022\022\n\norg" +
+      "anismId\030\001 \002(\003\022\024\n\014organismType\030\002 \002(\005\022\021\n\tp" +
+      "ositionX\030\003 \002(\002\022\021\n\tpositionY\030\004 \002(\002\022\014\n\004fac" +
+      "e\030\005 \002(\005\"/\n\007CS10035\022$\n\010jumpInfo\030\001 \002(\0132\022.p" +
+      "rotocol.JumpInfo\"C\n\007SC10035\022\022\n\norganismI" +
+      "d\030\001 \002(\003\022$\n\010jumpInfo\030\002 \002(\0132\022.protocol.Jum" +
+      "pInfo\"C\n\007CS10036\022\021\n\tpositionX\030\001 \002(\002\022\021\n\tp" +
+      "ositionY\030\002 \002(\002\022\022\n\norganismId\030\003 \002(\003\"C\n\007SC" +
+      "10036\022\021\n\tpositionX\030\001 \002(\002\022\021\n\tpositionY\030\002 " +
+      "\002(\002\022\022\n\norganismId\030\003 \002(\003"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -10334,7 +12034,7 @@ public final class Scene {
     internal_static_protocol_SC10030_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_SC10030_descriptor,
-        new java.lang.String[] { "SceneId", });
+        new java.lang.String[] { "SceneId", "PositionX", "PositionY", });
     internal_static_protocol_CS10031_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_protocol_CS10031_fieldAccessorTable = new
@@ -10389,6 +12089,18 @@ public final class Scene {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_SC10035_descriptor,
         new java.lang.String[] { "OrganismId", "JumpInfo", });
+    internal_static_protocol_CS10036_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_protocol_CS10036_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_CS10036_descriptor,
+        new java.lang.String[] { "PositionX", "PositionY", "OrganismId", });
+    internal_static_protocol_SC10036_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_protocol_SC10036_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_SC10036_descriptor,
+        new java.lang.String[] { "PositionX", "PositionY", "OrganismId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

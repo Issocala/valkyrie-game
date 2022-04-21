@@ -37,6 +37,8 @@ message CS10030
 message SC10030
 {
   required int64 sceneId = 1;
+  required float positionX = 2;
+  required float positionY = 3;
 }
 
 
@@ -98,4 +100,17 @@ message CS10035
 message SC10035{
   required int64 organismId = 1;
   required JumpInfo jumpInfo = 2;
+}
+
+//同场景瞬移
+message CS10036{
+  required float positionX = 1;
+  required float positionY = 2;
+  required int64 organismId = 3;
+}
+
+message SC10036{
+  required float positionX = 1;
+  required float positionY = 2;
+  required int64 organismId = 3;
 }
