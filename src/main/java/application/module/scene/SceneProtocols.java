@@ -22,4 +22,6 @@ public interface SceneProtocols {
 
     int SCENE_JUMP = GameProtocols.SCENE + 5;
 
+    int SCENE_FLASH = GameProtocols.SCENE + 6;
+
 }

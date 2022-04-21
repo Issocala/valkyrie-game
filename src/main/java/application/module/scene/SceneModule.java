@@ -67,6 +67,16 @@ public class SceneModule extends AbstractModule {
             case SceneProtocols.SCENE_MOVE -> move(r);
             case SceneProtocols.SCENE_STOP -> stop(r);
             case SceneProtocols.SCENE_JUMP -> jump(r);
+            case SceneProtocols.SCENE_FLASH -> flash(r);
+        }
+    }
+
+    private void flash(Client.ReceivedFromClient r) {
+        try {
+            var cs10036 = Scene.CS10036.parseFrom(r.message());
+            this.sceneData.tell(new SceneFlash(r, cs10036), self());
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
         }
     }
 

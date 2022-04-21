@@ -26,6 +26,6 @@ public class SceneModuleHolder extends AbstractModuleHolder {
     @Override
     public List<Integer> getProtocols() {
         return List.of(SceneProtocols.SCENE_ENTER, SceneProtocols.SCENE_EXIT, SceneProtocols.SCENE_MOVE, SceneProtocols.SCENE_STOP,
-                SceneProtocols.SCENE_JUMP);
+                SceneProtocols.SCENE_JUMP, SceneProtocols.SCENE_FLASH);
     }
 }

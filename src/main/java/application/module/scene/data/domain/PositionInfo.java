@@ -1,5 +1,7 @@
 package application.module.scene.data.domain;
 
+import application.module.organism.OrganismFaceType;
+
 /**
  * @author Luo Yong
  * @date 2022-3-18
@@ -12,6 +14,12 @@ public class PositionInfo {
     private int face;
 
     public PositionInfo() {
+    }
+
+    public PositionInfo(float positionX, float positionY) {
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.face = OrganismFaceType.RIGHT;
     }
 
     public PositionInfo(float positionX, float positionY, int face) {

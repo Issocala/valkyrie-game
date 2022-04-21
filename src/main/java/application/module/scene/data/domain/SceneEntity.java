@@ -14,20 +14,20 @@ import javax.persistence.Column;
  * @date 2022-3-3
  * @Source 1.0
  */
-@DbDeserialize
+@DbDeserialize(builder = SceneEntity.Builder.class)
 public class SceneEntity extends AbstractEntityBase {
 
     /**
      * 停留的上一个常驻场景id,重新上线进入的场景
      */
     @Column
-    private int sceneTemplateId;
+    private final int sceneTemplateId;
     /**
      * 停留的上一个常驻场景的位置
      */
     @Column
     @Convert(converter = JsonAttributeConverter.class)
-    private PositionInfo positionInfo;
+    private final PositionInfo positionInfo;
 
     /**
      * @param id

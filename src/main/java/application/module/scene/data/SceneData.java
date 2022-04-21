@@ -61,7 +61,16 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
             case SceneInit sceneInit -> sceneInit(sceneInit);
             case UpdateFightAttribute updateFightAttribute -> attributeUpdateFightAttribute(updateFightAttribute);
             case PlayerLogout playerLogout -> playerLogout(playerLogout);
+            case SceneFlash sceneFlash -> sceneFlash(sceneFlash);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase.getClass().getName());
+        }
+    }
+
+    private void sceneFlash(SceneFlash sceneFlash) {
+        long playerId = sceneFlash.r().uID();
+        if (this.playerId2SceneIdMap.containsKey(playerId)) {
+            long sceneId = this.playerId2SceneIdMap.get(playerId);
+            this.sceneId2SceneMap.get(sceneId).tell(sceneFlash, self());
         }
     }
 
@@ -72,7 +81,6 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         if (scenePlayerExitReturn.sceneTemplateId() == 20003L) {
 
         }
-
         long playerId = scenePlayerExitReturn.playerId();
         SceneEntity sceneEntity = new SceneEntity(playerId, scenePlayerExitReturn.sceneTemplateId(), scenePlayerExitReturn.positionInfo());
         put(scenePlayerExitReturn.playerId(), sceneEntity);
@@ -101,6 +109,11 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
             this.put(playerId, sceneEntity);
             this.getDbManager().tell(new DbInsert(self(), sceneEntity, playerLoginDbReturn, false), self());
         }
+        long sceneId = sceneEntity.getSceneTemplateId();
+        if (this.sceneId2SceneMap.containsKey(sceneId)) {
+            sceneId2SceneMap.get(sceneId).tell(playerLoginDbReturn.playerLogin(), self());
+            playerId2SceneIdMap.put(playerLoginDbReturn.playerLogin().playerInfo().id(), sceneId);
+        }
     }
 
     private void playerLogout(PlayerLogout playerLogout) {
@@ -126,11 +139,12 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         SceneEntity sceneEntity = (SceneEntity) get(playerId);
         if (Objects.isNull(sceneEntity)) {
             getDbManager().tell(new DbGet(self(), new SceneEntity(playerId), new PlayerLoginDbReturn(playerLogin)), this.self());
-        }
-        long sceneId = 20003L;
-        if (this.sceneId2SceneMap.containsKey(sceneId)) {
-            sceneId2SceneMap.get(sceneId).tell(playerLogin, self());
-            playerId2SceneIdMap.put(playerLogin.playerInfo().id(), sceneId);
+        }else {
+            long sceneId = sceneEntity.getSceneTemplateId();
+            if (this.sceneId2SceneMap.containsKey(sceneId)) {
+                sceneId2SceneMap.get(sceneId).tell(playerLogin, self());
+                playerId2SceneIdMap.put(playerId, sceneId);
+            }
         }
     }
 
