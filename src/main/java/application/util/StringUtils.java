@@ -31,10 +31,10 @@ public class StringUtils {
     }
 
     public static Map<Short, Long> toAttributeMap(String s) {
-        if (isEmpty(s)) {
-            return null;
-        }
         Map<Short, Long> attributeMap = new HashMap<>();
+        if (isEmpty(s)) {
+            return attributeMap;
+        }
         String[] ss = s.split(DEFAULT_SPLIT);
         for (String s1 : ss) {
             String[] ss1 = s.split(":");

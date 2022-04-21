@@ -17,4 +17,8 @@ public class RandomUtil {
         return ThreadLocalRandom.current().nextDouble(d);
     }
 
+    public static int randomInt(int i) {
+        return ThreadLocalRandom.current().nextInt(i);
+    }
+
 }
