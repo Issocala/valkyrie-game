@@ -28,6 +28,9 @@ public interface AttributeTemplateId {
     short REDUCE_TRUE_DAMAGE = 205;
     short RECOVER_HP = 206;
     short RECOVER_MP = 207;
+    short ATTACK_SPEED = 208;
+    short MOVE_SPEED = 209;
+    short JUMP_SPEED = 210;
 
 
     /*
@@ -58,8 +61,8 @@ public interface AttributeTemplateId {
     short FINAL_DAMAGE_RATIO = 324;
     short REDUCE_FINAL_DAMAGE_RATIO = 325;
     short ATTACK_SPEED_RATIO = 327;
-    short SPEED_RATIO = 328;
-    short JUMP_RATIO = 329;
+    short MOVE_SPEED_RATIO = 328;
+    short JUMP_SPEED_RATIO = 329;
     short BUFF_TIME_RATIO = 330;
     short REDUCE_ABNORMAL_STATE_TIME_RATIO = 331;
     short REDUCE_CONTROL_TIME_RATIO = 332;

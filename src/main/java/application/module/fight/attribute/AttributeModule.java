@@ -7,7 +7,7 @@ import application.module.fight.attribute.provider.AttributeRegister;
 import application.module.player.data.PlayerEntityData;
 import application.module.player.data.message.event.PlayerLogin;
 import application.module.scene.data.SceneData;
-import application.module.scene.operate.event.CreateOrganismEntities;
+import application.module.scene.operate.event.CreatePlayerEntitiesAfter;
 import com.cala.orm.message.DataReturnMessage;
 import com.cala.orm.message.SubscribeEvent;
 import mobius.modular.client.Client;
@@ -41,12 +41,12 @@ public class AttributeModule extends AbstractModule {
                 .match(DataMessage.DataResult.class, this::dataResult)
                 .match(DataReturnMessage.class, this::dataResultMessage)
                 .match(PlayerLogin.class, this::playerLogin)
-                .match(CreateOrganismEntities.class, this::createOrganismEntities)
+                .match(CreatePlayerEntitiesAfter.class, this::createOrganismEntities)
                 .build();
     }
 
-    private void createOrganismEntities(CreateOrganismEntities createOrganismEntities) {
-        this.attributeData.tell(createOrganismEntities, self());
+    private void createOrganismEntities(CreatePlayerEntitiesAfter createPlayerEntitiesAfter) {
+        this.attributeData.tell(createPlayerEntitiesAfter, self());
     }
 
     private void playerLogin(PlayerLogin playerLogin) {
@@ -70,7 +70,7 @@ public class AttributeModule extends AbstractModule {
             this.playerEntityData.tell(new SubscribeEvent(PlayerLogin.class, self()), self());
         }else if (dataResult.clazz() == SceneData.class) {
             this.sceneData = dataResult.actorRef();
-            this.sceneData.tell(new SubscribeEvent(CreateOrganismEntities.class, self()), self());
+            this.sceneData.tell(new SubscribeEvent(CreatePlayerEntitiesAfter.class, self()), self());
         }
     }
 }

@@ -1,5 +1,6 @@
 package application.module.fight.attribute.data.message;
 
+import com.cala.orm.message.DataBase;
 import mobius.modular.client.Client;
 
 /**
@@ -7,5 +8,5 @@ import mobius.modular.client.Client;
  * @date 2022-4-11
  * @Source 1.0
  */
-public record AddMp(long playerId, Client.ReceivedFromClient r, long mp) {
+public record AddMp(long organismId, Client.ReceivedFromClient r, long mp) implements DataBase {
 }

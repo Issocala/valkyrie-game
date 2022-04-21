@@ -63,6 +63,9 @@ public class AttributeTemplateIdContainer {
         addValue(REDUCE_TRUE_DAMAGE);
         addValue(RECOVER_HP);
         addValue(RECOVER_MP);
+        addValue(ATTACK_SPEED);
+        addValue(MOVE_SPEED);
+        addValue(JUMP_SPEED);
 
 
         addRatio(HIT_RATIO);
@@ -90,8 +93,8 @@ public class AttributeTemplateIdContainer {
         addRatio(FINAL_DAMAGE_RATIO);
         addRatio(REDUCE_FINAL_DAMAGE_RATIO);
         addRatio(ATTACK_SPEED_RATIO);
-        addRatio(SPEED_RATIO);
-        addRatio(JUMP_RATIO);
+        addRatio(MOVE_SPEED_RATIO);
+        addRatio(JUMP_SPEED_RATIO);
         addRatio(BUFF_TIME_RATIO);
         addRatio(REDUCE_ABNORMAL_STATE_TIME_RATIO);
         addRatio(REDUCE_CONTROL_TIME_RATIO);
@@ -128,6 +131,9 @@ public class AttributeTemplateIdContainer {
         addPublicBase(ROLE_PIERCE_PER_RATIO, MAGIC_PIERCE);
         addPublicBase(RECOVER_HP_PER_RATIO, RECOVER_HP);
         addPublicBase(RECOVER_MP_PER_RATIO, RECOVER_MP);
+        addPublicBase(ATTACK_SPEED_RATIO, ATTACK_SPEED);
+        addPublicBase(MOVE_SPEED_RATIO, MOVE_SPEED);
+        addPublicBase(JUMP_SPEED_RATIO, JUMP_SPEED);
 
         /*
         添加子系统
