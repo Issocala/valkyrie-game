@@ -9,7 +9,16 @@ public interface OrganismType {
 
     byte PLAYER = 1;
 
-    byte BOSS = 2;
+    byte MONSTER = 2;
 
-    byte MONSTER = 3;
+    byte BOSS = 3;
+
+    static boolean isFightOrganism(Organism organism) {
+
+        return isFightOrganism(organism.getOrganismType());
+    }
+
+    static boolean isFightOrganism(byte organismType) {
+        return organismType == PLAYER ||  organismType == MONSTER || organismType == BOSS;
+    }
 }
