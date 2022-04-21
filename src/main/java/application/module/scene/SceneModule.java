@@ -2,6 +2,8 @@ package application.module.scene;
 
 import akka.actor.ActorRef;
 import application.module.common.data.domain.DataMessage;
+import application.module.fight.attribute.data.AttributeData;
+import application.module.fight.attribute.data.message.PlayerDead;
 import application.module.player.data.PlayerEntityData;
 import application.module.player.data.message.event.PlayerLogin;
 import application.module.player.data.message.event.PlayerLogout;
@@ -23,11 +25,13 @@ public class SceneModule extends AbstractModule {
 
     private ActorRef sceneData;
     private ActorRef playerEntityData;
+    private ActorRef attributeData;
 
     @Override
     public void initData() {
         this.dataAgent().tell(new DataMessage.RequestData(SceneData.class), self());
         this.dataAgent().tell(new DataMessage.RequestData(PlayerEntityData.class), self());
+        this.dataAgent().tell(new DataMessage.RequestData(AttributeData.class), self());
     }
 
     @Override
@@ -38,7 +42,12 @@ public class SceneModule extends AbstractModule {
                 .match(DataReturnMessage.class, this::dataResultMessage)
                 .match(PlayerLogin.class, this::playerLogin)
                 .match(PlayerLogout.class, this::playerLogout)
+                .match(PlayerDead.class, this::playerDead)
                 .build();
+    }
+
+    private void playerDead(PlayerDead playerDead) {
+        this.sceneData.tell(playerDead, self());
     }
 
     private void playerLogout(PlayerLogout playerLogout) {
@@ -57,6 +66,9 @@ public class SceneModule extends AbstractModule {
             this.playerEntityData = d.actorRef();
             this.playerEntityData.tell(new SubscribeEvent(PlayerLogin.class, self()), self());
             this.playerEntityData.tell(new SubscribeEvent(PlayerLogout.class, self()), self());
+        } else if (d.clazz() == AttributeData.class) {
+            this.attributeData = d.actorRef();
+            this.attributeData.tell(new SubscribeEvent(PlayerDead.class, self()), self());
         }
     }
 

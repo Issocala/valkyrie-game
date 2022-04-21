@@ -202,8 +202,8 @@ public class Scene extends UntypedAbstractActor {
             if (id != playerId) {
                 client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
                         SceneProtocolBuilder.getSc10034(playerId, OrganismType.PLAYER, finalPositionInfo)), self());
+                this.sceneData.tell(new Publish(new CreatePlayerEntitiesAfter(client, organismIds)), self());
             }
-            this.sceneData.tell(new Publish(new CreatePlayerEntitiesAfter(client, organismIds)), self());
         });
         //获取场景实体的数据
         getSceneAllOrganism(r);
@@ -253,8 +253,8 @@ public class Scene extends UntypedAbstractActor {
             if (id != playerId) {
                 client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
                         SceneProtocolBuilder.getSc10034(playerId, OrganismType.PLAYER, finalPositionInfo)), self());
+                this.sceneData.tell(new Publish(new CreatePlayerEntitiesAfter(client, organismIds)), self());
             }
-            this.sceneData.tell(new Publish(new CreatePlayerEntitiesAfter(client, organismIds)), self());
         });
 
         //获取场景实体的数据
@@ -292,6 +292,7 @@ public class Scene extends UntypedAbstractActor {
         UseSkillDataTemp useSkillDataTemp = UseSkillDataTemp.of(cs10052, self());
         useSkillDataTemp.setScene(self());
         useSkillDataTemp.setR(commonOperateTypeInfo.r());
+        useSkillDataTemp.setSceneId(this.sceneId);
         //TODO 获取目标
         if (SkillAimType.isOne(fightSkillTemplate)) {
         }
@@ -317,7 +318,6 @@ public class Scene extends UntypedAbstractActor {
                 r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
                         SceneProtocolBuilder.getSc10034(id, OrganismType.PLAYER, positionInfo)), self())
         );
-
         this.sceneData.tell(new Publish(new CreatePlayerEntitiesAfter(r.client(), positionInfoMap.keySet().stream().toList())), self());
     }
 

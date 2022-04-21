@@ -2,7 +2,7 @@ package application.module.scene.data;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
-import application.module.fight.attribute.data.message.UpdateFightAttribute;
+import application.module.fight.attribute.data.message.PlayerDead;
 import application.module.fight.skill.data.message.SkillUseScene;
 import application.module.player.data.message.event.PlayerLogin;
 import application.module.player.data.message.event.PlayerLogout;
@@ -59,11 +59,15 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
             case ScenePlayerExitReturn scenePlayerExitReturn -> scenePlayerExitReturn(scenePlayerExitReturn);
             case PlayerLogin playerLogin -> playerLogin(playerLogin);
             case SceneInit sceneInit -> sceneInit(sceneInit);
-            case UpdateFightAttribute updateFightAttribute -> attributeUpdateFightAttribute(updateFightAttribute);
             case PlayerLogout playerLogout -> playerLogout(playerLogout);
             case SceneFlash sceneFlash -> sceneFlash(sceneFlash);
+            case PlayerDead playerDead -> playerDead(playerDead);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase.getClass().getName());
         }
+    }
+
+    private void playerDead(PlayerDead playerDead) {
+
     }
 
     private void sceneFlash(SceneFlash sceneFlash) {
@@ -76,7 +80,6 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
 
     private void scenePlayerExitReturn(ScenePlayerExitReturn scenePlayerExitReturn) {
 
-
         //TODO 这里需要拿场景配置，看是否是常驻场景，保存上一个常驻场景的id
         if (scenePlayerExitReturn.sceneTemplateId() == 20003L) {
 
@@ -86,7 +89,7 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         put(scenePlayerExitReturn.playerId(), sceneEntity);
         if (containsKey(playerId)) {
             getDbManager().tell(new DbUpdate(self(), sceneEntity, null, false), self());
-        }else {
+        } else {
             getDbManager().tell(new DbInsert(self(), sceneEntity, null, false), self());
         }
     }
@@ -139,7 +142,7 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         SceneEntity sceneEntity = (SceneEntity) get(playerId);
         if (Objects.isNull(sceneEntity)) {
             getDbManager().tell(new DbGet(self(), new SceneEntity(playerId), new PlayerLoginDbReturn(playerLogin)), this.self());
-        }else {
+        } else {
             long sceneId = sceneEntity.getSceneTemplateId();
             if (this.sceneId2SceneMap.containsKey(sceneId)) {
                 sceneId2SceneMap.get(sceneId).tell(playerLogin, self());
@@ -168,6 +171,9 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         long sceneId = scenePlayerEntry.cs10030().getSceneId();
         if (this.sceneId2SceneMap.containsKey(sceneId)) {
             this.sceneId2SceneMap.get(sceneId).tell(scenePlayerEntry, self());
+            long oldSceneId = playerId2SceneIdMap.get(playerId);
+            this.sceneId2SceneMap.get(oldSceneId).tell(new ScenePlayerExit(scenePlayerEntry.r(),
+                    protocol.Scene.CS10031.newBuilder().setSceneId(oldSceneId).build()), self());
             playerId2SceneIdMap.put(playerId, sceneId);
         }
     }
@@ -177,15 +183,6 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         if (this.playerId2SceneIdMap.containsKey(playerId)) {
             long sceneId = this.playerId2SceneIdMap.get(playerId);
             this.sceneId2SceneMap.get(sceneId).tell(sceneMove, self());
-        }
-    }
-
-    private void attributeUpdateFightAttribute(UpdateFightAttribute updateFightAttribute) {
-        long playerId = updateFightAttribute.playerId();
-        if (playerId2SceneIdMap.containsKey(playerId)) {
-            long sceneId = playerId2SceneIdMap.get(playerId);
-            ActorRef scene = sceneId2SceneMap.get(sceneId);
-            scene.tell(updateFightAttribute, self());
         }
     }
 
