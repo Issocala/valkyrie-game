@@ -38,13 +38,14 @@ public class SceneProtocolBuilder {
                 .build();
     }
 
-    public static Scene.SC10034 getSc10034(long organismId, byte organismType, PositionInfo positionInfo) {
+    public static Scene.SC10034 getSc10034(long organismId, byte organismType, PositionInfo positionInfo, int organismIdTemplate) {
         return Scene.SC10034.newBuilder()
                 .setOrganismId(organismId)
                 .setOrganismType(organismType)
                 .setPositionX(positionInfo.getPositionX())
                 .setPositionY(positionInfo.getPositionY())
                 .setFace(positionInfo.getFace())
+                .setOrganismTemplateId(organismIdTemplate)
                 .build();
     }
 

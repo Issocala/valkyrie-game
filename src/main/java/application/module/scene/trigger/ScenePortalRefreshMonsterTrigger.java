@@ -4,14 +4,15 @@ import akka.actor.ActorRef;
 import akka.actor.Cancellable;
 import akka.actor.Props;
 import application.module.organism.MonsterOrganism;
+import application.module.organism.NpcOrganism;
+import application.module.scene.data.domain.PositionInfo;
 import application.module.scene.operate.CreateOrganismEntity;
 import application.module.scene.operate.SceneInit;
-import application.module.scene.operate.SceneMonsterEntry;
+import application.module.scene.operate.SceneOrganismEntry;
 import mobius.core.java.api.AbstractLogActor;
 
 import java.time.Duration;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,11 +52,18 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
     private void sceneInit(SceneInit sceneInit) {
         this.scene = sender();
 
-        MonsterOrganism monsterOrganism1 = new MonsterOrganism(10001);
-        MonsterOrganism monsterOrganism2 = new MonsterOrganism(10002);
-        MonsterOrganism monsterOrganism3 = new MonsterOrganism(10003);
-        MonsterOrganism monsterOrganism4 = new MonsterOrganism(10004);
-        scene.tell(new SceneMonsterEntry(List.of(monsterOrganism1, monsterOrganism2, monsterOrganism3, monsterOrganism4)), self());
+        NpcOrganism npcOrganism1 = new NpcOrganism(10001);
+        scene.tell(new SceneOrganismEntry(npcOrganism1, new PositionInfo(-10.39662f, 8.045186f)), self());
+
+        npcOrganism1 = new NpcOrganism(10002);
+        scene.tell(new SceneOrganismEntry(npcOrganism1, new PositionInfo(10.47174f, 8.055185f)), self());
+
+        npcOrganism1 = new NpcOrganism(10003);
+        scene.tell(new SceneOrganismEntry(npcOrganism1, new PositionInfo(-10.42631f, 1.051806f)), self());
+
+        npcOrganism1 = new NpcOrganism(10004);
+        scene.tell(new SceneOrganismEntry(npcOrganism1, new PositionInfo(10.43515f, 1.051806f)), self());
+
 
         Cancellable cancellable1 = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(tick), self(),
                 new CreateOrganismEntity(1, 3, 10001), getContext().dispatcher(), self());

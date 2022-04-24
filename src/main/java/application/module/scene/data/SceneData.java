@@ -170,10 +170,9 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         long playerId = scenePlayerEntry.r().uID();
         long sceneId = scenePlayerEntry.cs10030().getSceneId();
         if (this.sceneId2SceneMap.containsKey(sceneId)) {
-            this.sceneId2SceneMap.get(sceneId).tell(scenePlayerEntry, self());
             long oldSceneId = playerId2SceneIdMap.get(playerId);
-            this.sceneId2SceneMap.get(oldSceneId).tell(new ScenePlayerExit(scenePlayerEntry.r(),
-                    protocol.Scene.CS10031.newBuilder().setSceneId(oldSceneId).build()), self());
+            this.sceneId2SceneMap.get(oldSceneId).tell(new GetPlayerDataToOtherScene(scenePlayerEntry,
+                    this.sceneId2SceneMap.get(sceneId)), self());
             playerId2SceneIdMap.put(playerId, sceneId);
         }
     }
