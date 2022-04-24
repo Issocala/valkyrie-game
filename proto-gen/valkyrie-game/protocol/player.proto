@@ -16,7 +16,7 @@ message CS10020
 {
 }
 
-//返回基本玩家角色信息
+//查询用户返回基本玩家角色信息
 message SC10020
 {
   repeated PlayerInfo playerInfo = 1;
@@ -56,4 +56,10 @@ message SC10022
 message CS10024
 {
 
+}
+
+//返回玩家实体信息
+message SC10025
+{
+  repeated PlayerInfo playerInfo = 1;
 }

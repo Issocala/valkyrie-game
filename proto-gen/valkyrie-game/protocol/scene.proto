@@ -84,10 +84,11 @@ message SC10033
 message SC10034
 {
   required int64 organismId = 1;
-  required int32 organismType = 2; //1->player,2->boss
+  required int32 organismType = 2;
   required float positionX = 3;
   required float positionY = 4;
   required int32 face = 5;
+  required int32 organismTemplateId = 6;
 }
 
 //玩家跳跃

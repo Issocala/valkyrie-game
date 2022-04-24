@@ -8038,19 +8038,11 @@ public final class Scene {
     long getOrganismId();
 
     /**
-     * <pre>
-     *1-&gt;player,2-&gt;boss
-     * </pre>
-     *
      * <code>required int32 organismType = 2;</code>
      * @return Whether the organismType field is set.
      */
     boolean hasOrganismType();
     /**
-     * <pre>
-     *1-&gt;player,2-&gt;boss
-     * </pre>
-     *
      * <code>required int32 organismType = 2;</code>
      * @return The organismType.
      */
@@ -8088,6 +8080,17 @@ public final class Scene {
      * @return The face.
      */
     int getFace();
+
+    /**
+     * <code>required int32 organismTemplateId = 6;</code>
+     * @return Whether the organismTemplateId field is set.
+     */
+    boolean hasOrganismTemplateId();
+    /**
+     * <code>required int32 organismTemplateId = 6;</code>
+     * @return The organismTemplateId.
+     */
+    int getOrganismTemplateId();
   }
   /**
    * <pre>
@@ -8164,6 +8167,11 @@ public final class Scene {
               face_ = input.readInt32();
               break;
             }
+            case 48: {
+              bitField0_ |= 0x00000020;
+              organismTemplateId_ = input.readInt32();
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -8217,10 +8225,6 @@ public final class Scene {
     public static final int ORGANISMTYPE_FIELD_NUMBER = 2;
     private int organismType_;
     /**
-     * <pre>
-     *1-&gt;player,2-&gt;boss
-     * </pre>
-     *
      * <code>required int32 organismType = 2;</code>
      * @return Whether the organismType field is set.
      */
@@ -8228,10 +8232,6 @@ public final class Scene {
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <pre>
-     *1-&gt;player,2-&gt;boss
-     * </pre>
-     *
      * <code>required int32 organismType = 2;</code>
      * @return The organismType.
      */
@@ -8290,6 +8290,23 @@ public final class Scene {
       return face_;
     }
 
+    public static final int ORGANISMTEMPLATEID_FIELD_NUMBER = 6;
+    private int organismTemplateId_;
+    /**
+     * <code>required int32 organismTemplateId = 6;</code>
+     * @return Whether the organismTemplateId field is set.
+     */
+    public boolean hasOrganismTemplateId() {
+      return ((bitField0_ & 0x00000020) != 0);
+    }
+    /**
+     * <code>required int32 organismTemplateId = 6;</code>
+     * @return The organismTemplateId.
+     */
+    public int getOrganismTemplateId() {
+      return organismTemplateId_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -8317,6 +8334,10 @@ public final class Scene {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasOrganismTemplateId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -8338,6 +8359,9 @@ public final class Scene {
       }
       if (((bitField0_ & 0x00000010) != 0)) {
         output.writeInt32(5, face_);
+      }
+      if (((bitField0_ & 0x00000020) != 0)) {
+        output.writeInt32(6, organismTemplateId_);
       }
       unknownFields.writeTo(output);
     }
@@ -8367,6 +8391,10 @@ public final class Scene {
       if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(5, face_);
+      }
+      if (((bitField0_ & 0x00000020) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, organismTemplateId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -8410,6 +8438,11 @@ public final class Scene {
         if (getFace()
             != other.getFace()) return false;
       }
+      if (hasOrganismTemplateId() != other.hasOrganismTemplateId()) return false;
+      if (hasOrganismTemplateId()) {
+        if (getOrganismTemplateId()
+            != other.getOrganismTemplateId()) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -8443,6 +8476,10 @@ public final class Scene {
       if (hasFace()) {
         hash = (37 * hash) + FACE_FIELD_NUMBER;
         hash = (53 * hash) + getFace();
+      }
+      if (hasOrganismTemplateId()) {
+        hash = (37 * hash) + ORGANISMTEMPLATEID_FIELD_NUMBER;
+        hash = (53 * hash) + getOrganismTemplateId();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -8591,6 +8628,8 @@ public final class Scene {
         bitField0_ = (bitField0_ & ~0x00000008);
         face_ = 0;
         bitField0_ = (bitField0_ & ~0x00000010);
+        organismTemplateId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -8638,6 +8677,10 @@ public final class Scene {
         if (((from_bitField0_ & 0x00000010) != 0)) {
           result.face_ = face_;
           to_bitField0_ |= 0x00000010;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.organismTemplateId_ = organismTemplateId_;
+          to_bitField0_ |= 0x00000020;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -8703,6 +8746,9 @@ public final class Scene {
         if (other.hasFace()) {
           setFace(other.getFace());
         }
+        if (other.hasOrganismTemplateId()) {
+          setOrganismTemplateId(other.getOrganismTemplateId());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -8723,6 +8769,9 @@ public final class Scene {
           return false;
         }
         if (!hasFace()) {
+          return false;
+        }
+        if (!hasOrganismTemplateId()) {
           return false;
         }
         return true;
@@ -8787,10 +8836,6 @@ public final class Scene {
 
       private int organismType_ ;
       /**
-       * <pre>
-       *1-&gt;player,2-&gt;boss
-       * </pre>
-       *
        * <code>required int32 organismType = 2;</code>
        * @return Whether the organismType field is set.
        */
@@ -8798,10 +8843,6 @@ public final class Scene {
         return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <pre>
-       *1-&gt;player,2-&gt;boss
-       * </pre>
-       *
        * <code>required int32 organismType = 2;</code>
        * @return The organismType.
        */
@@ -8809,10 +8850,6 @@ public final class Scene {
         return organismType_;
       }
       /**
-       * <pre>
-       *1-&gt;player,2-&gt;boss
-       * </pre>
-       *
        * <code>required int32 organismType = 2;</code>
        * @param value The organismType to set.
        * @return This builder for chaining.
@@ -8824,10 +8861,6 @@ public final class Scene {
         return this;
       }
       /**
-       * <pre>
-       *1-&gt;player,2-&gt;boss
-       * </pre>
-       *
        * <code>required int32 organismType = 2;</code>
        * @return This builder for chaining.
        */
@@ -8945,6 +8978,43 @@ public final class Scene {
       public Builder clearFace() {
         bitField0_ = (bitField0_ & ~0x00000010);
         face_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int organismTemplateId_ ;
+      /**
+       * <code>required int32 organismTemplateId = 6;</code>
+       * @return Whether the organismTemplateId field is set.
+       */
+      public boolean hasOrganismTemplateId() {
+        return ((bitField0_ & 0x00000020) != 0);
+      }
+      /**
+       * <code>required int32 organismTemplateId = 6;</code>
+       * @return The organismTemplateId.
+       */
+      public int getOrganismTemplateId() {
+        return organismTemplateId_;
+      }
+      /**
+       * <code>required int32 organismTemplateId = 6;</code>
+       * @param value The organismTemplateId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrganismTemplateId(int value) {
+        bitField0_ |= 0x00000020;
+        organismTemplateId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 organismTemplateId = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOrganismTemplateId() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        organismTemplateId_ = 0;
         onChanged();
         return this;
       }
@@ -11990,16 +12060,17 @@ public final class Scene {
       " \002(\0132\022.protocol.MoveInfo\"/\n\007CS10033\022$\n\010s" +
       "topInfo\030\001 \002(\0132\022.protocol.StopInfo\"C\n\007SC1" +
       "0033\022\022\n\norganismId\030\001 \002(\003\022$\n\010stopInfo\030\002 \002" +
-      "(\0132\022.protocol.StopInfo\"g\n\007SC10034\022\022\n\norg" +
-      "anismId\030\001 \002(\003\022\024\n\014organismType\030\002 \002(\005\022\021\n\tp" +
-      "ositionX\030\003 \002(\002\022\021\n\tpositionY\030\004 \002(\002\022\014\n\004fac" +
-      "e\030\005 \002(\005\"/\n\007CS10035\022$\n\010jumpInfo\030\001 \002(\0132\022.p" +
-      "rotocol.JumpInfo\"C\n\007SC10035\022\022\n\norganismI" +
-      "d\030\001 \002(\003\022$\n\010jumpInfo\030\002 \002(\0132\022.protocol.Jum" +
-      "pInfo\"C\n\007CS10036\022\021\n\tpositionX\030\001 \002(\002\022\021\n\tp" +
-      "ositionY\030\002 \002(\002\022\022\n\norganismId\030\003 \002(\003\"C\n\007SC" +
+      "(\0132\022.protocol.StopInfo\"\203\001\n\007SC10034\022\022\n\nor" +
+      "ganismId\030\001 \002(\003\022\024\n\014organismType\030\002 \002(\005\022\021\n\t" +
+      "positionX\030\003 \002(\002\022\021\n\tpositionY\030\004 \002(\002\022\014\n\004fa" +
+      "ce\030\005 \002(\005\022\032\n\022organismTemplateId\030\006 \002(\005\"/\n\007" +
+      "CS10035\022$\n\010jumpInfo\030\001 \002(\0132\022.protocol.Jum" +
+      "pInfo\"C\n\007SC10035\022\022\n\norganismId\030\001 \002(\003\022$\n\010" +
+      "jumpInfo\030\002 \002(\0132\022.protocol.JumpInfo\"C\n\007CS" +
       "10036\022\021\n\tpositionX\030\001 \002(\002\022\021\n\tpositionY\030\002 " +
-      "\002(\002\022\022\n\norganismId\030\003 \002(\003"
+      "\002(\002\022\022\n\norganismId\030\003 \002(\003\"C\n\007SC10036\022\021\n\tpo" +
+      "sitionX\030\001 \002(\002\022\021\n\tpositionY\030\002 \002(\002\022\022\n\norga" +
+      "nismId\030\003 \002(\003"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -12076,7 +12147,7 @@ public final class Scene {
     internal_static_protocol_SC10034_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_SC10034_descriptor,
-        new java.lang.String[] { "OrganismId", "OrganismType", "PositionX", "PositionY", "Face", });
+        new java.lang.String[] { "OrganismId", "OrganismType", "PositionX", "PositionY", "Face", "OrganismTemplateId", });
     internal_static_protocol_CS10035_descriptor =
       getDescriptor().getMessageTypes().get(12);
     internal_static_protocol_CS10035_fieldAccessorTable = new

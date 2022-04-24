@@ -1593,7 +1593,7 @@ public final class Player {
   }
   /**
    * <pre>
-   *返回基本玩家角色信息
+   *查询用户返回基本玩家角色信息
    * </pre>
    *
    * Protobuf type {@code protocol.SC10020}
@@ -1886,7 +1886,7 @@ public final class Player {
     }
     /**
      * <pre>
-     *返回基本玩家角色信息
+     *查询用户返回基本玩家角色信息
      * </pre>
      *
      * Protobuf type {@code protocol.SC10020}
@@ -5877,6 +5877,813 @@ public final class Player {
 
   }
 
+  public interface SC10025OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.SC10025)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+     */
+    java.util.List<protocol.Player.PlayerInfo> 
+        getPlayerInfoList();
+    /**
+     * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+     */
+    protocol.Player.PlayerInfo getPlayerInfo(int index);
+    /**
+     * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+     */
+    int getPlayerInfoCount();
+    /**
+     * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+     */
+    java.util.List<? extends protocol.Player.PlayerInfoOrBuilder> 
+        getPlayerInfoOrBuilderList();
+    /**
+     * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+     */
+    protocol.Player.PlayerInfoOrBuilder getPlayerInfoOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   *返回玩家实体信息
+   * </pre>
+   *
+   * Protobuf type {@code protocol.SC10025}
+   */
+  public  static final class SC10025 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.SC10025)
+      SC10025OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SC10025.newBuilder() to construct.
+    private SC10025(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SC10025() {
+      playerInfo_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SC10025();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SC10025(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                playerInfo_ = new java.util.ArrayList<protocol.Player.PlayerInfo>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              playerInfo_.add(
+                  input.readMessage(protocol.Player.PlayerInfo.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          playerInfo_ = java.util.Collections.unmodifiableList(playerInfo_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Player.internal_static_protocol_SC10025_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Player.internal_static_protocol_SC10025_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Player.SC10025.class, protocol.Player.SC10025.Builder.class);
+    }
+
+    public static final int PLAYERINFO_FIELD_NUMBER = 1;
+    private java.util.List<protocol.Player.PlayerInfo> playerInfo_;
+    /**
+     * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+     */
+    public java.util.List<protocol.Player.PlayerInfo> getPlayerInfoList() {
+      return playerInfo_;
+    }
+    /**
+     * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+     */
+    public java.util.List<? extends protocol.Player.PlayerInfoOrBuilder> 
+        getPlayerInfoOrBuilderList() {
+      return playerInfo_;
+    }
+    /**
+     * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+     */
+    public int getPlayerInfoCount() {
+      return playerInfo_.size();
+    }
+    /**
+     * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+     */
+    public protocol.Player.PlayerInfo getPlayerInfo(int index) {
+      return playerInfo_.get(index);
+    }
+    /**
+     * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+     */
+    public protocol.Player.PlayerInfoOrBuilder getPlayerInfoOrBuilder(
+        int index) {
+      return playerInfo_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      for (int i = 0; i < getPlayerInfoCount(); i++) {
+        if (!getPlayerInfo(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < playerInfo_.size(); i++) {
+        output.writeMessage(1, playerInfo_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < playerInfo_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, playerInfo_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Player.SC10025)) {
+        return super.equals(obj);
+      }
+      protocol.Player.SC10025 other = (protocol.Player.SC10025) obj;
+
+      if (!getPlayerInfoList()
+          .equals(other.getPlayerInfoList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getPlayerInfoCount() > 0) {
+        hash = (37 * hash) + PLAYERINFO_FIELD_NUMBER;
+        hash = (53 * hash) + getPlayerInfoList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Player.SC10025 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Player.SC10025 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Player.SC10025 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Player.SC10025 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Player.SC10025 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Player.SC10025 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Player.SC10025 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Player.SC10025 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Player.SC10025 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Player.SC10025 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Player.SC10025 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Player.SC10025 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Player.SC10025 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *返回玩家实体信息
+     * </pre>
+     *
+     * Protobuf type {@code protocol.SC10025}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.SC10025)
+        protocol.Player.SC10025OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Player.internal_static_protocol_SC10025_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Player.internal_static_protocol_SC10025_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Player.SC10025.class, protocol.Player.SC10025.Builder.class);
+      }
+
+      // Construct using protocol.Player.SC10025.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getPlayerInfoFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (playerInfoBuilder_ == null) {
+          playerInfo_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          playerInfoBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Player.internal_static_protocol_SC10025_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Player.SC10025 getDefaultInstanceForType() {
+        return protocol.Player.SC10025.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Player.SC10025 build() {
+        protocol.Player.SC10025 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Player.SC10025 buildPartial() {
+        protocol.Player.SC10025 result = new protocol.Player.SC10025(this);
+        int from_bitField0_ = bitField0_;
+        if (playerInfoBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            playerInfo_ = java.util.Collections.unmodifiableList(playerInfo_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.playerInfo_ = playerInfo_;
+        } else {
+          result.playerInfo_ = playerInfoBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Player.SC10025) {
+          return mergeFrom((protocol.Player.SC10025)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Player.SC10025 other) {
+        if (other == protocol.Player.SC10025.getDefaultInstance()) return this;
+        if (playerInfoBuilder_ == null) {
+          if (!other.playerInfo_.isEmpty()) {
+            if (playerInfo_.isEmpty()) {
+              playerInfo_ = other.playerInfo_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensurePlayerInfoIsMutable();
+              playerInfo_.addAll(other.playerInfo_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.playerInfo_.isEmpty()) {
+            if (playerInfoBuilder_.isEmpty()) {
+              playerInfoBuilder_.dispose();
+              playerInfoBuilder_ = null;
+              playerInfo_ = other.playerInfo_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              playerInfoBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPlayerInfoFieldBuilder() : null;
+            } else {
+              playerInfoBuilder_.addAllMessages(other.playerInfo_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        for (int i = 0; i < getPlayerInfoCount(); i++) {
+          if (!getPlayerInfo(i).isInitialized()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Player.SC10025 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Player.SC10025) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<protocol.Player.PlayerInfo> playerInfo_ =
+        java.util.Collections.emptyList();
+      private void ensurePlayerInfoIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          playerInfo_ = new java.util.ArrayList<protocol.Player.PlayerInfo>(playerInfo_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          protocol.Player.PlayerInfo, protocol.Player.PlayerInfo.Builder, protocol.Player.PlayerInfoOrBuilder> playerInfoBuilder_;
+
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public java.util.List<protocol.Player.PlayerInfo> getPlayerInfoList() {
+        if (playerInfoBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(playerInfo_);
+        } else {
+          return playerInfoBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public int getPlayerInfoCount() {
+        if (playerInfoBuilder_ == null) {
+          return playerInfo_.size();
+        } else {
+          return playerInfoBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public protocol.Player.PlayerInfo getPlayerInfo(int index) {
+        if (playerInfoBuilder_ == null) {
+          return playerInfo_.get(index);
+        } else {
+          return playerInfoBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public Builder setPlayerInfo(
+          int index, protocol.Player.PlayerInfo value) {
+        if (playerInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePlayerInfoIsMutable();
+          playerInfo_.set(index, value);
+          onChanged();
+        } else {
+          playerInfoBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public Builder setPlayerInfo(
+          int index, protocol.Player.PlayerInfo.Builder builderForValue) {
+        if (playerInfoBuilder_ == null) {
+          ensurePlayerInfoIsMutable();
+          playerInfo_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          playerInfoBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public Builder addPlayerInfo(protocol.Player.PlayerInfo value) {
+        if (playerInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePlayerInfoIsMutable();
+          playerInfo_.add(value);
+          onChanged();
+        } else {
+          playerInfoBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public Builder addPlayerInfo(
+          int index, protocol.Player.PlayerInfo value) {
+        if (playerInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePlayerInfoIsMutable();
+          playerInfo_.add(index, value);
+          onChanged();
+        } else {
+          playerInfoBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public Builder addPlayerInfo(
+          protocol.Player.PlayerInfo.Builder builderForValue) {
+        if (playerInfoBuilder_ == null) {
+          ensurePlayerInfoIsMutable();
+          playerInfo_.add(builderForValue.build());
+          onChanged();
+        } else {
+          playerInfoBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public Builder addPlayerInfo(
+          int index, protocol.Player.PlayerInfo.Builder builderForValue) {
+        if (playerInfoBuilder_ == null) {
+          ensurePlayerInfoIsMutable();
+          playerInfo_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          playerInfoBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public Builder addAllPlayerInfo(
+          java.lang.Iterable<? extends protocol.Player.PlayerInfo> values) {
+        if (playerInfoBuilder_ == null) {
+          ensurePlayerInfoIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, playerInfo_);
+          onChanged();
+        } else {
+          playerInfoBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public Builder clearPlayerInfo() {
+        if (playerInfoBuilder_ == null) {
+          playerInfo_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          playerInfoBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public Builder removePlayerInfo(int index) {
+        if (playerInfoBuilder_ == null) {
+          ensurePlayerInfoIsMutable();
+          playerInfo_.remove(index);
+          onChanged();
+        } else {
+          playerInfoBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public protocol.Player.PlayerInfo.Builder getPlayerInfoBuilder(
+          int index) {
+        return getPlayerInfoFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public protocol.Player.PlayerInfoOrBuilder getPlayerInfoOrBuilder(
+          int index) {
+        if (playerInfoBuilder_ == null) {
+          return playerInfo_.get(index);  } else {
+          return playerInfoBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public java.util.List<? extends protocol.Player.PlayerInfoOrBuilder> 
+           getPlayerInfoOrBuilderList() {
+        if (playerInfoBuilder_ != null) {
+          return playerInfoBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(playerInfo_);
+        }
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public protocol.Player.PlayerInfo.Builder addPlayerInfoBuilder() {
+        return getPlayerInfoFieldBuilder().addBuilder(
+            protocol.Player.PlayerInfo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public protocol.Player.PlayerInfo.Builder addPlayerInfoBuilder(
+          int index) {
+        return getPlayerInfoFieldBuilder().addBuilder(
+            index, protocol.Player.PlayerInfo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .protocol.PlayerInfo playerInfo = 1;</code>
+       */
+      public java.util.List<protocol.Player.PlayerInfo.Builder> 
+           getPlayerInfoBuilderList() {
+        return getPlayerInfoFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          protocol.Player.PlayerInfo, protocol.Player.PlayerInfo.Builder, protocol.Player.PlayerInfoOrBuilder> 
+          getPlayerInfoFieldBuilder() {
+        if (playerInfoBuilder_ == null) {
+          playerInfoBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              protocol.Player.PlayerInfo, protocol.Player.PlayerInfo.Builder, protocol.Player.PlayerInfoOrBuilder>(
+                  playerInfo_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          playerInfo_ = null;
+        }
+        return playerInfoBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.SC10025)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.SC10025)
+    private static final protocol.Player.SC10025 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Player.SC10025();
+    }
+
+    public static protocol.Player.SC10025 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SC10025>
+        PARSER = new com.google.protobuf.AbstractParser<SC10025>() {
+      @java.lang.Override
+      public SC10025 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SC10025(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SC10025> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SC10025> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Player.SC10025 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_protocol_PlayerInfo_descriptor;
   private static final 
@@ -5917,6 +6724,11 @@ public final class Player {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_protocol_CS10024_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_SC10025_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_SC10025_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -5936,7 +6748,8 @@ public final class Player {
       "\n\007success\030\001 \002(\010\022\016\n\006roleId\030\002 \001(\003\022\017\n\007conte" +
       "nt\030\003 \001(\t\"\031\n\007CS10022\022\016\n\006roleId\030\001 \002(\003\";\n\007S" +
       "C10022\022\017\n\007success\030\001 \002(\010\022\016\n\006roleId\030\002 \001(\003\022" +
-      "\017\n\007content\030\003 \001(\t\"\t\n\007CS10024"
+      "\017\n\007content\030\003 \001(\t\"\t\n\007CS10024\"3\n\007SC10025\022(" +
+      "\n\nplayerInfo\030\001 \003(\0132\024.protocol.PlayerInfo"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -5990,6 +6803,12 @@ public final class Player {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_CS10024_descriptor,
         new java.lang.String[] { });
+    internal_static_protocol_SC10025_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_protocol_SC10025_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_SC10025_descriptor,
+        new java.lang.String[] { "PlayerInfo", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
