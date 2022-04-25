@@ -1,14 +1,15 @@
 /* 由程序自动生成，请勿修改。*/
 package template;
 
-public record EquipTemplate(int id,byte occupation,byte sex,byte slot,byte step,long[][] baseAttr,long[][] extraAttr,long[][] godAttr){
+public record EquipTemplate(int id,byte stage,byte slot,byte step,byte occupation,byte sex,long[][] baseAttr,long[][] extraAttr,long[][] godAttr,long[][] potentialAttr){
 
     public static EquipTemplate parse(CustomByteBuffer cbb){
         var id = cbb.getInt();
-        var occupation = cbb.get();
-        var sex = cbb.get();
+        var stage = cbb.get();
         var slot = cbb.get();
         var step = cbb.get();
+        var occupation = cbb.get();
+        var sex = cbb.get();
         var baseAttrLength = cbb.getInt();
         var baseAttr = new long[baseAttrLength][];
         for (int i = 0; i < baseAttrLength; i++){
@@ -36,8 +37,17 @@ public record EquipTemplate(int id,byte occupation,byte sex,byte slot,byte step,
                 godAttr[i][j] = cbb.getLong();
             }
         }
+        var potentialAttrLength = cbb.getInt();
+        var potentialAttr = new long[potentialAttrLength][];
+        for (int i = 0; i < potentialAttrLength; i++){
+            var tempLength = cbb.getInt();
+            potentialAttr[i] = new long[tempLength];
+            for (int j = 0; j < tempLength; j++){
+                potentialAttr[i][j] = cbb.getLong();
+            }
+        }
 
-        var temp = new EquipTemplate(id,occupation,sex,slot,step,baseAttr,extraAttr,godAttr);
+        var temp = new EquipTemplate(id,stage,slot,step,occupation,sex,baseAttr,extraAttr,godAttr,potentialAttr);
         return temp;
     }
 }

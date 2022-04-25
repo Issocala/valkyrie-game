@@ -27,6 +27,7 @@ public class TemplateParser {
                     case "AttributeTree" -> AttributeTreeTemplateHolder.addData(AttributeTreeTemplate.parse(cbb));
                     case "Item" -> ItemTemplateHolder.addData(ItemTemplate.parse(cbb));
                     case "Equip" -> EquipTemplateHolder.addData(EquipTemplate.parse(cbb));
+                    case "EquipPotential" -> EquipPotentialTemplateHolder.addData(EquipPotentialTemplate.parse(cbb));
 
                 }
             }
