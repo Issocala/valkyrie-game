@@ -1,7 +1,7 @@
 /* 由程序自动生成，请勿修改。*/
 package template;
 
-public record EffectTemplate(int id,long delayTime,String effectName,float[] offset,float[] scale,float[] rotation,float moveSpeed,long time,int loop,byte hit,int[] hitEffects,String bindTarget){
+public record EffectTemplate(int id,long delayTime,String effectName,float[] offset,float[] scale,float[] rotation,float moveSpeed,long time,int loop,String bindTarget){
 
     public static EffectTemplate parse(CustomByteBuffer cbb){
         var id = cbb.getInt();
@@ -25,15 +25,9 @@ public record EffectTemplate(int id,long delayTime,String effectName,float[] off
         var moveSpeed = cbb.getFloat();
         var time = cbb.getLong();
         var loop = cbb.getInt();
-        var hit = cbb.get();
-        var hitEffectsLength = cbb.getInt();
-        var hitEffects = new int[hitEffectsLength];
-        for (int i = 0; i < hitEffectsLength; i++){
-            hitEffects[i] = cbb.getInt();
-        }
         var bindTarget = cbb.getString();
 
-        var temp = new EffectTemplate(id,delayTime,effectName,offset,scale,rotation,moveSpeed,time,loop,hit,hitEffects,bindTarget);
+        var temp = new EffectTemplate(id,delayTime,effectName,offset,scale,rotation,moveSpeed,time,loop,bindTarget);
         return temp;
     }
 }

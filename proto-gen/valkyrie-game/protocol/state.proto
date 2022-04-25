@@ -1,0 +1,16 @@
+package protocol;
+
+message SC10060
+{
+
+}
+
+message SC10061
+{
+    required int32 fightType = 1;
+}
+
+message SC10062
+{
+    required int32 fightType = 1;
+}

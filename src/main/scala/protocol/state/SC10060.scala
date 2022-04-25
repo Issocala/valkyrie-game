@@ -3,12 +3,12 @@
 //
 // Protofile syntax: PROTO2
 
-package protocol.battle
+package protocol.state
 
 @SerialVersionUID(0L)
-final case class C2S_HB(
+final case class SC10060(
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
-    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[C2S_HB] {
+    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SC10060] {
     @transient
     private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
     private[this] def __computeSerializedValue(): _root_.scala.Int = {
@@ -32,36 +32,36 @@ final case class C2S_HB(
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = throw new MatchError(__fieldNumber)
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = throw new MatchError(__field)
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
-    def companion = protocol.battle.C2S_HB
-    // @@protoc_insertion_point(GeneratedMessage[protocol.C2S_HB])
+    def companion = protocol.state.SC10060
+    // @@protoc_insertion_point(GeneratedMessage[protocol.SC10060])
 }
 
-object C2S_HB extends scalapb.GeneratedMessageCompanion[protocol.battle.C2S_HB] with scalapb.HasBuilder[protocol.battle.C2S_HB] with scalapb.JavaProtoSupport[protocol.battle.C2S_HB, protocol.Battle.C2S_HB] {
-  implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.battle.C2S_HB] with scalapb.HasBuilder[protocol.battle.C2S_HB] with scalapb.JavaProtoSupport[protocol.battle.C2S_HB, protocol.Battle.C2S_HB] = this
-  def toJavaProto(scalaPbSource: protocol.battle.C2S_HB): protocol.Battle.C2S_HB = {
-    val javaPbOut = protocol.Battle.C2S_HB.newBuilder
+object SC10060 extends scalapb.GeneratedMessageCompanion[protocol.state.SC10060] with scalapb.HasBuilder[protocol.state.SC10060] with scalapb.JavaProtoSupport[protocol.state.SC10060, protocol.State.SC10060] {
+  implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.state.SC10060] with scalapb.HasBuilder[protocol.state.SC10060] with scalapb.JavaProtoSupport[protocol.state.SC10060, protocol.State.SC10060] = this
+  def toJavaProto(scalaPbSource: protocol.state.SC10060): protocol.State.SC10060 = {
+    val javaPbOut = protocol.State.SC10060.newBuilder
     javaPbOut.build
   }
-  def fromJavaProto(javaPbSource: protocol.Battle.C2S_HB): protocol.battle.C2S_HB = protocol.battle.C2S_HB(
+  def fromJavaProto(javaPbSource: protocol.State.SC10060): protocol.state.SC10060 = protocol.state.SC10060(
   )
-  def merge(`_message__`: protocol.battle.C2S_HB, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.battle.C2S_HB = newBuilder(_message__).merge(_input__).result()
-  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.battle.C2S_HB] = _root_.scalapb.descriptors.Reads{
+  def merge(`_message__`: protocol.state.SC10060, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.state.SC10060 = newBuilder(_message__).merge(_input__).result()
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.state.SC10060] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
-      protocol.battle.C2S_HB(
+      protocol.state.SC10060(
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = BattleProto.javaDescriptor.getMessageTypes().get(9)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = BattleProto.scalaDescriptor.messages(9)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = StateProto.javaDescriptor.getMessageTypes().get(0)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = StateProto.scalaDescriptor.messages(0)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
-  lazy val defaultInstance = protocol.battle.C2S_HB(
+  lazy val defaultInstance = protocol.state.SC10060(
   )
   final class Builder private (
     private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
-  ) extends _root_.scalapb.MessageBuilder[protocol.battle.C2S_HB] {
+  ) extends _root_.scalapb.MessageBuilder[protocol.state.SC10060] {
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
       while (!_done__) {
@@ -77,26 +77,26 @@ object C2S_HB extends scalapb.GeneratedMessageCompanion[protocol.battle.C2S_HB] 
       }
       this
     }
-    def result(): protocol.battle.C2S_HB = {
-      protocol.battle.C2S_HB(
+    def result(): protocol.state.SC10060 = {
+      protocol.state.SC10060(
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
       )
     }
   }
-  object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.battle.C2S_HB, protocol.battle.C2S_HB.Builder] {
+  object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.state.SC10060, protocol.state.SC10060.Builder] {
     def apply(): Builder = new Builder(
       `_unknownFields__` = null
     )
-    def apply(`_message__`: protocol.battle.C2S_HB): Builder = new Builder(
+    def apply(`_message__`: protocol.state.SC10060): Builder = new Builder(
         `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-  def newBuilder: Builder = protocol.battle.C2S_HB.Builder()
-  def newBuilder(`_message__`: protocol.battle.C2S_HB): Builder = protocol.battle.C2S_HB.Builder(_message__)
-  implicit class C2S_HBLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.battle.C2S_HB]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.battle.C2S_HB](_l) {
+  def newBuilder: Builder = protocol.state.SC10060.Builder()
+  def newBuilder(`_message__`: protocol.state.SC10060): Builder = protocol.state.SC10060.Builder(_message__)
+  implicit class SC10060Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.state.SC10060]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.state.SC10060](_l) {
   }
   def of(
-  ): _root_.protocol.battle.C2S_HB = _root_.protocol.battle.C2S_HB(
+  ): _root_.protocol.state.SC10060 = _root_.protocol.state.SC10060(
   )
-  // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.C2S_HB])
+  // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.SC10060])
 }
