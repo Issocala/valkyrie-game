@@ -95,7 +95,7 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
     }
 
     private void remove(RemoveBuffFunction removeBuffFunction) {
-        , FightOrganismBuff fightOrganismBuff = removeBuffFunction.fightOrganismBuff();
+        FightOrganismBuff fightOrganismBuff = removeBuffFunction.fightOrganismBuff();
         int buffTemplateId = fightOrganismBuff.getBuffTemplateId();
         FightOrganismBuff fightOrganismBuff1 = this.fightOrganismBuffMap.get(buffTemplateId);
         if (Objects.nonNull(fightOrganismBuff1)) {
@@ -117,15 +117,6 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
         FightOrganismBuff fightOrganismBuff = tickBuffFunction.fightOrganismBuff();
         FightBuffTemplate fightBuffTemplate = fightOrganismBuff.getFightBuffTemplate();
         fightOrganismBuff.getFunction().tell(tickBuffFunction, self());
-        if (fightBuffTemplate.buffCount() == -1) {
-            scheduleTickOnce(tickBuffFunction.r(), fightOrganismBuff);
-        } else {
-            if (fightOrganismBuff.getCurrTriggerCount() <= fightBuffTemplate.buffCount()) {
-                scheduleTickOnce(tickBuffFunction.r(), fightOrganismBuff);
-            } else {
-                remove(new RemoveBuffFunction(tickBuffFunction.r(), fightOrganismBuff));
-            }
-        }
     }
 
     public void cancellable(long id) {
