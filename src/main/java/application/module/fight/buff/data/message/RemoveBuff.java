@@ -9,5 +9,5 @@ import mobius.modular.client.Client;
  * @date 2022-4-6
  * @Source 1.0
  */
-public record RemoveBuff(Client.ReceivedFromClient r, int buffTemplateId, long fromId, long toId, long duration, ActorRef scene) implements DataBase {
+public record RemoveBuff(Client.ReceivedFromClient r, int buffTemplateId, int coverCount, long fromId, long toId, long duration, ActorRef scene) implements DataBase {
 }

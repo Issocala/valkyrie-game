@@ -1,6 +1,7 @@
 package application.module.fight.skill.base.function.active.impl;
 
 import akka.actor.Props;
+import application.module.fight.attribute.AttributeTemplateId;
 import application.module.fight.skill.FightSkillProtocolBuilder;
 import application.module.fight.skill.FightSkillProtocols;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
@@ -21,10 +22,10 @@ import static application.module.fight.attribute.fight.FightAttributeMgr.basicAt
  * @date 2022-2-28
  * @Source 1.0
  */
-public class DamageAttackFunction extends FightSkillActiveFunction {
+public class DamageAttack4Function extends FightSkillActiveFunction {
 
     public static Props create() {
-        return Props.create(DamageAttackFunction.class);
+        return Props.create(DamageAttack4Function.class);
     }
 
     @Override
@@ -35,7 +36,15 @@ public class DamageAttackFunction extends FightSkillActiveFunction {
         //技能伤害系数
         int damageRate = attributeParameter[1];
 
-        int whileTime = fightSkillProcessTemplate.triggerNum();
+        int whileTime = attributeParameter[2];
+        long douQi = useSkillDataTemp.getAttackAttributeMap().getOrDefault(AttributeTemplateId.DOU_QI, 0L);
+        if (douQi > 1) {
+            if (douQi == 5) {
+
+            }
+            useSkillDataTemp.getAttackAttributeMap().put(AttributeTemplateId.DOU_QI, douQi - 1);
+            whileTime++;
+        }
 
         damageRate = damageRate == 0 ? 1 : damageRate;
         for (int i = 0; i < whileTime; i++) {

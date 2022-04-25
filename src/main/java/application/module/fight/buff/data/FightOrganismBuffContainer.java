@@ -63,35 +63,64 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
         long toId = addBuff.toId();
         long duration = addBuff.duration();
         if (Objects.nonNull(fightOrganismBuff)) {
-            cancellable(fightOrganismBuff.getId());
-            if (fightOrganismBuff.getFightBuffTemplate().buffCoverCount() > 1) {
-                FightOrganismBuff fightOrganismBuff1 = new FightOrganismBuff(buffTemplateId, System.currentTimeMillis(), fromId, toId, duration);
-                fightOrganismBuff1.setCurrCoverCount(fightOrganismBuff.getCurrCoverCount() + 1);
-                fightOrganismBuff1.setScene(addBuff.scene());
-                fightOrganismBuff1.setAttributeData(addBuff.attributeData());
-                fightOrganismBuff = fightOrganismBuff1;
+            FightBuffTemplate fightBuffTemplate = fightOrganismBuff.getFightBuffTemplate();
+            if (Objects.isNull(fightBuffTemplate)) {
+                return;
+            }
+            if (fightBuffTemplate.buffCoverType() == 5) {
+                cancellable(fightOrganismBuff.getId());
+                if (fightBuffTemplate.buffCoverCount() > 1 && fightOrganismBuff.getCurrCoverCount() < fightBuffTemplate.buffCoverCount()) {
+                    FightOrganismBuff fightOrganismBuff1 = new FightOrganismBuff(buffTemplateId, System.currentTimeMillis(), fromId, toId, duration);
+                    fightOrganismBuff1.setCurrCoverCount(fightOrganismBuff.getCurrCoverCount() + 1);
+                    fightOrganismBuff1.setScene(addBuff.scene());
+                    fightOrganismBuff1.setAttributeData(addBuff.attributeData());
+                    fightOrganismBuff = fightOrganismBuff1;
+                    if (fightBuffTemplate.buffPeriodType() == 1) {
+                        fightOrganismBuff.getFunction().tell(new AddBuffFunction(addBuff.r(), fightOrganismBuff), self());
+                        if (fightOrganismBuff.getDuration() != 0) {
+                            scheduleRemoveOnce(addBuff.r(), fightOrganismBuff);
+                        }
+                    }else if (fightBuffTemplate.buffPeriodType() == 2) {
+                        scheduleTickOnce(addBuff.r(), fightOrganismBuff);
+                    }
+                }
             }
         } else {
             fightOrganismBuff = new FightOrganismBuff(buffTemplateId, System.currentTimeMillis(), fromId, toId, duration);
-        }
-        this.fightOrganismBuffMap.put(buffTemplateId, fightOrganismBuff);
-
-        FightBuffTemplate fightBuffTemplate = fightOrganismBuff.getFightBuffTemplate();
-        if (Objects.isNull(fightBuffTemplate)) {
-            return;
-        }
-        if (fightBuffTemplate.buffPeriodType() == 1) {
-            fightOrganismBuff.getFunction().tell(new AddBuffFunction(addBuff.r(), fightOrganismBuff), self());
-            if (fightOrganismBuff.getDuration() != 0) {
-                scheduleRemoveOnce(addBuff.r(), fightOrganismBuff);
+            this.fightOrganismBuffMap.put(buffTemplateId, fightOrganismBuff);
+            FightBuffTemplate fightBuffTemplate = fightOrganismBuff.getFightBuffTemplate();
+            if (fightBuffTemplate.buffPeriodType() == 1) {
+                fightOrganismBuff.getFunction().tell(new AddBuffFunction(addBuff.r(), fightOrganismBuff), self());
+                if (fightOrganismBuff.getDuration() != 0) {
+                    scheduleRemoveOnce(addBuff.r(), fightOrganismBuff);
+                }
+            }else if (fightBuffTemplate.buffPeriodType() == 2) {
+                scheduleTickOnce(addBuff.r(), fightOrganismBuff);
             }
-        }else if (fightBuffTemplate.buffPeriodType() == 2) {
-            scheduleTickOnce(addBuff.r(), fightOrganismBuff);
         }
     }
 
     public void removeBuff(RemoveBuff removeBuff) {
+        FightOrganismBuff fightOrganismBuff = this.fightOrganismBuffMap.get(removeBuff.buffTemplateId());
+        if (Objects.isNull(fightOrganismBuff)) {
+            return;
+        }
+        if (removeBuff.coverCount() == -1) {
+            remove(new RemoveBuffFunction(removeBuff.r(), fightOrganismBuff));
+        }else {
+            remove(new RemoveBuffFunction(removeBuff.r(), fightOrganismBuff), removeBuff.coverCount());
+        }
+    }
 
+    private void remove(RemoveBuffFunction removeBuffFunction, int coverCount) {
+        FightOrganismBuff fightOrganismBuff = removeBuffFunction.fightOrganismBuff();
+        int buffTemplateId = fightOrganismBuff.getBuffTemplateId();
+        FightOrganismBuff fightOrganismBuff1 = this.fightOrganismBuffMap.get(buffTemplateId);
+        if (Objects.nonNull(fightOrganismBuff1)) {
+            fightOrganismBuff.getFunction().tell(new RemoveBuffFunction(removeBuffFunction.r(), fightOrganismBuff), self());
+            this.fightOrganismBuffMap.remove(buffTemplateId);
+        }
+        cancellable(fightOrganismBuff.getId());
     }
 
     private void remove(RemoveBuffFunction removeBuffFunction) {
@@ -115,8 +144,9 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
 
     private void tickBuffFunction(TickBuffFunction tickBuffFunction) {
         FightOrganismBuff fightOrganismBuff = tickBuffFunction.fightOrganismBuff();
-        FightBuffTemplate fightBuffTemplate = fightOrganismBuff.getFightBuffTemplate();
-        fightOrganismBuff.getFunction().tell(tickBuffFunction, self());
+        if (removeCancellableMap.containsKey(fightOrganismBuff.getId())) {
+            fightOrganismBuff.getFunction().tell(tickBuffFunction, self());
+        }
     }
 
     public void cancellable(long id) {
@@ -138,7 +168,7 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
 
     public void scheduleTickOnce(Client.ReceivedFromClient r, FightOrganismBuff fightOrganismBuff) {
         FightBuffTemplate fightBuffTemplate = fightOrganismBuff.getFightBuffTemplate();
-        Cancellable cancellable = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(1000), getSelf(),
+        Cancellable cancellable = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(fightBuffTemplate.buffDelay()), getSelf(),
                 new TickBuffFunction(r, fightOrganismBuff), getContext().getSystem().dispatcher(), ActorRef.noSender());
         cancellableMap.put(fightOrganismBuff.getId(), cancellable);
     }

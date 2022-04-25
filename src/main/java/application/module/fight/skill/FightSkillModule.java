@@ -125,6 +125,9 @@ public class FightSkillModule extends AbstractModule {
         useSkillDataTemp.setSkillModule(self());
         fightSkillWrap.getList().forEach(fightSkillProcessTemplate -> {
             if (fightSkillProcessTemplate.delayTime() == 0) {
+                if (useSkillDataTemp.getTargetParameters().size() == 0) {
+                    return;
+                }
                 ActorRef fightSkillActiveFunction = FightSkillFunctionContainer.getFunction(fightSkillProcessTemplate.function());
                 if (Objects.nonNull(fightSkillActiveFunction)) {
                     fightSkillActiveFunction.tell(new CastSkill(fightSkillWrap, fightSkillProcessTemplate, useSkillDataTemp), self());

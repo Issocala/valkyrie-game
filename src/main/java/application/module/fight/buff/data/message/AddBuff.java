@@ -9,18 +9,29 @@ import mobius.modular.client.Client;
  * @date 2022-4-6
  * @Source 1.0
  */
-public record AddBuff(Client.ReceivedFromClient r, int buffTemplateId, long fromId, long toId,
+public record AddBuff(Client.ReceivedFromClient r, int buffTemplateId, int coverCount, long fromId, long toId,
                       long duration, ActorRef scene, ActorRef attributeData, ActorRef stateDate) implements DataBase {
 
     public AddBuff(Client.ReceivedFromClient r, int buffTemplateId, long fromId, long toId, ActorRef scene,
                    ActorRef attributeData, ActorRef stateDate) {
-        this(r, buffTemplateId, fromId, toId, 0, scene, attributeData, stateDate);
+        this(r, buffTemplateId, 1, fromId, toId, 0, scene, attributeData, stateDate);
     }
 
-    public AddBuff(Client.ReceivedFromClient r, int buffTemplateId, long fromId, long toId, long duration,
+    public AddBuff(Client.ReceivedFromClient r, int buffTemplateId, int coverCount, long fromId, long toId, ActorRef scene,
+                   ActorRef attributeData, ActorRef stateDate) {
+        this(r, buffTemplateId, coverCount, fromId, toId, 0, scene, attributeData, stateDate);
+    }
+
+    public AddBuff(Client.ReceivedFromClient r, int buffTemplateId, long fromId, long toId, long duration, ActorRef scene,
+                   ActorRef attributeData, ActorRef stateDate) {
+        this(r, buffTemplateId, 1, fromId, toId, duration, scene, attributeData, stateDate);
+    }
+
+    public AddBuff(Client.ReceivedFromClient r, int buffTemplateId, int coverCount, long fromId, long toId, long duration,
                    ActorRef scene, ActorRef attributeData, ActorRef stateDate) {
         this.r = r;
         this.buffTemplateId = buffTemplateId;
+        this.coverCount = coverCount;
         this.fromId = fromId;
         this.toId = toId;
         this.duration = duration;
