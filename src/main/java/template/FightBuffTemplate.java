@@ -1,7 +1,7 @@
 /* 由程序自动生成，请勿修改。*/
 package template;
 
-public record FightBuffTemplate(int id,byte buffType,byte buffPeriodType,int buffEffectType,int buffGroup,int buffLevel,long buffDelay,byte buffCoverType,int buffCoverCount,String attributeMap,String MaxCoverAttributeMap,String parameter,long duration,String buffProcess){
+public record FightBuffTemplate(int id,byte buffType,byte buffPeriodType,int buffEffectType,int buffGroup,int buffLevel,long buffDelay,byte buffCoverType,int buffCoverCount,int[][] attributeMap,String MaxCoverAttributeMap,String parameter,long duration,String buffProcess){
 
     public static FightBuffTemplate parse(CustomByteBuffer cbb){
         var id = cbb.getInt();
@@ -13,7 +13,15 @@ public record FightBuffTemplate(int id,byte buffType,byte buffPeriodType,int buf
         var buffDelay = cbb.getLong();
         var buffCoverType = cbb.get();
         var buffCoverCount = cbb.getInt();
-        var attributeMap = cbb.getString();
+        var attributeMapLength = cbb.getInt();
+        var attributeMap = new int[attributeMapLength][];
+        for (int i = 0; i < attributeMapLength; i++){
+            var tempLength = cbb.getInt();
+            attributeMap[i] = new int[tempLength];
+            for (int j = 0; j < tempLength; j++){
+                attributeMap[i][j] = cbb.getInt();
+            }
+        }
         var MaxCoverAttributeMap = cbb.getString();
         var parameter = cbb.getString();
         var duration = cbb.getLong();
