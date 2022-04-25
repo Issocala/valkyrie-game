@@ -31,6 +31,7 @@ public interface AttributeTemplateId {
     short ATTACK_SPEED = 208;
     short MOVE_SPEED = 209;
     short JUMP_SPEED = 210;
+    short DOU_QI = 211;
 
 
     /*

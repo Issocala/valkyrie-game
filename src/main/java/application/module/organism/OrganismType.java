@@ -11,10 +11,16 @@ public interface OrganismType {
 
     byte MONSTER = 2;
 
-    byte BOSS = 3;
+    byte NPC = 3;
+
+    byte ITEM = 4;
+
+    byte Transfer = 5;
+
+    byte BOSS = 6;
+
 
     static boolean isFightOrganism(Organism organism) {
-
         return isFightOrganism(organism.getOrganismType());
     }
 

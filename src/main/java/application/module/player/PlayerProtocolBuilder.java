@@ -56,4 +56,11 @@ public class PlayerProtocolBuilder {
                 .setContent(content)
                 .build();
     }
+
+    public static Player.SC10025 getSc10025(List<PlayerEntity> playerEntityList) {
+        Player.SC10025.Builder builder = Player.SC10025.newBuilder();
+        playerEntityList.forEach(playerEntity -> builder.addPlayerInfo(getPlayerInfo(playerEntity)));
+        return builder.build();
+    }
+
 }

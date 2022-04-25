@@ -1,15 +1,14 @@
-package application.module.state.base.buff;
+package application.module.state.base.fight;
 
 import application.module.state.base.FightOrganismState;
 
 /**
  * @author Luo Yong
- * @date 2022-4-18
+ * @date 2022-4-24
  * @Source 1.0
  */
-public class SuperArmorState extends BuffState{
-
-    public SuperArmorState(short id) {
+public class SpeedDownState extends FightState {
+    public SpeedDownState(short id) {
         super(id);
     }
 

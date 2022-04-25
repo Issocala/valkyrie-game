@@ -15,7 +15,7 @@ public class StopState extends MovementState {
 
     public StopState(short id) {
         super(id);
-        addTransition(StateType.Movement.MOVE_ID);
+        addTransition(StateType.MovementType.MOVE_ID);
     }
 
     @Override

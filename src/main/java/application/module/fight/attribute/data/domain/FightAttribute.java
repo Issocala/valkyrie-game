@@ -4,6 +4,8 @@ import application.module.organism.FightOrganism;
 
 import java.util.Map;
 
+import static application.module.fight.attribute.data.AttributeData.doAddAttribute;
+
 /**
  * @author Luo Yong
  * @date 2022-4-18
@@ -21,6 +23,10 @@ public class FightAttribute {
     public FightAttribute(FightOrganism monsterOrganism, Map<Short, Long> fightAttributeMap) {
         this.monsterOrganism = monsterOrganism;
         this.fightAttributeMap = fightAttributeMap;
+    }
+
+    public void addFightAttribute(Map<Short, Long> map) {
+        doAddAttribute(fightAttributeMap, map);
     }
 
     public Map<Short, Long> getFightAttributeMap() {

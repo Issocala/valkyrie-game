@@ -1,11 +1,18 @@
 package application.module.state.base;
 
+import akka.actor.ActorRef;
 import application.module.fight.skill.data.message.SkillUseState;
+import application.module.scene.operate.AoiSendMessageToClient;
+import application.module.state.StateProtocolBuilder;
+import application.module.state.StateProtocols;
 import application.module.state.base.action.ActionState;
+import application.module.state.base.fight.FightState;
 import application.module.state.base.movement.MovementState;
 import application.util.LongId;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * 有战斗能力生物的状态管理器
@@ -16,11 +23,13 @@ import java.util.Objects;
  */
 public class FightOrganismState extends LongId {
 
-    public final static short DEFAULT_MOVEMENT_STATE = StateType.Movement.STOP_ID;
+    public final static short DEFAULT_MOVEMENT_STATE = StateType.MovementType.STOP_ID;
     private MovementState currMovementState;
 
     public final static short DEFAULT_ACTION_STATE = StateType.ActionType.IDLE_STATE;
     private ActionState currActionState;
+
+    private final Set<FightState> fightStateSet = new HashSet<>();
 
     public FightOrganismState(long id) {
         super(id);
@@ -28,11 +37,11 @@ public class FightOrganismState extends LongId {
         setActionStateDefault();
     }
 
-    public boolean changeState(short id) {
-        return changeState(FSMStateContainer.getState(id));
+    public boolean changeState(short id, ActorRef scene) {
+        return changeState(FSMStateContainer.getState(id), scene);
     }
 
-    public boolean changeState(final FSMStateBase state) {
+    public boolean changeState(final FSMStateBase state, ActorRef scene) {
         if (Objects.isNull(state)) {
             return false;
         }
@@ -40,15 +49,19 @@ public class FightOrganismState extends LongId {
             return toMovementState(movementState);
         } else if (state instanceof ActionState actionState) {
             return toActionState(actionState);
+        } else if (state instanceof FightState fightState) {
+            return toFightState(fightState, scene);
         }
         return false;
     }
 
-    public boolean cancelState(short id) {
-        return cancelState(FSMStateContainer.getState(id));
+
+
+    public boolean cancelState(short id, ActorRef scene) {
+        return cancelState(FSMStateContainer.getState(id), scene);
     }
 
-    public boolean cancelState(final FSMStateBase state) {
+    public boolean cancelState(final FSMStateBase state, ActorRef scene) {
         if (Objects.isNull(state)) {
             return false;
         }
@@ -56,8 +69,18 @@ public class FightOrganismState extends LongId {
             cancelMovementState();
         }else if (state instanceof ActionState){
             cancelActionState();
+        } else if (state instanceof FightState fightState) {
+            cancelFightState(fightState, scene);
         }
         return true;
+    }
+
+    private void cancelFightState(FightState fightState, ActorRef scene) {
+        if (this.fightStateSet.remove(fightState)) {
+            fightState.exit(this);
+            scene.tell(new AoiSendMessageToClient(StateProtocols.REMOVE_FIGHT_STATE,
+                    StateProtocolBuilder.getSc10062(fightState.getId()), getId()), ActorRef.noSender());
+        }
     }
 
     private void cancelActionState() {
@@ -85,6 +108,16 @@ public class FightOrganismState extends LongId {
         this.currActionState.exit(this);
         currActionState.enter(this);
         this.currActionState = actionState;
+        return true;
+    }
+
+    private boolean toFightState(FightState fightState, ActorRef scene) {
+        if (!this.fightStateSet.contains(fightState)) {
+            fightState.enter(this);
+            this.fightStateSet.add(fightState);
+            scene.tell(new AoiSendMessageToClient(StateProtocols.ADD_FIGHT_STATE,
+                    StateProtocolBuilder.getSc10061(fightState.getId()), getId()), ActorRef.noSender());
+        }
         return true;
     }
 

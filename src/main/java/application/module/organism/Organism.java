@@ -1,5 +1,6 @@
 package application.module.organism;
 
+import application.guid.IdUtils;
 import application.util.LongId;
 
 /**
@@ -12,6 +13,11 @@ import application.util.LongId;
 public abstract class Organism extends LongId {
 
     private final byte organismType;
+
+    public Organism(byte organismType) {
+        super(IdUtils.fastSimpleUUIDLong());
+        this.organismType = organismType;
+    }
 
     public Organism(long id, byte organismType) {
         super(id);

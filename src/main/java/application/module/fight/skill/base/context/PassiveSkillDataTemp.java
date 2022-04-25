@@ -12,6 +12,4 @@ public class PassiveSkillDataTemp {
 
     private final Map<Short, Long> attributeMap = new HashMap<>();
 
-
-
 }

@@ -1,4 +1,4 @@
-package application.module.state.base.buff;
+package application.module.state.base.fight;
 
 import application.module.state.base.FSMStateBase;
 
@@ -7,9 +7,9 @@ import application.module.state.base.FSMStateBase;
  * @date 2022-3-1
  * @Source 1.0
  */
-public abstract class BuffState extends FSMStateBase {
+public abstract class FightState extends FSMStateBase {
 
-    public BuffState(short id) {
+    public FightState(short id) {
         super(id);
     }
 

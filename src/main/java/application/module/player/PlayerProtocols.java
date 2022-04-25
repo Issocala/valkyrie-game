@@ -33,4 +33,9 @@ public interface PlayerProtocols {
      */
     int LOGOUT = GameProtocols.PLAYER + 4;
 
+    /**
+     * 返回玩家实体信息
+     */
+    int EntityInfo = GameProtocols.PLAYER + 5;
+
 }

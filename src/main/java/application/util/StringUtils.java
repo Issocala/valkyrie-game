@@ -37,7 +37,7 @@ public class StringUtils {
         }
         String[] ss = s.split(DEFAULT_SPLIT);
         for (String s1 : ss) {
-            String[] ss1 = s.split(":");
+            String[] ss1 = s1.split(":");
             if (ss1.length != 2) {
                 throw new RuntimeException("你的AttributeMap配错格式了!");
             }

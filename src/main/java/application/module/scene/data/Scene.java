@@ -310,7 +310,21 @@ public class Scene extends UntypedAbstractActor {
         //TODO 获取目标
         if (SkillAimType.isOne(fightSkillTemplate)) {
         }
-        useSkillDataTemp.getTargetId().forEach(id -> useSkillDataTemp.getTargetParameters().add(new TargetParameter(id)));
+        //TODO 这里代码需要修改，写的什么垃圾
+        useSkillDataTemp.getTargetId().forEach(id -> {
+            PlayerInfo playerInfo = playerInfoMap.get(id);
+            if (Objects.nonNull(playerInfo)) {
+                useSkillDataTemp.getTargetParameters().add(new TargetParameter(id, playerInfo.level(), playerInfo.profession()));
+            }else {
+                NpcOrganism npcOrganism = npcOrganismMap.get(id);
+                if (Objects.nonNull(npcOrganism)) {
+                    useSkillDataTemp.getTargetParameters().add(new TargetParameter(id, 1, npcOrganism.getOrganismType()));
+                }else {
+                    MonsterOrganism monsterOrganism = monsterOrganismMap.get(id);
+                    useSkillDataTemp.getTargetParameters().add(new TargetParameter(id, 1, monsterOrganism.getOrganismType()));
+                }
+            }
+        });
         return useSkillDataTemp;
     }
 

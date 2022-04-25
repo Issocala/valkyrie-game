@@ -16,6 +16,10 @@
 package application.module.fight.skill.base.context;
 
 import akka.actor.ActorRef;
+import application.guid.IdUtils;
+import application.module.fight.buff.data.message.FightBuffInfo;
+import application.module.organism.OrganismType;
+import application.util.LongId;
 import mobius.modular.client.Client;
 import protocol.Skill;
 
@@ -30,10 +34,11 @@ import java.util.Map;
  * @date 2022-2-25
  * @Source 1.0
  */
-public class UseSkillDataTemp {
+public class UseSkillDataTemp extends LongId {
 
     private int skillId;
     private long attackId;
+    private byte attackType;
     private List<Long> targetId;
     private float skillPosX;
     private float skillPosY;
@@ -46,15 +51,20 @@ public class UseSkillDataTemp {
     private ActorRef attributeData;
     private ActorRef skillModule;
     private ActorRef buffData;
+    private ActorRef stateData;
     private int attackLevel;
     private Map<Short, Long> attackAttributeMap;
+    private Map<Short, Long> changeAttributeMap;
+    private List<FightBuffInfo> fightBuffInfoList;
 
     private final List<TargetParameter> targetParameters = new ArrayList<>();
 
     public UseSkillDataTemp() {
+        super(IdUtils.fastSimpleUUIDLong());
     }
 
     public UseSkillDataTemp(int skillId, long attackId, List<Long> targetId, float skillPosX, float skillPosY, float posX, float posY) {
+        super(IdUtils.fastSimpleUUIDLong());
         this.skillId = skillId;
         this.attackId = attackId;
         this.targetId = targetId;
@@ -69,6 +79,7 @@ public class UseSkillDataTemp {
         UseSkillDataTemp useSkillDataTemp = new UseSkillDataTemp(cs10052.getSkillId(), cs10052.getFightOrganismId(), cs10052.getTargetIdList(),
                 cs10052.getSkillPositionX(), cs10052.getSkillPositionY(), 0, 0);
         useSkillDataTemp.setScene(scene);
+        useSkillDataTemp.setAttackType(OrganismType.PLAYER);
         return useSkillDataTemp;
     }
 
@@ -91,6 +102,14 @@ public class UseSkillDataTemp {
 
     public void setAttackId(long attackId) {
         this.attackId = attackId;
+    }
+
+    public short getAttackType() {
+        return attackType;
+    }
+
+    public void setAttackType(byte attackType) {
+        this.attackType = attackType;
     }
 
     public List<Long> getTargetId() {
@@ -207,5 +226,29 @@ public class UseSkillDataTemp {
 
     public void setBuffData(ActorRef buffData) {
         this.buffData = buffData;
+    }
+
+    public Map<Short, Long> getChangeAttributeMap() {
+        return changeAttributeMap;
+    }
+
+    public void setChangeAttributeMap(Map<Short, Long> changeAttributeMap) {
+        this.changeAttributeMap = changeAttributeMap;
+    }
+
+    public List<FightBuffInfo> getFightBuffInfoList() {
+        return fightBuffInfoList;
+    }
+
+    public void setFightBuffInfoList(List<FightBuffInfo> fightBuffInfoList) {
+        this.fightBuffInfoList = fightBuffInfoList;
+    }
+
+    public ActorRef getStateData() {
+        return stateData;
+    }
+
+    public void setStateData(ActorRef stateData) {
+        this.stateData = stateData;
     }
 }

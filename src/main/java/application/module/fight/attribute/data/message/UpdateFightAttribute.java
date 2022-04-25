@@ -1,7 +1,7 @@
 package application.module.fight.attribute.data.message;
 
+import akka.actor.ActorRef;
 import com.cala.orm.message.DataBase;
-import mobius.modular.client.Client;
 
 import java.util.Map;
 
@@ -10,5 +10,5 @@ import java.util.Map;
  * @date 2022-3-9
  * @Source 1.0
  */
-public record UpdateFightAttribute(Map<Short, Long> result, long playerId, Client.ReceivedFromClient r) implements DataBase {
+public record UpdateFightAttribute(Map<Short, Long> result, long organismId, ActorRef scene) implements DataBase {
 }

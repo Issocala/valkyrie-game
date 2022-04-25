@@ -59,12 +59,18 @@ public class FightOrganismBuff extends LongId {
      */
     private final long toId;
 
-    /**
-     * 当前触发的次数
-     */
-    private int currTriggerCount;
-
     private ActorRef function;
+
+    private ActorRef scene;
+
+    private ActorRef attributeData;
+
+    private ActorRef stateData;
+
+    /**
+     * 当前叠加的次数
+     */
+    private int currCoverCount = 1;
 
     public FightOrganismBuff() {
         this(0);
@@ -85,12 +91,8 @@ public class FightOrganismBuff extends LongId {
         this.createTime = createTime;
         this.fromId = fromId;
         this.toId = toId;
-        this.duration = duration == 0 ? fightBuffTemplate.buffDelay() : duration;
+        this.duration = duration == 0 ? fightBuffTemplate.duration() : duration;
         this.function = FightBuffFunctionContainer.getBuffFunction(FightBuffTemplateHolder.getData(buffTemplateId).buffProcess());
-    }
-
-    public void addTriggerCountOnce() {
-        this.currTriggerCount += 1;
     }
 
     public long getCreateTime() {
@@ -133,13 +135,6 @@ public class FightOrganismBuff extends LongId {
         return buffTemplateId;
     }
 
-    public int getCurrTriggerCount() {
-        return currTriggerCount;
-    }
-
-    public void setCurrTriggerCount(int currTriggerCount) {
-        this.currTriggerCount = currTriggerCount;
-    }
 
     public ActorRef getFunction() {
         return function;
@@ -153,5 +148,36 @@ public class FightOrganismBuff extends LongId {
         return fightBuffTemplate;
     }
 
+    public ActorRef getScene() {
+        return scene;
+    }
+
+    public void setScene(ActorRef scene) {
+        this.scene = scene;
+    }
+
+    public int getCurrCoverCount() {
+        return currCoverCount;
+    }
+
+    public void setCurrCoverCount(int currCoverCount) {
+        this.currCoverCount = currCoverCount;
+    }
+
+    public ActorRef getAttributeData() {
+        return attributeData;
+    }
+
+    public void setAttributeData(ActorRef attributeData) {
+        this.attributeData = attributeData;
+    }
+
+    public ActorRef getStateData() {
+        return stateData;
+    }
+
+    public void setStateData(ActorRef stateData) {
+        this.stateData = stateData;
+    }
 }
 

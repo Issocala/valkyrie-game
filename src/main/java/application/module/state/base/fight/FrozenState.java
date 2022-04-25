@@ -1,4 +1,4 @@
-package application.module.state.base.buff;
+package application.module.state.base.fight;
 
 import application.module.state.base.FightOrganismState;
 
@@ -7,7 +7,7 @@ import application.module.state.base.FightOrganismState;
  * @date 2022-4-18
  * @Source 1.0
  */
-public class FrozenState extends BuffState{
+public class FrozenState extends FightState {
     public FrozenState(short id) {
         super(id);
     }

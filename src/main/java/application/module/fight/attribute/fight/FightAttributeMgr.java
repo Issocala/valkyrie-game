@@ -96,7 +96,7 @@ public class FightAttributeMgr {
     }
 
     public static List<Skill.DamageData> basicAttack(UseSkillDataTemp useSkillDataTemp,
-                                   final int skillFixedDamage, final int skillFixedDamageRate) {
+                                                     final int skillFixedDamage, final int skillFixedDamageRate) {
 
         List<Skill.DamageData> damageDataList = new ArrayList<>();
 
@@ -168,7 +168,7 @@ public class FightAttributeMgr {
                 finalTargetDefence = 0;
             }
 
-            double baseDamage = finalAttack * (1 - (finalTargetDefence + (pierce - finalTargetDefence) * PARAMETER_A)
+            double baseDamage = finalAttack * (1 - (finalTargetDefence + (finalPierce - finalTargetDefence) * PARAMETER_A)
                     / (finalTargetDefence * PARAMETER_B + finalPierce * PARAMETER_C));
 
             double critDamage = 0;
@@ -193,9 +193,10 @@ public class FightAttributeMgr {
             double skillDamage = baseDamage * skillFixedDamageRate * (1 + (skillDamageRatio - targetReduceSkillDamageRatio)
                     / TEN_THOUSAND_RATIO + skillFixedDamage + trueDamage - targetReduceTrueDamage);
             long finalDamage = (long) (skillDamage * (1 + specialDamage) * (1 + extDamage));
-            Skill.DamageData damageData = builder.setDamage(-50).setDamageType(1).setTargetId(targetParameter.getTargetId()).build();
+            Skill.DamageData damageData = builder.setDamage(-finalDamage).setDamageType(0).setTargetId(targetParameter.getTargetId()).build();
             damageDataList.add(damageData);
-            useSkillDataTemp.getAttributeData().tell(new AddHp(targetParameter.getTargetId(), useSkillDataTemp.getR(), -finalDamage), null);
+            useSkillDataTemp.getAttributeData().tell(new AddHp(targetParameter.getTargetId(), targetParameter.getOrganismType(),
+                    useSkillDataTemp.getR(), -finalDamage, useSkillDataTemp.getAttackId(), useSkillDataTemp.getScene()), null);
         });
         return damageDataList;
     }

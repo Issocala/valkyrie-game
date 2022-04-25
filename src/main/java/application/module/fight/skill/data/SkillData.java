@@ -78,7 +78,7 @@ public class SkillData extends AbstractDataCacheManager<Skill> {
         Skill skill = (Skill) dbReturnMessage.abstractEntityBase();
         if (skill == null) {
             skill = Skill.of(playerId);
-            OrganismDataTemplate organismDataTemplate = OrganismDataTemplateHolder.getData(playerLogin.playerInfo().gender());
+            OrganismDataTemplate organismDataTemplate = OrganismDataTemplateHolder.getData(playerLogin.playerInfo().profession());
             for (int skillId : organismDataTemplate.skills()) {
                 skill.getEnableSkillSet().add(skillId);
             }

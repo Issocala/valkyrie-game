@@ -17,13 +17,11 @@ import application.module.player.operate.PlayerGetAllType;
 import application.module.player.operate.PlayerLoginSelectType;
 import application.module.player.operate.info.PlayerOperateTypeInfo;
 import application.module.scene.data.SceneData;
+import application.module.scene.operate.event.CreatePlayerEntitiesAfter;
 import application.util.CommonOperateTypeInfo;
 import com.cala.orm.cache.message.DataGet;
 import com.cala.orm.cache.message.DataInsert;
-import com.cala.orm.message.DataReturnManyMessage;
-import com.cala.orm.message.DataReturnMessage;
-import com.cala.orm.message.OperateType;
-import com.cala.orm.message.Publish;
+import com.cala.orm.message.*;
 import com.google.protobuf.InvalidProtocolBufferException;
 import mobius.modular.client.Client;
 import mobius.modular.module.api.AbstractModule;
@@ -40,6 +38,7 @@ import java.util.List;
 public class PlayerModule extends AbstractModule {
 
     private ActorRef playerEntityData;
+    private ActorRef sceneData;
 
     @Override
     public void initData() {
@@ -55,7 +54,12 @@ public class PlayerModule extends AbstractModule {
                 .match(Client.ReceivedFromClient.class, this::onReceiveFromClient)
                 .match(DataReturnMessage.class, this::dataResultMessage)
                 .match(DataReturnManyMessage.class, this::dataResultManyMessage)
+                .match(CreatePlayerEntitiesAfter.class, this::createPlayerEntitiesAfter)
                 .build();
+    }
+
+    private void createPlayerEntitiesAfter(CreatePlayerEntitiesAfter createPlayerEntitiesAfter) {
+        this.playerEntityData.tell(createPlayerEntitiesAfter, self());
     }
 
     private void dataResultManyMessage(DataReturnManyMessage dataReturnManyMessage) {
@@ -234,6 +238,9 @@ public class PlayerModule extends AbstractModule {
     private void dataResult(DataMessage.DataResult dataResult) {
         if (dataResult.clazz() == PlayerEntityData.class) {
             this.playerEntityData = dataResult.actorRef();
+        }else if (dataResult.clazz() == SceneData.class) {
+            this.sceneData = dataResult.actorRef();
+            this.sceneData.tell(new SubscribeEvent(CreatePlayerEntitiesAfter.class, self()), self());
         }
     }
 }

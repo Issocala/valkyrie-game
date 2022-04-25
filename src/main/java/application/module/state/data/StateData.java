@@ -9,6 +9,8 @@ import application.module.player.data.message.event.PlayerLogin;
 import application.module.player.operate.PlayerLoginDbReturn;
 import application.module.state.base.FightOrganismState;
 import application.module.state.data.domain.StateEntity;
+import application.module.state.operate.OrganismCancelState;
+import application.module.state.operate.OrganismChangeState;
 import application.util.ApplicationErrorCode;
 import application.util.CommonOperateTypeInfo;
 import com.cala.orm.cache.AbstractDataCacheManager;
@@ -46,9 +48,23 @@ public class StateData extends AbstractDataCacheManager<StateEntity> {
     public void receive(DataBase dataBase) {
         switch (dataBase) {
             case SkillUseState skillUseState -> skillUseState(skillUseState);
+            case OrganismChangeState organismChangeState -> organismChangeState(organismChangeState);
+            case OrganismCancelState organismCancelState -> organismCancelState(organismCancelState);
             case PlayerLogin playerLogin -> playerLogin(playerLogin);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase);
         }
+    }
+
+    private void organismCancelState(OrganismCancelState organismCancelState) {
+        long organismId = organismCancelState.organismId();
+        FightOrganismState state = fightOrganismStateMap.get(organismId);
+        state.cancelState(organismCancelState.stateType(), organismCancelState.scene());
+    }
+
+    private void organismChangeState(OrganismChangeState organismChangeState) {
+        long organismId = organismChangeState.organismId();
+        FightOrganismState state = fightOrganismStateMap.get(organismId);
+        state.changeState(organismChangeState.stateType(), organismChangeState.scene());
     }
 
     @Override

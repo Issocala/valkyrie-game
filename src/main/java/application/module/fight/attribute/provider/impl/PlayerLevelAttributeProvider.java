@@ -22,9 +22,12 @@ public class PlayerLevelAttributeProvider implements AttributeProvider {
         map.put(MAX_MP, 1000L);
         map.put(VAR_HP, 1000L);
         map.put(VAR_MP, 1000L);
-        map.put(ATTACK, 200L);
-        map.put(ATTACK_DEFENCE, 100L);
-        map.put(ATTACK_PIERCE, 100L);
+        map.put(ROLE_ATTACK, 200L);
+        map.put(ROLE_DEFENCE, 100L);
+        map.put(ROLE_PIERCE, 100L);
+        map.put(MOVE_SPEED, 2L);
+        map.put(JUMP_SPEED, 5L);
+        map.put(ATTACK_SPEED, 10L);
         return map;
     }
 }

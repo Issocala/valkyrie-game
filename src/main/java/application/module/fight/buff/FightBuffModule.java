@@ -3,7 +3,6 @@ package application.module.fight.buff;
 import akka.actor.ActorRef;
 import application.module.common.data.domain.DataMessage;
 import application.module.fight.buff.data.FightBuffData;
-import application.module.fight.buff.data.message.AddBuff;
 import application.module.fight.buff.function.FightBuffFunctionContainer;
 import mobius.modular.module.api.AbstractModule;
 
@@ -32,7 +31,6 @@ public class FightBuffModule extends AbstractModule {
     private void dataResult(DataMessage.DataResult dataResult) {
         if (dataResult.clazz() == FightBuffData.class) {
             fightBuffData = dataResult.actorRef();
-            fightBuffData.tell(new AddBuff(null, 1000, 100, 100, 1000), self());
         }
     }
 }

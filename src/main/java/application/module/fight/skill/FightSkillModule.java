@@ -124,10 +124,18 @@ public class FightSkillModule extends AbstractModule {
         }
         useSkillDataTemp.setSkillModule(self());
         fightSkillWrap.getList().forEach(fightSkillProcessTemplate -> {
-            ActorRef fightSkillActiveFunction = FightSkillFunctionContainer.getFunction(fightSkillProcessTemplate.function());
-            fightSkillActiveFunction.tell(new CastSkill(fightSkillWrap, fightSkillProcessTemplate, useSkillDataTemp), self());
+            if (fightSkillProcessTemplate.delayTime() == 0) {
+                ActorRef fightSkillActiveFunction = FightSkillFunctionContainer.getFunction(fightSkillProcessTemplate.function());
+                if (Objects.nonNull(fightSkillActiveFunction)) {
+                    fightSkillActiveFunction.tell(new CastSkill(fightSkillWrap, fightSkillProcessTemplate, useSkillDataTemp), self());
+                }
+            }else {
+
+            }
+
         });
-        attributeData.tell(new AddMp(useSkillDataTemp.getAttackId(), useSkillDataTemp.getR(), fightSkillTemplate.costMp()), self());
+        attributeData.tell(new AddMp(useSkillDataTemp.getAttackId(), useSkillDataTemp.getAttackType(),
+                useSkillDataTemp.getR(), fightSkillTemplate.costMp(), useSkillDataTemp.getScene()), self());
     }
 
     public void passiveUseSkill() {
@@ -148,6 +156,7 @@ public class FightSkillModule extends AbstractModule {
         SkillUseInfo skillUseInfo = (SkillUseInfo) skillUseScene.operateTypeInfo();
         UseSkillDataTemp useSkillDataTemp = skillUseInfo.useSkillDataTemp();
         useSkillDataTemp.setAttributeData(attributeData);
+        useSkillDataTemp.setStateData(stateData);
         long fightOrganismId = useSkillDataTemp.getAttackId();
         FightRuntimeContext fightRuntimeContext = getFightRuntimeContext(fightOrganismId);
         if (Objects.isNull(fightRuntimeContext)) {

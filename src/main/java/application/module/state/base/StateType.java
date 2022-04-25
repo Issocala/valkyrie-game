@@ -7,7 +7,7 @@ package application.module.state.base;
  */
 public interface StateType {
 
-    interface Movement {
+    interface MovementType {
 
         short MOVE_ID = 101;
 
@@ -20,7 +20,7 @@ public interface StateType {
         short DEAD_STATE = 302;
     }
 
-    interface BuffType {
+    interface FightType {
         /**
          * 冰冻
          */
@@ -29,6 +29,14 @@ public interface StateType {
          * 霸体
          */
         short SUPER_ARMOR_STATE = 402;
+        /**
+         * 禁锢
+         */
+        short IMPRISON_STATE = 403;
+        /**
+         * 减速
+         */
+        short SPEED_DOWN_STATE = 404;
     }
 
 }

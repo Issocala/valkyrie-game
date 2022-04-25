@@ -35,11 +35,15 @@ public class DamageAttackFunction extends FightSkillActiveFunction {
         //技能伤害系数
         int damageRate = attributeParameter[1];
 
-        damageRate = damageRate == 0 ? 1 : damageRate;
-        List<Skill.DamageData> damageDataList = basicAttack(useSkillDataTemp, 0, 1);
-        useSkillDataTemp.getScene().tell(new AoiSendMessageToClient(FightSkillProtocols.USE_RESULT,
-                FightSkillProtocolBuilder.getSc10053(useSkillDataTemp.getAttackId(), fightSkillProcessTemplate.id(),
-                        useSkillDataTemp.getSkillId(), damageDataList), useSkillDataTemp.getAttackId()), self());
+        int whileTime = attributeParameter[2];
 
+        damageRate = damageRate == 0 ? 1 : damageRate;
+
+        for (int i = 0; i < whileTime; i++) {
+            List<Skill.DamageData> damageDataList = basicAttack(useSkillDataTemp, 0, 1);
+            useSkillDataTemp.getScene().tell(new AoiSendMessageToClient(FightSkillProtocols.USE_RESULT,
+                    FightSkillProtocolBuilder.getSc10053(useSkillDataTemp.getAttackId(), fightSkillProcessTemplate.id(),
+                            useSkillDataTemp.getSkillId(), damageDataList), useSkillDataTemp.getAttackId()), self());
+        }
     }
 }

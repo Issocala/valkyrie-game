@@ -1,30 +1,34 @@
 package application.module.fight.skill.base.function.active.impl;
 
 import akka.actor.Props;
-import application.module.fight.buff.data.message.AddBuff;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
 import application.module.fight.skill.base.function.active.FightSkillActiveFunction;
 import application.module.fight.skill.base.skill.FightSkillWrap;
+import application.module.organism.MonsterOrganism;
+import application.module.scene.data.domain.PositionInfo;
+import application.module.scene.operate.SceneOrganismEntry;
 import application.util.StringUtils;
 import template.FightSkillProcessTemplate;
 
 /**
  * @author Luo Yong
- * @date 2022-4-11
+ * @date 2022-4-20
  * @Source 1.0
  */
-public class AddBuffFunction extends FightSkillActiveFunction {
+public class CreateOrganismEntityFunction extends FightSkillActiveFunction {
 
     public static Props create() {
-        return Props.create(AddBuffFunction.class);
+        return Props.create(CreateOrganismEntityFunction.class);
     }
 
     @Override
     public void castSkill(FightSkillWrap fightSkillWrap, FightSkillProcessTemplate fightSkillProcessTemplate, UseSkillDataTemp useSkillDataTemp) {
         int[] attributeParameter = StringUtils.toIntArray(fightSkillProcessTemplate.attributeParameter());
-        int buffTemplateId = attributeParameter[0];
-        useSkillDataTemp.getTargetParameters().forEach(targetParameter ->
-                useSkillDataTemp.getBuffData().tell(new AddBuff(useSkillDataTemp.getR(), buffTemplateId, useSkillDataTemp.getAttackId(),
-                        targetParameter.getTargetId(), useSkillDataTemp.getScene(), useSkillDataTemp.getAttributeData(), useSkillDataTemp.getStateData()), self()));
+        int organismTemplateId = attributeParameter[0];
+        int number = attributeParameter[1];
+        for (int i = 0; i < number; i++) {
+            useSkillDataTemp.getScene().tell(new SceneOrganismEntry(new MonsterOrganism(organismTemplateId),
+                    new PositionInfo(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY())), self());
+        }
     }
 }

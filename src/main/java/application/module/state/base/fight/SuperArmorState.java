@@ -1,21 +1,16 @@
-package application.module.state.base.movement;
+package application.module.state.base.fight;
 
 import application.module.state.base.FightOrganismState;
-import application.module.state.base.StateType;
 
 /**
- * 移动
- *
  * @author Luo Yong
- * @date 2022-3-1
+ * @date 2022-4-18
  * @Source 1.0
  */
-public class MoveState extends MovementState {
+public class SuperArmorState extends FightState {
 
-
-    public MoveState(short id) {
+    public SuperArmorState(short id) {
         super(id);
-        addTransition(StateType.MovementType.STOP_ID);
     }
 
     @Override
@@ -27,5 +22,4 @@ public class MoveState extends MovementState {
     public void exit(FightOrganismState fightOrganismState) {
 
     }
-
 }

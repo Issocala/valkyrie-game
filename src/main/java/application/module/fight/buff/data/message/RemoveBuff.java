@@ -1,5 +1,6 @@
 package application.module.fight.buff.data.message;
 
+import akka.actor.ActorRef;
 import com.cala.orm.message.DataBase;
 import mobius.modular.client.Client;
 
@@ -8,5 +9,5 @@ import mobius.modular.client.Client;
  * @date 2022-4-6
  * @Source 1.0
  */
-public record RemoveBuff(Client.ReceivedFromClient r, int buffTemplateId, long fromId, long toId, long duration) implements DataBase {
+public record RemoveBuff(Client.ReceivedFromClient r, int buffTemplateId, long fromId, long toId, long duration, ActorRef scene) implements DataBase {
 }
