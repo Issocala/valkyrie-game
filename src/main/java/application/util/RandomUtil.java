@@ -21,4 +21,11 @@ public class RandomUtil {
         return ThreadLocalRandom.current().nextInt(i);
     }
 
+    public static int randomInt10000() {
+        return ThreadLocalRandom.current().nextInt(10000);
+    }
+
+    public static boolean randomInt10000(int i) {
+        return ThreadLocalRandom.current().nextInt(10000) < i;
+    }
 }
