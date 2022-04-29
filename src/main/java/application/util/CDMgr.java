@@ -7,9 +7,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * * @author Luo Yong
- * * @date 2022-2-14
- * * @Source 1.0
+ * @date 2022-2-14
+ * @Source 1.0
  */
 public class CDMgr {
     private final Map<Long, CDTimeManager> id2CDTimeManagerMap = new HashMap<>();
@@ -148,7 +147,7 @@ public class CDMgr {
      */
     public boolean isOutOfCD(int id) {
         CDTimeManager cdManager = getCDManager(id);
-        return !cdManager.isOutOfCD();
+        return cdManager.isOutOfCD();
     }
 
     /**
@@ -226,7 +225,7 @@ public class CDMgr {
             startCD(id, CDTime * 1000);
             return false;
         }
-        return isOutOfCD(id);
+        return !isOutOfCD(id);
     }
 
     public boolean isOutOfThisCD(int id, long CDTime) {
