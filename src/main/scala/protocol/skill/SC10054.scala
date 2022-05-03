@@ -5,7 +5,9 @@
 
 package protocol.skill
 
-/** @param skillId
+/** 广播取消技能
+  *
+  * @param skillId
   *  技能id
   * @param attackId
   *  施法战斗者

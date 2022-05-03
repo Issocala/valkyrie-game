@@ -98,20 +98,42 @@ message CS10035
 }
 
 //返回玩家跳跃
-message SC10035{
+message SC10035
+{
   required int64 organismId = 1;
   required JumpInfo jumpInfo = 2;
 }
 
 //同场景瞬移
-message CS10036{
+message CS10036
+{
   required float positionX = 1;
   required float positionY = 2;
   required int64 organismId = 3;
 }
 
-message SC10036{
+message SC10036
+{
   required float positionX = 1;
   required float positionY = 2;
   required int64 organismId = 3;
+}
+
+//ai代理
+message SC10037
+{
+
+}
+
+//帮忙让实体放下技能
+message SC10038
+{
+  required int64 organismId = 1;
+  required int32 skillTemplateId = 2;
+}
+
+//玩家复活
+message CS10039
+{
+
 }

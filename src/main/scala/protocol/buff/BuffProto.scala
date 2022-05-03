@@ -3,29 +3,30 @@
 //
 // Protofile syntax: PROTO2
 
-package protocol.state
+package protocol.buff
 
-object StateProto extends _root_.scalapb.GeneratedFileObject {
+object BuffProto extends _root_.scalapb.GeneratedFileObject {
   lazy val dependencies: Seq[_root_.scalapb.GeneratedFileObject] = Seq.empty
   lazy val messagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] =
     Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]](
-      protocol.state.SC10060,
-      protocol.state.SC10061,
-      protocol.state.SC10062
+      protocol.buff.SC10070,
+      protocol.buff.SC10071,
+      protocol.buff.SC10072
     )
   private lazy val ProtoBytes: Array[Byte] =
       scalapb.Encoding.fromBase64(scala.collection.immutable.Seq(
-  """CgtzdGF0ZS5wcm90bxIIcHJvdG9jb2wiCQoHU0MxMDA2MCJoCgdTQzEwMDYxEi8KCm9yZ2FuaXNtSWQYASACKANCD+I/DBIKb
-  3JnYW5pc21JZFIKb3JnYW5pc21JZBIsCglzdGF0ZVR5cGUYAiACKAVCDuI/CxIJc3RhdGVUeXBlUglzdGF0ZVR5cGUiaAoHU0MxM
-  DA2MhIvCgpvcmdhbmlzbUlkGAEgAigDQg/iPwwSCm9yZ2FuaXNtSWRSCm9yZ2FuaXNtSWQSLAoJc3RhdGVUeXBlGAIgAigFQg7iP
-  wsSCXN0YXRlVHlwZVIJc3RhdGVUeXBl"""
+  """CgpidWZmLnByb3RvEghwcm90b2NvbCIJCgdTQzEwMDcwIoYBCgdTQzEwMDcxEj4KD2ZpZ2h0T3JnYW5pc21JZBgBIAIoA0IU4
+  j8REg9maWdodE9yZ2FuaXNtSWRSD2ZpZ2h0T3JnYW5pc21JZBI7Cg5idWZmVGVtcGxhdGVJZBgCIAIoBUIT4j8QEg5idWZmVGVtc
+  GxhdGVJZFIOYnVmZlRlbXBsYXRlSWQihgEKB1NDMTAwNzISPgoPZmlnaHRPcmdhbmlzbUlkGAEgAigDQhTiPxESD2ZpZ2h0T3JnY
+  W5pc21JZFIPZmlnaHRPcmdhbmlzbUlkEjsKDmJ1ZmZUZW1wbGF0ZUlkGAIgAigFQhPiPxASDmJ1ZmZUZW1wbGF0ZUlkUg5idWZmV
+  GVtcGxhdGVJZA=="""
       ).mkString)
   lazy val scalaDescriptor: _root_.scalapb.descriptors.FileDescriptor = {
     val scalaProto = com.google.protobuf.descriptor.FileDescriptorProto.parseFrom(ProtoBytes)
     _root_.scalapb.descriptors.FileDescriptor.buildFrom(scalaProto, dependencies.map(_.scalaDescriptor))
   }
   lazy val javaDescriptor: com.google.protobuf.Descriptors.FileDescriptor =
-    protocol.State.getDescriptor()
+    protocol.Buff.getDescriptor()
   @deprecated("Use javaDescriptor instead. In a future version this will refer to scalaDescriptor.", "ScalaPB 0.5.47")
   def descriptor: com.google.protobuf.Descriptors.FileDescriptor = javaDescriptor
 }

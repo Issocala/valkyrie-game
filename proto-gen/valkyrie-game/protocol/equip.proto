@@ -1,0 +1,16 @@
+import "base.proto";
+package protocol;
+
+// 装备信息
+message EquipInfo 
+{
+    required int32 equipId                      = 1; // 装备配置ID
+    required int32 potentialGrade                = 2; // 装备潜能评级 (0未鉴定，1以上为评级)
+    repeated AttributeMap potentialAttributeMap = 3; // 装备潜能属性
+}
+
+// 推送已穿戴的装备列表
+message SC11100
+{
+    repeated EquipInfo equips = 1; // 装备列表
+}

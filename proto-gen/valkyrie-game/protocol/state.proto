@@ -7,10 +7,12 @@ message SC10060
 
 message SC10061
 {
-    required int32 fightType = 1;
+    required int64 organismId = 1;
+    required int32 stateType = 2;
 }
 
 message SC10062
 {
-    required int32 fightType = 1;
+    required int64 organismId = 1;
+    required int32 stateType = 2;
 }

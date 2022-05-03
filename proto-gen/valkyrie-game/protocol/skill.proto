@@ -5,6 +5,7 @@ message DamageData
   required int64 targetId = 1; //目标战斗者
   required int32 damageType = 2; //位运算计算伤害类型汇总(闪避,闪避等)
   required int64 damage = 3; //伤害数值
+  optional int64 reduceMP = 4; //扣除蓝量
 }
 
 //获取全部技能
@@ -82,10 +83,28 @@ message CS10054
   required int32 skillId = 1;
   required int32 skillOrganismId = 2; //技能单位id
 }
-
+//广播取消技能
 message SC10054
 {
   required int32 skillId = 1; //技能id
   required int64 attackId = 2; //施法战斗者
   required int32 skillOrganismId = 3; //技能单位id
+}
+
+//技能过程作用
+message CS10055
+{
+  required int64 fightOrganismId = 1; //施法者单位id
+  required int32 skillProcessId = 2; //技能过程id
+  repeated int64 targetId = 3 [packed = true];  //目标战斗单位id
+  required int32 skillOrganismId = 4; //技能单位id
+}
+
+//广播技能过程作用
+message SC10055
+{
+  required int64 fightOrganismId = 1; //施法者单位id
+  required int32 skillProcessId = 2; //技能过程id
+  repeated int64 targetId = 3 [packed = true];  //目标战斗单位id
+  required int32 skillOrganismId = 4; //技能单位id
 }
