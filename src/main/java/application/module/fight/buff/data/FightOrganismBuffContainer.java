@@ -123,25 +123,22 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
     private void remove(RemoveBuffFunction removeBuffFunction, int coverCount) {
         FightOrganismBuff fightOrganismBuff = removeBuffFunction.fightOrganismBuff();
         int buffTemplateId = fightOrganismBuff.getBuffTemplateId();
-        FightOrganismBuff fightOrganismBuff1 = this.fightOrganismBuffMap.get(buffTemplateId);
-        if (Objects.nonNull(fightOrganismBuff1)) {
+        for (int i = 0; i < coverCount; i++) {
+            fightOrganismBuff.setCurrCoverCount(fightOrganismBuff.getCurrCoverCount() - 1);
+            if (fightOrganismBuff.getCurrCoverCount() <= 0) {
+                this.fightOrganismBuffMap.remove(buffTemplateId);
+            }
             fightOrganismBuff.getFunction().tell(new RemoveBuffFunction(removeBuffFunction.r(), fightOrganismBuff), self());
-            this.fightOrganismBuffMap.remove(buffTemplateId);
+            cancellable(fightOrganismBuff.getId());
         }
-        cancellable(fightOrganismBuff.getId());
     }
 
     private void remove(RemoveBuffFunction removeBuffFunction) {
         FightOrganismBuff fightOrganismBuff = removeBuffFunction.fightOrganismBuff();
         int buffTemplateId = fightOrganismBuff.getBuffTemplateId();
-        FightOrganismBuff fightOrganismBuff1 = this.fightOrganismBuffMap.get(buffTemplateId);
-        if (Objects.nonNull(fightOrganismBuff1)) {
-            for (int i = 0; i < fightOrganismBuff1.getCurrCoverCount(); i++) {
-                fightOrganismBuff.getFunction().tell(new RemoveBuffFunction(removeBuffFunction.r(), fightOrganismBuff), self());
-            }
-            this.fightOrganismBuffMap.remove(buffTemplateId);
+        if (this.fightOrganismBuffMap.containsKey(buffTemplateId)) {
+            remove(removeBuffFunction, fightOrganismBuff.getCurrCoverCount());
         }
-        cancellable(fightOrganismBuff.getId());
     }
 
     private void validAddBuff(int buffTemplateId) {
