@@ -8,5 +8,5 @@ import com.cala.orm.message.Event;
  * @date 2022-4-21
  * @Source 1.0
  */
-public record PlayerDead(long playerId, long sourceId) implements Event, DataBase {
+public record PlayerDead(long playerId, long sourceId, byte sourceType) implements Event, DataBase {
 }

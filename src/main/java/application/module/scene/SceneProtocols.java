@@ -24,4 +24,10 @@ public interface SceneProtocols {
 
     int SCENE_FLASH = GameProtocols.SCENE + 6;
 
+    int AI = GameProtocols.SCENE + 7;
+
+    int HELP_USE_SKILL = GameProtocols.SCENE + 8;
+
+    int RECEIVE = GameProtocols.SCENE + 9;
+
 }

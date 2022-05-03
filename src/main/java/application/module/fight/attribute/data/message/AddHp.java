@@ -9,5 +9,5 @@ import mobius.modular.client.Client;
  * @date 2022-4-11
  * @Source 1.0
  */
-public record AddHp(long organismId, int organismType, Client.ReceivedFromClient r, long hp, long sourceId, ActorRef scene) implements DataBase {
+public record AddHp(long organismId, byte organismType, Client.ReceivedFromClient r, long hp, long sourceId, byte sourceType, ActorRef scene, ActorRef stateData) implements DataBase {
 }

@@ -38,4 +38,13 @@ public class FightSkillProtocolBuilder {
                 .build();
     }
 
+    public static Skill.SC10055 getSc10055(Skill.CS10055 cs10055) {
+        return Skill.SC10055.newBuilder()
+                .setFightOrganismId(cs10055.getFightOrganismId())
+                .setSkillOrganismId(cs10055.getSkillOrganismId())
+                .setSkillProcessId(cs10055.getSkillProcessId())
+                .addAllTargetId(cs10055.getTargetIdList())
+                .build();
+    }
+
 }

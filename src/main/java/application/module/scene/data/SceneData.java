@@ -43,6 +43,8 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
 
     }
 
+    private final static long MAIN_SCENE = 20003L;
+
     private final Map<Long, Long> playerId2SceneIdMap = new HashMap<>();
 
     private final Map<Long, ActorRef> sceneId2SceneMap = new HashMap<>();
@@ -62,7 +64,16 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
             case PlayerLogout playerLogout -> playerLogout(playerLogout);
             case SceneFlash sceneFlash -> sceneFlash(sceneFlash);
             case PlayerDead playerDead -> playerDead(playerDead);
+            case PlayerReceive playerReceive -> playerReceive(playerReceive);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase.getClass().getName());
+        }
+    }
+
+    private void playerReceive(PlayerReceive playerReceive) {
+        long playerId = playerReceive.r().uID();
+        if (this.playerId2SceneIdMap.containsKey(playerId)) {
+            long sceneId = this.playerId2SceneIdMap.get(playerId);
+            this.sceneId2SceneMap.get(sceneId).tell(playerReceive, self());
         }
     }
 
@@ -146,8 +157,10 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
             long sceneId = sceneEntity.getSceneTemplateId();
             if (this.sceneId2SceneMap.containsKey(sceneId)) {
                 sceneId2SceneMap.get(sceneId).tell(playerLogin, self());
-                playerId2SceneIdMap.put(playerId, sceneId);
+            }else {
+                sceneId2SceneMap.get(MAIN_SCENE).tell(playerLogin, self());
             }
+            playerId2SceneIdMap.put(playerId, sceneId);
         }
     }
 
@@ -160,20 +173,22 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
     }
 
     private void scenePlayerExit(ScenePlayerExit scenePlayerExit) {
-        long sceneId = scenePlayerExit.cs10031().getSceneId();
-        if (this.sceneId2SceneMap.containsKey(sceneId)) {
-            this.sceneId2SceneMap.get(sceneId).tell(scenePlayerExit, self());
-        }
+//        long sceneId = scenePlayerExit.cs10031().getSceneId();
+//        if (this.sceneId2SceneMap.containsKey(sceneId)) {
+//            this.sceneId2SceneMap.get(sceneId).tell(scenePlayerExit, self());
+//        }
     }
 
     private void scenePlayerEntry(ScenePlayerEntry scenePlayerEntry) {
         long playerId = scenePlayerEntry.r().uID();
         long sceneId = scenePlayerEntry.cs10030().getSceneId();
         if (this.sceneId2SceneMap.containsKey(sceneId)) {
-            long oldSceneId = playerId2SceneIdMap.get(playerId);
-            this.sceneId2SceneMap.get(oldSceneId).tell(new GetPlayerDataToOtherScene(scenePlayerEntry,
-                    this.sceneId2SceneMap.get(sceneId)), self());
-            playerId2SceneIdMap.put(playerId, sceneId);
+            if (playerId2SceneIdMap.containsKey(playerId)) {
+                long oldSceneId = playerId2SceneIdMap.get(playerId);
+                this.sceneId2SceneMap.get(oldSceneId).tell(new GetPlayerDataToOtherScene(scenePlayerEntry,
+                        this.sceneId2SceneMap.get(sceneId)), self());
+                playerId2SceneIdMap.put(playerId, sceneId);
+            }
         }
     }
 
@@ -196,7 +211,7 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
 
     private void sceneInit(SceneInit sceneInit) {
         ActorRef scene = getContext().actorOf(Scene.create(20003));
-        this.sceneId2SceneMap.put(20003L, scene);
+        this.sceneId2SceneMap.put(MAIN_SCENE, scene);
         scene.tell(sceneInit, self());
 
         ActorRef scene2 = getContext().actorOf(Scene.create(20004));

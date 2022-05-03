@@ -7,6 +7,7 @@ import application.client.Client.SendToClientJ;
 import application.guid.IdUtils;
 import application.module.common.CommonProtocolBuilder;
 import application.module.common.CommonProtocols;
+import application.module.fight.attribute.data.message.PlayerDead;
 import application.module.fight.skill.FightSkillProtocolBuilder;
 import application.module.fight.skill.base.context.TargetParameter;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
@@ -23,6 +24,7 @@ import application.module.scene.data.domain.PositionInfo;
 import application.module.scene.operate.*;
 import application.module.scene.operate.event.CreateOrganismEntityAfter;
 import application.module.scene.operate.event.CreatePlayerEntitiesAfter;
+import application.module.scene.operate.event.PlayerReceiveAfter;
 import application.module.scene.trigger.ScenePortalRefreshMonsterTrigger;
 import application.util.ApplicationErrorCode;
 import application.util.CommonOperateTypeInfo;
@@ -37,6 +39,7 @@ import template.FightSkillTemplateHolder;
 import template.SceneDataTemplate;
 import template.SceneDataTemplateHolder;
 
+import java.time.Duration;
 import java.util.*;
 
 /**
@@ -63,6 +66,8 @@ public class Scene extends UntypedAbstractActor {
     private final Map<Long, PlayerInfo> playerInfoMap = new HashMap<>();
 
     private final Vector[] playerBirths;
+
+    private long aiAgentPlayerId;
 
     public final static float DEFAULT_X = 0;
     public final static float DEFAULT_Y = 5;
@@ -97,6 +102,7 @@ public class Scene extends UntypedAbstractActor {
         for (int i = 0; i < length; i += 2) {
             this.playerBirths[index++] = new Vector(birthPoint[i], birthPoint[i + 1]);
         }
+        getContext().getSystem().scheduler().schedule(Duration.ofMillis(1000), Duration.ofMillis(1000), this::selectClient, getContext().dispatcher());
     }
 
     public static Props create(int sceneId) {
@@ -113,16 +119,34 @@ public class Scene extends UntypedAbstractActor {
             case AoiSendMessageToClient aoi -> sendToAllClient(aoi.protoId(), aoi.message());
             case ScenePlayerEntryWrap scenePlayerEntryWrap -> scenePlayerEntryWrap(scenePlayerEntryWrap);
             case ScenePlayerExit scenePlayerExit -> scenePlayerExit(scenePlayerExit);
-            case SceneOrganismEntry sceneOrganismEntry -> sceneMonsterEntry(sceneOrganismEntry);
-            case SceneMonsterExit sceneMonsterExit -> sceneMonsterExit(sceneMonsterExit);
+            case SceneOrganismEntry sceneOrganismEntry -> sceneOrganismEntry(sceneOrganismEntry);
+            case SceneOrganismExit sceneOrganismExit -> sceneOrganismExit(sceneOrganismExit);
             case PlayerLogin playerLogin -> playerLogin(playerLogin);
             case SceneInit sceneInit -> sceneInit(sceneInit);
             case PlayerLogout playerLogout -> playerLogout(playerLogout);
-            case CreateOrganismEntity createOrganismEntity -> createOrganismEntity(createOrganismEntity);
             case SceneFlash sceneFlash -> sceneFlash(sceneFlash);
             case GetPlayerDataToOtherScene getPlayerDataToOtherScene -> getPlayerDataToOtherScene(getPlayerDataToOtherScene);
+            case PlayerDead playerDead -> playerDead(playerDead);
+            case PlayerReceive playerReceive -> playerReceive(playerReceive);
+            case NpcUseSkill npcUseSkill -> npcUseSkill(npcUseSkill);
             default -> throw new IllegalStateException("Unexpected value: " + message.getClass().getName());
         }
+    }
+
+    private void npcUseSkill(NpcUseSkill npcUseSkill) {
+
+    }
+
+    private void playerReceive(PlayerReceive playerReceive) {
+        Client.ReceivedFromClient r = playerReceive.r();
+        long playerId = r.uID();
+        this.sceneData.tell(new Publish(new PlayerReceiveAfter(Map.copyOf(clientMap), playerId, self())), self());
+        clientMap.forEach((id, client) -> client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_FLASH,
+                SceneProtocolBuilder.getSc10036(r.uID(), getPlayerBirth())), self()));
+    }
+
+    private void playerDead(PlayerDead playerDead) {
+
     }
 
     private void getPlayerDataToOtherScene(GetPlayerDataToOtherScene getPlayerDataToOtherScene) {
@@ -142,37 +166,46 @@ public class Scene extends UntypedAbstractActor {
                 SceneProtocolBuilder.getSc10036(playerId, cs10036)), self()));
     }
 
-    private void createOrganismEntity(CreateOrganismEntity createOrganismEntity) {
-
-    }
-
     private void playerLogout(PlayerLogout playerLogout) {
         scenePlayerExit(playerLogout.r());
     }
 
-    private void sceneMonsterEntry(SceneOrganismEntry sceneOrganismEntry) {
+    private void sceneOrganismEntry(SceneOrganismEntry sceneOrganismEntry) {
         Organism organism = sceneOrganismEntry.organism();
         PositionInfo positionInfo = sceneOrganismEntry.positionInfo();
         if (organism instanceof NpcOrganism npcOrganism) {
-            if (npcOrganism.getOrganismTemplateId() == 10001) {
-                putPositionInfo(npcOrganism.getId(), positionInfo);
-            } else if (npcOrganism.getOrganismTemplateId() == 10002) {
-                putPositionInfo(npcOrganism.getId(), positionInfo);
-            } else if (npcOrganism.getOrganismTemplateId() == 10003) {
-                putPositionInfo(npcOrganism.getId(), positionInfo);
-            } else if (npcOrganism.getOrganismTemplateId() == 10004) {
-                putPositionInfo(npcOrganism.getId(), positionInfo);
-            }
+            putPositionInfo(npcOrganism.getId(), positionInfo);
             npcOrganismMap.put(npcOrganism.getId(), npcOrganism);
             sendToAllClient(SceneProtocols.SCENE_RETURN_ENTITY, SceneProtocolBuilder.getSc10034(npcOrganism.getId(),
                     npcOrganism.getOrganismType(), getPositionInfo(npcOrganism.getId()), npcOrganism.getOrganismTemplateId()));
+        } else if (organism instanceof MonsterOrganism monsterOrganism) {
+            putPositionInfo(monsterOrganism.getId(), positionInfo);
+            monsterOrganismMap.put(monsterOrganism.getId(), monsterOrganism);
+            sendToAllClient(SceneProtocols.SCENE_RETURN_ENTITY, SceneProtocolBuilder.getSc10034(monsterOrganism.getId(),
+                    monsterOrganism.getOrganismType(), getPositionInfo(monsterOrganism.getId()), monsterOrganism.getOrganismTemplateId()));
         }
 
         this.sceneData.tell(new Publish(new CreateOrganismEntityAfter(clientMap.values(), organism)), self());
+        if (sceneOrganismEntry.duration() > 0) {
+            getContext().system().scheduler().scheduleOnce(Duration.ofMillis(sceneOrganismEntry.duration()), self(),
+                    new SceneOrganismExit(organism.getId(), organism.getOrganismType()), getContext().dispatcher(), self());
+        }
     }
 
-    private void sceneMonsterExit(SceneMonsterExit sceneMonsterExit) {
-
+    private void sceneOrganismExit(SceneOrganismExit sceneOrganismExit) {
+        long organismId = sceneOrganismExit.organismId();
+        byte organismType = sceneOrganismExit.organismType();
+        if (organismType == OrganismType.MONSTER) {
+            if (Objects.nonNull(removePositionInfo(organismId))) {
+                monsterOrganismMap.remove(organismId);
+                sendToAllClient(SceneProtocols.SCENE_EXIT, SceneProtocolBuilder.getSc10031(organismId));
+            }
+        } else if (organismType == OrganismType.NPC) {
+            if (Objects.nonNull(removePositionInfo(organismId))) {
+                npcOrganismMap.remove(organismId);
+                sendToAllClient(SceneProtocols.SCENE_EXIT, SceneProtocolBuilder.getSc10031(organismId));
+            }
+        }
     }
 
     private void sceneInit(SceneInit sceneInit) {
@@ -206,13 +239,12 @@ public class Scene extends UntypedAbstractActor {
         r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_ENTER,
                 SceneProtocolBuilder.getSc10030(sceneTemplateId, positionInfo)), self());
         //给场景的其他玩家发送我进来了
-        List<Long> organismIds = List.of(playerId);
         PositionInfo finalPositionInfo = positionInfo;
         clientMap.forEach((id, client) -> {
             if (id != playerId) {
                 client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
                         SceneProtocolBuilder.getSc10034(playerId, OrganismType.PLAYER, finalPositionInfo,
-                                getPlayerInfo(id).profession())), self());
+                                getPlayerInfo(playerId).profession())), self());
             }
         });
         //获取场景实体的数据
@@ -239,6 +271,7 @@ public class Scene extends UntypedAbstractActor {
         positionInfoMap.remove(playerId);
         clientMap.remove(r.uID());
         playerInfoMap.remove(r.uID());
+
         //TODO 退出场景，玩家信息需要清空
         sender().tell(new ScenePlayerExitReturn(playerId, getSceneTemplateId(), positionInfo), self());
     }
@@ -263,7 +296,7 @@ public class Scene extends UntypedAbstractActor {
             if (id != playerId) {
                 client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
                         SceneProtocolBuilder.getSc10034(playerId, OrganismType.PLAYER, finalPositionInfo,
-                                getPlayerInfo(id).profession())), self());
+                                getPlayerInfo(playerId).profession())), self());
             }
         });
 
@@ -286,12 +319,25 @@ public class Scene extends UntypedAbstractActor {
 
     private void skillUseScene(SkillUseScene skillUseScene) {
         CommonOperateTypeInfo commonOperateTypeInfo = (CommonOperateTypeInfo) skillUseScene.operateTypeInfo();
+        if (skillUseScene.isSkillProcess()) {
+            Client.ReceivedFromClient r = commonOperateTypeInfo.r();
+            Skill.CS10055 cs10055 = (Skill.CS10055) commonOperateTypeInfo.message();
+            long organismId = cs10055.getFightOrganismId();
+            //TODO 判断当前场景是否可以释放技能，或者当前玩家位置是否可以放技能。
+            if (true) {
+                sender().tell(new SkillUseScene(new SkillUseInfo(commonOperateTypeInfo.r(), getTarget(commonOperateTypeInfo, true)), false), self());
+                sendToOtherClient(r.protoID(), FightSkillProtocolBuilder.getSc10055(cs10055), r.uID());
+            } else {
+                commonOperateTypeInfo.r().client().tell(new SendToClientJ(CommonProtocols.APPLICATION_ERROR,
+                        CommonProtocolBuilder.getSc10080(ApplicationErrorCode.USE_SKILL_SCENE)), self());
+            }
+        }
         Client.ReceivedFromClient r = commonOperateTypeInfo.r();
         Skill.CS10052 cs10052 = (Skill.CS10052) commonOperateTypeInfo.message();
         long organismId = cs10052.getFightOrganismId();
         //TODO 判断当前场景是否可以释放技能，或者当前玩家位置是否可以放技能。
         if (true) {
-            sender().tell(new SkillUseScene(new SkillUseInfo(commonOperateTypeInfo.r(), getTarget(commonOperateTypeInfo))), self());
+            sender().tell(new SkillUseScene(new SkillUseInfo(commonOperateTypeInfo.r(), getTarget(commonOperateTypeInfo, false)), false), self());
             sendToOtherClient(r.protoID(), FightSkillProtocolBuilder.getSc10052(cs10052), r.uID());
         } else {
             commonOperateTypeInfo.r().client().tell(new SendToClientJ(CommonProtocols.APPLICATION_ERROR,
@@ -299,7 +345,56 @@ public class Scene extends UntypedAbstractActor {
         }
     }
 
-    private UseSkillDataTemp getTarget(CommonOperateTypeInfo commonOperateTypeInfo) {
+    private UseSkillDataTemp getTarget(CommonOperateTypeInfo commonOperateTypeInfo, boolean isSkillProcess) {
+        // TODO: 2022-4-29 后续需要删除
+        if (isSkillProcess) {
+            Skill.CS10055 cs10055 = (Skill.CS10055) commonOperateTypeInfo.message();
+            //生成技能释放上下文
+            UseSkillDataTemp useSkillDataTemp = UseSkillDataTemp.of(cs10055, self());
+            useSkillDataTemp.setScene(self());
+            useSkillDataTemp.setR(commonOperateTypeInfo.r());
+            useSkillDataTemp.setSceneId(this.sceneId);
+            PlayerInfo playerInfo1 = playerInfoMap.get(useSkillDataTemp.getAttackId());
+            if (Objects.nonNull(playerInfo1)) {
+                useSkillDataTemp.setProfession(playerInfo1.profession());
+            }
+            long fightOrganismId = cs10055.getFightOrganismId();
+            if (Objects.isNull(playerInfoMap.get(fightOrganismId))) {
+                NpcOrganism npcOrganism = npcOrganismMap.get(fightOrganismId);
+                if (Objects.nonNull(npcOrganism)) {
+                    useSkillDataTemp.setAttackType(OrganismType.NPC);
+                } else {
+                    MonsterOrganism monsterOrganism = monsterOrganismMap.get(fightOrganismId);
+                    if (Objects.nonNull(monsterOrganism)) {
+                        useSkillDataTemp.setAttackType(OrganismType.MONSTER);
+                    }
+                }
+            }
+
+            //TODO 这里代码需要修改，写的什么垃圾
+            useSkillDataTemp.getTargetId().forEach(id -> {
+                PlayerInfo playerInfo = playerInfoMap.get(id);
+                if (Objects.nonNull(playerInfo)) {
+                    useSkillDataTemp.getTargetParameters().add(new TargetParameter(id,
+                            playerInfo.level(), OrganismType.PLAYER, playerInfo.profession()));
+                } else {
+                    NpcOrganism npcOrganism = npcOrganismMap.get(id);
+                    if (Objects.nonNull(npcOrganism)) {
+                        useSkillDataTemp.getTargetParameters().add(new TargetParameter(id,
+                                1, npcOrganism.getOrganismType(), npcOrganism.getOrganismTemplateId()));
+                    } else {
+                        MonsterOrganism monsterOrganism = monsterOrganismMap.get(id);
+                        if (Objects.nonNull(monsterOrganism)) {
+                            useSkillDataTemp.getTargetParameters().add(new TargetParameter(id,
+                                    1, monsterOrganism.getOrganismType(), monsterOrganism.getOrganismTemplateId()));
+                        }
+                    }
+                }
+            });
+            return useSkillDataTemp;
+        }
+
+
         Skill.CS10052 cs10052 = (Skill.CS10052) commonOperateTypeInfo.message();
         FightSkillTemplate fightSkillTemplate = FightSkillTemplateHolder.getData(cs10052.getSkillId());
         //生成技能释放上下文
@@ -307,6 +402,10 @@ public class Scene extends UntypedAbstractActor {
         useSkillDataTemp.setScene(self());
         useSkillDataTemp.setR(commonOperateTypeInfo.r());
         useSkillDataTemp.setSceneId(this.sceneId);
+        PlayerInfo playerInfo1 = playerInfoMap.get(useSkillDataTemp.getAttackId());
+        if (Objects.nonNull(playerInfo1)) {
+            useSkillDataTemp.setProfession(playerInfo1.profession());
+        }
         //TODO 获取目标
         if (SkillAimType.isOne(fightSkillTemplate)) {
         }
@@ -314,14 +413,19 @@ public class Scene extends UntypedAbstractActor {
         useSkillDataTemp.getTargetId().forEach(id -> {
             PlayerInfo playerInfo = playerInfoMap.get(id);
             if (Objects.nonNull(playerInfo)) {
-                useSkillDataTemp.getTargetParameters().add(new TargetParameter(id, playerInfo.level(), playerInfo.profession()));
-            }else {
+                useSkillDataTemp.getTargetParameters().add(new TargetParameter(id,
+                        playerInfo.level(), OrganismType.PLAYER, playerInfo.profession()));
+            } else {
                 NpcOrganism npcOrganism = npcOrganismMap.get(id);
                 if (Objects.nonNull(npcOrganism)) {
-                    useSkillDataTemp.getTargetParameters().add(new TargetParameter(id, 1, npcOrganism.getOrganismType()));
-                }else {
+                    useSkillDataTemp.getTargetParameters().add(new TargetParameter(id,
+                            1, npcOrganism.getOrganismType(), npcOrganism.getOrganismTemplateId()));
+                } else {
                     MonsterOrganism monsterOrganism = monsterOrganismMap.get(id);
-                    useSkillDataTemp.getTargetParameters().add(new TargetParameter(id, 1, monsterOrganism.getOrganismType()));
+                    if (Objects.nonNull(monsterOrganism)) {
+                        useSkillDataTemp.getTargetParameters().add(new TargetParameter(id,
+                                1, monsterOrganism.getOrganismType(), monsterOrganism.getOrganismTemplateId()));
+                    }
                 }
             }
         });
@@ -349,7 +453,12 @@ public class Scene extends UntypedAbstractActor {
                 r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
                         SceneProtocolBuilder.getSc10034(npcOrganism.getId(), npcOrganism.getOrganismType(),
                                 getPositionInfo(npcOrganism.getId()), npcOrganism.getOrganismTemplateId())), self()));
+        monsterOrganismMap.values().forEach(monsterOrganism ->
+                r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
+                        SceneProtocolBuilder.getSc10034(monsterOrganism.getId(), monsterOrganism.getOrganismType(),
+                                getPositionInfo(monsterOrganism.getId()), monsterOrganism.getOrganismTemplateId())), self()));
         List<Organism> list = new ArrayList<>(npcOrganismMap.values());
+        list.addAll(monsterOrganismMap.values());
         this.sceneData.tell(new Publish(new CreatePlayerEntitiesAfter(clientMap, organismId, list)), self());
 
     }
@@ -365,7 +474,12 @@ public class Scene extends UntypedAbstractActor {
                 r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
                         SceneProtocolBuilder.getSc10034(npcOrganism.getId(), npcOrganism.getOrganismType(),
                                 getPositionInfo(npcOrganism.getId()), npcOrganism.getOrganismTemplateId())), self()));
+        monsterOrganismMap.values().forEach(monsterOrganism ->
+                r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
+                        SceneProtocolBuilder.getSc10034(monsterOrganism.getId(), monsterOrganism.getOrganismType(),
+                                getPositionInfo(monsterOrganism.getId()), monsterOrganism.getOrganismTemplateId())), self()));
         List<Organism> list = new ArrayList<>(npcOrganismMap.values());
+        list.addAll(monsterOrganismMap.values());
         this.sceneData.tell(new Publish(new CreatePlayerEntitiesAfter(clientMap, organismId, list)), self());
     }
 
@@ -379,6 +493,10 @@ public class Scene extends UntypedAbstractActor {
 
     public void putPositionInfo(long id, PositionInfo positionInfo) {
         this.positionInfoMap.put(id, positionInfo);
+    }
+
+    public PositionInfo removePositionInfo(long id) {
+        return this.positionInfoMap.remove(id);
     }
 
     public PositionInfo getPositionInfo(long id) {
@@ -395,5 +513,23 @@ public class Scene extends UntypedAbstractActor {
 
     public PlayerInfo getPlayerInfo(long id) {
         return playerInfoMap.get(id);
+    }
+
+    public void selectClient() {
+        if (this.aiAgentPlayerId == 0) {
+            for (Map.Entry<Long, ActorRef> entry : clientMap.entrySet()) {
+                ActorRef client = entry.getValue();
+                if (Objects.nonNull(client)) {
+                    aiAgentPlayerId = entry.getKey();
+                    client.tell(new SendToClientJ(SceneProtocols.AI, SceneProtocolBuilder.getSc10037()), self());
+                    return;
+                }
+            }
+        } else {
+            ActorRef actorRef = clientMap.get(this.aiAgentPlayerId);
+            if (Objects.isNull(actorRef)) {
+                this.aiAgentPlayerId = 0;
+            }
+        }
     }
 }

@@ -2,6 +2,8 @@ package application.module.fight.attribute.data;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 import application.module.fight.attribute.AttributeProtocolBuilder;
 import application.module.fight.attribute.AttributeProtocols;
 import application.module.fight.attribute.AttributeTemplateIdContainer;
@@ -11,13 +13,18 @@ import application.module.fight.attribute.data.domain.TypeAttribute;
 import application.module.fight.attribute.data.message.*;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
 import application.module.fight.skill.data.message.SkillGetAllAttribute;
+import application.module.organism.MonsterOrganism;
 import application.module.organism.NpcOrganism;
 import application.module.organism.Organism;
 import application.module.organism.OrganismType;
 import application.module.player.data.message.event.PlayerLogin;
 import application.module.scene.operate.AoiSendMessageToClient;
+import application.module.scene.operate.SceneOrganismExit;
 import application.module.scene.operate.event.CreateOrganismEntityAfter;
 import application.module.scene.operate.event.CreatePlayerEntitiesAfter;
+import application.module.scene.operate.event.PlayerReceiveAfter;
+import application.module.state.base.StateType;
+import application.module.state.operate.OrganismChangeState;
 import application.util.AttributeMapUtil;
 import application.util.StringUtils;
 import application.util.UpdateAttributeObject;
@@ -25,7 +32,6 @@ import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
 import com.cala.orm.cache.DataInit;
 import com.cala.orm.message.DataBase;
-import com.cala.orm.message.Publish;
 import template.OrganismDataTemplate;
 import template.OrganismDataTemplateHolder;
 
@@ -39,6 +45,8 @@ import static application.module.fight.attribute.AttributeTemplateId.*;
  * @Source 1.0
  */
 public class AttributeData extends AbstractDataCacheManager<Attribute> {
+
+    private final LoggingAdapter log = Logging.getLogger(this.getContext().getSystem(), this);
 
     public static Props create() {
         return Props.create(AttributeData.class, AttributeData::new).withDispatcher(DATA_AND_DB_DISPATCHER);
@@ -67,8 +75,21 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
             case CreateOrganismEntityAfter createOrganismEntityAfter -> createOrganismEntityAfter(createOrganismEntityAfter);
             case AddHp addHp -> addHp(addHp);
             case AddMp addMp -> addMp(addMp);
+            case PlayerReceiveAfter playerReceiveAfter -> playerReceiveAfter(playerReceiveAfter);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase);
         }
+    }
+
+    private void playerReceiveAfter(PlayerReceiveAfter playerReceiveAfter) {
+        Map<Short, Long> fightAttributeMap = getFightAttributeMap(playerReceiveAfter.playerId());
+        if (fightAttributeMap.containsKey(MAX_HP)) {
+            fightAttributeMap.put(VAR_HP, fightAttributeMap.get(MAX_HP));
+        }
+        if (fightAttributeMap.containsKey(MAX_MP)) {
+            fightAttributeMap.put(VAR_MP, fightAttributeMap.get(MAX_MP));
+        }
+        playerReceiveAfter.scene().tell(new AoiSendMessageToClient(AttributeProtocols.FIGHT_ATTRIBUTE_GET,
+                AttributeProtocolBuilder.get10040(playerReceiveAfter.playerId(), fightAttributeMap), playerReceiveAfter.playerId()), self());
     }
 
     private void addMp(AddMp addMp) {
@@ -96,33 +117,53 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
         long currHp = fightAttributeMap.getOrDefault(VAR_HP, 0L) + hp;
         if (currHp < 0) {
             currHp = 0;
+            addHp.stateData().tell(new OrganismChangeState(addHp.organismId(),
+                    addHp.organismType(), StateType.ActionType.DEAD_STATE, addHp.scene()), self());
             if (addHp.organismType() == OrganismType.PLAYER) {
-                self().tell(new Publish(new PlayerDead(addHp.organismId(), addHp.sourceId())), self());
+                addHp.scene().tell(new PlayerDead(addHp.organismId(), addHp.sourceId(), addHp.sourceType()), self());
+            } else {
+                addHp.scene().tell(new SceneOrganismExit(addHp.organismId(), addHp.organismType()), self());
             }
         }
         currHp = Math.min(fightAttributeMap.getOrDefault(MAX_HP, 0L), currHp);
+        log.debug("--------hp {}", currHp);
         fightAttributeMap.put(VAR_HP, currHp);
         addHp.scene().tell(new AoiSendMessageToClient(AttributeProtocols.FIGHT_ATTRIBUTE_GET,
-                AttributeProtocolBuilder.get10040(addHp.organismId(), fightAttributeMap), addHp.organismId()), self());
+                AttributeProtocolBuilder.get10040(addHp.organismId(), Map.copyOf(fightAttributeMap)), addHp.organismId()), self());
     }
 
     private void createOrganismEntityAfter(CreateOrganismEntityAfter createOrganismEntityAfter) {
         Organism organism = createOrganismEntityAfter.organism();
         if (organism.getOrganismType() == OrganismType.NPC) {
-            NpcOrganism npcOrganism = (NpcOrganism) organism;
-            OrganismDataTemplate organismDataTemplate = OrganismDataTemplateHolder.getData(npcOrganism.getOrganismTemplateId());
-            FightAttribute fightAttribute = new FightAttribute(npcOrganism, StringUtils.toAttributeMap(organismDataTemplate.attributeMap()));
-            putMonsterFight(npcOrganism.getId(), fightAttribute);
-            returnClient(npcOrganism.getId(), createOrganismEntityAfter.clients(), fightAttribute.getFightAttributeMap());
+//            NpcOrganism npcOrganism = (NpcOrganism) organism;
+//            OrganismDataTemplate organismDataTemplate = OrganismDataTemplateHolder.getData(npcOrganism.getOrganismTemplateId());
+//            FightAttribute fightAttribute = new FightAttribute(npcOrganism, StringUtils.toAttributeMap(organismDataTemplate.attributeMap()));
+//            putMonsterFight(npcOrganism.getId(), fightAttribute);
+//            returnClient(npcOrganism.getId(), createOrganismEntityAfter.clients(), fightAttribute.getFightAttributeMap());
+        } else if (organism.getOrganismType() == OrganismType.MONSTER) {
+            MonsterOrganism monsterOrganism = (MonsterOrganism) organism;
+            OrganismDataTemplate organismDataTemplate = OrganismDataTemplateHolder.getData(monsterOrganism.getOrganismTemplateId());
+            FightAttribute fightAttribute = new FightAttribute(monsterOrganism, StringUtils.toAttributeMap(organismDataTemplate.attributeMap()));
+            putMonsterFight(monsterOrganism.getId(), fightAttribute);
+            returnClient(monsterOrganism.getId(), createOrganismEntityAfter.clients(), fightAttribute.getFightAttributeMap());
         }
     }
 
     private void createPlayerEntitiesAfter(CreatePlayerEntitiesAfter createPlayerEntitiesAfter) {
         long playerId = createPlayerEntitiesAfter.playerId();
         Map<Long, ActorRef> clientMap = createPlayerEntitiesAfter.clientMap();
-
+        ActorRef client = clientMap.get(playerId);
+        clientMap.forEach((id, client1) -> {
+            if (Objects.isNull(client1)) {
+                return;
+            }
+            if (id != playerId) {
+                returnClient(playerId, client1, getFightAttributeMap(playerId));
+            }
+            returnClient(id, client, getFightAttributeMap(id));
+        });
         createPlayerEntitiesAfter.organisms().forEach(organism -> {
-            returnClient(organism.getId(), clientMap.get(playerId), getFightAttributeMap(organism));
+            returnClient(organism.getId(), client, getFightAttributeMap(organism));
         });
     }
 
@@ -138,7 +179,7 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
 
     private void playerLogin(PlayerLogin playerLogin) {
         long playerId = playerLogin.playerInfo().id();
-        self().tell(new UpdateAttribute(playerId, (short) 2, new UpdateAttributeObject<>(1), new ArrayList<>()), self());
+        self().tell(new UpdateAttribute(playerId, (short) 2, new UpdateAttributeObject<>(playerLogin.playerInfo()), new ArrayList<>()), self());
     }
 
     private void updateFightAttribute(UpdateFightAttribute updateFightAttribute) {
@@ -147,7 +188,7 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
         if (Objects.isNull(typeAttribute)) {
             FightAttribute fightAttribute = monsterId2MonsterAttributeMap.get(organismId);
             fightAttribute.addFightAttribute(updateFightAttribute.result());
-        }else {
+        } else {
             typeAttribute.addFightAttribute(updateFightAttribute.result());
         }
         updateFightAttribute.scene().tell(new AoiSendMessageToClient(AttributeProtocols.FIGHT_ATTRIBUTE_GET,
@@ -210,10 +251,12 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
     public Map<Short, Long> getFightAttributeMap(long organismId) {
         TypeAttribute typeAttribute = playerId2TypeAttributeMap.get(organismId);
         if (Objects.nonNull(typeAttribute)) {
+            log.debug("玩家：{} -> {}", organismId, typeAttribute.getFightAttributeMap().toString());
             return typeAttribute.getFightAttributeMap();
         } else {
             FightAttribute fightAttribute = monsterId2MonsterAttributeMap.get(organismId);
             if (Objects.nonNull(fightAttribute)) {
+                log.debug("{} -> {}", organismId, fightAttribute.getFightAttributeMap().toString());
                 return fightAttribute.getFightAttributeMap();
             }
         }

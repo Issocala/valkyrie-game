@@ -7,8 +7,10 @@ import application.module.fight.attribute.provider.AttributeRegister;
 import application.module.player.data.PlayerEntityData;
 import application.module.player.data.message.event.PlayerLogin;
 import application.module.scene.data.SceneData;
+import application.module.scene.operate.PlayerReceive;
 import application.module.scene.operate.event.CreateOrganismEntityAfter;
 import application.module.scene.operate.event.CreatePlayerEntitiesAfter;
+import application.module.scene.operate.event.PlayerReceiveAfter;
 import com.cala.orm.message.DataReturnMessage;
 import com.cala.orm.message.SubscribeEvent;
 import mobius.modular.client.Client;
@@ -44,7 +46,12 @@ public class AttributeModule extends AbstractModule {
                 .match(PlayerLogin.class, this::playerLogin)
                 .match(CreatePlayerEntitiesAfter.class, this::createPlayerEntitiesAfter)
                 .match(CreateOrganismEntityAfter.class, this::createOrganismEntityAfter)
+                .match(PlayerReceiveAfter.class, this::playerReceiveAfter)
                 .build();
+    }
+
+    private void playerReceiveAfter(PlayerReceiveAfter playerReceiveAfter) {
+        this.attributeData.tell(playerReceiveAfter, self());
     }
 
     private void createOrganismEntityAfter(CreateOrganismEntityAfter createOrganismEntityAfter) {
@@ -78,6 +85,7 @@ public class AttributeModule extends AbstractModule {
             this.sceneData = dataResult.actorRef();
             this.sceneData.tell(new SubscribeEvent(CreatePlayerEntitiesAfter.class, self()), self());
             this.sceneData.tell(new SubscribeEvent(CreateOrganismEntityAfter.class, self()), self());
+            this.sceneData.tell(new SubscribeEvent(PlayerReceiveAfter.class, self()), self());
         }
     }
 }

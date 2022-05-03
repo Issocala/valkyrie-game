@@ -1,6 +1,7 @@
 package application.module.fight.attribute.provider.impl;
 
 import application.module.fight.attribute.provider.AttributeProvider;
+import application.module.player.data.domain.PlayerInfo;
 import application.util.UpdateAttributeObject;
 
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class PlayerLevelAttributeProvider implements AttributeProvider {
 
     @Override
     public Map<Short, Long> provider(UpdateAttributeObject<?> o) {
+        PlayerInfo playerInfo = (PlayerInfo) o.t();
         Map<Short, Long> map = new HashMap<>();
         map.put(MAX_HP, 1000L);
         map.put(MAX_MP, 1000L);
@@ -28,6 +30,9 @@ public class PlayerLevelAttributeProvider implements AttributeProvider {
         map.put(MOVE_SPEED, 2L);
         map.put(JUMP_SPEED, 5L);
         map.put(ATTACK_SPEED, 10L);
+        if (playerInfo.profession() == 2) {
+            map.put(ICE_MAGIC_SHIELD, 1L);
+        }
         return map;
     }
 }

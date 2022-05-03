@@ -24,6 +24,7 @@ import mobius.modular.client.Client;
 import protocol.Skill;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,6 +73,7 @@ public class UseSkillDataTemp extends LongId {
         this.skillPosY = skillPosY;
         this.posX = posX;
         this.posY = posY;
+        this.changeAttributeMap = new HashMap<>();
     }
 
 
@@ -83,9 +85,22 @@ public class UseSkillDataTemp extends LongId {
         return useSkillDataTemp;
     }
 
+    public static UseSkillDataTemp of(Skill.CS10055 cs10055, ActorRef scene) {
+        UseSkillDataTemp useSkillDataTemp = new UseSkillDataTemp(cs10055.getSkillProcessId(), cs10055.getFightOrganismId(), cs10055.getTargetIdList(),
+                0, 0, 0, 0);
+        useSkillDataTemp.setScene(scene);
+        useSkillDataTemp.setAttackType(OrganismType.PLAYER);
+        return useSkillDataTemp;
+    }
+
     public static UseSkillDataTemp of(Skill.CS10052 cs10052) {
         return new UseSkillDataTemp(cs10052.getSkillId(), cs10052.getFightOrganismId(), cs10052.getTargetIdList(),
                 cs10052.getSkillPositionX(), cs10052.getSkillPositionY(), 0, 0);
+    }
+
+    public void addChangeFightAttributeMap(short id, long value) {
+        long oldValue = this.changeAttributeMap.getOrDefault(id, 0L);
+        this.changeAttributeMap.put(id, value + oldValue);
     }
 
     public int getSkillId() {
@@ -104,7 +119,7 @@ public class UseSkillDataTemp extends LongId {
         this.attackId = attackId;
     }
 
-    public short getAttackType() {
+    public byte getAttackType() {
         return attackType;
     }
 

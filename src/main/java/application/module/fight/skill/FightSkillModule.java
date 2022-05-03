@@ -5,18 +5,23 @@ import application.module.common.data.domain.DataMessage;
 import application.module.fight.attribute.AttributeTemplateId;
 import application.module.fight.attribute.data.AttributeData;
 import application.module.fight.attribute.data.message.AddMp;
+import application.module.fight.attribute.data.message.UpdateFightAttribute;
 import application.module.fight.attribute.fight.FightAttributeMgr;
 import application.module.fight.buff.data.FightBuffData;
 import application.module.fight.skill.base.context.FightRuntimeContext;
+import application.module.fight.skill.base.context.PassiveSkillDataTemp;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
 import application.module.fight.skill.base.function.FightSkillFunctionContainer;
+import application.module.fight.skill.base.function.active.FightSkillActiveFunction;
+import application.module.fight.skill.base.function.passive.FightPassiveSkillFunction;
+import application.module.fight.skill.base.skill.FightPassiveSkillWrap;
 import application.module.fight.skill.base.skill.FightSkillWrap;
 import application.module.fight.skill.base.skill.FightSkillWrapContainer;
 import application.module.fight.skill.data.SkillData;
 import application.module.fight.skill.data.message.*;
-import application.module.fight.skill.operate.CastSkill;
 import application.module.fight.skill.operate.SkillIsLearnType;
 import application.module.fight.skill.operate.info.SkillUseInfo;
+import application.module.fight.skill.util.PassiveTriggerType;
 import application.module.fight.skill.util.SkillType;
 import application.module.player.data.PlayerEntityData;
 import application.module.player.data.message.event.PlayerLogin;
@@ -24,6 +29,7 @@ import application.module.scene.data.SceneData;
 import application.module.state.data.StateData;
 import application.util.CommonOperateTypeInfo;
 import application.util.DataMessageAndReply;
+import application.util.RandomUtil;
 import com.cala.orm.message.DataReturnMessage;
 import com.cala.orm.message.OperateType;
 import com.cala.orm.message.SubscribeEvent;
@@ -32,8 +38,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import mobius.modular.client.Client;
 import mobius.modular.module.api.AbstractModule;
 import protocol.Skill;
-import template.FightSkillTemplate;
-import template.FightSkillTemplateHolder;
+import template.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -86,7 +91,7 @@ public class FightSkillModule extends AbstractModule {
 
     private void operateType(OperateType operateType) {
         switch (operateType) {
-            case SkillUseState skillUseState -> sceneData.tell(new SkillUseScene(skillUseState.operateTypeInfo()), self());
+            case SkillUseState skillUseState -> sceneData.tell(new SkillUseScene(skillUseState.operateTypeInfo(), false), self());
             case SkillUseScene skillUseScene -> skillUseScene(skillUseScene);
             case SkillGetValidAttribute skillGetValidAttribute -> skillGetValidAttribute(skillGetValidAttribute);
             case SkillGetAllAttribute skillGetAllAttribute -> skillGetAllAttribute(skillGetAllAttribute);
@@ -98,50 +103,115 @@ public class FightSkillModule extends AbstractModule {
         UseSkillDataTemp useSkillDataTemp = skillGetAllAttribute.useSkillDataTemp();
         long fightOrganismId = useSkillDataTemp.getAttackId();
         FightRuntimeContext fightRuntimeContext = getFightRuntimeContext(fightOrganismId);
+        if (skillGetAllAttribute.isSkillProcess()) {
+            activeUseSkill(FightSkillProcessTemplateHolder.getData(useSkillDataTemp.getSkillId()), useSkillDataTemp, fightRuntimeContext);
+            return;
+        }
         FightSkillWrap fightSkillWrap = FightSkillWrapContainer.getFightSkillWrap(useSkillDataTemp.getSkillId());
         FightSkillTemplate fightSkillTemplate = fightSkillWrap.getFightSkillTemplate();
-        if (FightAttributeMgr.getValue(useSkillDataTemp.getAttackAttributeMap(), AttributeTemplateId.MAX_HP) <= fightSkillTemplate.costHp()
-                && FightAttributeMgr.getValue(useSkillDataTemp.getAttackAttributeMap(), AttributeTemplateId.MAX_MP) < fightSkillTemplate.costMp()) {
+        if (FightAttributeMgr.getValue(useSkillDataTemp.getAttackAttributeMap(), AttributeTemplateId.VAR_HP) <= fightSkillTemplate.costHp()
+                || FightAttributeMgr.getValue(useSkillDataTemp.getAttackAttributeMap(), AttributeTemplateId.VAR_MP) < fightSkillTemplate.costMp()) {
             //TODO 考虑是否需要返回客户端错误信息
-            return;
+//            return;
         }
         fightRuntimeContext.startCD(fightSkillTemplate);
 
-        activeUseSkill(fightSkillWrap, useSkillDataTemp);
+        activeUseSkill(fightSkillWrap, useSkillDataTemp, fightRuntimeContext);
     }
 
     private void skillGetValidAttribute(SkillGetValidAttribute skillGetValidAttribute) {
 
     }
 
+    public void activeUseSkill(FightSkillProcessTemplate fightSkillProcessTemplate, UseSkillDataTemp useSkillDataTemp, FightRuntimeContext fightRuntimeContext) {
+        useSkillDataTemp.setSkillModule(self());
+        useSkillDataTemp.setBuffData(this.buffData);
+        FightSkillActiveFunction fightSkillActiveFunction = FightSkillFunctionContainer.getFunction(fightSkillProcessTemplate.function());
+        if (Objects.nonNull(fightSkillActiveFunction)) {
+            fightSkillActiveFunction.castSkill(null, fightSkillProcessTemplate, useSkillDataTemp);
+        }
+    }
+
     /**
      * 主动技能执行
      */
-    public void activeUseSkill(FightSkillWrap fightSkillWrap, UseSkillDataTemp useSkillDataTemp) {
+    public void activeUseSkill(FightSkillWrap fightSkillWrap, UseSkillDataTemp useSkillDataTemp, FightRuntimeContext fightRuntimeContext) {
         FightSkillTemplate fightSkillTemplate = fightSkillWrap.getFightSkillTemplate();
         if (fightSkillTemplate.skillType() != SkillType.ACTIVE) {
             return;
         }
         useSkillDataTemp.setSkillModule(self());
+        useSkillDataTemp.setBuffData(this.buffData);
+
+        useSkillPre(useSkillDataTemp, fightRuntimeContext);
+
         fightSkillWrap.getList().forEach(fightSkillProcessTemplate -> {
             if (fightSkillProcessTemplate.delayTime() == 0) {
                 if (useSkillDataTemp.getTargetParameters().size() == 0) {
-                    return;
+                    // TODO: 2022-4-27 不支持空放这里 
                 }
-                ActorRef fightSkillActiveFunction = FightSkillFunctionContainer.getFunction(fightSkillProcessTemplate.function());
+                FightSkillActiveFunction fightSkillActiveFunction = FightSkillFunctionContainer.getFunction(fightSkillProcessTemplate.function());
                 if (Objects.nonNull(fightSkillActiveFunction)) {
-                    fightSkillActiveFunction.tell(new CastSkill(fightSkillWrap, fightSkillProcessTemplate, useSkillDataTemp), self());
+                    fightSkillActiveFunction.castSkill(fightSkillWrap, fightSkillProcessTemplate, useSkillDataTemp);
                 }
-            }else {
-
             }
-
         });
-        attributeData.tell(new AddMp(useSkillDataTemp.getAttackId(), useSkillDataTemp.getAttackType(),
-                useSkillDataTemp.getR(), fightSkillTemplate.costMp(), useSkillDataTemp.getScene()), self());
+
+        useSkillAfter();
+        if (useSkillDataTemp.getChangeAttributeMap().size() > 0) {
+            attributeData.tell(new UpdateFightAttribute(useSkillDataTemp.getChangeAttributeMap(),
+                    useSkillDataTemp.getAttackId(), useSkillDataTemp.getScene(), useSkillDataTemp.getStateData()), self());
+        }
+        useSkillDataTemp.getTargetParameters().forEach(targetParameter -> {
+            if (targetParameter.getChangeAttributeMap().size() > 0) {
+                attributeData.tell(new UpdateFightAttribute(targetParameter.getChangeAttributeMap(),
+                        targetParameter.getTargetId(), useSkillDataTemp.getScene(), useSkillDataTemp.getStateData()), self());
+            }
+        });
+        if (fightSkillTemplate.costMp() != 0) {
+            attributeData.tell(new AddMp(useSkillDataTemp.getAttackId(), useSkillDataTemp.getAttackType(),
+                    useSkillDataTemp.getR(), -fightSkillTemplate.costMp(), useSkillDataTemp.getScene()), self());
+        }
     }
 
-    public void passiveUseSkill() {
+    private void useSkillPre(UseSkillDataTemp useSkillDataTemp, FightRuntimeContext fightRuntimeContext) {
+        OrganismDataTemplate organismDataTemplate = OrganismDataTemplateHolder.getData(useSkillDataTemp.getProfession());
+        if (Objects.isNull(organismDataTemplate)) {
+            return;
+        }
+        for (int skillId : organismDataTemplate.skills()) {
+            FightPassiveSkillWrap fightPassiveSkillWrap = FightSkillWrapContainer.getFightPassiveSkillWrap(skillId);
+            if (Objects.isNull(fightPassiveSkillWrap)) {
+                continue;
+            }
+            FightPassiveSkillTemplate template = fightPassiveSkillWrap.getFightPassiveSkillTemplate();
+            if (fightRuntimeContext.inCDTime(template)) {
+                continue;
+            }
+            if (RandomUtil.randomInt10000() >= template.weight()) {
+//                continue;
+            }
+            if (template.skillTriggerType() == PassiveTriggerType.USE_SKILL) {
+                fightPassiveSkillWrap.getList().forEach(processTemplate -> {
+                    FightPassiveSkillFunction function = FightSkillFunctionContainer.getPassiveFunction(processTemplate.function());
+                    if (Objects.nonNull(function) && useSkillDataTemp.getTargetParameters().size() > 0) {
+                        function.castSkill(fightPassiveSkillWrap, processTemplate, new PassiveSkillDataTemp(useSkillDataTemp.getAttackId(), useSkillDataTemp));
+                    }
+                });
+            } else if (template.skillTriggerType() == PassiveTriggerType.USE_SKILL_TARGET) {
+                fightPassiveSkillWrap.getList().forEach(processTemplate -> {
+                    FightPassiveSkillFunction function = FightSkillFunctionContainer.getPassiveFunction(processTemplate.function());
+                    if (Objects.nonNull(function) && useSkillDataTemp.getTargetParameters().size() > 0) {
+                        function.castSkill(fightPassiveSkillWrap, processTemplate, new PassiveSkillDataTemp(useSkillDataTemp));
+                    }
+                });
+            }
+            fightRuntimeContext.startCD(template);
+        }
+    }
+
+    private void useSkillAfter() {
+
 
     }
 
@@ -166,11 +236,15 @@ public class FightSkillModule extends AbstractModule {
             fightRuntimeContext = new FightRuntimeContext();
             addFightRuntimeContext(fightOrganismId, fightRuntimeContext);
         }
-        FightSkillWrap fightSkillWrap = FightSkillWrapContainer.getFightSkillWrap(useSkillDataTemp.getSkillId());
-        if (fightRuntimeContext.inCDTime(fightSkillWrap)) {
-            return;
+        if (!skillUseScene.isSkillProcess()) {
+            FightSkillWrap fightSkillWrap = FightSkillWrapContainer.getFightSkillWrap(useSkillDataTemp.getSkillId());
+            if (fightRuntimeContext.inCDTime(fightSkillWrap)) {
+                return;
+            }
+            useSkillDataTemp.getAttributeData().tell(new SkillGetAllAttribute(useSkillDataTemp, false), self());
+        } else {
+            useSkillDataTemp.getAttributeData().tell(new SkillGetAllAttribute(useSkillDataTemp, true), self());
         }
-        useSkillDataTemp.getAttributeData().tell(new SkillGetAllAttribute(useSkillDataTemp), self());
     }
 
     private void dataResult(DataMessage.DataResult dataResult) {
@@ -196,6 +270,16 @@ public class FightSkillModule extends AbstractModule {
         switch (pId) {
             case FightSkillProtocols.USE -> useSkill(r);
             case FightSkillProtocols.LEARN -> learn(r);
+            case FightSkillProtocols.USE_PROCESS -> useProcess(r);
+        }
+    }
+
+    private void useProcess(Client.ReceivedFromClient r) {
+        try {
+            var skillProcess = Skill.CS10055.parseFrom(r.message());
+
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
         }
     }
 

@@ -9,5 +9,5 @@ import com.cala.orm.message.OperateType;
  * @date 2022-3-28
  * @Source 1.0
  */
-public record SkillGetAllAttribute(UseSkillDataTemp useSkillDataTemp) implements DataBase, OperateType {
+public record SkillGetAllAttribute(UseSkillDataTemp useSkillDataTemp, boolean isSkillProcess) implements DataBase, OperateType {
 }

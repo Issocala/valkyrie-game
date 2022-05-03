@@ -2,10 +2,7 @@ package application.module.state.base;
 
 import application.module.state.base.action.DeadState;
 import application.module.state.base.action.IdleState;
-import application.module.state.base.fight.FrozenState;
-import application.module.state.base.fight.ImprisonState;
-import application.module.state.base.fight.SpeedDownState;
-import application.module.state.base.fight.SuperArmorState;
+import application.module.state.base.fight.*;
 import application.module.state.base.movement.MoveState;
 import application.module.state.base.movement.StopState;
 import com.google.common.base.Preconditions;
@@ -36,6 +33,8 @@ public class FSMStateContainer {
         add(StateType.FightType.SUPER_ARMOR_STATE, new SuperArmorState(StateType.FightType.SUPER_ARMOR_STATE));
         add(StateType.FightType.IMPRISON_STATE, new ImprisonState(StateType.FightType.IMPRISON_STATE));
         add(StateType.FightType.SPEED_DOWN_STATE, new SpeedDownState(StateType.FightType.SPEED_DOWN_STATE));
+        add(StateType.FightType.DIZZINESS_STATE, new DizzinessState(StateType.FightType.DIZZINESS_STATE));
+        add(StateType.FightType.SPEED_UP_STATE, new SpeedUpState(StateType.FightType.SPEED_UP_STATE));
     }
 
     private static void add(short id, FSMStateBase fsmStateBase) {

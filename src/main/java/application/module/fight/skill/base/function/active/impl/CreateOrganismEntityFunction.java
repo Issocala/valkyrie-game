@@ -1,5 +1,6 @@
 package application.module.fight.skill.base.function.active.impl;
 
+import akka.actor.ActorRef;
 import akka.actor.Props;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
 import application.module.fight.skill.base.function.active.FightSkillActiveFunction;
@@ -26,9 +27,10 @@ public class CreateOrganismEntityFunction extends FightSkillActiveFunction {
         int[] attributeParameter = StringUtils.toIntArray(fightSkillProcessTemplate.attributeParameter());
         int organismTemplateId = attributeParameter[0];
         int number = attributeParameter[1];
+        long duration = attributeParameter[2];
         for (int i = 0; i < number; i++) {
             useSkillDataTemp.getScene().tell(new SceneOrganismEntry(new MonsterOrganism(organismTemplateId),
-                    new PositionInfo(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY())), self());
+                    new PositionInfo(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY()), duration), ActorRef.noSender());
         }
     }
 }

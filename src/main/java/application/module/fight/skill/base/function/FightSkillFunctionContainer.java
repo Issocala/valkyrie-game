@@ -20,17 +20,17 @@ import java.util.Set;
  */
 public class FightSkillFunctionContainer {
 
-    private final static Map<String, ActorRef> map = new HashMap<>();
+    private final static Map<String, FightSkillActiveFunction> map = new HashMap<>();
 
     private static final String PROPS_CREATE_METHOD = "create";
 
     private static final Map<String, FightPassiveSkillFunction> fightSkillPassiveFunctionMap = new HashMap<>();
 
-    public static ActorRef getFunction(String name) {
+    public static FightSkillActiveFunction getFunction(String name) {
         return map.get(name);
     }
 
-    public static void add(String name, ActorRef fightSkillFunction) {
+    public static void add(String name, FightSkillActiveFunction fightSkillFunction) {
         map.put(name, fightSkillFunction);
     }
 
@@ -44,20 +44,11 @@ public class FightSkillFunctionContainer {
 
     public static void registerPassive(ActorContext actorContext) {
         Set<Class<?>> set = ClassScanningUtil.findClassBySuper(FightSkillActiveFunction.class.getPackageName(), FightSkillActiveFunction.class);
-        set.forEach(clazz -> {
-            Method method;
-            ActorRef actorRef;
+        set.forEach(e -> {
             try {
-                method = clazz.getMethod(PROPS_CREATE_METHOD);
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-                throw new RuntimeException(clazz + "并未创建create actor方法,方法名为" + PROPS_CREATE_METHOD);
-            }
-            try {
-                actorRef = actorContext.actorOf((Props) method.invoke(PROPS_CREATE_METHOD), clazz.getName());
-                add(clazz.getSimpleName(), actorRef);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
+                add(e.getSimpleName(), (FightSkillActiveFunction) e.getDeclaredConstructor().newInstance());
+            } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
+                ex.printStackTrace();
             }
         });
         registerPassive();

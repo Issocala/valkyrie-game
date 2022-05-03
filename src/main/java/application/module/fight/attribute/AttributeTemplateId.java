@@ -31,7 +31,7 @@ public interface AttributeTemplateId {
     short ATTACK_SPEED = 208;
     short MOVE_SPEED = 209;
     short JUMP_SPEED = 210;
-    short DOU_QI = 211;
+
 
 
     /*
@@ -85,6 +85,8 @@ public interface AttributeTemplateId {
     short EQUIP_ALL_PER_RATIO = 416;
 
 
+
+
     /**
      * 战斗动态额外属性
      */
@@ -96,6 +98,31 @@ public interface AttributeTemplateId {
     short MAGIC_DEFENCE_EXTRA = 30005;
     short ATTACK_PIERCE_EXTRA = 30006;
     short MAGIC_PIERCE_EXTRA = 30007;
-    short VAR_HP = 30008;
-    short VAR_MP = 30009;
+    short ROLE_ATTACK_EXTRA = 30008;
+    short ROLE_DEFENCE_EXTRA = 30009;
+    short ROLE_PIERCE_EXTRA = 30010;
+    short VAR_HP = 30011;
+    short VAR_MP = 30012;
+    short HIT_EXTRA = 30013;
+    short MISS_EXTRA = 30014;
+    short CRIT_EXTRA = 30015;
+    short REDUCE_CRIT_EXTRA = 30016;
+    short TRUE_DAMAGE_EXTRA = 30017;
+    short REDUCE_TRUE_DAMAGE_EXTRA = 30018;
+    short RECOVER_HP_EXTRA = 30019;
+    short RECOVER_MP_EXTRA = 30020;
+    short ATTACK_SPEED_EXTRA = 30021;
+    short MOVE_SPEED_EXTRA = 30022;
+    short JUMP_SPEED_EXTRA = 30023;
+
+
+    short DOU_QI = 30024;
+    /**
+     * 冰法印记
+     */
+    short ICE_MAGIC_FLAG = 30025;
+    /**
+     * 冰法被动蓝量抵扣伤害
+     */
+    short ICE_MAGIC_SHIELD = 30026;
 }

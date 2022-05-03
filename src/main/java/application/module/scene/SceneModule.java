@@ -80,7 +80,12 @@ public class SceneModule extends AbstractModule {
             case SceneProtocols.SCENE_STOP -> stop(r);
             case SceneProtocols.SCENE_JUMP -> jump(r);
             case SceneProtocols.SCENE_FLASH -> flash(r);
+            case SceneProtocols.RECEIVE -> receive(r);
         }
+    }
+
+    private void receive(Client.ReceivedFromClient r) {
+        this.sceneData.tell(new PlayerReceive(r), self());
     }
 
     private void flash(Client.ReceivedFromClient r) {

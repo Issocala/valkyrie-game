@@ -4,6 +4,7 @@ import application.module.fight.buff.data.message.FightBuffInfo;
 import application.module.organism.OrganismType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,25 +18,27 @@ public class TargetParameter {
     private long targetId;
     private Map<Short, Long> attributeMap;
     private int targetLevel;
-    private int organismType;
+    private byte organismType;
+    private int organismTemplateId;
     private Map<Short, Long> changeAttributeMap;
     private List<FightBuffInfo> fightBuffInfoList = new ArrayList<>();
 
     public TargetParameter(long targetId) {
-        this(targetId, null, 1, OrganismType.PLAYER, null);
+        this(targetId, null, 1, OrganismType.PLAYER, 0);
     }
 
-    public TargetParameter(long targetId, int targetLevel, int organismType) {
-        this(targetId, null, targetLevel, organismType, null);
+    public TargetParameter(long targetId, int targetLevel, byte organismType, int organismTemplateId) {
+        this(targetId, null, targetLevel, organismType, organismTemplateId);
     }
 
     public TargetParameter(long targetId, Map<Short, Long> attributeMap, int targetLevel,
-                           int organismType, Map<Short, Long> changeAttributeMap) {
+                           byte organismType, int organismTemplateId) {
         this.targetId = targetId;
         this.attributeMap = attributeMap;
         this.targetLevel = targetLevel;
         this.organismType = organismType;
-        this.changeAttributeMap = changeAttributeMap;
+        this.organismTemplateId = organismTemplateId;
+        this.changeAttributeMap = new HashMap<>();
     }
 
     public long getTargetId() {
@@ -62,7 +65,7 @@ public class TargetParameter {
         this.targetLevel = targetLevel;
     }
 
-    public int getOrganismType() {
+    public byte getOrganismType() {
         return organismType;
     }
 

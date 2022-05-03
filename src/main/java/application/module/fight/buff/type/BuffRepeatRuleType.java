@@ -12,7 +12,7 @@ public interface BuffRepeatRuleType {
     byte NO_REPLACE_BUFF = 0;
 
     /**
-     * 时间覆盖的buff
+     * 时间替换的buff
      */
     byte REPLACE_TIME_BUFF = 1;
 
@@ -25,5 +25,10 @@ public interface BuffRepeatRuleType {
      * 效果叠加的buff
      **/
     byte REPEAT_EFFECT_BUFF = 3;
+
+    /**
+     * 时间替换,效果叠加
+     */
+    byte REPEAT_EFFECT_AND_REPLACE_TIME = 5;
 
 }

@@ -1,5 +1,6 @@
 package application.module.fight.skill.base.function.active.impl;
 
+import akka.actor.ActorRef;
 import akka.actor.Props;
 import application.module.fight.skill.FightSkillProtocolBuilder;
 import application.module.fight.skill.FightSkillProtocols;
@@ -29,20 +30,25 @@ public class DamageAttackFunction extends FightSkillActiveFunction {
 
     @Override
     public void castSkill(FightSkillWrap fightSkillWrap, FightSkillProcessTemplate fightSkillProcessTemplate, UseSkillDataTemp useSkillDataTemp) {
-        int[] attributeParameter = StringUtils.toIntArray(fightSkillProcessTemplate.attributeParameter());
-        //技能固定伤害
-        int damage = attributeParameter[0];
-        //技能伤害系数
-        int damageRate = attributeParameter[1];
-
+        int damage;
+        double damageRate;
+        if (StringUtils.isEmpty(fightSkillProcessTemplate.attributeParameter())) {
+            damage = 0;
+            damageRate = 1;
+        }else {
+            String[] attributeParameter = StringUtils.toStringArray(fightSkillProcessTemplate.attributeParameter());
+            //技能固定伤害
+            damage = Integer.parseInt(attributeParameter[0]);
+            //技能伤害系数
+            damageRate = Double.parseDouble(attributeParameter[1]);
+        }
         int whileTime = fightSkillProcessTemplate.triggerNum();
 
-        damageRate = damageRate == 0 ? 1 : damageRate;
         for (int i = 0; i < whileTime; i++) {
-            List<Skill.DamageData> damageDataList = basicAttack(useSkillDataTemp, 0, 1);
+            List<Skill.DamageData> damageDataList = basicAttack(useSkillDataTemp, damage, damageRate);
             useSkillDataTemp.getScene().tell(new AoiSendMessageToClient(FightSkillProtocols.USE_RESULT,
                     FightSkillProtocolBuilder.getSc10053(useSkillDataTemp.getAttackId(), fightSkillProcessTemplate.id(),
-                            useSkillDataTemp.getSkillId(), damageDataList), useSkillDataTemp.getAttackId()), self());
+                            useSkillDataTemp.getSkillId(), damageDataList), useSkillDataTemp.getAttackId()), ActorRef.noSender());
         }
     }
 }

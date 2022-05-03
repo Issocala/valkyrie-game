@@ -1,8 +1,10 @@
 package application.module.fight.attribute.data.domain;
 
+import application.module.fight.attribute.AttributeTemplateIdContainer;
 import application.module.fight.attribute.data.message.UpdateAttribute;
 import application.module.fight.attribute.node.AttributeNode;
 import application.module.fight.attribute.provider.AttributeRegister;
+import application.util.AttributeMapUtil;
 import template.AttributeTreeTemplate;
 import template.AttributeTreeTemplateHolder;
 
@@ -10,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static application.module.fight.attribute.data.AttributeData.doAddAttribute;
+import static application.module.fight.attribute.AttributeTemplateId.*;
 
 /**
  * @author Luo Yong
@@ -34,12 +36,19 @@ public class TypeAttribute {
             typeId2AttributeMap.put(type, attributeNode);
         }
         Map<Short, Long> id2FightAttributeMap = attributeNode.update(updateAttribute.o());
-        doAddAttribute(allTemplateAttributeMap, id2FightAttributeMap);
+        AttributeTemplateIdContainer.reducePublicExt(allTemplateAttributeMap, id2FightAttributeMap.keySet());
+        AttributeMapUtil.add(allTemplateAttributeMap, id2FightAttributeMap);
+        AttributeTemplateIdContainer.finalFatherResult(allTemplateAttributeMap);
+
         addFightAttribute(id2FightAttributeMap);
+        fightAttributeMap.put(VAR_HP, fightAttributeMap.get(MAX_HP));
+        fightAttributeMap.put(VAR_MP, fightAttributeMap.get(MAX_MP));
     }
 
     public void addFightAttribute(Map<Short, Long> map) {
-        doAddAttribute(fightAttributeMap, map);
+        AttributeTemplateIdContainer.reducePublicExt(fightAttributeMap, map.keySet());
+        AttributeMapUtil.add(fightAttributeMap, map);
+        AttributeTemplateIdContainer.finalFatherResult(fightAttributeMap);
     }
 
     public Map<Short, AttributeNode> getTypeId2AttributeMap() {

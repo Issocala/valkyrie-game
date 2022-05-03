@@ -42,7 +42,7 @@ public class FightOrganismBuff extends LongId {
     /**
      * 附加属性
      */
-    private final Map<Short, Long> attributeMap = new HashMap<>();
+    private Map<Short, Long> attributeMap;
 
     /**
      * 创建场景id
@@ -109,6 +109,10 @@ public class FightOrganismBuff extends LongId {
 
     public void setExpiredTime(long expiredTime) {
         this.expiredTime = expiredTime;
+    }
+
+    public void setAttributeMap(Map<Short, Long> attributeMap) {
+        this.attributeMap = attributeMap;
     }
 
     public Map<Short, Long> getAttributeMap() {

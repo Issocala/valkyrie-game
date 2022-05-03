@@ -50,18 +50,18 @@ public class PlayerEntityData extends AbstractDataCacheManager<PlayerEntity> {
 
     private void createPlayerEntitiesAfter(CreatePlayerEntitiesAfter createPlayerEntitiesAfter) {
         long playerId = createPlayerEntitiesAfter.playerId();
-        List<PlayerEntity> playerEntityList = List.of((PlayerEntity) get(playerId));
-        List<PlayerEntity> otherPlayerEntityList = new ArrayList<>();
+        List<PlayerEntity> playerEntityList = new ArrayList<>();
         createPlayerEntitiesAfter.clientMap().forEach((id, client) -> {
             if (id != playerId) {
-                client.tell(new Client.SendToClientJ(PlayerProtocols.EntityInfo, PlayerProtocolBuilder.getSc10025(playerEntityList)), self());
+                client.tell(new Client.SendToClientJ(PlayerProtocols.EntityInfo,
+                        PlayerProtocolBuilder.getSc10025(List.of((PlayerEntity) get(playerId)))), self());
             }
-            otherPlayerEntityList.add((PlayerEntity) get(id));
+            playerEntityList.add((PlayerEntity) get(id));
         });
         ActorRef client = createPlayerEntitiesAfter.clientMap().get(playerId);
         if (Objects.nonNull(client)) {
             client.tell(new Client.SendToClientJ(PlayerProtocols.EntityInfo,
-                    PlayerProtocolBuilder.getSc10025(otherPlayerEntityList)), self());
+                    PlayerProtocolBuilder.getSc10025(playerEntityList)), self());
         }
     }
 

@@ -28,21 +28,17 @@ public abstract class FSMStateBase {
     public abstract void exit(FightOrganismState fightOrganismState);
 
     public void addTransition(short transitionId) {
-        transitionSet.add(id);
+        transitionSet.add(transitionId);
     }
 
-    public boolean isTransition(short id) {
-        return this.transitionSet.contains(id);
+    public boolean isTransition(short transitionId) {
+        return this.transitionSet.contains(transitionId);
     }
 
     public void addTransition(short... transitionIds) {
         for (short id : transitionIds) {
             transitionSet.add(id);
         }
-    }
-
-    public boolean isTransitionSet(short id) {
-        return this.transitionSet.contains(id);
     }
 
     public abstract boolean isBroadcast();

@@ -1,6 +1,8 @@
 package application.module.fight.attribute;
 
 import application.util.MathConstant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -12,6 +14,8 @@ import static application.module.fight.attribute.AttributeTemplateId.*;
  * @Source 1.0
  */
 public class AttributeTemplateIdContainer {
+
+    private static final Logger logger = LoggerFactory.getLogger(AttributeTemplateIdContainer.class);
 
     /**
      * 全部属性ID集合
@@ -66,6 +70,8 @@ public class AttributeTemplateIdContainer {
         addValue(ATTACK_SPEED);
         addValue(MOVE_SPEED);
         addValue(JUMP_SPEED);
+        addValue(DOU_QI);
+        addValue(ICE_MAGIC_FLAG);
 
 
         addRatio(HIT_RATIO);
@@ -149,6 +155,20 @@ public class AttributeTemplateIdContainer {
         addValueExtra(MAGIC_DEFENCE, MAGIC_DEFENCE_EXTRA);
         addValueExtra(ATTACK_PIERCE, ATTACK_PIERCE_EXTRA);
         addValueExtra(MAGIC_PIERCE, MAGIC_PIERCE_EXTRA);
+        addValueExtra(ROLE_ATTACK, ROLE_ATTACK_EXTRA);
+        addValueExtra(ROLE_DEFENCE, ROLE_DEFENCE_EXTRA);
+        addValueExtra(ROLE_PIERCE, ROLE_PIERCE_EXTRA);
+        addValueExtra(HIT, HIT_EXTRA);
+        addValueExtra(MISS, MISS_EXTRA);
+        addValueExtra(CRIT, CRIT_EXTRA);
+        addValueExtra(REDUCE_CRIT, REDUCE_CRIT_EXTRA);
+        addValueExtra(TRUE_DAMAGE, TRUE_DAMAGE_EXTRA);
+        addValueExtra(REDUCE_TRUE_DAMAGE, REDUCE_TRUE_DAMAGE_EXTRA);
+        addValueExtra(RECOVER_HP, RECOVER_HP_EXTRA);
+        addValueExtra(RECOVER_MP, RECOVER_MP_EXTRA);
+        addValueExtra(ATTACK_SPEED, ATTACK_SPEED_EXTRA);
+        addValueExtra(MOVE_SPEED, MOVE_SPEED_EXTRA);
+        addValueExtra(JUMP_SPEED, JUMP_SPEED_EXTRA);
 
     }
 
@@ -208,23 +228,24 @@ public class AttributeTemplateIdContainer {
 
     public static void reducePublicExt(Map<Short, Long> attributes, Set<Short> set) {
         set.stream().filter(PUBLIC_BASE::containsKey).forEach(aShort -> PUBLIC_BASE.get(aShort).forEach(sonShort -> {
-            long ext = attributes.getOrDefault(sonShort, 0L) * attributes.getOrDefault(aShort, 0L) / MathConstant.TEN_THOUSAND;
-            short extId = VALUE_EXTRA.get(aShort);
-            attributes.put(extId, attributes.getOrDefault(extId, 0L) - ext);
+            long value = attributes.getOrDefault(sonShort, 0L);
+            long ext = value * attributes.getOrDefault(aShort, 0L) / MathConstant.TEN_THOUSAND;
+            logger.debug(String.valueOf(sonShort));
+            attributes.put(sonShort, value - ext);
         }));
     }
 
-    public static Map<Short, Long> reducePartExt(Map<Short, Long> attributes) {
-        Set<Short> set = attributes.keySet();
-        Map<Short, Long> reduces = new HashMap<>();
-        set.stream().filter(PART_RATIO_VALUE::containsKey).forEach(aShort -> PART_RATIO_VALUE.get(aShort).forEach(sonShort -> {
-            long ext = attributes.getOrDefault(sonShort, 0L) * attributes.getOrDefault(aShort, 0L) / MathConstant.TEN_THOUSAND;
-            short extId = VALUE_EXTRA.get(aShort);
-            attributes.put(extId, attributes.getOrDefault(extId, 0L) - ext);
-            reduces.put(extId, ext);
-        }));
-        return reduces;
-    }
+//    public static Map<Short, Long> reducePartExt(Map<Short, Long> attributes) {
+//        Set<Short> set = attributes.keySet();
+//        Map<Short, Long> reduces = new HashMap<>();
+//        set.stream().filter(PART_RATIO_VALUE::containsKey).forEach(aShort -> PART_RATIO_VALUE.get(aShort).forEach(sonShort -> {
+//            long ext = attributes.getOrDefault(sonShort, 0L) * attributes.getOrDefault(aShort, 0L) / MathConstant.TEN_THOUSAND;
+//            short extId = VALUE_EXTRA.get(sonShort);
+//            attributes.put(extId, attributes.getOrDefault(extId, 0L) - ext);
+//            reduces.put(extId, ext);
+//        }));
+//        return reduces;
+//    }
 
     /**
      * 处理父节点百分比属性转换为值属性
@@ -233,31 +254,31 @@ public class AttributeTemplateIdContainer {
         PUBLIC_BASE.forEach((e, set) -> {
             if (attributes.containsKey(e)) {
                 set.stream().filter(attributes::containsKey).forEach(aShort -> {
-                    long ext = attributes.get(aShort) * attributes.getOrDefault(e, 0L) / MathConstant.TEN_THOUSAND;
-                    short extId = VALUE_EXTRA.get(aShort);
-                    attributes.put(extId, attributes.getOrDefault(extId, 0L) + ext);
+                    long value = attributes.getOrDefault(aShort, 0L);
+                    long ext = value * attributes.getOrDefault(e, 0L) / MathConstant.TEN_THOUSAND;
+                    attributes.put(aShort, value + ext);
                 });
             }
         });
     }
 
-    /**
-     * 处理子节点
-     */
-    public static Map<Short, Long> finalPartResult(Map<Short, Long> attributes, Set<Short> isUpdateSet) {
-        Map<Short, Long> addExtMap = new HashMap<>();
-        isUpdateSet.forEach((id) -> {
-            Set<Short> set = PART_RATIO_VALUE.get(id);
-            if (Objects.nonNull(set)) {
-                set.stream().filter(attributes::containsKey).forEach(aShort -> {
-                    long ext = attributes.get(aShort) * attributes.getOrDefault(id, 0L) / MathConstant.TEN_THOUSAND;
-                    short extId = VALUE_EXTRA.get(aShort);
-                    long add = ext - attributes.getOrDefault(extId, 0L);
-                    addExtMap.put(extId, add);
-                    attributes.put(extId, ext);
-                });
-            }
-        });
-        return addExtMap;
-    }
+//    /**
+//     * 处理子节点
+//     */
+//    public static Map<Short, Long> finalPartResult(Map<Short, Long> attributes, Set<Short> isUpdateSet) {
+//        Map<Short, Long> addExtMap = new HashMap<>();
+//        isUpdateSet.forEach((id) -> {
+//            Set<Short> set = PART_RATIO_VALUE.get(id);
+//            if (Objects.nonNull(set)) {
+//                set.stream().filter(attributes::containsKey).forEach(aShort -> {
+//                    long ext = attributes.get(aShort) * attributes.getOrDefault(id, 0L) / MathConstant.TEN_THOUSAND;
+//                    short extId = VALUE_EXTRA.get(aShort);
+//                    long add = ext - attributes.getOrDefault(extId, 0L);
+//                    addExtMap.put(extId, add);
+//                    attributes.put(extId, ext);
+//                });
+//            }
+//        });
+//        return addExtMap;
+//    }
 }

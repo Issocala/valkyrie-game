@@ -29,10 +29,14 @@ public class AddAttributeBuffFunction extends FightOrganismBuffFunction {
         FightBuffTemplate fightBuffTemplate = fightOrganismBuff.getFightBuffTemplate();
         Map<Short, Long> map = new HashMap<>();
         AttributeMapUtil.sub(map, StringUtils.toAttributeMap(fightBuffTemplate.attributeMap()));
+        if (removeBuffFunction.fightOrganismBuff().getAttributeMap() != null) {
+            AttributeMapUtil.sub(map, removeBuffFunction.fightOrganismBuff().getAttributeMap());
+        }
         if (fightOrganismBuff.getCurrCoverCount() == fightBuffTemplate.buffCoverCount() - 1) {
             AttributeMapUtil.sub(map, StringUtils.toAttributeMap(fightBuffTemplate.MaxCoverAttributeMap()));
         }
-        fightOrganismBuff.getAttributeData().tell(new UpdateFightAttribute(map, fightOrganismBuff.getToId(), fightOrganismBuff.getScene()), self());
+        fightOrganismBuff.getAttributeData().tell(new UpdateFightAttribute(map, fightOrganismBuff.getToId(),
+                fightOrganismBuff.getScene(), fightOrganismBuff.getStateData()), self());
     }
 
     @Override
@@ -41,9 +45,13 @@ public class AddAttributeBuffFunction extends FightOrganismBuffFunction {
         FightBuffTemplate fightBuffTemplate = fightOrganismBuff.getFightBuffTemplate();
         Map<Short, Long> map = new HashMap<>();
         AttributeMapUtil.add(map, StringUtils.toAttributeMap(fightBuffTemplate.attributeMap()));
+        if (addBuff.fightOrganismBuff().getAttributeMap() != null) {
+            AttributeMapUtil.add(map, addBuff.fightOrganismBuff().getAttributeMap());
+        }
         if (fightOrganismBuff.getCurrCoverCount() >= fightBuffTemplate.buffCoverCount()) {
             AttributeMapUtil.add(map, StringUtils.toAttributeMap(fightBuffTemplate.MaxCoverAttributeMap()));
         }
-        fightOrganismBuff.getAttributeData().tell(new UpdateFightAttribute(map, fightOrganismBuff.getToId(), fightOrganismBuff.getScene()), self());
+        fightOrganismBuff.getAttributeData().tell(new UpdateFightAttribute(map, fightOrganismBuff.getToId(),
+                fightOrganismBuff.getScene(), fightOrganismBuff.getStateData()), self());
     }
 }

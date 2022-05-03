@@ -9,15 +9,17 @@ import protocol.State;
  */
 public class StateProtocolBuilder {
 
-    public static State.SC10061 getSc10061(short fightStateType) {
+    public static State.SC10061 getSc10061(long organismId, short stateType) {
         return State.SC10061.newBuilder()
-                .setFightType(fightStateType)
+                .setOrganismId(organismId)
+                .setStateType(stateType)
                 .build();
     }
 
-    public static State.SC10062 getSc10062(short fightStateType) {
+    public static State.SC10062 getSc10062(long organismId, short stateType) {
         return State.SC10062.newBuilder()
-                .setFightType(fightStateType)
+                .setOrganismId(organismId)
+                .setStateType(stateType)
                 .build();
     }
 }

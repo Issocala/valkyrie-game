@@ -8,6 +8,7 @@ import application.module.fight.buff.data.message.*;
 import application.module.fight.buff.function.message.AddBuffFunction;
 import application.module.fight.buff.function.message.RemoveBuffFunction;
 import application.module.fight.buff.function.message.TickBuffFunction;
+import application.module.fight.buff.type.BuffRepeatRuleType;
 import mobius.core.java.api.AbstractLogActor;
 import mobius.modular.client.Client;
 import template.FightBuffTemplate;
@@ -67,26 +68,33 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
             if (Objects.isNull(fightBuffTemplate)) {
                 return;
             }
-            if (fightBuffTemplate.buffCoverType() == 5) {
-                cancellable(fightOrganismBuff.getId());
+            if (fightBuffTemplate.buffCoverType() == BuffRepeatRuleType.REPEAT_EFFECT_AND_REPLACE_TIME) {
+
                 if (fightBuffTemplate.buffCoverCount() > 1 && fightOrganismBuff.getCurrCoverCount() < fightBuffTemplate.buffCoverCount()) {
-                    FightOrganismBuff fightOrganismBuff1 = new FightOrganismBuff(buffTemplateId, System.currentTimeMillis(), fromId, toId, duration);
-                    fightOrganismBuff1.setCurrCoverCount(fightOrganismBuff.getCurrCoverCount() + 1);
-                    fightOrganismBuff1.setScene(addBuff.scene());
-                    fightOrganismBuff1.setAttributeData(addBuff.attributeData());
-                    fightOrganismBuff = fightOrganismBuff1;
+                    cancellable(fightOrganismBuff.getId());
+//                    FightOrganismBuff fightOrganismBuff1 = new FightOrganismBuff(buffTemplateId, System.currentTimeMillis(), fromId, toId, duration);
+                    fightOrganismBuff.setCurrCoverCount(fightOrganismBuff.getCurrCoverCount() + 1);
+                    fightOrganismBuff.setScene(addBuff.scene());
+                    fightOrganismBuff.setAttributeData(addBuff.attributeData());
+                    fightOrganismBuff.setAttributeMap(addBuff.attributeMap());
+                    fightOrganismBuff.setStateData(addBuff.stateDate());
                     if (fightBuffTemplate.buffPeriodType() == 1) {
                         fightOrganismBuff.getFunction().tell(new AddBuffFunction(addBuff.r(), fightOrganismBuff), self());
                         if (fightOrganismBuff.getDuration() != 0) {
                             scheduleRemoveOnce(addBuff.r(), fightOrganismBuff);
                         }
-                    }else if (fightBuffTemplate.buffPeriodType() == 2) {
+                    } else if (fightBuffTemplate.buffPeriodType() == 2) {
                         scheduleTickOnce(addBuff.r(), fightOrganismBuff);
                     }
                 }
+            } else if (fightBuffTemplate.buffCoverType() == BuffRepeatRuleType.REPEAT_EFFECT_BUFF) {
             }
         } else {
             fightOrganismBuff = new FightOrganismBuff(buffTemplateId, System.currentTimeMillis(), fromId, toId, duration);
+            fightOrganismBuff.setScene(addBuff.scene());
+            fightOrganismBuff.setAttributeData(addBuff.attributeData());
+            fightOrganismBuff.setStateData(addBuff.stateDate());
+            fightOrganismBuff.setAttributeMap(addBuff.attributeMap());
             this.fightOrganismBuffMap.put(buffTemplateId, fightOrganismBuff);
             FightBuffTemplate fightBuffTemplate = fightOrganismBuff.getFightBuffTemplate();
             if (fightBuffTemplate.buffPeriodType() == 1) {
@@ -94,7 +102,7 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
                 if (fightOrganismBuff.getDuration() != 0) {
                     scheduleRemoveOnce(addBuff.r(), fightOrganismBuff);
                 }
-            }else if (fightBuffTemplate.buffPeriodType() == 2) {
+            } else if (fightBuffTemplate.buffPeriodType() == 2) {
                 scheduleTickOnce(addBuff.r(), fightOrganismBuff);
             }
         }
@@ -107,7 +115,7 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
         }
         if (removeBuff.coverCount() == -1) {
             remove(new RemoveBuffFunction(removeBuff.r(), fightOrganismBuff));
-        }else {
+        } else {
             remove(new RemoveBuffFunction(removeBuff.r(), fightOrganismBuff), removeBuff.coverCount());
         }
     }
@@ -128,7 +136,9 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
         int buffTemplateId = fightOrganismBuff.getBuffTemplateId();
         FightOrganismBuff fightOrganismBuff1 = this.fightOrganismBuffMap.get(buffTemplateId);
         if (Objects.nonNull(fightOrganismBuff1)) {
-            fightOrganismBuff.getFunction().tell(new RemoveBuffFunction(removeBuffFunction.r(), fightOrganismBuff), self());
+            for (int i = 0; i < fightOrganismBuff1.getCurrCoverCount(); i++) {
+                fightOrganismBuff.getFunction().tell(new RemoveBuffFunction(removeBuffFunction.r(), fightOrganismBuff), self());
+            }
             this.fightOrganismBuffMap.remove(buffTemplateId);
         }
         cancellable(fightOrganismBuff.getId());
@@ -174,9 +184,8 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
     }
 
     public void scheduleRemoveOnce(Client.ReceivedFromClient r, FightOrganismBuff fightOrganismBuff) {
-        FightBuffTemplate fightBuffTemplate = fightOrganismBuff.getFightBuffTemplate();
-        Cancellable cancellable = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(fightBuffTemplate.duration()),
-                fightOrganismBuff.getFunction(), new RemoveBuffFunction(r, fightOrganismBuff), getContext().getSystem().dispatcher(), ActorRef.noSender());
+        Cancellable cancellable = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(fightOrganismBuff.getDuration()),
+                self(), new RemoveBuffFunction(r, fightOrganismBuff), getContext().getSystem().dispatcher(), ActorRef.noSender());
         removeCancellableMap.put(fightOrganismBuff.getId(), cancellable);
     }
 

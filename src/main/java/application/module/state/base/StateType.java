@@ -17,7 +17,7 @@ public interface StateType {
     interface ActionType {
         short IDLE_STATE = 201;
 
-        short DEAD_STATE = 302;
+        short DEAD_STATE = 202;
     }
 
     interface FightType {
@@ -37,6 +37,15 @@ public interface StateType {
          * 减速
          */
         short SPEED_DOWN_STATE = 404;
+        /**
+         * 眩晕
+         */
+        short DIZZINESS_STATE = 405;
+
+        /**
+         * 加速
+         */
+        short SPEED_UP_STATE = 406;
     }
 
 }

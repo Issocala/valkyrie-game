@@ -2,7 +2,10 @@ package application.module.fight.skill.base.function.passive;
 
 import application.module.fight.skill.base.context.PassiveSkillDataTemp;
 import application.module.fight.skill.base.function.FightSkillFunction;
+import application.module.fight.skill.base.skill.FightPassiveSkillWrap;
 import application.module.fight.skill.base.skill.FightSkillWrap;
+import template.FightPassiveSkillProcessTemplate;
+import template.FightPassiveSkillTemplate;
 import template.FightSkillProcessTemplate;
 
 /**
@@ -12,12 +15,12 @@ import template.FightSkillProcessTemplate;
  */
 public abstract class FightPassiveSkillFunction implements FightSkillFunction {
 
-    public abstract void castSkill(FightSkillWrap fightSkillWrap, FightSkillProcessTemplate fightSkillProcessTemplate, PassiveSkillDataTemp passiveSkillDataTemp);
+    public abstract void castSkill(FightPassiveSkillWrap fightPassiveSkillWrap, FightPassiveSkillProcessTemplate processTemplate, PassiveSkillDataTemp passiveSkillDataTemp);
 
-    public void learnProcess(FightSkillWrap fightSkillWrap, FightSkillProcessTemplate fightSkillProcessTemplate, PassiveSkillDataTemp passiveSkillDataTemp) {
+    public void learnProcess(FightPassiveSkillWrap fightPassiveSkillWrap, FightPassiveSkillProcessTemplate processTemplate, PassiveSkillDataTemp passiveSkillDataTemp) {
     }
 
-    public void removeProcess(FightSkillWrap fightSkillWrap, FightSkillProcessTemplate fightSkillProcessTemplate, PassiveSkillDataTemp passiveSkillDataTemp) {
+    public void removeProcess(FightPassiveSkillWrap fightPassiveSkillWrap, FightPassiveSkillProcessTemplate processTemplate, PassiveSkillDataTemp passiveSkillDataTemp) {
     }
 
 }

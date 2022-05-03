@@ -2,8 +2,8 @@ package application.module.scene.operate;
 
 /**
  * @author Luo Yong
- * @date 2022-4-21
+ * @date 2022-5-2
  * @Source 1.0
  */
-public record PlayerRevive(long playerId) {
+public record NpcUseSkill(int npcTemplateId, int skillTemplateId) {
 }

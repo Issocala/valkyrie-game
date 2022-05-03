@@ -1,5 +1,6 @@
 package application.module.state.data;
 
+import akka.actor.ActorRef;
 import akka.actor.Props;
 import application.client.Client.SendToClientJ;
 import application.module.common.CommonProtocolBuilder;
@@ -7,6 +8,11 @@ import application.module.common.CommonProtocols;
 import application.module.fight.skill.data.message.SkillUseState;
 import application.module.player.data.message.event.PlayerLogin;
 import application.module.player.operate.PlayerLoginDbReturn;
+import application.module.scene.operate.event.CreateOrganismEntityAfter;
+import application.module.scene.operate.event.CreatePlayerEntitiesAfter;
+import application.module.scene.operate.event.PlayerReceiveAfter;
+import application.module.state.StateProtocolBuilder;
+import application.module.state.StateProtocols;
 import application.module.state.base.FightOrganismState;
 import application.module.state.data.domain.StateEntity;
 import application.module.state.operate.OrganismCancelState;
@@ -19,9 +25,7 @@ import com.cala.orm.cache.DataInit;
 import com.cala.orm.message.DBReturnMessage;
 import com.cala.orm.message.DataBase;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Luo Yong
@@ -51,9 +55,83 @@ public class StateData extends AbstractDataCacheManager<StateEntity> {
             case OrganismChangeState organismChangeState -> organismChangeState(organismChangeState);
             case OrganismCancelState organismCancelState -> organismCancelState(organismCancelState);
             case PlayerLogin playerLogin -> playerLogin(playerLogin);
+            case CreatePlayerEntitiesAfter createPlayerEntitiesAfter -> createPlayerEntitiesAfter(createPlayerEntitiesAfter);
+            case CreateOrganismEntityAfter createOrganismEntityAfter -> createOrganismEntityAfter(createOrganismEntityAfter);
+            case PlayerReceiveAfter playerReceiveAfter -> playerReceiveAfter(playerReceiveAfter);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase);
         }
     }
+
+    private void playerReceiveAfter(PlayerReceiveAfter playerReceiveAfter) {
+        long playerId = playerReceiveAfter.playerId();
+        FightOrganismState fightOrganismState = fightOrganismStateMap.get(playerId);
+        resetState(fightOrganismState);
+        playerReceiveAfter.clientMap().forEach((id, client) -> {
+            if (Objects.nonNull(client)) {
+                client.tell(new SendToClientJ(StateProtocols.ADD_STATE,
+                        StateProtocolBuilder.getSc10061(fightOrganismState.getId(), fightOrganismState.getCurrActionState().getId())), self());
+            }
+        });
+    }
+
+    private void resetState(FightOrganismState fightOrganismState) {
+        fightOrganismState.setActionStateDefault();
+        fightOrganismState.setMovementStateDefault();
+    }
+
+    private void createOrganismEntityAfter(CreateOrganismEntityAfter createOrganismEntityAfter) {
+        long organismId = createOrganismEntityAfter.organism().getId();
+        FightOrganismState fightOrganismState = fightOrganismStateMap.get(organismId);
+        if (Objects.isNull(fightOrganismState)) {
+            fightOrganismState = new FightOrganismState(organismId);
+            fightOrganismStateMap.put(organismId, fightOrganismState);
+        }
+
+        FightOrganismState finalFightOrganismState = fightOrganismState;
+        createOrganismEntityAfter.clients().forEach(client -> {
+            if (Objects.nonNull(client)) {
+                client.tell(new SendToClientJ(StateProtocols.ADD_STATE,
+                        StateProtocolBuilder.getSc10061(finalFightOrganismState.getId(), finalFightOrganismState.getCurrActionState().getId())), self());
+            }
+        });
+
+    }
+
+    private void createPlayerEntitiesAfter(CreatePlayerEntitiesAfter createPlayerEntitiesAfter) {
+        long playerId = createPlayerEntitiesAfter.playerId();
+        FightOrganismState fightOrganismState = fightOrganismStateMap.get(playerId);
+        if (Objects.isNull(fightOrganismState)) {
+            fightOrganismState = new FightOrganismState(playerId);
+            fightOrganismStateMap.put(playerId, fightOrganismState);
+        }
+
+        FightOrganismState finalFightOrganismState = fightOrganismState;
+        List<FightOrganismState> fightOrganismStates = new ArrayList<>();
+        createPlayerEntitiesAfter.clientMap().forEach((id, client) -> {
+            if (id != playerId) {
+                client.tell(new SendToClientJ(StateProtocols.ADD_STATE,
+                        StateProtocolBuilder.getSc10061(finalFightOrganismState.getId(), finalFightOrganismState.getCurrActionState().getId())), self());
+            }
+            FightOrganismState fightOrganismState1 = fightOrganismStateMap.get(id);
+            if (Objects.nonNull(fightOrganismState1)) {
+                fightOrganismStates.add(fightOrganismState1);
+            }
+        });
+        createPlayerEntitiesAfter.organisms().forEach(organism -> {
+            FightOrganismState fightOrganismState1 = fightOrganismStateMap.get(organism.getId());
+            if (Objects.nonNull(fightOrganismState1)) {
+                fightOrganismStates.add(fightOrganismState1);
+            }
+        });
+        ActorRef client = createPlayerEntitiesAfter.clientMap().get(playerId);
+        fightOrganismStates.forEach(fightOrganismState1 -> {
+            if (Objects.nonNull(client)) {
+                client.tell(new SendToClientJ(StateProtocols.ADD_STATE,
+                        StateProtocolBuilder.getSc10061(fightOrganismState1.getId(), fightOrganismState1.getCurrActionState().getId())), self());
+            }
+        });
+    }
+
 
     private void organismCancelState(OrganismCancelState organismCancelState) {
         long organismId = organismCancelState.organismId();
@@ -81,9 +159,12 @@ public class StateData extends AbstractDataCacheManager<StateEntity> {
 
     private void playerLogin(PlayerLogin playerLogin) {
         long playerId = playerLogin.playerInfo().id();
-        if (!fightOrganismStateMap.containsKey(playerId)) {
-            fightOrganismStateMap.put(playerId, new FightOrganismState(playerId));
+        FightOrganismState fightOrganismState = fightOrganismStateMap.get(playerId);
+        if (Objects.isNull(fightOrganismState)) {
+            fightOrganismState = new FightOrganismState(playerId);
+            fightOrganismStateMap.put(playerId, fightOrganismState);
         }
+        resetState(fightOrganismState);
     }
 
     private void skillUseState(SkillUseState skillUseState) {

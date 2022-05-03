@@ -1,6 +1,7 @@
 package application.module.scene;
 
 import application.module.scene.data.domain.PositionInfo;
+import application.util.Vector;
 import protocol.Scene;
 
 /**
@@ -63,4 +64,25 @@ public class SceneProtocolBuilder {
                 .setPositionY(cs10036.getPositionY())
                 .build();
     }
+
+    public static Scene.SC10036 getSc10036(long organismId, Vector vector) {
+        return Scene.SC10036.newBuilder()
+                .setOrganismId(organismId)
+                .setPositionX(vector.x())
+                .setPositionY(vector.y())
+                .build();
+    }
+
+    public static Scene.SC10037 getSc10037() {
+        return Scene.SC10037.newBuilder()
+                .build();
+    }
+
+    public static Scene.SC10038 getSc10038(long organismId, int skillTemplateId) {
+        return Scene.SC10038.newBuilder()
+                .setOrganismId(organismId)
+                .setSkillTemplateId(skillTemplateId)
+                .build();
+    }
+
 }

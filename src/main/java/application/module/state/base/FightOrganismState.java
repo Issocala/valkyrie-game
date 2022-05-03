@@ -48,13 +48,12 @@ public class FightOrganismState extends LongId {
         if (state instanceof MovementState movementState) {
             return toMovementState(movementState);
         } else if (state instanceof ActionState actionState) {
-            return toActionState(actionState);
+            return toActionState(actionState, scene);
         } else if (state instanceof FightState fightState) {
             return toFightState(fightState, scene);
         }
         return false;
     }
-
 
 
     public boolean cancelState(short id, ActorRef scene) {
@@ -67,8 +66,8 @@ public class FightOrganismState extends LongId {
         }
         if (state instanceof MovementState) {
             cancelMovementState();
-        }else if (state instanceof ActionState){
-            cancelActionState();
+        } else if (state instanceof ActionState) {
+            cancelActionState(scene);
         } else if (state instanceof FightState fightState) {
             cancelFightState(fightState, scene);
         }
@@ -78,13 +77,13 @@ public class FightOrganismState extends LongId {
     private void cancelFightState(FightState fightState, ActorRef scene) {
         if (this.fightStateSet.remove(fightState)) {
             fightState.exit(this);
-            scene.tell(new AoiSendMessageToClient(StateProtocols.REMOVE_FIGHT_STATE,
-                    StateProtocolBuilder.getSc10062(fightState.getId()), getId()), ActorRef.noSender());
+            scene.tell(new AoiSendMessageToClient(StateProtocols.REMOVE_STATE,
+                    StateProtocolBuilder.getSc10062(getId(), fightState.getId()), getId()), ActorRef.noSender());
         }
     }
 
-    private void cancelActionState() {
-        toActionState((ActionState) FSMStateContainer.getState(DEFAULT_ACTION_STATE));
+    private void cancelActionState(ActorRef scene) {
+        toActionState((ActionState) FSMStateContainer.getState(DEFAULT_ACTION_STATE), scene);
     }
 
     private void cancelMovementState() {
@@ -101,13 +100,15 @@ public class FightOrganismState extends LongId {
         return true;
     }
 
-    private boolean toActionState(ActionState actionState) {
+    private boolean toActionState(ActionState actionState, ActorRef scene) {
         if (this.currActionState == actionState || !this.currActionState.isTransition(actionState.getId())) {
             return false;
         }
         this.currActionState.exit(this);
         currActionState.enter(this);
         this.currActionState = actionState;
+        scene.tell(new AoiSendMessageToClient(StateProtocols.ADD_STATE,
+                StateProtocolBuilder.getSc10061(getId(), actionState.getId()), getId()), ActorRef.noSender());
         return true;
     }
 
@@ -115,8 +116,8 @@ public class FightOrganismState extends LongId {
         if (!this.fightStateSet.contains(fightState)) {
             fightState.enter(this);
             this.fightStateSet.add(fightState);
-            scene.tell(new AoiSendMessageToClient(StateProtocols.ADD_FIGHT_STATE,
-                    StateProtocolBuilder.getSc10061(fightState.getId()), getId()), ActorRef.noSender());
+            scene.tell(new AoiSendMessageToClient(StateProtocols.ADD_STATE,
+                    StateProtocolBuilder.getSc10061(getId(), fightState.getId()), getId()), ActorRef.noSender());
         }
         return true;
     }
@@ -135,6 +136,10 @@ public class FightOrganismState extends LongId {
 
     public ActionState getCurrActionState() {
         return currActionState;
+    }
+
+    public Set<FightState> getFightStateSet() {
+        return fightStateSet;
     }
 
     //TODO 校验玩家当前状态是否可以释放技能

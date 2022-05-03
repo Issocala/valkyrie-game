@@ -9,5 +9,5 @@ import com.cala.orm.message.OperateTypeInfo;
  * @date 2022-3-3
  * @Source 1.0
  */
-public record SkillUseScene(OperateTypeInfo operateTypeInfo) implements OperateType, DataBase {
+public record SkillUseScene(OperateTypeInfo operateTypeInfo, boolean isSkillProcess) implements OperateType, DataBase {
 }

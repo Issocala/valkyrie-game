@@ -25,6 +25,7 @@ public class FightSkillModuleHolder extends AbstractModuleHolder {
 
     @Override
     public List<Integer> getProtocols() {
-        return List.of(FightSkillProtocols.GET_ALL, FightSkillProtocols.LEARN, FightSkillProtocols.USE, FightSkillProtocols.CANCEL_SKILL);
+        return List.of(FightSkillProtocols.GET_ALL, FightSkillProtocols.LEARN, FightSkillProtocols.USE, FightSkillProtocols.CANCEL_SKILL,
+                FightSkillProtocols.USE_PROCESS);
     }
 }

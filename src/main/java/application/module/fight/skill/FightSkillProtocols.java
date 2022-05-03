@@ -36,4 +36,9 @@ public interface FightSkillProtocols {
      */
     int CANCEL_SKILL = GameProtocols.SKILL + 4;
 
+    /**
+     * 后续删除，使用技能过程
+     */
+    int USE_PROCESS = GameProtocols.SKILL + 5;
+
 }

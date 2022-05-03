@@ -12,19 +12,9 @@ import template.FightSkillProcessTemplate;
  * @date 2022-2-28
  * @Source 1.0
  */
-public abstract class FightSkillActiveFunction extends UntypedAbstractActor implements FightSkillFunction {
+public abstract class FightSkillActiveFunction implements FightSkillFunction {
 
-    @Override
-    public void onReceive(Object message) {
-        switch (message) {
-            case CastSkill castSkill -> castSkill(castSkill.fightSkillWrap(), castSkill.fightSkillProcessTemplate(), castSkill.useSkillDataTemp());
-            default -> receive(message);
-        }
-    }
 
     public abstract void castSkill(FightSkillWrap fightSkillWrap, FightSkillProcessTemplate fightSkillProcessTemplate, UseSkillDataTemp useSkillDataTemp);
-
-    public void receive(Object message) {
-    }
 
 }

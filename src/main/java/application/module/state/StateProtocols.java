@@ -13,8 +13,8 @@ public interface StateProtocols {
 
     int ALL = GameProtocols.STATE;
 
-    int ADD_FIGHT_STATE = GameProtocols.STATE + 1;
+    int ADD_STATE = GameProtocols.STATE + 1;
 
-    int REMOVE_FIGHT_STATE = GameProtocols.STATE + 2;
+    int REMOVE_STATE = GameProtocols.STATE + 2;
 
 }

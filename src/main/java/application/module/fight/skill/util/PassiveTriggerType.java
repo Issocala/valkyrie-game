@@ -8,7 +8,7 @@ package application.module.fight.skill.util;
 public interface PassiveTriggerType {
 
     /**
-     * 使用技能
+     * 使用技能触发被动，效果作用于自身
      */
     byte USE_SKILL = 1;
 
@@ -41,5 +41,10 @@ public interface PassiveTriggerType {
      * 添加buff
      */
     byte Add_Buff = 7;
+
+    /**
+     * 使用技能触发被动，效果作用于目标
+     */
+    byte USE_SKILL_TARGET = 8;
 
 }

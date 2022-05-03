@@ -1,7 +1,9 @@
 package application.module.fight.skill.base.context;
 
+import application.module.fight.skill.base.skill.FightPassiveSkillWrap;
 import application.module.fight.skill.base.skill.FightSkillWrap;
 import application.module.fight.skill.base.skill.SkillCDController;
+import template.FightPassiveSkillTemplate;
 import template.FightSkillTemplate;
 
 import java.util.HashMap;
@@ -27,6 +29,10 @@ public class FightRuntimeContext {
         return skillCDController.inCDTime(fightSkillWrap);
     }
 
+    public boolean inCDTime(FightPassiveSkillTemplate fightPassiveSkillTemplate) {
+        return skillCDController.inCDTime(fightPassiveSkillTemplate);
+    }
+
     public SkillCDController getSkillCDController() {
         return skillCDController;
     }
@@ -35,10 +41,12 @@ public class FightRuntimeContext {
         skillCDController.startCD(fightSkillTemplate);
     }
 
+    public void startCD(FightPassiveSkillTemplate template) {
+        skillCDController.startCD(template);
+    }
+
     public static void passiveTrigger(byte triggerType, PassiveSkillDataTemp passiveSkillDataTemp) {
 
     }
-
-
 
 }

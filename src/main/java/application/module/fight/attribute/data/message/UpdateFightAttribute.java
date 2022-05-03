@@ -10,5 +10,5 @@ import java.util.Map;
  * @date 2022-3-9
  * @Source 1.0
  */
-public record UpdateFightAttribute(Map<Short, Long> result, long organismId, ActorRef scene) implements DataBase {
+public record UpdateFightAttribute(Map<Short, Long> result, long organismId, ActorRef scene, ActorRef stateData) implements DataBase {
 }

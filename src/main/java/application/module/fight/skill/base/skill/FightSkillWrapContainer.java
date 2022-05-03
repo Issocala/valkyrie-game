@@ -1,9 +1,6 @@
 package application.module.fight.skill.base.skill;
 
-import template.FightSkillProcessTemplate;
-import template.FightSkillProcessTemplateHolder;
-import template.FightSkillTemplate;
-import template.FightSkillTemplateHolder;
+import template.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +24,15 @@ public class FightSkillWrapContainer {
                 fightSkillWrap.addFightSkillProcessTemplate(fightSkillProcessTemplate);
             }
             templateId2FightSkillWrapMap.put(fightSkillTemplate.id(), fightSkillWrap);
+        });
+
+        FightPassiveSkillTemplateHolder.getValues().forEach(fightPassiveSkillTemplate -> {
+            FightPassiveSkillWrap fightPassiveSkillWrap = new FightPassiveSkillWrap(fightPassiveSkillTemplate);
+            for (int processId : fightPassiveSkillTemplate.skillProcess()) {
+                FightPassiveSkillProcessTemplate fightPassiveSkillProcessTemplate = FightPassiveSkillProcessTemplateHolder.getData(processId);
+                fightPassiveSkillWrap.add(fightPassiveSkillProcessTemplate);
+            }
+            templateId2FightPassiveSkillWrapMap.put(fightPassiveSkillTemplate.id(), fightPassiveSkillWrap);
         });
 
 
@@ -53,9 +59,9 @@ public class FightSkillWrapContainer {
         return fightSkillWrap == null ? null : fightSkillWrap.getFightSkillTemplate();
     }
 
-    public static FightSkillTemplate getFightPassiveSkillTemplate(int templateId) {
+    public static FightPassiveSkillTemplate getFightPassiveSkillTemplate(int templateId) {
         FightPassiveSkillWrap fightPassiveSkillWrap = templateId2FightPassiveSkillWrapMap.get(templateId);
-        return fightPassiveSkillWrap == null ? null : fightPassiveSkillWrap.getFightSkillTemplate();
+        return fightPassiveSkillWrap == null ? null : fightPassiveSkillWrap.getFightPassiveSkillTemplate();
     }
 
     public Map<Integer, FightSkillWrap> getTemplateId2FightSkillWrapMap() {

@@ -1,5 +1,7 @@
 package application.module.fight.skill.base.skill;
 
+import template.FightPassiveSkillProcessTemplate;
+import template.FightPassiveSkillTemplate;
 import template.FightSkillProcessTemplate;
 import template.FightSkillTemplate;
 
@@ -15,24 +17,24 @@ import java.util.List;
  */
 public class FightPassiveSkillWrap {
 
-    private final List<FightSkillProcessTemplate> list;
+    private final List<FightPassiveSkillProcessTemplate> list;
 
-    private final FightSkillTemplate fightSkillTemplate;
+    private final FightPassiveSkillTemplate fightPassiveSkillTemplate;
 
-    public FightPassiveSkillWrap(FightSkillTemplate fightSkillTemplate) {
+    public FightPassiveSkillWrap(FightPassiveSkillTemplate fightPassiveSkillTemplate) {
         list = new ArrayList<>();
-        this.fightSkillTemplate = fightSkillTemplate;
+        this.fightPassiveSkillTemplate = fightPassiveSkillTemplate;
     }
 
-    public void addFightSkillProcessTemplate(FightSkillProcessTemplate fightSkillProcessTemplate) {
-        list.add(fightSkillProcessTemplate);
+    public void add(FightPassiveSkillProcessTemplate fightPassiveSkillProcessTemplate) {
+        list.add(fightPassiveSkillProcessTemplate);
     }
 
-    public List<FightSkillProcessTemplate> getList() {
+    public List<FightPassiveSkillProcessTemplate> getList() {
         return list;
     }
 
-    public FightSkillTemplate getFightSkillTemplate() {
-        return fightSkillTemplate;
+    public FightPassiveSkillTemplate getFightPassiveSkillTemplate() {
+        return fightPassiveSkillTemplate;
     }
 }

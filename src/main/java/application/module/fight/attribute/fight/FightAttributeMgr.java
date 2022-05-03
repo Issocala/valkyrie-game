@@ -1,5 +1,6 @@
 package application.module.fight.attribute.fight;
 
+import application.module.fight.attribute.AttributeTemplateId;
 import application.module.fight.attribute.AttributeTemplateIdContainer;
 import application.module.fight.attribute.data.message.AddHp;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
@@ -44,13 +45,7 @@ public class FightAttributeMgr {
     private Map<Short, Long> fightAttributeMap = new HashMap<>();
 
     public static Long getValue(Map<Short, Long> map, short id) {
-        long extValue = 0;
-        if (AttributeTemplateIdContainer.VALUE_EXTRA.containsKey(id)) {
-            short ext = AttributeTemplateIdContainer.VALUE_EXTRA.get(id);
-            extValue = map.getOrDefault(ext, 0L);
-        }
-        long value = map.getOrDefault(id, 0L);
-        return value + extValue;
+        return map.getOrDefault(id, 0L);
     }
 
     public Map<Short, Long> getCurrAttribute() {
@@ -96,12 +91,13 @@ public class FightAttributeMgr {
     }
 
     public static List<Skill.DamageData> basicAttack(UseSkillDataTemp useSkillDataTemp,
-                                                     final int skillFixedDamage, final int skillFixedDamageRate) {
+                                                     final int skillFixedDamage, final double skillDamageRate) {
 
         List<Skill.DamageData> damageDataList = new ArrayList<>();
 
         useSkillDataTemp.getTargetParameters().forEach(targetParameter -> {
             Skill.DamageData.Builder builder = Skill.DamageData.newBuilder();
+            builder.setDamageType(0);
             Map<Short, Long> targetAttributeMap = targetParameter.getAttributeMap();
             long attack;
             long pierce;
@@ -172,12 +168,12 @@ public class FightAttributeMgr {
                     / (finalTargetDefence * PARAMETER_B + finalPierce * PARAMETER_C));
 
             double critDamage = 0;
-            if (isCrit(critRate)) {
+            if (isCrit(critRate, builder)) {
                 critDamage = Math.max(Math.min((critAddDamageRatio - targetCritReduceDamageRatio) / TEN_THOUSAND_RATIO + 0.5, 3), 0.1);
             }
 
             double blockDamage = 0;
-            if (isBlock(blockRate)) {
+            if (isBlock(blockRate, builder)) {
                 blockDamage = Math.max(Math.min(targetBlockAddDamageRatio - blockReduceDamageRatio / TEN_THOUSAND_RATIO + 0.5, 3), 0.1);
             }
 
@@ -190,13 +186,21 @@ public class FightAttributeMgr {
             }
             double extDamage = (finalDamageRatio - targetReduceFinalDamageRatio) / TEN_THOUSAND_RATIO + extDamageExt;
 
-            double skillDamage = baseDamage * skillFixedDamageRate * (1 + (skillDamageRatio - targetReduceSkillDamageRatio)
+            double skillDamage = baseDamage * skillDamageRate * (1 + (skillDamageRatio - targetReduceSkillDamageRatio)
                     / TEN_THOUSAND_RATIO + skillFixedDamage + trueDamage - targetReduceTrueDamage);
             long finalDamage = (long) (skillDamage * (1 + specialDamage) * (1 + extDamage));
-            Skill.DamageData damageData = builder.setDamage(-finalDamage).setDamageType(0).setTargetId(targetParameter.getTargetId()).build();
+            // TODO: 2022-4-29 这里后续放到被动伤害结算前,做成被动通用逻辑
+            if (targetAttributeMap.containsKey(ICE_MAGIC_SHIELD) && targetAttributeMap.get(VAR_MP) > 500) {
+                long reduceDamage = (long) (finalDamage * 0.35);
+                targetAttributeMap.put(VAR_MP, targetAttributeMap.get(VAR_MP) - reduceDamage);
+                targetParameter.getChangeAttributeMap().put(VAR_MP, -reduceDamage);
+                builder.setReduceMP(reduceDamage);
+                finalDamage -= reduceDamage;
+            }
+            Skill.DamageData damageData = builder.setDamage(-finalDamage).setTargetId(targetParameter.getTargetId()).build();
             damageDataList.add(damageData);
             useSkillDataTemp.getAttributeData().tell(new AddHp(targetParameter.getTargetId(), targetParameter.getOrganismType(),
-                    useSkillDataTemp.getR(), -finalDamage, useSkillDataTemp.getAttackId(), useSkillDataTemp.getScene()), null);
+                    useSkillDataTemp.getR(), -finalDamage, useSkillDataTemp.getAttackId(), useSkillDataTemp.getAttackType(), useSkillDataTemp.getScene(), useSkillDataTemp.getStateData()), null);
         });
         return damageDataList;
     }
@@ -213,18 +217,30 @@ public class FightAttributeMgr {
         boolean ignore = ignoreDefenceRate > RandomUtil.randomDouble1();
         if (ignore) {
             int temp = builder.getDamageType();
-            temp |= (1 << 2);
+            temp |= (1 << 4);
             builder.setDamageType(temp);
         }
         return ignore;
     }
 
-    private static boolean isCrit(double critRate) {
-        return critRate > RandomUtil.randomDouble(1);
+    private static boolean isCrit(double critRate, Skill.DamageData.Builder builder) {
+        boolean crit = critRate > RandomUtil.randomDouble1();
+        if (crit) {
+            int temp = builder.getDamageType();
+            temp |= (1 << 2);
+            builder.setDamageType(temp);
+        }
+        return crit;
     }
 
-    private static boolean isBlock(double blockRate) {
-        return blockRate > RandomUtil.randomDouble1();
+    private static boolean isBlock(double blockRate, Skill.DamageData.Builder builder) {
+        boolean block = blockRate > RandomUtil.randomDouble1();
+        if (block) {
+            int temp = builder.getDamageType();
+            temp |= (1 << 3);
+            builder.setDamageType(temp);
+        }
+        return block;
     }
 
 
