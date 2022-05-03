@@ -1,12 +1,10 @@
 package application.module.fight.attribute.fight;
 
-import application.module.fight.attribute.AttributeTemplateId;
 import application.module.fight.attribute.AttributeTemplateIdContainer;
 import application.module.fight.attribute.data.message.AddHp;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
 import application.module.organism.OrganismType;
 import application.module.player.PlayerConfig;
-import application.util.AttributeMapUtil;
 import application.util.MathConstant;
 import application.util.RandomUtil;
 import protocol.Skill;
@@ -31,8 +29,8 @@ public class FightAttributeMgr {
      * 基础伤害计算系数
      */
     private final static double PARAMETER_A = 0.35;
-    private final static double PARAMETER_B = 2;
-    private final static double PARAMETER_C = 2;
+    private final static double PARAMETER_B = 1;
+    private final static double PARAMETER_C = 3;
 
     private final static double TEN_THOUSAND_RATIO = MathConstant.TEN_THOUSAND;
 
@@ -45,50 +43,54 @@ public class FightAttributeMgr {
     private Map<Short, Long> fightAttributeMap = new HashMap<>();
 
     public static Long getValue(Map<Short, Long> map, short id) {
+        if (AttributeTemplateIdContainer.VALUE_EXTRA.containsKey(id)) {
+            short extId = AttributeTemplateIdContainer.VALUE_EXTRA.get(id);
+            return map.getOrDefault(id, 0L) + map.getOrDefault(extId, 0L);
+        }
         return map.getOrDefault(id, 0L);
     }
 
-    public Map<Short, Long> getCurrAttribute() {
-        Map<Short, Long> map = new HashMap<>();
-        AttributeMapUtil.add(map, fightAttributeMap);
-        return map;
-    }
-
-    public void addTemplateAttributeMap(Map<Short, Long> fightAttributeMap) {
-        long preHp = this.fightAttributeMap.get(MAX_HP);
-        long preMp = this.fightAttributeMap.get(MAX_MP);
-
-        this.fightAttributeMap = fightAttributeMap;
-
-        long addHp = this.fightAttributeMap.get(MAX_HP) - preHp;
-        long addMp = this.fightAttributeMap.get(MAX_MP) - preMp;
-        addHp(addHp);
-        addMp(addMp);
-    }
-
-    public void addHp(long hp) {
-        if (hp == 0) {
-            return;
-        }
-        long currHp = fightAttributeMap.getOrDefault(VAR_HP, 0L) + hp;
-        if (currHp < 0) {
-            currHp = 0;
-        }
-        currHp = Math.min(fightAttributeMap.get(MAX_HP), currHp);
-        fightAttributeMap.put(VAR_HP, currHp);
-    }
-
-    public void addMp(long mp) {
-        if (mp == 0) {
-            return;
-        }
-        long currMp = fightAttributeMap.getOrDefault(VAR_MP, 0L) + mp;
-        if (currMp < 0) {
-            currMp = 0;
-        }
-        currMp = Math.min(fightAttributeMap.get(MAX_MP), currMp);
-        fightAttributeMap.put(VAR_MP, currMp);
-    }
+//    public Map<Short, Long> getCurrAttribute() {
+//        Map<Short, Long> map = new HashMap<>();
+//        AttributeMapUtil.add(map, fightAttributeMap);
+//        return map;
+//    }
+//
+//    public void addTemplateAttributeMap(Map<Short, Long> fightAttributeMap) {
+//        long preHp = this.fightAttributeMap.get(MAX_HP);
+//        long preMp = this.fightAttributeMap.get(MAX_MP);
+//
+//        this.fightAttributeMap = fightAttributeMap;
+//
+//        long addHp = this.fightAttributeMap.get(MAX_HP) - preHp;
+//        long addMp = this.fightAttributeMap.get(MAX_MP) - preMp;
+//        addHp(addHp);
+//        addMp(addMp);
+//    }
+//
+//    public void addHp(long hp) {
+//        if (hp == 0) {
+//            return;
+//        }
+//        long currHp = fightAttributeMap.getOrDefault(VAR_HP, 0L) + hp;
+//        if (currHp < 0) {
+//            currHp = 0;
+//        }
+//        currHp = Math.min(fightAttributeMap.get(MAX_HP), currHp);
+//        fightAttributeMap.put(VAR_HP, currHp);
+//    }
+//
+//    public void addMp(long mp) {
+//        if (mp == 0) {
+//            return;
+//        }
+//        long currMp = fightAttributeMap.getOrDefault(VAR_MP, 0L) + mp;
+//        if (currMp < 0) {
+//            currMp = 0;
+//        }
+//        currMp = Math.min(fightAttributeMap.get(MAX_MP), currMp);
+//        fightAttributeMap.put(VAR_MP, currMp);
+//    }
 
     public static List<Skill.DamageData> basicAttack(UseSkillDataTemp useSkillDataTemp,
                                                      final int skillFixedDamage, final double skillDamageRate) {
@@ -145,8 +147,9 @@ public class FightAttributeMgr {
             long targetReduceSkillDamageRatio = getValue(targetAttributeMap, REDUCE_SKILL_DAMAGE_RATIO);
             long targetReduceTrueDamage = getValue(targetAttributeMap, REDUCE_TRUE_DAMAGE);
 
-            double missRate = Math.min(Math.max((targetMiss - hit) / (double) ((targetMiss - hit) * 3
-                    + targetParameter.getTargetLevel() * 100L) + (targetMissRatio - hitRatio) / TEN_THOUSAND_RATIO, 0), 0.8);
+            //闪避几率=	min(max( min( B闪避[id:201] / ( B闪避[id:201] + A命中[id:200]  * 9 ) , 0.5 ) + ( B闪避几率[id:300] - A命中几率[id:301])/10000 , 0 ) ,0.9 )
+            double missRate = Math.min(Math.max(Math.min((targetMiss / (double) (targetMiss + hit * 9)), 0.5)
+                    + (targetMissRatio - hitRatio) / TEN_THOUSAND_RATIO, 0), 0.9);
 
             boolean miss = isMissRate(missRate, builder);
 
@@ -154,18 +157,17 @@ public class FightAttributeMgr {
                 useSkillDataTemp.getR().client().tell(null, null);
                 return;
             }
+            //  无视防御率  防御 = 防御 * ( 1 - min(max((A无视防御率[id:310] - B防御强化率[id:311]) / 10000 ,0), 1 ) )
+            double ignoreDefenceRate = Math.min(Math.max(ignoreDefenceRatio - targetReduceIgnoreDefenceRatio, 0), 1);
+            finalTargetDefence = (long) (finalTargetDefence * ( 1 - ignoreDefenceRate));
 
-            double ignoreDefenceRate = Math.min(Math.max(ignoreDefenceRatio - targetReduceIgnoreDefenceRatio, 0), 0.8);
-            double critRate = Math.min(Math.max((crit - targetReduceCrit) / (double) ((crit + targetReduceCrit) * 3
-                    + useSkillDataTemp.getAttackLevel() * 100L) + (critRatio - targetReduceCritRatio) / TEN_THOUSAND_RATIO, 0), 0.8);
+            //	暴击几率=	min(max( min( A暴击[id:202] / ( A暴击[id:202] + B抗暴[id:203]  * 9 ）, 0.5 ) + ( A暴击几率[id:302] - B抗暴几率[id:303])/10000 , 0 ) ,1.2 )
+            double critRate = Math.min(Math.max(Math.min((crit / (double) (crit + targetReduceCrit * 9)), 0.5)
+                    + (critRatio - targetReduceCritRatio) / TEN_THOUSAND_RATIO, 0), 0.8);
             double blockRate = Math.min(Math.max((targetBlockRatio - reduceBlockRatio) / TEN_THOUSAND_RATIO, 0), 1);
 
-            if (isIgnoreDefence(ignoreDefenceRate, builder)) {
-                finalTargetDefence = 0;
-            }
-
-            double baseDamage = finalAttack * (1 - (finalTargetDefence + (finalPierce - finalTargetDefence) * PARAMETER_A)
-                    / (finalTargetDefence * PARAMETER_B + finalPierce * PARAMETER_C));
+            //  基础伤害 =	 A攻击 * ( 1 -  MIN( B防御  / (B防御 * 系数B + A穿透 * 系数C ) , 最大免伤率 ) )
+            double baseDamage = finalAttack * (1 - Math.min((finalTargetDefence / (finalTargetDefence * PARAMETER_B + finalPierce * PARAMETER_C)), 0.75));
 
             double critDamage = 0;
             if (isCrit(critRate, builder)) {

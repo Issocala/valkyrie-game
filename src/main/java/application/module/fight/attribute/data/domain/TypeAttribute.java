@@ -2,6 +2,7 @@ package application.module.fight.attribute.data.domain;
 
 import application.module.fight.attribute.AttributeTemplateIdContainer;
 import application.module.fight.attribute.data.message.UpdateAttribute;
+import application.module.fight.attribute.fight.FightAttributeMgr;
 import application.module.fight.attribute.node.AttributeNode;
 import application.module.fight.attribute.provider.AttributeRegister;
 import application.util.AttributeMapUtil;
@@ -41,8 +42,8 @@ public class TypeAttribute {
         AttributeTemplateIdContainer.finalFatherResult(allTemplateAttributeMap);
 
         addFightAttribute(id2FightAttributeMap);
-        fightAttributeMap.put(VAR_HP, fightAttributeMap.get(MAX_HP));
-        fightAttributeMap.put(VAR_MP, fightAttributeMap.get(MAX_MP));
+        fightAttributeMap.put(VAR_HP, FightAttributeMgr.getValue(fightAttributeMap, MAX_HP));
+        fightAttributeMap.put(VAR_MP, FightAttributeMgr.getValue(fightAttributeMap, VAR_MP));
     }
 
     public void addFightAttribute(Map<Short, Long> map) {

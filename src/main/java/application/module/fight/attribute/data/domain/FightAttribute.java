@@ -1,5 +1,6 @@
 package application.module.fight.attribute.data.domain;
 
+import application.module.fight.attribute.fight.FightAttributeMgr;
 import application.module.organism.FightOrganism;
 
 import java.util.Map;
@@ -25,10 +26,10 @@ public class FightAttribute {
         this.monsterOrganism = monsterOrganism;
         this.fightAttributeMap = fightAttributeMap;
         if (fightAttributeMap.containsKey(MAX_HP)) {
-            fightAttributeMap.put(VAR_HP, fightAttributeMap.get(MAX_HP));
+            fightAttributeMap.put(VAR_HP, FightAttributeMgr.getValue(fightAttributeMap, MAX_HP));
         }
         if (fightAttributeMap.containsKey(MAX_MP)) {
-            fightAttributeMap.put(VAR_MP, fightAttributeMap.get(MAX_MP));
+            fightAttributeMap.put(VAR_MP, FightAttributeMgr.getValue(fightAttributeMap, MAX_MP));
         }
     }
 

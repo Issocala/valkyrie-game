@@ -230,8 +230,8 @@ public class AttributeTemplateIdContainer {
         set.stream().filter(PUBLIC_BASE::containsKey).forEach(aShort -> PUBLIC_BASE.get(aShort).forEach(sonShort -> {
             long value = attributes.getOrDefault(sonShort, 0L);
             long ext = value * attributes.getOrDefault(aShort, 0L) / MathConstant.TEN_THOUSAND;
-            logger.debug(String.valueOf(sonShort));
-            attributes.put(sonShort, value - ext);
+            short extId = VALUE_EXTRA.get(sonShort);
+            attributes.put(extId, attributes.getOrDefault(extId, 0L) - ext);
         }));
     }
 
@@ -256,7 +256,8 @@ public class AttributeTemplateIdContainer {
                 set.stream().filter(attributes::containsKey).forEach(aShort -> {
                     long value = attributes.getOrDefault(aShort, 0L);
                     long ext = value * attributes.getOrDefault(e, 0L) / MathConstant.TEN_THOUSAND;
-                    attributes.put(aShort, value + ext);
+                    short extId = VALUE_EXTRA.get(aShort);
+                    attributes.put(extId, attributes.getOrDefault(extId, 0L) + ext);
                 });
             }
         });

@@ -11,10 +11,10 @@ import application.module.fight.attribute.data.domain.Attribute;
 import application.module.fight.attribute.data.domain.FightAttribute;
 import application.module.fight.attribute.data.domain.TypeAttribute;
 import application.module.fight.attribute.data.message.*;
+import application.module.fight.attribute.fight.FightAttributeMgr;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
 import application.module.fight.skill.data.message.SkillGetAllAttribute;
 import application.module.organism.MonsterOrganism;
-import application.module.organism.NpcOrganism;
 import application.module.organism.Organism;
 import application.module.organism.OrganismType;
 import application.module.player.data.message.event.PlayerLogin;
@@ -83,10 +83,10 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
     private void playerReceiveAfter(PlayerReceiveAfter playerReceiveAfter) {
         Map<Short, Long> fightAttributeMap = getFightAttributeMap(playerReceiveAfter.playerId());
         if (fightAttributeMap.containsKey(MAX_HP)) {
-            fightAttributeMap.put(VAR_HP, fightAttributeMap.get(MAX_HP));
+            fightAttributeMap.put(VAR_HP, FightAttributeMgr.getValue(fightAttributeMap, MAX_HP));
         }
         if (fightAttributeMap.containsKey(MAX_MP)) {
-            fightAttributeMap.put(VAR_MP, fightAttributeMap.get(MAX_MP));
+            fightAttributeMap.put(VAR_MP, FightAttributeMgr.getValue(fightAttributeMap, MAX_MP));
         }
         playerReceiveAfter.scene().tell(new AoiSendMessageToClient(AttributeProtocols.FIGHT_ATTRIBUTE_GET,
                 AttributeProtocolBuilder.get10040(playerReceiveAfter.playerId(), fightAttributeMap), playerReceiveAfter.playerId()), self());
@@ -102,7 +102,7 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
         if (currMp < 0) {
             currMp = 0;
         }
-        currMp = Math.min(fightAttributeMap.getOrDefault(MAX_MP, 0L), currMp);
+        currMp = Math.min(FightAttributeMgr.getValue(fightAttributeMap, MAX_MP), currMp);
         fightAttributeMap.put(VAR_MP, currMp);
         addMp.scene().tell(new AoiSendMessageToClient(AttributeProtocols.FIGHT_ATTRIBUTE_GET,
                 AttributeProtocolBuilder.get10040(addMp.organismId(), fightAttributeMap), addMp.organismId()), self());
@@ -125,7 +125,7 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
                 addHp.scene().tell(new SceneOrganismExit(addHp.organismId(), addHp.organismType()), self());
             }
         }
-        currHp = Math.min(fightAttributeMap.getOrDefault(MAX_HP, 0L), currHp);
+        currHp = Math.min(FightAttributeMgr.getValue(fightAttributeMap, MAX_HP), currHp);
         log.debug("--------hp {}", currHp);
         fightAttributeMap.put(VAR_HP, currHp);
         addHp.scene().tell(new AoiSendMessageToClient(AttributeProtocols.FIGHT_ATTRIBUTE_GET,
@@ -169,10 +169,10 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
 
     private void skillGetAllAttribute(SkillGetAllAttribute skillGetAllAttribute) {
         UseSkillDataTemp useSkillDataTemp = skillGetAllAttribute.useSkillDataTemp();
-        useSkillDataTemp.setAttackAttributeMap(getFightAttributeMap(useSkillDataTemp.getAttackId()));
+        useSkillDataTemp.setAttackAttributeMap(Map.copyOf(getFightAttributeMap(useSkillDataTemp.getAttackId())));
 
         useSkillDataTemp.getTargetParameters().forEach(targetParameter -> {
-            targetParameter.setAttributeMap(getFightAttributeMap(targetParameter.getTargetId()));
+            targetParameter.setAttributeMap(Map.copyOf(getFightAttributeMap(targetParameter.getTargetId())));
         });
         this.sender().tell(skillGetAllAttribute, self());
     }
