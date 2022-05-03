@@ -100,6 +100,7 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
     case Received(data) => onReceivedFromSocket(data)
     case p2client: SendToClient => connection ! Write(protocolToByteString(p2client))
     case p2clientJ: SendToClientJ => connection ! Write(protocolToByteString(p2clientJ))
+      log.debug(s"send protocolId :${p2clientJ.protocolId}")
     case LoginSuccess(id) => userID = id
     case CommandFailed(b: Bind) => close()
       log.error(s"CommandFailed: $b")
@@ -119,8 +120,9 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
   }
 
   private def dealClientMessage(frame: ByteString): Unit = {
-    log.debug(s"frame length:${frame.length} :$frame")
+//    log.debug(s"frame length:${frame.length} :$frame")
     val protocolId = frame.iterator.getShort
+    log.debug(s"receive protocolId :$protocolId")
 
     //TODO 或许需要实现协议过滤，防止未登入的用户或者选择非当前角色发包，
     val handler = messageHandler.get(protocolId)
