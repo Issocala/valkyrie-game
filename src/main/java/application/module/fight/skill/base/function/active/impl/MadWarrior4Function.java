@@ -4,6 +4,7 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import application.module.fight.attribute.AttributeTemplateId;
 import application.module.fight.buff.data.message.AddBuff;
+import application.module.fight.buff.data.message.RemoveBuff;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
 import application.module.fight.skill.base.function.active.FightSkillActiveFunction;
 import application.module.fight.skill.base.skill.FightSkillWrap;
@@ -32,15 +33,14 @@ public class MadWarrior4Function extends FightSkillActiveFunction {
         long duration = attributeParameter[1];
 
 
-
         Map<Short, Long> fightMap = useSkillDataTemp.getAttackAttributeMap();
         final long douQi = fightMap.getOrDefault(AttributeTemplateId.DOU_QI, 0L);
         if (douQi > 0) {
             Map<Short, Long> extFightMap = new HashMap<>();
             extFightMap.put(AttributeTemplateId.CRIT_RATIO, 200L * douQi);
             extFightMap.put(AttributeTemplateId.CRIT_ADD_DAMAGE_RATIO, 500L * douQi);
-            useSkillDataTemp.addChangeFightAttributeMap(AttributeTemplateId.DOU_QI, -douQi);
-            fightMap.put(AttributeTemplateId.DOU_QI, -douQi);
+            useSkillDataTemp.getBuffData().tell(new RemoveBuff(useSkillDataTemp.getR(), 10002, (int) douQi,
+                    useSkillDataTemp.getAttackId(), useSkillDataTemp.getAttackId()), ActorRef.noSender());
             useSkillDataTemp.getTargetParameters().forEach(targetParameter -> {
                 useSkillDataTemp.getBuffData().tell(new AddBuff(useSkillDataTemp.getR(), buffId, useSkillDataTemp.getAttackId(), targetParameter.getTargetId(),
                         duration + douQi, useSkillDataTemp.getScene(), useSkillDataTemp.getAttributeData(), useSkillDataTemp.getStateData(), extFightMap), ActorRef.noSender());

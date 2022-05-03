@@ -195,14 +195,22 @@ public class FightSkillModule extends AbstractModule {
                 fightPassiveSkillWrap.getList().forEach(processTemplate -> {
                     FightPassiveSkillFunction function = FightSkillFunctionContainer.getPassiveFunction(processTemplate.function());
                     if (Objects.nonNull(function) && useSkillDataTemp.getTargetParameters().size() > 0) {
-                        function.castSkill(fightPassiveSkillWrap, processTemplate, new PassiveSkillDataTemp(useSkillDataTemp.getAttackId(), useSkillDataTemp));
+
+                        // TODO: 2022-5-3 普攻触发被动，暂时放这里会导致其他被动无法触发，正式版优化
+                        if (FightSkillTemplateHolder.getData(useSkillDataTemp.getSkillId()).activeSkillType() == 1) {
+                            function.castSkill(fightPassiveSkillWrap, processTemplate, new PassiveSkillDataTemp(useSkillDataTemp.getAttackId(), useSkillDataTemp));
+                        }
                     }
                 });
             } else if (template.skillTriggerType() == PassiveTriggerType.USE_SKILL_TARGET) {
                 fightPassiveSkillWrap.getList().forEach(processTemplate -> {
                     FightPassiveSkillFunction function = FightSkillFunctionContainer.getPassiveFunction(processTemplate.function());
                     if (Objects.nonNull(function) && useSkillDataTemp.getTargetParameters().size() > 0) {
-                        function.castSkill(fightPassiveSkillWrap, processTemplate, new PassiveSkillDataTemp(useSkillDataTemp));
+
+                        // TODO: 2022-5-3 普攻触发被动，暂时放这里会导致其他被动无法触发，正式版优化
+                        if (FightSkillTemplateHolder.getData(useSkillDataTemp.getSkillId()).activeSkillType() == 1) {
+                            function.castSkill(fightPassiveSkillWrap, processTemplate, new PassiveSkillDataTemp(useSkillDataTemp));
+                        }
                     }
                 });
             }

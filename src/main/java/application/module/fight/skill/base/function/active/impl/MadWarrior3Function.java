@@ -4,6 +4,7 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import application.module.fight.attribute.AttributeTemplateId;
 import application.module.fight.buff.data.message.AddBuff;
+import application.module.fight.buff.data.message.RemoveBuff;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
 import application.module.fight.skill.base.function.active.FightSkillActiveFunction;
 import application.module.fight.skill.base.skill.FightSkillWrap;
@@ -31,8 +32,8 @@ public class MadWarrior3Function extends FightSkillActiveFunction {
         Map<Short, Long> fightMap = useSkillDataTemp.getAttackAttributeMap();
         long douQi = fightMap.getOrDefault(AttributeTemplateId.DOU_QI, 0L);
         if (douQi > 0) {
-            useSkillDataTemp.addChangeFightAttributeMap(AttributeTemplateId.DOU_QI, -1);
-            fightMap.put(AttributeTemplateId.DOU_QI, douQi - 1);
+            useSkillDataTemp.getBuffData().tell(new RemoveBuff(useSkillDataTemp.getR(), 10002,
+                    useSkillDataTemp.getAttackId(), useSkillDataTemp.getAttackId()), ActorRef.noSender());
             // TODO: 2022-4-29 击退效果
         }
     }
