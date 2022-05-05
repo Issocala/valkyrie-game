@@ -12,22 +12,24 @@ object SceneProto extends _root_.scalapb.GeneratedFileObject {
       protocol.scene.MoveInfo,
       protocol.scene.StopInfo,
       protocol.scene.JumpInfo,
-      protocol.scene.CS10030,
-      protocol.scene.SC10030,
-      protocol.scene.CS10031,
-      protocol.scene.SC10031,
-      protocol.scene.CS10032,
-      protocol.scene.SC10032,
-      protocol.scene.CS10033,
-      protocol.scene.SC10033,
-      protocol.scene.SC10034,
-      protocol.scene.CS10035,
-      protocol.scene.SC10035,
-      protocol.scene.CS10036,
-      protocol.scene.SC10036,
-      protocol.scene.SC10037,
-      protocol.scene.SC10038,
-      protocol.scene.CS10039
+      protocol.scene.CS10300,
+      protocol.scene.SC10300,
+      protocol.scene.CS10301,
+      protocol.scene.SC10301,
+      protocol.scene.CS10302,
+      protocol.scene.SC10302,
+      protocol.scene.CS10303,
+      protocol.scene.SC10303,
+      protocol.scene.SC10304,
+      protocol.scene.CS10305,
+      protocol.scene.SC10305,
+      protocol.scene.CS10306,
+      protocol.scene.SC10306,
+      protocol.scene.SC10307,
+      protocol.scene.SC10308,
+      protocol.scene.CS10309,
+      protocol.scene.CS10310,
+      protocol.scene.CS10311
     )
   private lazy val ProtoBytes: Array[Byte] =
       scalapb.Encoding.fromBase64(scala.collection.immutable.Seq(
@@ -40,29 +42,34 @@ object SceneProto extends _root_.scalapb.GeneratedFileObject {
   goLaGlnaGVzdFBvc1gYAyACKAJCEOI/DRILaGlnaGVzdFBvc1hSC2hpZ2hlc3RQb3NYEjIKC2hpZ2hlc3RQb3NZGAQgAigCQhDiP
   w0SC2hpZ2hlc3RQb3NZUgtoaWdoZXN0UG9zWRIsCglmaW5hbFBvc1gYBSACKAJCDuI/CxIJZmluYWxQb3NYUglmaW5hbFBvc1gSL
   AoJZmluYWxQb3NZGAYgAigCQg7iPwsSCWZpbmFsUG9zWVIJZmluYWxQb3NZEh0KBGZhY2UYByACKAVCCeI/BhIEZmFjZVIEZmFjZ
-  SIxCgdDUzEwMDMwEiYKB3NjZW5lSWQYASACKANCDOI/CRIHc2NlbmVJZFIHc2NlbmVJZCKNAQoHU0MxMDAzMBImCgdzY2VuZUlkG
+  SIxCgdDUzEwMzAwEiYKB3NjZW5lSWQYASACKANCDOI/CRIHc2NlbmVJZFIHc2NlbmVJZCKNAQoHU0MxMDMwMBImCgdzY2VuZUlkG
   AEgAigDQgziPwkSB3NjZW5lSWRSB3NjZW5lSWQSLAoJcG9zaXRpb25YGAIgAigCQg7iPwsSCXBvc2l0aW9uWFIJcG9zaXRpb25YE
-  iwKCXBvc2l0aW9uWRgDIAIoAkIO4j8LEglwb3NpdGlvbllSCXBvc2l0aW9uWSIxCgdDUzEwMDMxEiYKB3NjZW5lSWQYASACKANCD
-  OI/CRIHc2NlbmVJZFIHc2NlbmVJZCI0CgdTQzEwMDMxEikKCHBsYXllcklkGAEgAigDQg3iPwoSCHBsYXllcklkUghwbGF5ZXJJZ
-  CJICgdDUzEwMDMyEj0KCG1vdmVJbmZvGAEgAigLMhIucHJvdG9jb2wuTW92ZUluZm9CDeI/ChIIbW92ZUluZm9SCG1vdmVJbmZvI
-  nkKB1NDMTAwMzISLwoKb3JnYW5pc21JZBgBIAIoA0IP4j8MEgpvcmdhbmlzbUlkUgpvcmdhbmlzbUlkEj0KCG1vdmVJbmZvGAIgA
-  igLMhIucHJvdG9jb2wuTW92ZUluZm9CDeI/ChIIbW92ZUluZm9SCG1vdmVJbmZvIkgKB0NTMTAwMzMSPQoIc3RvcEluZm8YASACK
-  AsyEi5wcm90b2NvbC5TdG9wSW5mb0IN4j8KEghzdG9wSW5mb1IIc3RvcEluZm8ieQoHU0MxMDAzMxIvCgpvcmdhbmlzbUlkGAEgA
-  igDQg/iPwwSCm9yZ2FuaXNtSWRSCm9yZ2FuaXNtSWQSPQoIc3RvcEluZm8YAiACKAsyEi5wcm90b2NvbC5TdG9wSW5mb0IN4j8KE
-  ghzdG9wSW5mb1IIc3RvcEluZm8itQIKB1NDMTAwMzQSLwoKb3JnYW5pc21JZBgBIAIoA0IP4j8MEgpvcmdhbmlzbUlkUgpvcmdhb
-  mlzbUlkEjUKDG9yZ2FuaXNtVHlwZRgCIAIoBUIR4j8OEgxvcmdhbmlzbVR5cGVSDG9yZ2FuaXNtVHlwZRIsCglwb3NpdGlvblgYA
-  yACKAJCDuI/CxIJcG9zaXRpb25YUglwb3NpdGlvblgSLAoJcG9zaXRpb25ZGAQgAigCQg7iPwsSCXBvc2l0aW9uWVIJcG9zaXRpb
-  25ZEh0KBGZhY2UYBSACKAVCCeI/BhIEZmFjZVIEZmFjZRJHChJvcmdhbmlzbVRlbXBsYXRlSWQYBiACKAVCF+I/FBISb3JnYW5pc
-  21UZW1wbGF0ZUlkUhJvcmdhbmlzbVRlbXBsYXRlSWQiSAoHQ1MxMDAzNRI9CghqdW1wSW5mbxgBIAIoCzISLnByb3RvY29sLkp1b
-  XBJbmZvQg3iPwoSCGp1bXBJbmZvUghqdW1wSW5mbyJ5CgdTQzEwMDM1Ei8KCm9yZ2FuaXNtSWQYASACKANCD+I/DBIKb3JnYW5pc
-  21JZFIKb3JnYW5pc21JZBI9CghqdW1wSW5mbxgCIAIoCzISLnByb3RvY29sLkp1bXBJbmZvQg3iPwoSCGp1bXBJbmZvUghqdW1wS
-  W5mbyKWAQoHQ1MxMDAzNhIsCglwb3NpdGlvblgYASACKAJCDuI/CxIJcG9zaXRpb25YUglwb3NpdGlvblgSLAoJcG9zaXRpb25ZG
+  iwKCXBvc2l0aW9uWRgDIAIoAkIO4j8LEglwb3NpdGlvbllSCXBvc2l0aW9uWSIxCgdDUzEwMzAxEiYKB3NjZW5lSWQYASACKANCD
+  OI/CRIHc2NlbmVJZFIHc2NlbmVJZCI0CgdTQzEwMzAxEikKCHBsYXllcklkGAEgAigDQg3iPwoSCHBsYXllcklkUghwbGF5ZXJJZ
+  CJ5CgdDUzEwMzAyEi8KCm9yZ2FuaXNtSWQYASACKANCD+I/DBIKb3JnYW5pc21JZFIKb3JnYW5pc21JZBI9Cghtb3ZlSW5mbxgCI
+  AIoCzISLnByb3RvY29sLk1vdmVJbmZvQg3iPwoSCG1vdmVJbmZvUghtb3ZlSW5mbyJ5CgdTQzEwMzAyEi8KCm9yZ2FuaXNtSWQYA
+  SACKANCD+I/DBIKb3JnYW5pc21JZFIKb3JnYW5pc21JZBI9Cghtb3ZlSW5mbxgCIAIoCzISLnByb3RvY29sLk1vdmVJbmZvQg3iP
+  woSCG1vdmVJbmZvUghtb3ZlSW5mbyJ5CgdDUzEwMzAzEi8KCm9yZ2FuaXNtSWQYASACKANCD+I/DBIKb3JnYW5pc21JZFIKb3JnY
+  W5pc21JZBI9CghzdG9wSW5mbxgCIAIoCzISLnByb3RvY29sLlN0b3BJbmZvQg3iPwoSCHN0b3BJbmZvUghzdG9wSW5mbyJ5CgdTQ
+  zEwMzAzEi8KCm9yZ2FuaXNtSWQYASACKANCD+I/DBIKb3JnYW5pc21JZFIKb3JnYW5pc21JZBI9CghzdG9wSW5mbxgCIAIoCzISL
+  nByb3RvY29sLlN0b3BJbmZvQg3iPwoSCHN0b3BJbmZvUghzdG9wSW5mbyK1AgoHU0MxMDMwNBIvCgpvcmdhbmlzbUlkGAEgAigDQ
+  g/iPwwSCm9yZ2FuaXNtSWRSCm9yZ2FuaXNtSWQSNQoMb3JnYW5pc21UeXBlGAIgAigFQhHiPw4SDG9yZ2FuaXNtVHlwZVIMb3JnY
+  W5pc21UeXBlEiwKCXBvc2l0aW9uWBgDIAIoAkIO4j8LEglwb3NpdGlvblhSCXBvc2l0aW9uWBIsCglwb3NpdGlvblkYBCACKAJCD
+  uI/CxIJcG9zaXRpb25ZUglwb3NpdGlvblkSHQoEZmFjZRgFIAIoBUIJ4j8GEgRmYWNlUgRmYWNlEkcKEm9yZ2FuaXNtVGVtcGxhd
+  GVJZBgGIAIoBUIX4j8UEhJvcmdhbmlzbVRlbXBsYXRlSWRSEm9yZ2FuaXNtVGVtcGxhdGVJZCJ5CgdDUzEwMzA1Ei8KCm9yZ2Fua
+  XNtSWQYASACKANCD+I/DBIKb3JnYW5pc21JZFIKb3JnYW5pc21JZBI9CghqdW1wSW5mbxgCIAIoCzISLnByb3RvY29sLkp1bXBJb
+  mZvQg3iPwoSCGp1bXBJbmZvUghqdW1wSW5mbyJ5CgdTQzEwMzA1Ei8KCm9yZ2FuaXNtSWQYASACKANCD+I/DBIKb3JnYW5pc21JZ
+  FIKb3JnYW5pc21JZBI9CghqdW1wSW5mbxgCIAIoCzISLnByb3RvY29sLkp1bXBJbmZvQg3iPwoSCGp1bXBJbmZvUghqdW1wSW5mb
+  yKWAQoHQ1MxMDMwNhIsCglwb3NpdGlvblgYASACKAJCDuI/CxIJcG9zaXRpb25YUglwb3NpdGlvblgSLAoJcG9zaXRpb25ZGAIgA
+  igCQg7iPwsSCXBvc2l0aW9uWVIJcG9zaXRpb25ZEi8KCm9yZ2FuaXNtSWQYAyACKANCD+I/DBIKb3JnYW5pc21JZFIKb3JnYW5pc
+  21JZCKWAQoHU0MxMDMwNhIsCglwb3NpdGlvblgYASACKAJCDuI/CxIJcG9zaXRpb25YUglwb3NpdGlvblgSLAoJcG9zaXRpb25ZG
   AIgAigCQg7iPwsSCXBvc2l0aW9uWVIJcG9zaXRpb25ZEi8KCm9yZ2FuaXNtSWQYAyACKANCD+I/DBIKb3JnYW5pc21JZFIKb3JnY
-  W5pc21JZCKWAQoHU0MxMDAzNhIsCglwb3NpdGlvblgYASACKAJCDuI/CxIJcG9zaXRpb25YUglwb3NpdGlvblgSLAoJcG9zaXRpb
-  25ZGAIgAigCQg7iPwsSCXBvc2l0aW9uWVIJcG9zaXRpb25ZEi8KCm9yZ2FuaXNtSWQYAyACKANCD+I/DBIKb3JnYW5pc21JZFIKb
-  3JnYW5pc21JZCIJCgdTQzEwMDM3InoKB1NDMTAwMzgSLwoKb3JnYW5pc21JZBgBIAIoA0IP4j8MEgpvcmdhbmlzbUlkUgpvcmdhb
-  mlzbUlkEj4KD3NraWxsVGVtcGxhdGVJZBgCIAIoBUIU4j8REg9za2lsbFRlbXBsYXRlSWRSD3NraWxsVGVtcGxhdGVJZCIJCgdDU
-  zEwMDM5"""
+  W5pc21JZCIJCgdTQzEwMzA3InoKB1NDMTAzMDgSLwoKb3JnYW5pc21JZBgBIAIoA0IP4j8MEgpvcmdhbmlzbUlkUgpvcmdhbmlzb
+  UlkEj4KD3NraWxsVGVtcGxhdGVJZBgCIAIoBUIU4j8REg9za2lsbFRlbXBsYXRlSWRSD3NraWxsVGVtcGxhdGVJZCIJCgdDUzEwM
+  zA5IncKB0NTMTAzMTASLwoKb3JnYW5pc21JZBgBIAIoA0IP4j8MEgpvcmdhbmlzbUlkUgpvcmdhbmlzbUlkEjsKDm9yZ2FuaXNtS
+  XRlbUlkGAIgAigDQhPiPxASDm9yZ2FuaXNtSXRlbUlkUg5vcmdhbmlzbUl0ZW1JZCJ0CgdDUzEwMzExEi8KCm9yZ2FuaXNtSWQYA
+  SACKANCD+I/DBIKb3JnYW5pc21JZFIKb3JnYW5pc21JZBI4Cg1vcmdhbmlzbU5wY0lkGAIgAigDQhLiPw8SDW9yZ2FuaXNtTnBjS
+  WRSDW9yZ2FuaXNtTnBjSWQ="""
       ).mkString)
   lazy val scalaDescriptor: _root_.scalapb.descriptors.FileDescriptor = {
     val scalaProto = com.google.protobuf.descriptor.FileDescriptorProto.parseFrom(ProtoBytes)

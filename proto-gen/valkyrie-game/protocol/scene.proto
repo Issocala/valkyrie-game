@@ -28,13 +28,13 @@ message JumpInfo
 }
 
 //玩家进入场景
-message CS10030
+message CS10300
 {
   required int64 sceneId = 1;
 }
 
 //返回玩家进入场景
-message SC10030
+message SC10300
 {
   required int64 sceneId = 1;
   required float positionX = 2;
@@ -43,45 +43,47 @@ message SC10030
 
 
 //玩家退出场景
-message CS10031
+message CS10301
 {
   required int64 sceneId = 1;
 }
 
 //返回玩家退出场景
-message SC10031
+message SC10301
 {
   required int64 playerId = 1;
 }
 
 //玩家移动
-message CS10032
+message CS10302
 {
-  required MoveInfo moveInfo = 1;
+  required int64 organismId = 1;
+  required MoveInfo moveInfo = 2;
 }
 
 //返回玩家移动
-message SC10032
+message SC10302
 {
   required int64 organismId = 1;
   required MoveInfo moveInfo = 2;
 }
 
 //玩家停止移动
-message CS10033
+message CS10303
 {
-  required StopInfo stopInfo = 1;
+  required int64 organismId = 1;
+  required StopInfo stopInfo = 2;
 }
 
 //返回玩家停止移动
-message SC10033
+message SC10303
 {
   required int64 organismId = 1;
   required StopInfo stopInfo = 2;
 }
 
 //返回创建某实体
-message SC10034
+message SC10304
 {
   required int64 organismId = 1;
   required int32 organismType = 2;
@@ -92,27 +94,28 @@ message SC10034
 }
 
 //玩家跳跃
-message CS10035
+message CS10305
 {
-  required JumpInfo jumpInfo = 1;
+  required int64 organismId = 1;
+  required JumpInfo jumpInfo = 2;
 }
 
 //返回玩家跳跃
-message SC10035
+message SC10305
 {
   required int64 organismId = 1;
   required JumpInfo jumpInfo = 2;
 }
 
 //同场景瞬移
-message CS10036
+message CS10306
 {
   required float positionX = 1;
   required float positionY = 2;
   required int64 organismId = 3;
 }
 
-message SC10036
+message SC10306
 {
   required float positionX = 1;
   required float positionY = 2;
@@ -120,20 +123,34 @@ message SC10036
 }
 
 //ai代理
-message SC10037
+message SC10307
 {
 
 }
 
 //帮忙让实体放下技能
-message SC10038
+message SC10308
 {
   required int64 organismId = 1;
   required int32 skillTemplateId = 2;
 }
 
 //玩家复活
-message CS10039
+message CS10309
 {
 
+}
+
+//捡起石头
+message CS10310
+{
+  required int64 organismId = 1;
+  required int64 organismItemId = 2;
+}
+
+//石头堵门
+message CS10311
+{
+  required int64 organismId = 1;
+  required int64 organismNpcId = 2;
 }

@@ -8,7 +8,7 @@ package protocol.scene
 /** 返回创建某实体
   */
 @SerialVersionUID(0L)
-final case class SC10034(
+final case class SC10304(
     organismId: _root_.scala.Long,
     organismType: _root_.scala.Int,
     positionX: _root_.scala.Float,
@@ -16,7 +16,7 @@ final case class SC10034(
     face: _root_.scala.Int,
     organismTemplateId: _root_.scala.Int,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
-    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SC10034] {
+    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SC10304] {
     @transient
     private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
     private[this] def __computeSerializedValue(): _root_.scala.Int = {
@@ -95,12 +95,12 @@ final case class SC10034(
       };
       unknownFields.writeTo(_output__)
     }
-    def withOrganismId(__v: _root_.scala.Long): SC10034 = copy(organismId = __v)
-    def withOrganismType(__v: _root_.scala.Int): SC10034 = copy(organismType = __v)
-    def withPositionX(__v: _root_.scala.Float): SC10034 = copy(positionX = __v)
-    def withPositionY(__v: _root_.scala.Float): SC10034 = copy(positionY = __v)
-    def withFace(__v: _root_.scala.Int): SC10034 = copy(face = __v)
-    def withOrganismTemplateId(__v: _root_.scala.Int): SC10034 = copy(organismTemplateId = __v)
+    def withOrganismId(__v: _root_.scala.Long): SC10304 = copy(organismId = __v)
+    def withOrganismType(__v: _root_.scala.Int): SC10304 = copy(organismType = __v)
+    def withPositionX(__v: _root_.scala.Float): SC10304 = copy(positionX = __v)
+    def withPositionY(__v: _root_.scala.Float): SC10304 = copy(positionY = __v)
+    def withFace(__v: _root_.scala.Int): SC10304 = copy(face = __v)
+    def withOrganismTemplateId(__v: _root_.scala.Int): SC10304 = copy(organismTemplateId = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -125,14 +125,14 @@ final case class SC10034(
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
-    def companion = protocol.scene.SC10034
-    // @@protoc_insertion_point(GeneratedMessage[protocol.SC10034])
+    def companion = protocol.scene.SC10304
+    // @@protoc_insertion_point(GeneratedMessage[protocol.SC10304])
 }
 
-object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034] with scalapb.HasBuilder[protocol.scene.SC10034] with scalapb.JavaProtoSupport[protocol.scene.SC10034, protocol.Scene.SC10034] {
-  implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.scene.SC10034] with scalapb.HasBuilder[protocol.scene.SC10034] with scalapb.JavaProtoSupport[protocol.scene.SC10034, protocol.Scene.SC10034] = this
-  def toJavaProto(scalaPbSource: protocol.scene.SC10034): protocol.Scene.SC10034 = {
-    val javaPbOut = protocol.Scene.SC10034.newBuilder
+object SC10304 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10304] with scalapb.HasBuilder[protocol.scene.SC10304] with scalapb.JavaProtoSupport[protocol.scene.SC10304, protocol.Scene.SC10304] {
+  implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.scene.SC10304] with scalapb.HasBuilder[protocol.scene.SC10304] with scalapb.JavaProtoSupport[protocol.scene.SC10304, protocol.Scene.SC10304] = this
+  def toJavaProto(scalaPbSource: protocol.scene.SC10304): protocol.Scene.SC10304 = {
+    val javaPbOut = protocol.Scene.SC10304.newBuilder
     javaPbOut.setOrganismId(scalaPbSource.organismId)
     javaPbOut.setOrganismType(scalaPbSource.organismType)
     javaPbOut.setPositionX(scalaPbSource.positionX)
@@ -141,7 +141,7 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
     javaPbOut.setOrganismTemplateId(scalaPbSource.organismTemplateId)
     javaPbOut.build
   }
-  def fromJavaProto(javaPbSource: protocol.Scene.SC10034): protocol.scene.SC10034 = protocol.scene.SC10034(
+  def fromJavaProto(javaPbSource: protocol.Scene.SC10304): protocol.scene.SC10304 = protocol.scene.SC10304(
     organismId = javaPbSource.getOrganismId.longValue,
     organismType = javaPbSource.getOrganismType.intValue,
     positionX = javaPbSource.getPositionX.floatValue,
@@ -149,11 +149,11 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
     face = javaPbSource.getFace.intValue,
     organismTemplateId = javaPbSource.getOrganismTemplateId.intValue
   )
-  def merge(`_message__`: protocol.scene.SC10034, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.scene.SC10034 = newBuilder(_message__).merge(_input__).result()
-  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.scene.SC10034] = _root_.scalapb.descriptors.Reads{
+  def merge(`_message__`: protocol.scene.SC10304, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.scene.SC10304 = newBuilder(_message__).merge(_input__).result()
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.scene.SC10304] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
-      protocol.scene.SC10034(
+      protocol.scene.SC10304(
         organismId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).get.as[_root_.scala.Long],
         organismType = __fieldsMap.get(scalaDescriptor.findFieldByNumber(2).get).get.as[_root_.scala.Int],
         positionX = __fieldsMap.get(scalaDescriptor.findFieldByNumber(3).get).get.as[_root_.scala.Float],
@@ -168,7 +168,7 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
-  lazy val defaultInstance = protocol.scene.SC10034(
+  lazy val defaultInstance = protocol.scene.SC10304(
     organismId = 0L,
     organismType = 0,
     positionX = 0.0f,
@@ -184,7 +184,7 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
     private var __face: _root_.scala.Int,
     private var __organismTemplateId: _root_.scala.Int,
     private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
-  ) extends _root_.scalapb.MessageBuilder[protocol.scene.SC10034] {
+  ) extends _root_.scalapb.MessageBuilder[protocol.scene.SC10304] {
     private var __requiredFields0: _root_.scala.Long = 0x3fL
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
@@ -219,9 +219,9 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
       }
       this
     }
-    def result(): protocol.scene.SC10034 = {
+    def result(): protocol.scene.SC10304 = {
       if (__requiredFields0 != 0L) { throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.") } 
-      protocol.scene.SC10034(
+      protocol.scene.SC10304(
         organismId = __organismId,
         organismType = __organismType,
         positionX = __positionX,
@@ -232,7 +232,7 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
       )
     }
   }
-  object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.scene.SC10034, protocol.scene.SC10034.Builder] {
+  object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.scene.SC10304, protocol.scene.SC10304.Builder] {
     def apply(): Builder = new Builder(
       __organismId = 0L,
       __organismType = 0,
@@ -242,7 +242,7 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
       __organismTemplateId = 0,
       `_unknownFields__` = null
     )
-    def apply(`_message__`: protocol.scene.SC10034): Builder = new Builder(
+    def apply(`_message__`: protocol.scene.SC10304): Builder = new Builder(
         __organismId = _message__.organismId,
         __organismType = _message__.organismType,
         __positionX = _message__.positionX,
@@ -252,9 +252,9 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
         `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-  def newBuilder: Builder = protocol.scene.SC10034.Builder()
-  def newBuilder(`_message__`: protocol.scene.SC10034): Builder = protocol.scene.SC10034.Builder(_message__)
-  implicit class SC10034Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.scene.SC10034]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.scene.SC10034](_l) {
+  def newBuilder: Builder = protocol.scene.SC10304.Builder()
+  def newBuilder(`_message__`: protocol.scene.SC10304): Builder = protocol.scene.SC10304.Builder(_message__)
+  implicit class SC10304Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.scene.SC10304]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.scene.SC10304](_l) {
     def organismId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.organismId)((c_, f_) => c_.copy(organismId = f_))
     def organismType: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.organismType)((c_, f_) => c_.copy(organismType = f_))
     def positionX: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.positionX)((c_, f_) => c_.copy(positionX = f_))
@@ -275,7 +275,7 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
     positionY: _root_.scala.Float,
     face: _root_.scala.Int,
     organismTemplateId: _root_.scala.Int
-  ): _root_.protocol.scene.SC10034 = _root_.protocol.scene.SC10034(
+  ): _root_.protocol.scene.SC10304 = _root_.protocol.scene.SC10304(
     organismId,
     organismType,
     positionX,
@@ -283,5 +283,5 @@ object SC10034 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10034]
     face,
     organismTemplateId
   )
-  // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.SC10034])
+  // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.SC10304])
 }

@@ -8,12 +8,12 @@ package protocol.scene
 /** 返回玩家进入场景
   */
 @SerialVersionUID(0L)
-final case class SC10030(
+final case class SC10300(
     sceneId: _root_.scala.Long,
     positionX: _root_.scala.Float,
     positionY: _root_.scala.Float,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
-    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SC10030] {
+    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SC10300] {
     @transient
     private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
     private[this] def __computeSerializedValue(): _root_.scala.Int = {
@@ -62,9 +62,9 @@ final case class SC10030(
       };
       unknownFields.writeTo(_output__)
     }
-    def withSceneId(__v: _root_.scala.Long): SC10030 = copy(sceneId = __v)
-    def withPositionX(__v: _root_.scala.Float): SC10030 = copy(positionX = __v)
-    def withPositionY(__v: _root_.scala.Float): SC10030 = copy(positionY = __v)
+    def withSceneId(__v: _root_.scala.Long): SC10300 = copy(sceneId = __v)
+    def withPositionX(__v: _root_.scala.Float): SC10300 = copy(positionX = __v)
+    def withPositionY(__v: _root_.scala.Float): SC10300 = copy(positionY = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -83,29 +83,29 @@ final case class SC10030(
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
-    def companion = protocol.scene.SC10030
-    // @@protoc_insertion_point(GeneratedMessage[protocol.SC10030])
+    def companion = protocol.scene.SC10300
+    // @@protoc_insertion_point(GeneratedMessage[protocol.SC10300])
 }
 
-object SC10030 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10030] with scalapb.HasBuilder[protocol.scene.SC10030] with scalapb.JavaProtoSupport[protocol.scene.SC10030, protocol.Scene.SC10030] {
-  implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.scene.SC10030] with scalapb.HasBuilder[protocol.scene.SC10030] with scalapb.JavaProtoSupport[protocol.scene.SC10030, protocol.Scene.SC10030] = this
-  def toJavaProto(scalaPbSource: protocol.scene.SC10030): protocol.Scene.SC10030 = {
-    val javaPbOut = protocol.Scene.SC10030.newBuilder
+object SC10300 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10300] with scalapb.HasBuilder[protocol.scene.SC10300] with scalapb.JavaProtoSupport[protocol.scene.SC10300, protocol.Scene.SC10300] {
+  implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.scene.SC10300] with scalapb.HasBuilder[protocol.scene.SC10300] with scalapb.JavaProtoSupport[protocol.scene.SC10300, protocol.Scene.SC10300] = this
+  def toJavaProto(scalaPbSource: protocol.scene.SC10300): protocol.Scene.SC10300 = {
+    val javaPbOut = protocol.Scene.SC10300.newBuilder
     javaPbOut.setSceneId(scalaPbSource.sceneId)
     javaPbOut.setPositionX(scalaPbSource.positionX)
     javaPbOut.setPositionY(scalaPbSource.positionY)
     javaPbOut.build
   }
-  def fromJavaProto(javaPbSource: protocol.Scene.SC10030): protocol.scene.SC10030 = protocol.scene.SC10030(
+  def fromJavaProto(javaPbSource: protocol.Scene.SC10300): protocol.scene.SC10300 = protocol.scene.SC10300(
     sceneId = javaPbSource.getSceneId.longValue,
     positionX = javaPbSource.getPositionX.floatValue,
     positionY = javaPbSource.getPositionY.floatValue
   )
-  def merge(`_message__`: protocol.scene.SC10030, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.scene.SC10030 = newBuilder(_message__).merge(_input__).result()
-  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.scene.SC10030] = _root_.scalapb.descriptors.Reads{
+  def merge(`_message__`: protocol.scene.SC10300, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.scene.SC10300 = newBuilder(_message__).merge(_input__).result()
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.scene.SC10300] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
-      protocol.scene.SC10030(
+      protocol.scene.SC10300(
         sceneId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).get.as[_root_.scala.Long],
         positionX = __fieldsMap.get(scalaDescriptor.findFieldByNumber(2).get).get.as[_root_.scala.Float],
         positionY = __fieldsMap.get(scalaDescriptor.findFieldByNumber(3).get).get.as[_root_.scala.Float]
@@ -117,7 +117,7 @@ object SC10030 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10030]
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
-  lazy val defaultInstance = protocol.scene.SC10030(
+  lazy val defaultInstance = protocol.scene.SC10300(
     sceneId = 0L,
     positionX = 0.0f,
     positionY = 0.0f
@@ -127,7 +127,7 @@ object SC10030 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10030]
     private var __positionX: _root_.scala.Float,
     private var __positionY: _root_.scala.Float,
     private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
-  ) extends _root_.scalapb.MessageBuilder[protocol.scene.SC10030] {
+  ) extends _root_.scalapb.MessageBuilder[protocol.scene.SC10300] {
     private var __requiredFields0: _root_.scala.Long = 0x7L
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
@@ -153,9 +153,9 @@ object SC10030 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10030]
       }
       this
     }
-    def result(): protocol.scene.SC10030 = {
+    def result(): protocol.scene.SC10300 = {
       if (__requiredFields0 != 0L) { throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.") } 
-      protocol.scene.SC10030(
+      protocol.scene.SC10300(
         sceneId = __sceneId,
         positionX = __positionX,
         positionY = __positionY,
@@ -163,23 +163,23 @@ object SC10030 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10030]
       )
     }
   }
-  object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.scene.SC10030, protocol.scene.SC10030.Builder] {
+  object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.scene.SC10300, protocol.scene.SC10300.Builder] {
     def apply(): Builder = new Builder(
       __sceneId = 0L,
       __positionX = 0.0f,
       __positionY = 0.0f,
       `_unknownFields__` = null
     )
-    def apply(`_message__`: protocol.scene.SC10030): Builder = new Builder(
+    def apply(`_message__`: protocol.scene.SC10300): Builder = new Builder(
         __sceneId = _message__.sceneId,
         __positionX = _message__.positionX,
         __positionY = _message__.positionY,
         `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-  def newBuilder: Builder = protocol.scene.SC10030.Builder()
-  def newBuilder(`_message__`: protocol.scene.SC10030): Builder = protocol.scene.SC10030.Builder(_message__)
-  implicit class SC10030Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.scene.SC10030]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.scene.SC10030](_l) {
+  def newBuilder: Builder = protocol.scene.SC10300.Builder()
+  def newBuilder(`_message__`: protocol.scene.SC10300): Builder = protocol.scene.SC10300.Builder(_message__)
+  implicit class SC10300Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.scene.SC10300]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.scene.SC10300](_l) {
     def sceneId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.sceneId)((c_, f_) => c_.copy(sceneId = f_))
     def positionX: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.positionX)((c_, f_) => c_.copy(positionX = f_))
     def positionY: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Float] = field(_.positionY)((c_, f_) => c_.copy(positionY = f_))
@@ -191,10 +191,10 @@ object SC10030 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10030]
     sceneId: _root_.scala.Long,
     positionX: _root_.scala.Float,
     positionY: _root_.scala.Float
-  ): _root_.protocol.scene.SC10030 = _root_.protocol.scene.SC10030(
+  ): _root_.protocol.scene.SC10300 = _root_.protocol.scene.SC10300(
     sceneId,
     positionX,
     positionY
   )
-  // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.SC10030])
+  // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.SC10300])
 }

@@ -5,12 +5,12 @@
 
 package protocol.scene
 
-/** ai代理
+/** 玩家复活
   */
 @SerialVersionUID(0L)
-final case class SC10037(
+final case class CS10309(
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
-    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SC10037] {
+    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[CS10309] {
     @transient
     private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
     private[this] def __computeSerializedValue(): _root_.scala.Int = {
@@ -34,36 +34,36 @@ final case class SC10037(
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = throw new MatchError(__fieldNumber)
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = throw new MatchError(__field)
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
-    def companion = protocol.scene.SC10037
-    // @@protoc_insertion_point(GeneratedMessage[protocol.SC10037])
+    def companion = protocol.scene.CS10309
+    // @@protoc_insertion_point(GeneratedMessage[protocol.CS10309])
 }
 
-object SC10037 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10037] with scalapb.HasBuilder[protocol.scene.SC10037] with scalapb.JavaProtoSupport[protocol.scene.SC10037, protocol.Scene.SC10037] {
-  implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.scene.SC10037] with scalapb.HasBuilder[protocol.scene.SC10037] with scalapb.JavaProtoSupport[protocol.scene.SC10037, protocol.Scene.SC10037] = this
-  def toJavaProto(scalaPbSource: protocol.scene.SC10037): protocol.Scene.SC10037 = {
-    val javaPbOut = protocol.Scene.SC10037.newBuilder
+object CS10309 extends scalapb.GeneratedMessageCompanion[protocol.scene.CS10309] with scalapb.HasBuilder[protocol.scene.CS10309] with scalapb.JavaProtoSupport[protocol.scene.CS10309, protocol.Scene.CS10309] {
+  implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.scene.CS10309] with scalapb.HasBuilder[protocol.scene.CS10309] with scalapb.JavaProtoSupport[protocol.scene.CS10309, protocol.Scene.CS10309] = this
+  def toJavaProto(scalaPbSource: protocol.scene.CS10309): protocol.Scene.CS10309 = {
+    val javaPbOut = protocol.Scene.CS10309.newBuilder
     javaPbOut.build
   }
-  def fromJavaProto(javaPbSource: protocol.Scene.SC10037): protocol.scene.SC10037 = protocol.scene.SC10037(
+  def fromJavaProto(javaPbSource: protocol.Scene.CS10309): protocol.scene.CS10309 = protocol.scene.CS10309(
   )
-  def merge(`_message__`: protocol.scene.SC10037, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.scene.SC10037 = newBuilder(_message__).merge(_input__).result()
-  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.scene.SC10037] = _root_.scalapb.descriptors.Reads{
+  def merge(`_message__`: protocol.scene.CS10309, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.scene.CS10309 = newBuilder(_message__).merge(_input__).result()
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.scene.CS10309] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
-      protocol.scene.SC10037(
+      protocol.scene.CS10309(
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SceneProto.javaDescriptor.getMessageTypes().get(16)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SceneProto.scalaDescriptor.messages(16)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = SceneProto.javaDescriptor.getMessageTypes().get(18)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = SceneProto.scalaDescriptor.messages(18)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
-  lazy val defaultInstance = protocol.scene.SC10037(
+  lazy val defaultInstance = protocol.scene.CS10309(
   )
   final class Builder private (
     private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
-  ) extends _root_.scalapb.MessageBuilder[protocol.scene.SC10037] {
+  ) extends _root_.scalapb.MessageBuilder[protocol.scene.CS10309] {
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
       while (!_done__) {
@@ -79,26 +79,26 @@ object SC10037 extends scalapb.GeneratedMessageCompanion[protocol.scene.SC10037]
       }
       this
     }
-    def result(): protocol.scene.SC10037 = {
-      protocol.scene.SC10037(
+    def result(): protocol.scene.CS10309 = {
+      protocol.scene.CS10309(
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
       )
     }
   }
-  object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.scene.SC10037, protocol.scene.SC10037.Builder] {
+  object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.scene.CS10309, protocol.scene.CS10309.Builder] {
     def apply(): Builder = new Builder(
       `_unknownFields__` = null
     )
-    def apply(`_message__`: protocol.scene.SC10037): Builder = new Builder(
+    def apply(`_message__`: protocol.scene.CS10309): Builder = new Builder(
         `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
-  def newBuilder: Builder = protocol.scene.SC10037.Builder()
-  def newBuilder(`_message__`: protocol.scene.SC10037): Builder = protocol.scene.SC10037.Builder(_message__)
-  implicit class SC10037Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.scene.SC10037]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.scene.SC10037](_l) {
+  def newBuilder: Builder = protocol.scene.CS10309.Builder()
+  def newBuilder(`_message__`: protocol.scene.CS10309): Builder = protocol.scene.CS10309.Builder(_message__)
+  implicit class CS10309Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.scene.CS10309]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.scene.CS10309](_l) {
   }
   def of(
-  ): _root_.protocol.scene.SC10037 = _root_.protocol.scene.SC10037(
+  ): _root_.protocol.scene.CS10309 = _root_.protocol.scene.CS10309(
   )
-  // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.SC10037])
+  // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.CS10309])
 }
