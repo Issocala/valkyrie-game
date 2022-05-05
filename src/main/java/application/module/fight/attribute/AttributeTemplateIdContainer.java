@@ -250,9 +250,9 @@ public class AttributeTemplateIdContainer {
     /**
      * 处理父节点百分比属性转换为值属性
      */
-    public static void finalFatherResult(Map<Short, Long> attributes) {
+    public static void finalFatherResult(Map<Short, Long> attributes, Set<Short> changeSet) {
         PUBLIC_BASE.forEach((e, set) -> {
-            if (attributes.containsKey(e)) {
+            if (changeSet.contains(e)) {
                 set.stream().filter(attributes::containsKey).forEach(aShort -> {
                     long value = attributes.getOrDefault(aShort, 0L);
                     long ext = value * attributes.getOrDefault(e, 0L) / MathConstant.TEN_THOUSAND;

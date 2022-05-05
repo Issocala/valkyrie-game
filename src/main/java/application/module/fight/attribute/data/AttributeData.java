@@ -169,10 +169,10 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
 
     private void skillGetAllAttribute(SkillGetAllAttribute skillGetAllAttribute) {
         UseSkillDataTemp useSkillDataTemp = skillGetAllAttribute.useSkillDataTemp();
-        useSkillDataTemp.setAttackAttributeMap(Map.copyOf(getFightAttributeMap(useSkillDataTemp.getAttackId())));
+        useSkillDataTemp.setAttackAttributeMap(AttributeMapUtil.copy(getFightAttributeMap(useSkillDataTemp.getAttackId())));
 
         useSkillDataTemp.getTargetParameters().forEach(targetParameter -> {
-            targetParameter.setAttributeMap(Map.copyOf(getFightAttributeMap(targetParameter.getTargetId())));
+            targetParameter.setAttributeMap(AttributeMapUtil.copy(getFightAttributeMap(targetParameter.getTargetId())));
         });
         this.sender().tell(skillGetAllAttribute, self());
     }
@@ -222,7 +222,7 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
     public static void doAddAttribute(Map<Short, Long> allFightAttributeMap, Map<Short, Long> id2FightAttributeMap) {
         AttributeTemplateIdContainer.reducePublicExt(allFightAttributeMap, id2FightAttributeMap.keySet());
         AttributeMapUtil.add(allFightAttributeMap, id2FightAttributeMap);
-        AttributeTemplateIdContainer.finalFatherResult(allFightAttributeMap);
+        AttributeTemplateIdContainer.finalFatherResult(allFightAttributeMap, id2FightAttributeMap.keySet());
     }
 
     /**
@@ -234,7 +234,7 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
     public static void doSubAttribute(Map<Short, Long> allFightAttributeMap, Map<Short, Long> id2FightAttributeMap) {
         AttributeTemplateIdContainer.reducePublicExt(allFightAttributeMap, id2FightAttributeMap.keySet());
         AttributeMapUtil.sub(allFightAttributeMap, id2FightAttributeMap);
-        AttributeTemplateIdContainer.finalFatherResult(allFightAttributeMap);
+        AttributeTemplateIdContainer.finalFatherResult(allFightAttributeMap, id2FightAttributeMap.keySet());
     }
 
     private void returnClient(long fightOrganismId, Collection<ActorRef> clients, Map<Short, Long> attributeMap) {

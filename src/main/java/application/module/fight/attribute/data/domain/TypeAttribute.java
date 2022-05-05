@@ -39,7 +39,7 @@ public class TypeAttribute {
         Map<Short, Long> id2FightAttributeMap = attributeNode.update(updateAttribute.o());
         AttributeTemplateIdContainer.reducePublicExt(allTemplateAttributeMap, id2FightAttributeMap.keySet());
         AttributeMapUtil.add(allTemplateAttributeMap, id2FightAttributeMap);
-        AttributeTemplateIdContainer.finalFatherResult(allTemplateAttributeMap);
+        AttributeTemplateIdContainer.finalFatherResult(allTemplateAttributeMap, id2FightAttributeMap.keySet());
 
         addFightAttribute(id2FightAttributeMap);
         fightAttributeMap.put(VAR_HP, FightAttributeMgr.getValue(fightAttributeMap, MAX_HP));
@@ -49,7 +49,7 @@ public class TypeAttribute {
     public void addFightAttribute(Map<Short, Long> map) {
         AttributeTemplateIdContainer.reducePublicExt(fightAttributeMap, map.keySet());
         AttributeMapUtil.add(fightAttributeMap, map);
-        AttributeTemplateIdContainer.finalFatherResult(fightAttributeMap);
+        AttributeTemplateIdContainer.finalFatherResult(fightAttributeMap, map.keySet());
     }
 
     public Map<Short, AttributeNode> getTypeId2AttributeMap() {

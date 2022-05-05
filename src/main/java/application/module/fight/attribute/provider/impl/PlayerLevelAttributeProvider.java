@@ -21,9 +21,7 @@ public class PlayerLevelAttributeProvider implements AttributeProvider {
         PlayerInfo playerInfo = (PlayerInfo) o.t();
         Map<Short, Long> map = new HashMap<>();
         map.put(MAX_HP, 1000L);
-        map.put(MAX_MP, 1000L);
         map.put(VAR_HP, 1000L);
-        map.put(VAR_MP, 1000L);
         map.put(ROLE_ATTACK, 200L);
         map.put(ROLE_DEFENCE, 100L);
         map.put(ROLE_PIERCE, 100L);
@@ -32,6 +30,8 @@ public class PlayerLevelAttributeProvider implements AttributeProvider {
         map.put(ATTACK_SPEED, 10L);
         if (playerInfo.profession() == 2) {
             map.put(ICE_MAGIC_SHIELD, 1L);
+            map.put(MAX_MP, 1000L);
+            map.put(VAR_MP, 1000L);
         }
         return map;
     }
