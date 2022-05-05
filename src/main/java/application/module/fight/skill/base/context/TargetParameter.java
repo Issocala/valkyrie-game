@@ -24,11 +24,11 @@ public class TargetParameter {
     private List<FightBuffInfo> fightBuffInfoList = new ArrayList<>();
 
     public TargetParameter(long targetId) {
-        this(targetId, null, 1, OrganismType.PLAYER, 0);
+        this(targetId, new HashMap<>(), 1, OrganismType.PLAYER, 0);
     }
 
     public TargetParameter(long targetId, int targetLevel, byte organismType, int organismTemplateId) {
-        this(targetId, null, targetLevel, organismType, organismTemplateId);
+        this(targetId, new HashMap<>(), targetLevel, organismType, organismTemplateId);
     }
 
     public TargetParameter(long targetId, Map<Short, Long> attributeMap, int targetLevel,

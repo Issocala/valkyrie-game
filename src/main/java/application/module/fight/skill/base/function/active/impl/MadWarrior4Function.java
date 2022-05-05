@@ -43,7 +43,7 @@ public class MadWarrior4Function extends FightSkillActiveFunction {
                     useSkillDataTemp.getAttackId(), useSkillDataTemp.getAttackId()), ActorRef.noSender());
             useSkillDataTemp.getTargetParameters().forEach(targetParameter -> {
                 useSkillDataTemp.getBuffData().tell(new AddBuff(useSkillDataTemp.getR(), buffId, useSkillDataTemp.getAttackId(), targetParameter.getTargetId(),
-                        duration + douQi, useSkillDataTemp.getScene(), useSkillDataTemp.getAttributeData(), useSkillDataTemp.getStateData(), extFightMap), ActorRef.noSender());
+                        duration + douQi * 1000, useSkillDataTemp.getScene(), useSkillDataTemp.getAttributeData(), useSkillDataTemp.getStateData(), extFightMap), ActorRef.noSender());
             });
         }
     }

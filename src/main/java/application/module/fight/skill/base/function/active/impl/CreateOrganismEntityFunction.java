@@ -6,10 +6,13 @@ import application.module.fight.skill.base.context.UseSkillDataTemp;
 import application.module.fight.skill.base.function.active.FightSkillActiveFunction;
 import application.module.fight.skill.base.skill.FightSkillWrap;
 import application.module.organism.MonsterOrganism;
+import application.module.organism.NpcOrganism;
+import application.module.organism.OrganismType;
 import application.module.scene.data.domain.PositionInfo;
 import application.module.scene.operate.SceneOrganismEntry;
 import application.util.StringUtils;
 import template.FightSkillProcessTemplate;
+import template.OrganismDataTemplateHolder;
 
 /**
  * @author Luo Yong
@@ -28,9 +31,18 @@ public class CreateOrganismEntityFunction extends FightSkillActiveFunction {
         int organismTemplateId = attributeParameter[0];
         int number = attributeParameter[1];
         long duration = attributeParameter[2];
-        for (int i = 0; i < number; i++) {
-            useSkillDataTemp.getScene().tell(new SceneOrganismEntry(new MonsterOrganism(organismTemplateId),
-                    new PositionInfo(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY()), duration), ActorRef.noSender());
+        short type = OrganismDataTemplateHolder.getData(organismTemplateId).type();
+        if (type == OrganismType.MONSTER) {
+            for (int i = 0; i < number; i++) {
+                useSkillDataTemp.getScene().tell(new SceneOrganismEntry(new MonsterOrganism(organismTemplateId),
+                        new PositionInfo(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY()), duration), ActorRef.noSender());
+            }
+        }else if (type == OrganismType.NPC) {
+            for (int i = 0; i < number; i++) {
+                useSkillDataTemp.getScene().tell(new SceneOrganismEntry(new NpcOrganism(organismTemplateId),
+                        new PositionInfo(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY()), duration), ActorRef.noSender());
+            }
         }
+
     }
 }

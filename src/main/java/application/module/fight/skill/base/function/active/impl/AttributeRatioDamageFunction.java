@@ -2,6 +2,7 @@ package application.module.fight.skill.base.function.active.impl;
 
 import akka.actor.ActorRef;
 import application.module.fight.attribute.data.message.AddHp;
+import application.module.fight.attribute.fight.FightAttributeMgr;
 import application.module.fight.skill.FightSkillProtocolBuilder;
 import application.module.fight.skill.FightSkillProtocols;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
@@ -35,15 +36,22 @@ public class AttributeRatioDamageFunction extends FightSkillActiveFunction {
         useSkillDataTemp.getTargetParameters().forEach(targetParameter -> {
             Map<Short, Long> targetAttributeMap = targetParameter.getAttributeMap();
             Skill.DamageData.Builder builder = Skill.DamageData.newBuilder();
-            long finalDamage = (long) (targetAttributeMap.getOrDefault(attributeTemplateId, 0L) * ratio);
+            long finalDamage = (long) (FightAttributeMgr.getValue(targetAttributeMap, attributeTemplateId) * ratio);
 
             // TODO: 2022-4-29 这里后续放到被动伤害结算前,做成被动通用逻辑
-            if (targetAttributeMap.containsKey(ICE_MAGIC_SHIELD) && targetAttributeMap.get(VAR_MP) > 500) {
-                long reduceDamage = (long) (finalDamage * 0.35);
-                targetAttributeMap.put(VAR_MP, targetAttributeMap.get(VAR_MP) - reduceDamage);
-                targetParameter.getChangeAttributeMap().put(VAR_MP, -reduceDamage);
-                builder.setReduceMP(reduceDamage);
-                finalDamage -= reduceDamage;
+            if (targetAttributeMap.containsKey(ICE_MAGIC_SHIELD)) {
+                long curMp = targetAttributeMap.get(VAR_MP);
+                if (curMp > 500) {
+                    long reduceDamage = (long) (finalDamage * 0.35);
+                    long finalReduceDamage = curMp - 500 - reduceDamage;
+                    if (finalReduceDamage < 0) {
+                        reduceDamage += finalReduceDamage;
+                    }
+                    targetAttributeMap.put(VAR_MP, curMp - reduceDamage);
+                    targetParameter.getChangeAttributeMap().put(VAR_MP, -reduceDamage);
+                    builder.setReduceMP(reduceDamage);
+                    finalDamage -= reduceDamage;
+                }
             }
             Skill.DamageData damageData = builder.setDamage(-finalDamage).setDamageType(0).setTargetId(targetParameter.getTargetId()).build();
             damageDataList.add(damageData);
