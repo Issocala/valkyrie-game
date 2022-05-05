@@ -118,7 +118,7 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         SceneEntity sceneEntity = (SceneEntity) dbReturnMessage.abstractEntityBase();
         long playerId = playerLoginDbReturn.playerLogin().playerInfo().id();
         if (Objects.isNull(sceneEntity)) {
-            sceneEntity = new SceneEntity(playerId, 20030,
+            sceneEntity = new SceneEntity(playerId, 20003,
                     new PositionInfo(Scene.DEFAULT_X, Scene.DEFAULT_Y, Scene.DEFAULT_FACE));
             this.put(playerId, sceneEntity);
             this.getDbManager().tell(new DbInsert(self(), sceneEntity, playerLoginDbReturn, false), self());
