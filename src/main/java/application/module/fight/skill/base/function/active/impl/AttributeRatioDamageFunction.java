@@ -9,6 +9,7 @@ import application.module.fight.skill.base.context.UseSkillDataTemp;
 import application.module.fight.skill.base.function.active.FightSkillActiveFunction;
 import application.module.fight.skill.base.skill.FightSkillWrap;
 import application.module.scene.operate.AoiSendMessageToClient;
+import application.util.MathConstant;
 import application.util.StringUtils;
 import protocol.Skill;
 import template.FightSkillProcessTemplate;
@@ -17,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static application.module.fight.attribute.AttributeTemplateId.ICE_MAGIC_SHIELD;
-import static application.module.fight.attribute.AttributeTemplateId.VAR_MP;
+import static application.module.fight.attribute.AttributeTemplateId.*;
+import static application.module.fight.attribute.AttributeTemplateId.BOSS_ADD_DAMAGE;
 
 /**
  * @author Luo Yong
@@ -39,6 +40,9 @@ public class AttributeRatioDamageFunction extends FightSkillActiveFunction {
             long finalDamage = (long) (FightAttributeMgr.getValue(targetAttributeMap, attributeTemplateId) * ratio);
 
             // TODO: 2022-4-29 这里后续放到被动伤害结算前,做成被动通用逻辑
+            if (targetAttributeMap.containsKey(BOSS_ADD_DAMAGE)) {
+                finalDamage = targetAttributeMap.get(BOSS_ADD_DAMAGE) * finalDamage / MathConstant.TEN_THOUSAND;
+            }
             if (targetAttributeMap.containsKey(ICE_MAGIC_SHIELD)) {
                 long curMp = targetAttributeMap.get(VAR_MP);
                 if (curMp > 500) {

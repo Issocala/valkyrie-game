@@ -92,7 +92,7 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
     private void scenePlayerExitReturn(ScenePlayerExitReturn scenePlayerExitReturn) {
 
         //TODO 这里需要拿场景配置，看是否是常驻场景，保存上一个常驻场景的id
-        if (scenePlayerExitReturn.sceneTemplateId() == 20003L) {
+        if (scenePlayerExitReturn.sceneTemplateId() == 20030L) {
 
         }
         long playerId = scenePlayerExitReturn.playerId();
@@ -118,7 +118,7 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         SceneEntity sceneEntity = (SceneEntity) dbReturnMessage.abstractEntityBase();
         long playerId = playerLoginDbReturn.playerLogin().playerInfo().id();
         if (Objects.isNull(sceneEntity)) {
-            sceneEntity = new SceneEntity(playerId, 20003,
+            sceneEntity = new SceneEntity(playerId, 20030,
                     new PositionInfo(Scene.DEFAULT_X, Scene.DEFAULT_Y, Scene.DEFAULT_FACE));
             this.put(playerId, sceneEntity);
             this.getDbManager().tell(new DbInsert(self(), sceneEntity, playerLoginDbReturn, false), self());
@@ -173,7 +173,7 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
     }
 
     private void scenePlayerExit(ScenePlayerExit scenePlayerExit) {
-//        long sceneId = scenePlayerExit.cs10031().getSceneId();
+//        long sceneId = scenePlayerExit.cs10301().getSceneId();
 //        if (this.sceneId2SceneMap.containsKey(sceneId)) {
 //            this.sceneId2SceneMap.get(sceneId).tell(scenePlayerExit, self());
 //        }
@@ -181,7 +181,7 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
 
     private void scenePlayerEntry(ScenePlayerEntry scenePlayerEntry) {
         long playerId = scenePlayerEntry.r().uID();
-        long sceneId = scenePlayerEntry.cs10030().getSceneId();
+        long sceneId = scenePlayerEntry.cs10300().getSceneId();
         if (this.sceneId2SceneMap.containsKey(sceneId)) {
             if (playerId2SceneIdMap.containsKey(playerId)) {
                 long oldSceneId = playerId2SceneIdMap.get(playerId);

@@ -125,4 +125,9 @@ public interface AttributeTemplateId {
      * 冰法被动蓝量抵扣伤害
      */
     short ICE_MAGIC_SHIELD = 30026;
+
+    /**
+     * boss伤害翻倍(万分比)
+     */
+    short BOSS_ADD_DAMAGE = 30027;
 }

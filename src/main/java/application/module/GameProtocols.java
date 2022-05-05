@@ -15,7 +15,7 @@ public interface GameProtocols {
 
     int PLAYER = 10020;
 
-    int SCENE = 10030;
+    int SCENE = 10300;
 
     int ATTRIBUTE = 10040;
 

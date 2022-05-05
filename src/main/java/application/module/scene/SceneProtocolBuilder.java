@@ -11,36 +11,36 @@ import protocol.Scene;
  */
 public class SceneProtocolBuilder {
 
-    public static Scene.SC10030 getSc10030(long sceneId, PositionInfo positionInfo) {
-        return Scene.SC10030.newBuilder()
+    public static Scene.SC10300 getSc10300(long sceneId, PositionInfo positionInfo) {
+        return Scene.SC10300.newBuilder()
                 .setSceneId(sceneId)
                 .setPositionX(positionInfo.getPositionX())
                 .setPositionY(positionInfo.getPositionY())
                 .build();
     }
 
-    public static Scene.SC10031 getSc10031(long playerId) {
-        return Scene.SC10031.newBuilder()
+    public static Scene.SC10301 getSc10301(long playerId) {
+        return Scene.SC10301.newBuilder()
                 .setPlayerId(playerId)
                 .build();
     }
 
-    public static Scene.SC10032 getSc10032(long playerId, Scene.CS10032 cs10032) {
-        return Scene.SC10032.newBuilder()
+    public static Scene.SC10302 getSc10302(long playerId, Scene.CS10302 cs10302) {
+        return Scene.SC10302.newBuilder()
                 .setOrganismId(playerId)
-                .setMoveInfo(cs10032.getMoveInfo())
+                .setMoveInfo(cs10302.getMoveInfo())
                 .build();
     }
 
-    public static Scene.SC10033 getSc10033(long playerId, Scene.CS10033 cs10033) {
-        return Scene.SC10033.newBuilder()
+    public static Scene.SC10303 getSc10303(long playerId, Scene.CS10303 cs10303) {
+        return Scene.SC10303.newBuilder()
                 .setOrganismId(playerId)
-                .setStopInfo(cs10033.getStopInfo())
+                .setStopInfo(cs10303.getStopInfo())
                 .build();
     }
 
-    public static Scene.SC10034 getSc10034(long organismId, byte organismType, PositionInfo positionInfo, int organismIdTemplate) {
-        return Scene.SC10034.newBuilder()
+    public static Scene.SC10304 getSc10304(long organismId, byte organismType, PositionInfo positionInfo, int organismIdTemplate) {
+        return Scene.SC10304.newBuilder()
                 .setOrganismId(organismId)
                 .setOrganismType(organismType)
                 .setPositionX(positionInfo.getPositionX())
@@ -50,36 +50,36 @@ public class SceneProtocolBuilder {
                 .build();
     }
 
-    public static Scene.SC10035 getSc10035(long organismId, Scene.CS10035 cs10035) {
-        return Scene.SC10035.newBuilder()
+    public static Scene.SC10305 getSc10305(long organismId, Scene.CS10305 cs10305) {
+        return Scene.SC10305.newBuilder()
                 .setOrganismId(organismId)
-                .setJumpInfo(cs10035.getJumpInfo())
+                .setJumpInfo(cs10305.getJumpInfo())
                 .build();
     }
 
-    public static Scene.SC10036 getSc10036(long organismId, Scene.CS10036 cs10036) {
-        return Scene.SC10036.newBuilder()
+    public static Scene.SC10306 getSc10306(long organismId, Scene.CS10306 cs10306) {
+        return Scene.SC10306.newBuilder()
                 .setOrganismId(organismId)
-                .setPositionX(cs10036.getPositionX())
-                .setPositionY(cs10036.getPositionY())
+                .setPositionX(cs10306.getPositionX())
+                .setPositionY(cs10306.getPositionY())
                 .build();
     }
 
-    public static Scene.SC10036 getSc10036(long organismId, Vector vector) {
-        return Scene.SC10036.newBuilder()
+    public static Scene.SC10306 getSc10306(long organismId, Vector vector) {
+        return Scene.SC10306.newBuilder()
                 .setOrganismId(organismId)
                 .setPositionX(vector.x())
                 .setPositionY(vector.y())
                 .build();
     }
 
-    public static Scene.SC10037 getSc10037() {
-        return Scene.SC10037.newBuilder()
+    public static Scene.SC10307 getSc10307() {
+        return Scene.SC10307.newBuilder()
                 .build();
     }
 
-    public static Scene.SC10038 getSc10038(long organismId, int skillTemplateId) {
-        return Scene.SC10038.newBuilder()
+    public static Scene.SC10308 getSc10308(long organismId, int skillTemplateId) {
+        return Scene.SC10308.newBuilder()
                 .setOrganismId(organismId)
                 .setSkillTemplateId(skillTemplateId)
                 .build();

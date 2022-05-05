@@ -9,5 +9,5 @@ import protocol.Scene;
  * @date 2022-3-18
  * @Source 1.0
  */
-public record SceneStop(Client.ReceivedFromClient r, Scene.CS10033 cs10033) implements DataBase {
+public record SceneStop(Client.ReceivedFromClient r, Scene.CS10303 cs10303) implements DataBase {
 }

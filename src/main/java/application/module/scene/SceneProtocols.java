@@ -30,4 +30,8 @@ public interface SceneProtocols {
 
     int RECEIVE = GameProtocols.SCENE + 9;
 
+    int PICK_UP_ITEM = GameProtocols.SCENE + 10;
+
+    int FUCK_NPC = GameProtocols.SCENE + 11;
+
 }

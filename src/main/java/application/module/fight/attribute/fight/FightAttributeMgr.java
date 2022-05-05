@@ -32,7 +32,7 @@ public class FightAttributeMgr {
     private final static double PARAMETER_B = 1;
     private final static double PARAMETER_C = 3;
 
-    private final static double TEN_THOUSAND_RATIO = MathConstant.TEN_THOUSAND;
+    public final static double TEN_THOUSAND_RATIO = MathConstant.TEN_THOUSAND;
 
     public FightAttributeMgr() {
     }
@@ -192,6 +192,9 @@ public class FightAttributeMgr {
                     / TEN_THOUSAND_RATIO + skillFixedDamage + trueDamage - targetReduceTrueDamage);
             long finalDamage = (long) (skillDamage * (1 + specialDamage) * (1 + extDamage));
             // TODO: 2022-4-29 这里后续放到被动伤害结算前,做成被动通用逻辑
+            if (targetAttributeMap.containsKey(BOSS_ADD_DAMAGE)) {
+                finalDamage = targetAttributeMap.get(BOSS_ADD_DAMAGE) * finalDamage / MathConstant.TEN_THOUSAND;
+            }
             if (targetAttributeMap.containsKey(ICE_MAGIC_SHIELD)) {
                 long curMp = targetAttributeMap.get(VAR_MP);
                 if (curMp > 500) {

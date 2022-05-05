@@ -9,5 +9,5 @@ import protocol.Scene;
  * @date 2022-3-18
  * @Source 1.0
  */
-public record ScenePlayerExit(Client.ReceivedFromClient r, Scene.CS10031 cs10031) implements DataBase {
+public record ScenePlayerExit(Client.ReceivedFromClient r, Scene.CS10301 cs10301) implements DataBase {
 }

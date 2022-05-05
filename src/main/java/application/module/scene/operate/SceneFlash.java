@@ -9,5 +9,5 @@ import protocol.Scene;
  * @date 2022-3-18
  * @Source 1.0
  */
-public record SceneFlash(Client.ReceivedFromClient r, Scene.CS10036 cs10036) implements DataBase {
+public record SceneFlash(Client.ReceivedFromClient r, Scene.CS10306 cs10306) implements DataBase {
 }
