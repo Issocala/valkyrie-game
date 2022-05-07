@@ -27,6 +27,7 @@ import application.module.fight.skill.operate.SkillIsLearnType;
 import application.module.fight.skill.operate.info.SkillUseInfo;
 import application.module.fight.skill.util.PassiveTriggerType;
 import application.module.fight.skill.util.SkillType;
+import application.module.organism.Organism;
 import application.module.organism.OrganismType;
 import application.module.player.data.PlayerEntityData;
 import application.module.player.data.message.event.PlayerLogin;
@@ -283,6 +284,9 @@ public class FightSkillModule extends AbstractModule {
 
     private void doPassive(UseSkillDataTemp useSkillDataTemp, FightRuntimeContext fightRuntimeContext, short passiveTriggerType) {
         OrganismDataTemplate organismDataTemplate;
+        if (useSkillDataTemp.getTargetParameters().size() <= 0) {
+            return;
+        }
         if (useSkillDataTemp.getAttackType() == OrganismType.PLAYER) {
             organismDataTemplate = OrganismDataTemplateHolder.getData(useSkillDataTemp.getProfession());
         } else {
@@ -291,9 +295,21 @@ public class FightSkillModule extends AbstractModule {
         if (Objects.isNull(organismDataTemplate)) {
             return;
         }
-        if (useSkillDataTemp.getTargetParameters().size() <= 0) {
-            return;
+        doPassive1(useSkillDataTemp, organismDataTemplate, fightRuntimeContext, passiveTriggerType);
+
+        short bePassiveTriggerType = passiveTriggerType == PassiveTriggerType.USE_SKILL ? PassiveTriggerType.BE_USE_SKILL :
+                passiveTriggerType == PassiveTriggerType.DAMAGE_BEFORE ? PassiveTriggerType.BE_DAMAGE_BEFORE :
+                        passiveTriggerType == PassiveTriggerType.DAMAGE_AFTER ? PassiveTriggerType.BE_DAMAGE_AFTER : passiveTriggerType;
+
+        for (TargetParameter targetParameter : useSkillDataTemp.getTargetParameters()) {
+            OrganismDataTemplate organismDataTemplate1 = OrganismDataTemplateHolder.getData(targetParameter.getOrganismTemplateId());
+            if (Objects.nonNull(organismDataTemplate1)) {
+                doPassive1(useSkillDataTemp, organismDataTemplate1, fightRuntimeContext, bePassiveTriggerType);
+            }
         }
+    }
+
+    private void doPassive1(UseSkillDataTemp useSkillDataTemp, OrganismDataTemplate organismDataTemplate, FightRuntimeContext fightRuntimeContext, short passiveTriggerType) {
         for (int skillId : organismDataTemplate.skills()) {
             FightPassiveSkillWrap fightPassiveSkillWrap = FightSkillWrapContainer.getFightPassiveSkillWrap(skillId);
             if (Objects.isNull(fightPassiveSkillWrap)) {
@@ -333,59 +349,6 @@ public class FightSkillModule extends AbstractModule {
                     });
                 }
                 fightRuntimeContext.startCD(template);
-            }
-
-        }
-
-        short bePassiveTriggerType = passiveTriggerType == PassiveTriggerType.USE_SKILL ? PassiveTriggerType.BE_USE_SKILL :
-                passiveTriggerType == PassiveTriggerType.DAMAGE_BEFORE ? PassiveTriggerType.BE_DAMAGE_BEFORE :
-                        passiveTriggerType == PassiveTriggerType.DAMAGE_AFTER ? PassiveTriggerType.BE_DAMAGE_AFTER : passiveTriggerType;
-
-        for (TargetParameter targetParameter : useSkillDataTemp.getTargetParameters()) {
-            OrganismDataTemplate organismDataTemplate1 = OrganismDataTemplateHolder.getData(targetParameter.getOrganismTemplateId());
-            if (Objects.isNull(organismDataTemplate1)) {
-                return;
-            }
-            for (int skillId : organismDataTemplate1.skills()) {
-                FightPassiveSkillWrap fightPassiveSkillWrap = FightSkillWrapContainer.getFightPassiveSkillWrap(skillId);
-                if (Objects.isNull(fightPassiveSkillWrap)) {
-                    continue;
-                }
-                FightPassiveSkillTemplate template = fightPassiveSkillWrap.getFightPassiveSkillTemplate();
-                if (bePassiveTriggerType == template.skillTriggerType()) {
-                    if (fightRuntimeContext.inCDTime(template)) {
-                        continue;
-                    }
-                    if (RandomUtil.randomInt10000() >= template.weight()) {
-                        continue;
-                    }
-                    if (!StringUtils.isEmpty(template.condition())) {
-                        String[] ss = StringUtils.toStringArray(template.condition());
-                        short id = Short.parseShort(ss[0]);
-                        Condition condition = ConditionContainer.parseCondition(id, ss);
-                        ConditionContext conditionContext = new ConditionContext();
-                        conditionContext.put(UseSkillDataTemp.class.getSimpleName(), useSkillDataTemp);
-                        if (!condition.doValid(conditionContext)) {
-                            continue;
-                        }
-                    }
-                    if (template.skillTriggerTraget() == 1) {
-                        fightPassiveSkillWrap.getList().forEach(processTemplate -> {
-                            FightPassiveSkillFunction function = FightSkillFunctionContainer.getPassiveFunction(processTemplate.function());
-                            if (Objects.nonNull(function)) {
-                                function.castSkill(fightPassiveSkillWrap, processTemplate, new PassiveSkillDataTemp(useSkillDataTemp.getAttackId(), useSkillDataTemp));
-                            }
-                        });
-                    } else if (template.skillTriggerTraget() == 2) {
-                        fightPassiveSkillWrap.getList().forEach(processTemplate -> {
-                            FightPassiveSkillFunction function = FightSkillFunctionContainer.getPassiveFunction(processTemplate.function());
-                            if (Objects.nonNull(function)) {
-                                function.castSkill(fightPassiveSkillWrap, processTemplate, new PassiveSkillDataTemp(useSkillDataTemp));
-                            }
-                        });
-                    }
-                    fightRuntimeContext.startCD(template);
-                }
             }
         }
     }

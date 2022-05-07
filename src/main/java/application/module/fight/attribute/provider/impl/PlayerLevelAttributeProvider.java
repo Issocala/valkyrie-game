@@ -2,7 +2,10 @@ package application.module.fight.attribute.provider.impl;
 
 import application.module.fight.attribute.provider.AttributeProvider;
 import application.module.player.data.domain.PlayerInfo;
+import application.util.AttributeMapUtil;
+import application.util.StringUtils;
 import application.util.UpdateAttributeObject;
+import template.OrganismDataTemplateHolder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,19 +23,11 @@ public class PlayerLevelAttributeProvider implements AttributeProvider {
     public Map<Short, Long> provider(UpdateAttributeObject<?> o) {
         PlayerInfo playerInfo = (PlayerInfo) o.t();
         Map<Short, Long> map = new HashMap<>();
-        map.put(MAX_HP, 1000L);
-        map.put(VAR_HP, 1000L);
-        map.put(ROLE_ATTACK, 200L);
-        map.put(ROLE_DEFENCE, 100L);
-        map.put(ROLE_PIERCE, 100L);
-        map.put(MOVE_SPEED, 2L);
-        map.put(JUMP_SPEED, 5L);
-        map.put(ATTACK_SPEED, 10L);
         if (playerInfo.profession() == 2) {
             map.put(ICE_MAGIC_SHIELD, 1L);
-            map.put(MAX_MP, 1000L);
-            map.put(VAR_MP, 1000L);
         }
+        Map<Short, Long> addMap = StringUtils.toAttributeMap(OrganismDataTemplateHolder.getData(playerInfo.profession()).attributeMap());
+        AttributeMapUtil.add(map, addMap);
         return map;
     }
 }

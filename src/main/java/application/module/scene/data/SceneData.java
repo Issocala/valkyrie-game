@@ -65,7 +65,25 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
             case SceneFlash sceneFlash -> sceneFlash(sceneFlash);
             case PlayerDead playerDead -> playerDead(playerDead);
             case PlayerReceive playerReceive -> playerReceive(playerReceive);
+            case PickUpItem pickUpItem -> pickUpItem(pickUpItem);
+            case FuckNpc fuckNpc -> fuckNpc(fuckNpc);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase.getClass().getName());
+        }
+    }
+
+    private void fuckNpc(FuckNpc fuckNpc) {
+        long playerId = fuckNpc.r().uID();
+        if (this.playerId2SceneIdMap.containsKey(playerId)) {
+            long sceneId = this.playerId2SceneIdMap.get(playerId);
+            this.sceneId2SceneMap.get(sceneId).tell(fuckNpc, self());
+        }
+    }
+
+    private void pickUpItem(PickUpItem pickUpItem) {
+        long playerId = pickUpItem.r().uID();
+        if (this.playerId2SceneIdMap.containsKey(playerId)) {
+            long sceneId = this.playerId2SceneIdMap.get(playerId);
+            this.sceneId2SceneMap.get(sceneId).tell(pickUpItem, self());
         }
     }
 

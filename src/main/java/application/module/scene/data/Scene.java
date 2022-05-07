@@ -8,6 +8,7 @@ import application.guid.IdUtils;
 import application.module.common.CommonProtocolBuilder;
 import application.module.common.CommonProtocols;
 import application.module.fight.attribute.data.message.PlayerDead;
+import application.module.fight.buff.data.message.AddBuff;
 import application.module.fight.skill.FightSkillProtocolBuilder;
 import application.module.fight.skill.base.context.TargetParameter;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
@@ -88,7 +89,7 @@ public class Scene extends UntypedAbstractActor {
 
     private final Map<Long, MonsterOrganism> monsterOrganismMap = new HashMap<>();
 
-    private final List<ScenePortalRefreshMonsterTrigger> scenePortalRefreshMonsterTriggerList = new ArrayList<>();
+    private final List<ActorRef> scenePortalRefreshMonsterTriggerList = new ArrayList<>();
 
     public Scene(int sceneTemplateId) {
         this.sceneId = IdUtils.fastSimpleUUIDLong();
@@ -129,7 +130,24 @@ public class Scene extends UntypedAbstractActor {
             case PlayerDead playerDead -> playerDead(playerDead);
             case PlayerReceive playerReceive -> playerReceive(playerReceive);
             case HelpUseSkill helpUseSkill -> npcUseSkill(helpUseSkill);
+            case PickUpItem pickUpItem -> pickUpItem(pickUpItem);
+            case FuckNpc fuckNpc -> fuckNpc(fuckNpc);
             default -> throw new IllegalStateException("Unexpected value: " + message.getClass().getName());
+        }
+    }
+
+    private void fuckNpc(FuckNpc fuckNpc) {
+
+    }
+
+    private void pickUpItem(PickUpItem pickUpItem) {
+        var cs10030 = pickUpItem.cs10310();
+        pickUpItem.buffData().tell(new AddBuff(pickUpItem.r(), 10013, cs10030.getOrganismId(),
+                cs10030.getOrganismId(), self(), pickUpItem.attributeData(), null), self());
+        long organismItemId = cs10030.getOrganismItemId();
+        if (Objects.nonNull(removePositionInfo(organismItemId))) {
+            npcOrganismMap.remove(organismItemId);
+            sendToAllClient(SceneProtocols.SCENE_EXIT, SceneProtocolBuilder.getSc10301(organismItemId));
         }
     }
 
@@ -217,6 +235,7 @@ public class Scene extends UntypedAbstractActor {
         if (this.sceneTemplateId == 20004) {
             ActorRef actorRef = getContext().actorOf(ScenePortalRefreshMonsterTrigger.create(1));
             actorRef.tell(sceneInit, self());
+            scenePortalRefreshMonsterTriggerList.add(actorRef);
         }
     }
 

@@ -25,6 +25,6 @@ public class CommonModuleHolder extends AbstractModuleHolder {
 
     @Override
     public List<Integer> getProtocols() {
-        return List.of(CommonProtocols.SERVER_TIME);
+        return List.of(CommonProtocols.SERVER_TIME, CommonProtocols.TICK);
     }
 }

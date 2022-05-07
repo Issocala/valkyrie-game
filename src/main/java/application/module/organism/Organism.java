@@ -14,17 +14,23 @@ public abstract class Organism extends LongId {
 
     private final byte organismType;
 
-    public Organism(byte organismType) {
-        super(IdUtils.fastSimpleUUIDLong());
-        this.organismType = organismType;
+    private final int organismTemplateId;
+
+    public Organism(int organismTemplateId, byte organismType) {
+        this(IdUtils.fastSimpleUUIDLong(), organismTemplateId, organismType);
     }
 
-    public Organism(long id, byte organismType) {
+    public Organism(long id, int organismTemplateId, byte organismType) {
         super(id);
         this.organismType = organismType;
+        this.organismTemplateId = organismTemplateId;
     }
 
     public byte getOrganismType() {
         return organismType;
+    }
+
+    public int getOrganismTemplateId() {
+        return organismTemplateId;
     }
 }

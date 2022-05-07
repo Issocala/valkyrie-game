@@ -5,7 +5,7 @@ package application.module.organism;
  * @date 2022-4-22
  * @Source 1.0
  */
-public class NpcOrganism extends FightOrganism{
+public class NpcOrganism extends Organism{
 
     public NpcOrganism(int organismTemplateId) {
         super(organismTemplateId, OrganismType.NPC);

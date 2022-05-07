@@ -13,4 +13,6 @@ public interface CommonProtocols {
 
     int SERVER_TIME = GameProtocols.COMMON + 1;
 
+    int TICK = GameProtocols.COMMON + 2;
+
 }

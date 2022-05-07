@@ -6,6 +6,7 @@ import com.cala.orm.util.ClassScanningUtil;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -35,6 +36,9 @@ public class ConditionContainer {
 
     public static Condition parseCondition(short id, String[] ss) {
         Class<?> c = getConditionClass(id);
+        if (Objects.isNull(c)) {
+            throw new RuntimeException("解析生成condition失败,id有问题！！");
+        }
         try {
             Condition condition = (Condition) c.getDeclaredConstructor().newInstance();
             condition.parse(ss);

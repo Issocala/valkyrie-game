@@ -11,19 +11,14 @@ import application.guid.IdUtils;
  * @Source 1.0
  */
 public abstract class FightOrganism extends Organism {
-    private final int organismTemplateId;
+
 
     public FightOrganism(int organismTemplateId, byte organismType) {
-        super(IdUtils.fastSimpleUUIDLong(), organismType);
-        this.organismTemplateId = organismTemplateId;
+        this(IdUtils.fastSimpleUUIDLong(), organismTemplateId, organismType);
     }
 
     public FightOrganism(long id, int organismTemplateId, byte organismType) {
-        super(id, organismType);
-        this.organismTemplateId = organismTemplateId;
+        super(id, organismTemplateId, organismType);
     }
 
-    public int getOrganismTemplateId() {
-        return organismTemplateId;
-    }
 }
