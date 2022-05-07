@@ -113,7 +113,7 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
         this.attributeData = sceneInit.attributeData();
         int templateId1 = 10001;
         NpcOrganism npcOrganism1 = new NpcOrganism(templateId1);
-        scene.tell(new SceneOrganismEntry(npcOrganism1, new PositionInfo(-20, 15), 0), self());
+        scene.tell(new SceneOrganismEntry(npcOrganism1, new PositionInfo(-20,10), 0), self());
         npcOrganismMap.put(npcOrganism1.getId(), npcOrganism1);
         Cancellable cancellable1 = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(tick), self(),
                 new HelpUseSkill(templateId1, npcOrganism1.getId(), npcOrganism1.getOrganismType(), randomNpcSkillId(templateId1)), getContext().dispatcher(), self());
@@ -121,7 +121,7 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
 
         int templateId2 = 10002;
         NpcOrganism npcOrganism2 = new NpcOrganism(templateId2);
-        scene.tell(new SceneOrganismEntry(npcOrganism2, new PositionInfo(20, 15), 0), self());
+        scene.tell(new SceneOrganismEntry(npcOrganism2, new PositionInfo(20,10), 0), self());
         npcOrganismMap.put(npcOrganism2.getId(), npcOrganism2);
         Cancellable cancellable2 = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(tick), self(),
                 new HelpUseSkill(templateId2, npcOrganism2.getId(), npcOrganism2.getOrganismType(), randomNpcSkillId(templateId2)), getContext().dispatcher(), self());
@@ -129,7 +129,7 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
 
         int templateId3 = 10003;
         NpcOrganism npcOrganism3 = new NpcOrganism(templateId3);
-        scene.tell(new SceneOrganismEntry(npcOrganism3, new PositionInfo(-19, -1.5f), 0), self());
+        scene.tell(new SceneOrganismEntry(npcOrganism3, new PositionInfo(-19,-0.2f), 0), self());
         npcOrganismMap.put(npcOrganism3.getId(), npcOrganism3);
         Cancellable cancellable3 = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(tick), self(),
                 new HelpUseSkill(templateId3, npcOrganism3.getId(), npcOrganism3.getOrganismType(), randomNpcSkillId(templateId3)), getContext().dispatcher(), self());
@@ -137,7 +137,7 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
 
         int templateId4 = 10004;
         NpcOrganism npcOrganism4 = new NpcOrganism(templateId4);
-        scene.tell(new SceneOrganismEntry(npcOrganism4, new PositionInfo(19, -1.5f), 0), self());
+        scene.tell(new SceneOrganismEntry(npcOrganism4, new PositionInfo(19,-0.2f), 0), self());
         npcOrganismMap.put(npcOrganism4.getId(), npcOrganism4);
         Cancellable cancellable4 = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(tick), self(),
                 new HelpUseSkill(templateId4, npcOrganism4.getId(), npcOrganism4.getOrganismType(), randomNpcSkillId(templateId4)), getContext().dispatcher(), self());
@@ -145,7 +145,7 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
 
         int templateId5 = 10009;
         this.boss = new MonsterOrganism(10009);
-        scene.tell(new SceneOrganismEntry(this.boss, new PositionInfo(0, 7), 0), self());
+        scene.tell(new SceneOrganismEntry(this.boss, new PositionInfo(0,4.5f), 0), self());
         getContext().system().scheduler().scheduleOnce(Duration.ofMillis(itemTick), self(),
                 new HelpUseSkill(templateId5, this.boss.getId(), this.boss.getOrganismType(), 10081), getContext().dispatcher(), self());
     }
