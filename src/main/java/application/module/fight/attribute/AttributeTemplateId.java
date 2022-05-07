@@ -130,4 +130,9 @@ public interface AttributeTemplateId {
      * boss伤害翻倍(万分比)
      */
     short BOSS_ADD_DAMAGE = 30027;
+
+    /**
+     * 捡到一块石头
+     */
+    short PICK_UP_STONE = 30028;
 }

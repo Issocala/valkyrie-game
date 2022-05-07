@@ -88,4 +88,12 @@ public class TargetParameter {
     public void setFightBuffInfoList(List<FightBuffInfo> fightBuffInfoList) {
         this.fightBuffInfoList = fightBuffInfoList;
     }
+
+    public int getOrganismTemplateId() {
+        return organismTemplateId;
+    }
+
+    public void setOrganismTemplateId(int organismTemplateId) {
+        this.organismTemplateId = organismTemplateId;
+    }
 }

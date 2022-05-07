@@ -115,7 +115,7 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
             return;
         }
         long currHp = fightAttributeMap.getOrDefault(VAR_HP, 0L) + hp;
-        if (currHp < 0) {
+        if (currHp <= 0) {
             currHp = 0;
             addHp.stateData().tell(new OrganismChangeState(addHp.organismId(),
                     addHp.organismType(), StateType.ActionType.DEAD_STATE, addHp.scene()), self());
@@ -126,7 +126,7 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
             }
         }
         currHp = Math.min(FightAttributeMgr.getValue(fightAttributeMap, MAX_HP), currHp);
-        log.debug("--------hp {}", currHp);
+        log.debug("-----organismId = {}---organismType = {}---hp = {}", addHp.organismId(), addHp.organismType(), currHp);
         fightAttributeMap.put(VAR_HP, currHp);
         addHp.scene().tell(new AoiSendMessageToClient(AttributeProtocols.FIGHT_ATTRIBUTE_GET,
                 AttributeProtocolBuilder.get10040(addHp.organismId(), Map.copyOf(fightAttributeMap)), addHp.organismId()), self());

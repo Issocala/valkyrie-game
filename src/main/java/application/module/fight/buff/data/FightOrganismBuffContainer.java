@@ -68,6 +68,9 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
             if (Objects.isNull(fightBuffTemplate)) {
                 return;
             }
+            if (fightBuffTemplate.buffCoverType() == BuffRepeatRuleType.NO_REPLACE_BUFF) {
+                return;
+            }
             if (fightBuffTemplate.buffCoverType() == BuffRepeatRuleType.REPEAT_EFFECT_AND_REPLACE_TIME) {
 
                 if (fightBuffTemplate.buffCoverCount() > 1 && fightOrganismBuff.getCurrCoverCount() < fightBuffTemplate.buffCoverCount()) {

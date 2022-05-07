@@ -15,6 +15,7 @@ import java.util.Map;
 public class PassiveSkillDataTemp {
 
     private long attackId;
+    private byte organismType;
     private List<TargetParameter> targetParameters;
     Client.ReceivedFromClient r;
     private final Map<Short, Long> attributeMap = new HashMap<>();
@@ -31,16 +32,19 @@ public class PassiveSkillDataTemp {
         this.attributeData = useSkillDataTemp.getAttributeData();
         this.stateData = useSkillDataTemp.getStateData();
         this.buffData = useSkillDataTemp.getBuffData();
+        this.organismType = useSkillDataTemp.getAttackType();
     }
 
     public PassiveSkillDataTemp(long attackId, UseSkillDataTemp useSkillDataTemp) {
         this.attackId = attackId;
-        this.targetParameters = List.of(new TargetParameter(attackId));
+        this.targetParameters = List.of(new TargetParameter(attackId, useSkillDataTemp.getAttackAttributeMap(), useSkillDataTemp.getAttackLevel(),
+                useSkillDataTemp.getAttackType(), useSkillDataTemp.getAttackTemplateId()));
         this.r = useSkillDataTemp.getR();
         this.scene = useSkillDataTemp.getScene();
         this.attributeData = useSkillDataTemp.getAttributeData();
         this.stateData = useSkillDataTemp.getStateData();
         this.buffData = useSkillDataTemp.getBuffData();
+        this.organismType = useSkillDataTemp.getAttackType();
     }
 
 
@@ -102,5 +106,13 @@ public class PassiveSkillDataTemp {
 
     public void setStateData(ActorRef stateData) {
         this.stateData = stateData;
+    }
+
+    public byte getOrganismType() {
+        return organismType;
+    }
+
+    public void setOrganismType(byte organismType) {
+        this.organismType = organismType;
     }
 }

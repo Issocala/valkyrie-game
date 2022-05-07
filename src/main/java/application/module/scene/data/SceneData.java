@@ -92,7 +92,7 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
     private void scenePlayerExitReturn(ScenePlayerExitReturn scenePlayerExitReturn) {
 
         //TODO 这里需要拿场景配置，看是否是常驻场景，保存上一个常驻场景的id
-        if (scenePlayerExitReturn.sceneTemplateId() == 20030L) {
+        if (scenePlayerExitReturn.sceneTemplateId() == 20003L) {
 
         }
         long playerId = scenePlayerExitReturn.playerId();

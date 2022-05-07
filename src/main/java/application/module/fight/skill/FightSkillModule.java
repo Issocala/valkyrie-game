@@ -1,6 +1,9 @@
 package application.module.fight.skill;
 
 import akka.actor.ActorRef;
+import application.condition.Condition;
+import application.condition.ConditionContainer;
+import application.condition.ConditionContext;
 import application.module.common.data.domain.DataMessage;
 import application.module.fight.attribute.AttributeTemplateId;
 import application.module.fight.attribute.data.AttributeData;
@@ -10,6 +13,7 @@ import application.module.fight.attribute.fight.FightAttributeMgr;
 import application.module.fight.buff.data.FightBuffData;
 import application.module.fight.skill.base.context.FightRuntimeContext;
 import application.module.fight.skill.base.context.PassiveSkillDataTemp;
+import application.module.fight.skill.base.context.TargetParameter;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
 import application.module.fight.skill.base.function.FightSkillFunctionContainer;
 import application.module.fight.skill.base.function.active.FightSkillActiveFunction;
@@ -23,6 +27,7 @@ import application.module.fight.skill.operate.SkillIsLearnType;
 import application.module.fight.skill.operate.info.SkillUseInfo;
 import application.module.fight.skill.util.PassiveTriggerType;
 import application.module.fight.skill.util.SkillType;
+import application.module.organism.OrganismType;
 import application.module.player.data.PlayerEntityData;
 import application.module.player.data.message.event.PlayerLogin;
 import application.module.scene.data.SceneData;
@@ -30,6 +35,7 @@ import application.module.state.data.StateData;
 import application.util.CommonOperateTypeInfo;
 import application.util.DataMessageAndReply;
 import application.util.RandomUtil;
+import application.util.StringUtils;
 import com.cala.orm.message.DataReturnMessage;
 import com.cala.orm.message.OperateType;
 import com.cala.orm.message.SubscribeEvent;
@@ -157,7 +163,7 @@ public class FightSkillModule extends AbstractModule {
             }
         });
 
-        useSkillAfter();
+        useSkillAfter(useSkillDataTemp, fightRuntimeContext);
         if (useSkillDataTemp.getChangeAttributeMap().size() > 0) {
             attributeData.tell(new UpdateFightAttribute(useSkillDataTemp.getChangeAttributeMap(),
                     useSkillDataTemp.getAttackId(), useSkillDataTemp.getScene(), useSkillDataTemp.getStateData()), self());
@@ -175,52 +181,11 @@ public class FightSkillModule extends AbstractModule {
     }
 
     private void useSkillPre(UseSkillDataTemp useSkillDataTemp, FightRuntimeContext fightRuntimeContext) {
-        OrganismDataTemplate organismDataTemplate = OrganismDataTemplateHolder.getData(useSkillDataTemp.getProfession());
-        if (Objects.isNull(organismDataTemplate)) {
-            return;
-        }
-        for (int skillId : organismDataTemplate.skills()) {
-            FightPassiveSkillWrap fightPassiveSkillWrap = FightSkillWrapContainer.getFightPassiveSkillWrap(skillId);
-            if (Objects.isNull(fightPassiveSkillWrap)) {
-                continue;
-            }
-            FightPassiveSkillTemplate template = fightPassiveSkillWrap.getFightPassiveSkillTemplate();
-            if (fightRuntimeContext.inCDTime(template)) {
-                continue;
-            }
-            if (RandomUtil.randomInt10000() >= template.weight()) {
-//                continue;
-            }
-            if (template.skillTriggerType() == PassiveTriggerType.USE_SKILL) {
-                fightPassiveSkillWrap.getList().forEach(processTemplate -> {
-                    FightPassiveSkillFunction function = FightSkillFunctionContainer.getPassiveFunction(processTemplate.function());
-                    if (Objects.nonNull(function) && useSkillDataTemp.getTargetParameters().size() > 0) {
-
-                        // TODO: 2022-5-3 普攻触发被动，暂时放这里会导致其他被动无法触发，正式版优化
-                        if (FightSkillTemplateHolder.getData(useSkillDataTemp.getSkillId()).activeSkillType() == 1) {
-                            function.castSkill(fightPassiveSkillWrap, processTemplate, new PassiveSkillDataTemp(useSkillDataTemp.getAttackId(), useSkillDataTemp));
-                        }
-                    }
-                });
-            } else if (template.skillTriggerType() == PassiveTriggerType.USE_SKILL_TARGET) {
-                fightPassiveSkillWrap.getList().forEach(processTemplate -> {
-                    FightPassiveSkillFunction function = FightSkillFunctionContainer.getPassiveFunction(processTemplate.function());
-                    if (Objects.nonNull(function) && useSkillDataTemp.getTargetParameters().size() > 0) {
-
-                        // TODO: 2022-5-3 普攻触发被动，暂时放这里会导致其他被动无法触发，正式版优化
-                        if (FightSkillTemplateHolder.getData(useSkillDataTemp.getSkillId()).activeSkillType() == 1) {
-                            function.castSkill(fightPassiveSkillWrap, processTemplate, new PassiveSkillDataTemp(useSkillDataTemp));
-                        }
-                    }
-                });
-            }
-            fightRuntimeContext.startCD(template);
-        }
+        doPassive(useSkillDataTemp, fightRuntimeContext, PassiveTriggerType.USE_SKILL);
     }
 
-    private void useSkillAfter() {
-
-
+    private void useSkillAfter(UseSkillDataTemp useSkillDataTemp, FightRuntimeContext fightRuntimeContext) {
+        doPassive(useSkillDataTemp, fightRuntimeContext, PassiveTriggerType.DAMAGE_AFTER);
     }
 
     private void dataResultMessage(DataReturnMessage dataReturnMessage) {
@@ -285,7 +250,7 @@ public class FightSkillModule extends AbstractModule {
     private void useProcess(Client.ReceivedFromClient r) {
         try {
             var skillProcess = Skill.CS10055.parseFrom(r.message());
-
+            sceneData.tell(new SkillUseScene(new CommonOperateTypeInfo(r, skillProcess), false), self());
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
@@ -315,4 +280,114 @@ public class FightSkillModule extends AbstractModule {
     private void addFightRuntimeContext(long fightOrganismId, FightRuntimeContext fightRuntimeContext) {
         this.fightRuntimeContextMap.put(fightOrganismId, fightRuntimeContext);
     }
+
+    private void doPassive(UseSkillDataTemp useSkillDataTemp, FightRuntimeContext fightRuntimeContext, short passiveTriggerType) {
+        OrganismDataTemplate organismDataTemplate;
+        if (useSkillDataTemp.getAttackType() == OrganismType.PLAYER) {
+            organismDataTemplate = OrganismDataTemplateHolder.getData(useSkillDataTemp.getProfession());
+        } else {
+            organismDataTemplate = OrganismDataTemplateHolder.getData(useSkillDataTemp.getAttackTemplateId());
+        }
+        if (Objects.isNull(organismDataTemplate)) {
+            return;
+        }
+        if (useSkillDataTemp.getTargetParameters().size() <= 0) {
+            return;
+        }
+        for (int skillId : organismDataTemplate.skills()) {
+            FightPassiveSkillWrap fightPassiveSkillWrap = FightSkillWrapContainer.getFightPassiveSkillWrap(skillId);
+            if (Objects.isNull(fightPassiveSkillWrap)) {
+                continue;
+            }
+            FightPassiveSkillTemplate template = fightPassiveSkillWrap.getFightPassiveSkillTemplate();
+            if (passiveTriggerType == template.skillTriggerType()) {
+                if (fightRuntimeContext.inCDTime(template)) {
+                    continue;
+                }
+                if (RandomUtil.randomInt10000() >= template.weight()) {
+                    continue;
+                }
+                if (!StringUtils.isEmpty(template.condition())) {
+                    String[] ss = StringUtils.toStringArray(template.condition());
+                    short id = Short.parseShort(ss[0]);
+                    Condition condition = ConditionContainer.parseCondition(id, ss);
+                    ConditionContext conditionContext = new ConditionContext();
+                    conditionContext.put(UseSkillDataTemp.class.getSimpleName(), useSkillDataTemp);
+                    if (!condition.doValid(conditionContext)) {
+                        continue;
+                    }
+                }
+                if (template.skillTriggerTraget() == 1) {
+                    fightPassiveSkillWrap.getList().forEach(processTemplate -> {
+                        FightPassiveSkillFunction function = FightSkillFunctionContainer.getPassiveFunction(processTemplate.function());
+                        if (Objects.nonNull(function)) {
+                            function.castSkill(fightPassiveSkillWrap, processTemplate, new PassiveSkillDataTemp(useSkillDataTemp.getAttackId(), useSkillDataTemp));
+                        }
+                    });
+                } else if (template.skillTriggerTraget() == 2) {
+                    fightPassiveSkillWrap.getList().forEach(processTemplate -> {
+                        FightPassiveSkillFunction function = FightSkillFunctionContainer.getPassiveFunction(processTemplate.function());
+                        if (Objects.nonNull(function)) {
+                            function.castSkill(fightPassiveSkillWrap, processTemplate, new PassiveSkillDataTemp(useSkillDataTemp));
+                        }
+                    });
+                }
+                fightRuntimeContext.startCD(template);
+            }
+
+        }
+
+        short bePassiveTriggerType = passiveTriggerType == PassiveTriggerType.USE_SKILL ? PassiveTriggerType.BE_USE_SKILL :
+                passiveTriggerType == PassiveTriggerType.DAMAGE_BEFORE ? PassiveTriggerType.BE_DAMAGE_BEFORE :
+                        passiveTriggerType == PassiveTriggerType.DAMAGE_AFTER ? PassiveTriggerType.BE_DAMAGE_AFTER : passiveTriggerType;
+
+        for (TargetParameter targetParameter : useSkillDataTemp.getTargetParameters()) {
+            OrganismDataTemplate organismDataTemplate1 = OrganismDataTemplateHolder.getData(targetParameter.getOrganismTemplateId());
+            if (Objects.isNull(organismDataTemplate1)) {
+                return;
+            }
+            for (int skillId : organismDataTemplate1.skills()) {
+                FightPassiveSkillWrap fightPassiveSkillWrap = FightSkillWrapContainer.getFightPassiveSkillWrap(skillId);
+                if (Objects.isNull(fightPassiveSkillWrap)) {
+                    continue;
+                }
+                FightPassiveSkillTemplate template = fightPassiveSkillWrap.getFightPassiveSkillTemplate();
+                if (bePassiveTriggerType == template.skillTriggerType()) {
+                    if (fightRuntimeContext.inCDTime(template)) {
+                        continue;
+                    }
+                    if (RandomUtil.randomInt10000() >= template.weight()) {
+                        continue;
+                    }
+                    if (!StringUtils.isEmpty(template.condition())) {
+                        String[] ss = StringUtils.toStringArray(template.condition());
+                        short id = Short.parseShort(ss[0]);
+                        Condition condition = ConditionContainer.parseCondition(id, ss);
+                        ConditionContext conditionContext = new ConditionContext();
+                        conditionContext.put(UseSkillDataTemp.class.getSimpleName(), useSkillDataTemp);
+                        if (!condition.doValid(conditionContext)) {
+                            continue;
+                        }
+                    }
+                    if (template.skillTriggerTraget() == 1) {
+                        fightPassiveSkillWrap.getList().forEach(processTemplate -> {
+                            FightPassiveSkillFunction function = FightSkillFunctionContainer.getPassiveFunction(processTemplate.function());
+                            if (Objects.nonNull(function)) {
+                                function.castSkill(fightPassiveSkillWrap, processTemplate, new PassiveSkillDataTemp(useSkillDataTemp.getAttackId(), useSkillDataTemp));
+                            }
+                        });
+                    } else if (template.skillTriggerTraget() == 2) {
+                        fightPassiveSkillWrap.getList().forEach(processTemplate -> {
+                            FightPassiveSkillFunction function = FightSkillFunctionContainer.getPassiveFunction(processTemplate.function());
+                            if (Objects.nonNull(function)) {
+                                function.castSkill(fightPassiveSkillWrap, processTemplate, new PassiveSkillDataTemp(useSkillDataTemp));
+                            }
+                        });
+                    }
+                    fightRuntimeContext.startCD(template);
+                }
+            }
+        }
+    }
+
 }

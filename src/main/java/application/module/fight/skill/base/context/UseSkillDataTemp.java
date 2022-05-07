@@ -40,6 +40,7 @@ public class UseSkillDataTemp extends LongId {
     private int skillId;
     private long attackId;
     private byte attackType;
+    private int attackTemplateId;
     private List<Long> targetId;
     private float skillPosX;
     private float skillPosY;
@@ -125,6 +126,14 @@ public class UseSkillDataTemp extends LongId {
 
     public void setAttackType(byte attackType) {
         this.attackType = attackType;
+    }
+
+    public int getAttackTemplateId() {
+        return attackTemplateId;
+    }
+
+    public void setAttackTemplateId(int attackTemplateId) {
+        this.attackTemplateId = attackTemplateId;
     }
 
     public List<Long> getTargetId() {

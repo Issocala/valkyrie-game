@@ -24,6 +24,7 @@ import com.cala.orm.cache.AbstractEntityBase;
 import com.cala.orm.cache.DataInit;
 import com.cala.orm.message.DBReturnMessage;
 import com.cala.orm.message.DataBase;
+import protocol.Skill;
 
 import java.util.*;
 
@@ -170,6 +171,7 @@ public class StateData extends AbstractDataCacheManager<StateEntity> {
     private void skillUseState(SkillUseState skillUseState) {
         CommonOperateTypeInfo commonOperateTypeInfo = (CommonOperateTypeInfo) skillUseState.operateTypeInfo();
         long playerId = commonOperateTypeInfo.r().uID();
+        Skill.CS10052 cs10052 = (Skill.CS10052) commonOperateTypeInfo.message();
         FightOrganismState fightOrganismState = getFightOrganismStateMgr(playerId);
         if (Objects.nonNull(fightOrganismState)) {
             if (fightOrganismState.isSkillUse(skillUseState)) {

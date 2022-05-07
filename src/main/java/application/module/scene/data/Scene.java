@@ -134,7 +134,11 @@ public class Scene extends UntypedAbstractActor {
     }
 
     private void npcUseSkill(HelpUseSkill helpUseSkill) {
-
+        ActorRef actorRef = clientMap.get(aiAgentPlayerId);
+        if (Objects.nonNull(actorRef)) {
+            actorRef.tell(new application.client.Client.SendToClientJ(SceneProtocols.HELP_USE_SKILL,
+                    SceneProtocolBuilder.getSc10308(helpUseSkill.organismId(), helpUseSkill.skillTemplateId())), self());
+        }
     }
 
     private void playerReceive(PlayerReceive playerReceive) {
@@ -366,10 +370,12 @@ public class Scene extends UntypedAbstractActor {
                 NpcOrganism npcOrganism = npcOrganismMap.get(fightOrganismId);
                 if (Objects.nonNull(npcOrganism)) {
                     useSkillDataTemp.setAttackType(OrganismType.NPC);
+                    useSkillDataTemp.setAttackTemplateId(npcOrganism.getOrganismTemplateId());
                 } else {
                     MonsterOrganism monsterOrganism = monsterOrganismMap.get(fightOrganismId);
                     if (Objects.nonNull(monsterOrganism)) {
                         useSkillDataTemp.setAttackType(OrganismType.MONSTER);
+                        useSkillDataTemp.setAttackTemplateId(monsterOrganism.getOrganismTemplateId());
                     }
                 }
             }
@@ -408,6 +414,20 @@ public class Scene extends UntypedAbstractActor {
         PlayerInfo playerInfo1 = playerInfoMap.get(useSkillDataTemp.getAttackId());
         if (Objects.nonNull(playerInfo1)) {
             useSkillDataTemp.setProfession(playerInfo1.profession());
+        }
+        long fightOrganismId = cs10052.getFightOrganismId();
+        if (Objects.isNull(playerInfoMap.get(fightOrganismId))) {
+            NpcOrganism npcOrganism = npcOrganismMap.get(fightOrganismId);
+            if (Objects.nonNull(npcOrganism)) {
+                useSkillDataTemp.setAttackType(OrganismType.NPC);
+                useSkillDataTemp.setAttackTemplateId(npcOrganism.getOrganismTemplateId());
+            } else {
+                MonsterOrganism monsterOrganism = monsterOrganismMap.get(fightOrganismId);
+                if (Objects.nonNull(monsterOrganism)) {
+                    useSkillDataTemp.setAttackType(OrganismType.MONSTER);
+                    useSkillDataTemp.setAttackTemplateId(monsterOrganism.getOrganismTemplateId());
+                }
+            }
         }
         //TODO 获取目标
         if (SkillAimType.isOne(fightSkillTemplate)) {

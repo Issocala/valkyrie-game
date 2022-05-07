@@ -1,5 +1,10 @@
 package application.module.state.base;
 
+import application.module.state.base.action.ActionState;
+import application.module.state.base.fight.FightState;
+
+import java.util.Set;
+
 /**
  * @author Luo Yong
  * @date 2022-4-18
@@ -18,6 +23,14 @@ public interface StateType {
         short IDLE_STATE = 201;
 
         short DEAD_STATE = 202;
+
+        static boolean validNoUseSkill(ActionState actionState) {
+            return validNoUseSkill(actionState.getId());
+        }
+
+        static boolean validNoUseSkill(short id) {
+            return id == DEAD_STATE;
+        }
     }
 
     interface FightType {
@@ -46,6 +59,19 @@ public interface StateType {
          * 加速
          */
         short SPEED_UP_STATE = 406;
+
+        static boolean validNoUseSkill(Set<FightState> fightStateSet) {
+            for (FightState fightState : fightStateSet) {
+                if (validNoUseSkill(fightState.getId())) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        static boolean validNoUseSkill(short id) {
+            return id == FROZEN_STATE || id == DIZZINESS_STATE || id == IMPRISON_STATE;
+        }
     }
 
 }

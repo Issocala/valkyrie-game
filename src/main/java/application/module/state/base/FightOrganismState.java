@@ -144,7 +144,9 @@ public class FightOrganismState extends LongId {
 
     //TODO 校验玩家当前状态是否可以释放技能
     public boolean isSkillUse(SkillUseState skillUseState) {
-        return true;
+        if (StateType.ActionType.validNoUseSkill(this.currActionState)) {
+            return false;
+        }
+        return !StateType.FightType.validNoUseSkill(this.fightStateSet);
     }
-
 }
