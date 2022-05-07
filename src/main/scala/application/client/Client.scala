@@ -4,6 +4,7 @@ import akka.actor.{ActorRef, Props, ReceiveTimeout, Stash}
 import akka.io.Tcp._
 import akka.util.ByteString
 import application.client.Client._
+import application.module.player.PlayerProtocols
 import mobius.core.ActorExtension.LogActor
 import mobius.modular.client.Client.ReceivedFromClient
 import mobius.net.FrameExtractor
@@ -27,7 +28,7 @@ private[application] object Client {
 
   final case object ClientClose
 
-
+  final case object Tick
 
   final case class LoginSuccess(id: Long)
 
@@ -35,8 +36,8 @@ private[application] object Client {
 }
 
 /**
-  * Created by RXL on 2016/10/13.
-  */
+ * Created by RXL on 2016/10/13.
+ */
 private[client] class Client(val connection: ActorRef) extends LogActor with Stash with FrameExtractor {
 
   import ClientAgent._
@@ -47,11 +48,21 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
   private val bytesBuilder = ByteString.newBuilder
   private var userID: Long = Client.UnknownUser
   var messageHandler: Map[Int, ActorRef] = Map()
+  //  var fixedTick: Long = 3000
+  //  var tickFinalTimestamp: Long = System.currentTimeMillis()
+  //  val c: Cancellable = context.system.scheduler.scheduleWithFixedDelay(java.time.Duration.ofMillis(this.fixedTick),
+  //    java.time.Duration.ofMillis(this.fixedTick), self, Tick, context.dispatcher, self)
 
 
   def close(): Unit = {
     log.debug(s"try close client $userID ")
     //todo 1. save player info and other things, 2. check whether children also terminated or not
+    val protocolId: Int = PlayerProtocols.LOGOUT
+    val handler = messageHandler.get(protocolId)
+    handler match {
+      case Some(h) => h ! ReceivedFromClient(self, userID, protocolId, null)
+      case None => log.error(s"protocol handler not found, id:${protocolId}")
+    }
     context stop self
   }
 
@@ -93,7 +104,7 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
   def peerClose(): Unit = {
     log.debug(s"peer closed by client ${}")
 
-    context stop self
+    close()
   }
 
   override def receive: Receive = {
@@ -111,18 +122,33 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
     case x => log.debug("unhandled client msg:" + x)
   }
 
+  //  private def tick(): Unit = {
+  //    val time = System.currentTimeMillis() - tickFinalTimestamp;
+  //    if (time > fixedTick) {
+  //      val protocolId: Int = PlayerProtocols.LOGOUT
+  //      val handler = messageHandler.get(protocolId)
+  //      handler match {
+  //        case Some(h) => h ! ReceivedFromClient(self, userID, protocolId, null)
+  //        case None => log.error(s"protocol handler not found, id:${protocolId}")
+  //      }
+  //      close()
+  //    }
+  //  }
+
   private def onReceivedFromSocket(data: ByteString): Unit = {
     val bs = buffer ++ data
-//    log.debug("received:"+data)
+    //    log.debug("received:"+data)
     val (nb, frames) = extractFrame(bs, Nil)
     buffer = if (nb.isEmpty) ByteString() else nb.get
     frames.reverse.foreach(dealClientMessage)
   }
 
   private def dealClientMessage(frame: ByteString): Unit = {
-//    log.debug(s"frame length:${frame.length} :$frame")
+    //    log.debug(s"frame length:${frame.length} :$frame")
     val protocolId = frame.iterator.getShort
     log.debug(s"receive protocolId :$protocolId")
+
+    //    tickFinalTimestamp = System.currentTimeMillis()
 
     //TODO 或许需要实现协议过滤，防止未登入的用户或者选择非当前角色发包，
     val handler = messageHandler.get(protocolId)
