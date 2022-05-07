@@ -332,12 +332,13 @@ public class Scene extends UntypedAbstractActor {
             long organismId = cs10055.getFightOrganismId();
             //TODO 判断当前场景是否可以释放技能，或者当前玩家位置是否可以放技能。
             if (true) {
-                sender().tell(new SkillUseScene(new SkillUseInfo(commonOperateTypeInfo.r(), getTarget(commonOperateTypeInfo, true)), false), self());
+                sender().tell(new SkillUseScene(new SkillUseInfo(commonOperateTypeInfo.r(), getTarget(commonOperateTypeInfo, true)), true), self());
                 sendToOtherClient(r.protoID(), FightSkillProtocolBuilder.getSc10055(cs10055), r.uID());
             } else {
                 commonOperateTypeInfo.r().client().tell(new SendToClientJ(CommonProtocols.APPLICATION_ERROR,
                         CommonProtocolBuilder.getSc10080(ApplicationErrorCode.USE_SKILL_SCENE)), self());
             }
+            return;
         }
         Client.ReceivedFromClient r = commonOperateTypeInfo.r();
         Skill.CS10052 cs10052 = (Skill.CS10052) commonOperateTypeInfo.message();

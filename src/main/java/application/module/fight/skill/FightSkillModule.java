@@ -250,7 +250,7 @@ public class FightSkillModule extends AbstractModule {
     private void useProcess(Client.ReceivedFromClient r) {
         try {
             var skillProcess = Skill.CS10055.parseFrom(r.message());
-            sceneData.tell(new SkillUseScene(new CommonOperateTypeInfo(r, skillProcess), false), self());
+            sceneData.tell(new SkillUseScene(new CommonOperateTypeInfo(r, skillProcess), true), self());
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
