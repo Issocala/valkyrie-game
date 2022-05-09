@@ -111,15 +111,14 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
 
         //TODO 这里需要拿场景配置，看是否是常驻场景，保存上一个常驻场景的id
         if (scenePlayerExitReturn.sceneTemplateId() == 20003L) {
-
-        }
-        long playerId = scenePlayerExitReturn.playerId();
-        SceneEntity sceneEntity = new SceneEntity(playerId, scenePlayerExitReturn.sceneTemplateId(), scenePlayerExitReturn.positionInfo());
-        put(scenePlayerExitReturn.playerId(), sceneEntity);
-        if (containsKey(playerId)) {
-            getDbManager().tell(new DbUpdate(self(), sceneEntity, null, false), self());
-        } else {
-            getDbManager().tell(new DbInsert(self(), sceneEntity, null, false), self());
+            long playerId = scenePlayerExitReturn.playerId();
+            SceneEntity sceneEntity = new SceneEntity(playerId, scenePlayerExitReturn.sceneTemplateId(), scenePlayerExitReturn.positionInfo());
+            put(scenePlayerExitReturn.playerId(), sceneEntity);
+            if (containsKey(playerId)) {
+                getDbManager().tell(new DbUpdate(self(), sceneEntity, null, false), self());
+            } else {
+                getDbManager().tell(new DbInsert(self(), sceneEntity, null, false), self());
+            }
         }
     }
 
