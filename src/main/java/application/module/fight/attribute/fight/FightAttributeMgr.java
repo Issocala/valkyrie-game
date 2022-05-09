@@ -148,11 +148,15 @@ public class FightAttributeMgr {
             long targetReduceTrueDamage = getValue(targetAttributeMap, REDUCE_TRUE_DAMAGE);
 
             //闪避几率=	min(max( min( B闪避[id:201] / ( B闪避[id:201] + A命中[id:200]  * 9 ) , 0.5 ) + ( B闪避几率[id:300] - A命中几率[id:301])/10000 , 0 ) ,0.9 )
-            double missRate = Math.min(Math.max(Math.min((targetMiss / (double) (targetMiss + hit * 9)), 0.5)
-                    + (targetMissRatio - hitRatio) / TEN_THOUSAND_RATIO, 0), 0.9);
+            double val_1 = targetMiss + hit * 9;
+            double missRate;
+            if (val_1 == 0) {
+                missRate = Math.min(Math.max((targetMissRatio - hitRatio) / TEN_THOUSAND_RATIO, 0), 0.9);
+            } else {
+                missRate = Math.min(Math.max(Math.min((targetMiss / val_1), 0.5) + (targetMissRatio - hitRatio) / TEN_THOUSAND_RATIO, 0), 0.9);
+            }
 
             boolean miss = isMissRate(missRate, builder);
-
             if (miss) {
                 return;
             }
@@ -162,17 +166,22 @@ public class FightAttributeMgr {
             finalTargetDefence = (long) (finalTargetDefence * (1 - ignoreDefenceRate));
 
             //	暴击几率 = min(max( min( A暴击[id:202] / ( A暴击[id:202] + B抗暴[id:203]  * 9 ）, 0.5 ) + ( A暴击几率[id:302] - B抗暴几率[id:303])/10000 , 0 ) ,1.2 )
-            double critRate = Math.min(Math.max(Math.min((crit / (double) (crit + targetReduceCrit * 9)), 0.5)
-                    + (critRatio - targetReduceCritRatio) / TEN_THOUSAND_RATIO, 0), 0.8);
+            double val_2 = crit + targetReduceCrit * 9;
+            double critRate;
+            if (val_2 == 0) {
+                critRate = Math.min(Math.max((critRatio - targetReduceCritRatio) / TEN_THOUSAND_RATIO, 0), 1.2);
+            } else {
+                critRate = Math.min(Math.max(Math.min((crit / val_2), 0.5) + (critRatio - targetReduceCritRatio) / TEN_THOUSAND_RATIO, 0), 1.2);
+            }
             double blockRate = Math.min(Math.max((targetBlockRatio - reduceBlockRatio) / TEN_THOUSAND_RATIO, 0), 1);
 
             //  基础伤害 =	 A攻击 * ( 1 -  MIN( B防御  / (B防御 * 系数B + A穿透 * 系数C ) , 最大免伤率 ) )
-            double var_ = finalTargetDefence * PARAMETER_B + finalPierce * PARAMETER_C;
+            double var_3 = finalTargetDefence * PARAMETER_B + finalPierce * PARAMETER_C;
             double baseDamage;
-            if (var_ == 0) {
+            if (var_3 == 0) {
                 baseDamage = finalAttack;
             } else {
-                baseDamage = finalAttack * (1 - Math.min((finalTargetDefence / var_), 0.75));
+                baseDamage = finalAttack * (1 - Math.min((finalTargetDefence / var_3), 0.75));
             }
 
             double critDamage = 0;
