@@ -154,9 +154,9 @@ public class FightAttributeMgr {
             boolean miss = isMissRate(missRate, builder);
 
             if (miss) {
-                useSkillDataTemp.getR().client().tell(null, null);
                 return;
             }
+
             //  无视防御率  防御 = 防御 * ( 1 - min(max((A无视防御率[id:310] - B防御强化率[id:311]) / 10000 ,0), 1 ) )
             double ignoreDefenceRate = Math.min(Math.max(ignoreDefenceRatio - targetReduceIgnoreDefenceRatio, 0), 1);
             finalTargetDefence = (long) (finalTargetDefence * (1 - ignoreDefenceRate));
