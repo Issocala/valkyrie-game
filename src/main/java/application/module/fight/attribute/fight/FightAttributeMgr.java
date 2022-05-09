@@ -159,15 +159,21 @@ public class FightAttributeMgr {
             }
             //  无视防御率  防御 = 防御 * ( 1 - min(max((A无视防御率[id:310] - B防御强化率[id:311]) / 10000 ,0), 1 ) )
             double ignoreDefenceRate = Math.min(Math.max(ignoreDefenceRatio - targetReduceIgnoreDefenceRatio, 0), 1);
-            finalTargetDefence = (long) (finalTargetDefence * ( 1 - ignoreDefenceRate));
+            finalTargetDefence = (long) (finalTargetDefence * (1 - ignoreDefenceRate));
 
-            //	暴击几率=	min(max( min( A暴击[id:202] / ( A暴击[id:202] + B抗暴[id:203]  * 9 ）, 0.5 ) + ( A暴击几率[id:302] - B抗暴几率[id:303])/10000 , 0 ) ,1.2 )
+            //	暴击几率 = min(max( min( A暴击[id:202] / ( A暴击[id:202] + B抗暴[id:203]  * 9 ）, 0.5 ) + ( A暴击几率[id:302] - B抗暴几率[id:303])/10000 , 0 ) ,1.2 )
             double critRate = Math.min(Math.max(Math.min((crit / (double) (crit + targetReduceCrit * 9)), 0.5)
                     + (critRatio - targetReduceCritRatio) / TEN_THOUSAND_RATIO, 0), 0.8);
             double blockRate = Math.min(Math.max((targetBlockRatio - reduceBlockRatio) / TEN_THOUSAND_RATIO, 0), 1);
 
             //  基础伤害 =	 A攻击 * ( 1 -  MIN( B防御  / (B防御 * 系数B + A穿透 * 系数C ) , 最大免伤率 ) )
-            double baseDamage = finalAttack * (1 - Math.min((finalTargetDefence / (finalTargetDefence * PARAMETER_B + finalPierce * PARAMETER_C)), 0.75));
+            double var_ = finalTargetDefence * PARAMETER_B + finalPierce * PARAMETER_C;
+            double baseDamage;
+            if (var_ == 0) {
+                baseDamage = finalAttack;
+            } else {
+                baseDamage = finalAttack * (1 - Math.min((finalTargetDefence / var_), 0.75));
+            }
 
             double critDamage = 0;
             if (isCrit(critRate, builder)) {
