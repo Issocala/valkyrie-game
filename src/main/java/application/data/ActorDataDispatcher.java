@@ -1,10 +1,9 @@
 package application.data;
 
-import akka.actor.AbstractActor;
-import akka.actor.ActorRef;
-import akka.actor.Props;
+import akka.actor.*;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
+import akka.japi.pf.DeciderBuilder;
 import application.module.common.data.domain.DataMessage;
 import application.module.fight.attribute.data.AttributeData;
 import application.module.fight.buff.data.FightBuffData;
@@ -23,6 +22,7 @@ import com.cala.orm.util.DbConnection;
 import javax.management.RuntimeErrorException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.Duration;
 import java.util.*;
 
 import static com.cala.orm.cache.AbstractDataCacheManager.DATA_AND_DB_DISPATCHER;
@@ -151,4 +151,25 @@ public class ActorDataDispatcher extends AbstractActor {
         add(SceneData.class);
         add(FightBuffData.class);
     }
+
+    @Override
+    public SupervisorStrategy supervisorStrategy() {
+        return strategy;
+    }
+
+    private final SupervisorStrategy strategy =
+            new OneForOneStrategy(
+                    10,
+                    Duration.ofMinutes(1),
+                    DeciderBuilder.match(ArithmeticException.class, e -> SupervisorStrategy.resume())
+                            .match(NullPointerException.class, e -> SupervisorStrategy.restart())
+                            .match(IllegalArgumentException.class, e -> SupervisorStrategy.stop())
+                            .matchAny(o -> (SupervisorStrategy.Directive) SupervisorStrategy.escalate())
+                            .build());
+
+    @Override
+    public void preRestart(Throwable cause, Optional<Object> msg) {
+        init();
+    }
+
 }
