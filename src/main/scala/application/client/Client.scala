@@ -1,6 +1,6 @@
 package application.client
 
-import akka.actor.{ActorRef, Props, ReceiveTimeout, Stash}
+import akka.actor.{ActorRef, Cancellable, Props, ReceiveTimeout, Stash}
 import akka.io.Tcp._
 import akka.util.ByteString
 import application.client.Client._
@@ -48,10 +48,10 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
   private val bytesBuilder = ByteString.newBuilder
   private var userID: Long = Client.UnknownUser
   var messageHandler: Map[Int, ActorRef] = Map()
-  //  var fixedTick: Long = 3000
-  //  var tickFinalTimestamp: Long = System.currentTimeMillis()
-  //  val c: Cancellable = context.system.scheduler.scheduleWithFixedDelay(java.time.Duration.ofMillis(this.fixedTick),
-  //    java.time.Duration.ofMillis(this.fixedTick), self, Tick, context.dispatcher, self)
+  var fixedTick: Long = 3000
+  var tickFinalTimestamp: Long = System.currentTimeMillis()
+  val c: Cancellable = context.system.scheduler.scheduleWithFixedDelay(java.time.Duration.ofMillis(this.fixedTick),
+    java.time.Duration.ofMillis(this.fixedTick), self, Tick, context.dispatcher, self)
 
 
   def close(): Unit = {
@@ -63,6 +63,7 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
       case Some(h) => h ! ReceivedFromClient(self, userID, protocolId, null)
       case None => log.error(s"protocol handler not found, id:${protocolId}")
     }
+    c.cancel()
     context stop self
   }
 
@@ -119,21 +120,16 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
     case ClientClose => close()
     case ReLogin => connectionReplaced()
     case ModuleAgentRef(a) => pause(a)
+    case Tick => tick()
     case x => log.debug("unhandled client msg:" + x)
   }
 
-  //  private def tick(): Unit = {
-  //    val time = System.currentTimeMillis() - tickFinalTimestamp;
-  //    if (time > fixedTick) {
-  //      val protocolId: Int = PlayerProtocols.LOGOUT
-  //      val handler = messageHandler.get(protocolId)
-  //      handler match {
-  //        case Some(h) => h ! ReceivedFromClient(self, userID, protocolId, null)
-  //        case None => log.error(s"protocol handler not found, id:${protocolId}")
-  //      }
-  //      close()
-  //    }
-  //  }
+    private def tick(): Unit = {
+      val time = System.currentTimeMillis() - tickFinalTimestamp;
+      if (time > fixedTick) {
+        close()
+      }
+    }
 
   private def onReceivedFromSocket(data: ByteString): Unit = {
     val bs = buffer ++ data
@@ -148,7 +144,7 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
     val protocolId = frame.iterator.getShort
     log.debug(s"receive protocolId :$protocolId")
 
-    //    tickFinalTimestamp = System.currentTimeMillis()
+    tickFinalTimestamp = System.currentTimeMillis()
 
     //TODO 或许需要实现协议过滤，防止未登入的用户或者选择非当前角色发包，
     val handler = messageHandler.get(protocolId)
