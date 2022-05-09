@@ -9,6 +9,9 @@ import application.module.organism.NpcOrganism;
 import application.module.organism.OrganismType;
 import application.module.scene.data.domain.PositionInfo;
 import application.module.scene.operate.*;
+import application.module.state.base.StateType;
+import application.module.state.operate.OrganismCancelState;
+import application.module.state.operate.OrganismChangeState;
 import application.util.RandomUtil;
 import mobius.core.java.api.AbstractLogActor;
 import template.OrganismDataTemplate;
@@ -45,7 +48,7 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
 
     private final Map<Long, NpcOrganism> npcOrganismMap = new HashMap<>();
 
-    private final Set<Integer> disableNpcOrganism = new HashSet<>();
+    private final Set<Long> disableNpcOrganism = new HashSet<>();
 
     public static Props create(int triggerId) {
         return Props.create(ScenePortalRefreshMonsterTrigger.class, triggerId);
@@ -55,14 +58,17 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
         this.triggerId = triggerId;
     }
 
-    public Map<Integer, Cancellable> cancellableMap = new HashMap<>();
+    public Map<Long, Cancellable> cancellableMap = new HashMap<>();
 
-    public Map<Integer, Cancellable> openNpcDoorMap = new HashMap<>();
+    public Map<Long, Cancellable> openNpcDoorMap = new HashMap<>();
 
     @Override
     public void postStop() throws Exception {
         super.postStop();
-        cancellableMap.forEach((integer, cancellable) -> cancellable.cancel());
+        cancellableMap.forEach((integer, cancellable) -> {
+            cancellable.cancel();
+        });
+        cancellableMap = null;
     }
 
     @Override
@@ -77,25 +83,27 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
     }
 
     private void openNpcDoor(OpenNpcDoor openNpcDoor) {
-        disableNpcOrganism.remove(openNpcDoor.organismTemplateId());
-        openNpcDoorMap.remove(openNpcDoor.organismTemplateId());
+        long organismId = openNpcDoor.organismId();
+        disableNpcOrganism.remove(organismId);
+        this.stateData.tell(new OrganismCancelState(organismId, OrganismType.NPC, StateType.ActionType.IDLE_STATE, self()), self());
+        openNpcDoorMap.remove(organismId);
     }
 
     private void helpUseSkill(HelpUseSkill helpUseSkill) {
         int templateId = helpUseSkill.organismTemplateId();
-
+        long id = helpUseSkill.organismId();
         if (helpUseSkill.organismType() == OrganismType.NPC) {
-            if (validUseSkill(templateId)) {
+            if (validUseSkill(id)) {
                 this.scene.tell(helpUseSkill, self());
             }
             Cancellable cancellable = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(tick), self(),
-                    new HelpUseSkill(templateId, helpUseSkill.organismId(), helpUseSkill.organismType(), randomNpcSkillId(templateId)), getContext().dispatcher(), self());
-            cancellableMap.put(templateId, cancellable);
+                    new HelpUseSkill(templateId, id, helpUseSkill.organismType(), randomNpcSkillId(templateId)), getContext().dispatcher(), self());
+            cancellableMap.put(helpUseSkill.organismId(), cancellable);
         } else if (helpUseSkill.organismType() == OrganismType.MONSTER) {
             this.scene.tell(helpUseSkill, self());
             int num = randomMonsterSkillIdNum();
             getContext().system().scheduler().scheduleOnce(Duration.ofMillis(itemTick), self(),
-                    new HelpUseSkill(templateId, helpUseSkill.organismId(), helpUseSkill.organismType(), 10081), getContext().dispatcher(), self());
+                    new HelpUseSkill(templateId, id, helpUseSkill.organismType(), 10081), getContext().dispatcher(), self());
             for (int i = 0; i < num; i++) {
                 this.scene.tell(helpUseSkill, self());
             }
@@ -113,46 +121,48 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
         this.attributeData = sceneInit.attributeData();
         int templateId1 = 10001;
         NpcOrganism npcOrganism1 = new NpcOrganism(templateId1);
-        scene.tell(new SceneOrganismEntry(npcOrganism1, new PositionInfo(-20,10), 0), self());
+        scene.tell(new SceneOrganismEntry(npcOrganism1, new PositionInfo(-20, 10), 0), self());
         npcOrganismMap.put(npcOrganism1.getId(), npcOrganism1);
         Cancellable cancellable1 = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(tick), self(),
                 new HelpUseSkill(templateId1, npcOrganism1.getId(), npcOrganism1.getOrganismType(), randomNpcSkillId(templateId1)), getContext().dispatcher(), self());
-        cancellableMap.put(templateId1, cancellable1);
+        cancellableMap.put(npcOrganism1.getId(), cancellable1);
 
         int templateId2 = 10002;
         NpcOrganism npcOrganism2 = new NpcOrganism(templateId2);
-        scene.tell(new SceneOrganismEntry(npcOrganism2, new PositionInfo(20,10), 0), self());
+        scene.tell(new SceneOrganismEntry(npcOrganism2, new PositionInfo(20, 10), 0), self());
         npcOrganismMap.put(npcOrganism2.getId(), npcOrganism2);
         Cancellable cancellable2 = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(tick), self(),
                 new HelpUseSkill(templateId2, npcOrganism2.getId(), npcOrganism2.getOrganismType(), randomNpcSkillId(templateId2)), getContext().dispatcher(), self());
-        cancellableMap.put(templateId2, cancellable2);
+        cancellableMap.put(npcOrganism2.getId(), cancellable2);
 
         int templateId3 = 10003;
         NpcOrganism npcOrganism3 = new NpcOrganism(templateId3);
-        scene.tell(new SceneOrganismEntry(npcOrganism3, new PositionInfo(-19,-0.2f), 0), self());
+        scene.tell(new SceneOrganismEntry(npcOrganism3, new PositionInfo(-19, -0.2f), 0), self());
         npcOrganismMap.put(npcOrganism3.getId(), npcOrganism3);
         Cancellable cancellable3 = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(tick), self(),
                 new HelpUseSkill(templateId3, npcOrganism3.getId(), npcOrganism3.getOrganismType(), randomNpcSkillId(templateId3)), getContext().dispatcher(), self());
-        cancellableMap.put(templateId3, cancellable3);
+        cancellableMap.put(npcOrganism3.getId(), cancellable3);
 
         int templateId4 = 10004;
         NpcOrganism npcOrganism4 = new NpcOrganism(templateId4);
-        scene.tell(new SceneOrganismEntry(npcOrganism4, new PositionInfo(19,-0.2f), 0), self());
+        scene.tell(new SceneOrganismEntry(npcOrganism4, new PositionInfo(19, -0.2f), 0), self());
         npcOrganismMap.put(npcOrganism4.getId(), npcOrganism4);
         Cancellable cancellable4 = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(tick), self(),
                 new HelpUseSkill(templateId4, npcOrganism4.getId(), npcOrganism4.getOrganismType(), randomNpcSkillId(templateId4)), getContext().dispatcher(), self());
-        cancellableMap.put(templateId4, cancellable4);
+        cancellableMap.put(npcOrganism4.getId(), cancellable4);
 
         int templateId5 = 10009;
         this.boss = new MonsterOrganism(10009);
-        scene.tell(new SceneOrganismEntry(this.boss, new PositionInfo(0,4.5f), 0), self());
+        scene.tell(new SceneOrganismEntry(this.boss, new PositionInfo(0, 4.5f), 0), self());
         getContext().system().scheduler().scheduleOnce(Duration.ofMillis(itemTick), self(),
                 new HelpUseSkill(templateId5, this.boss.getId(), this.boss.getOrganismType(), 10081), getContext().dispatcher(), self());
     }
 
     private void closeNpcDoor(CloseNpcDoor closeNpcDoor) {
         int organismTemplateId = closeNpcDoor.organismTemplateId();
-        disableNpcOrganism.add(organismTemplateId);
+        long organismId = closeNpcDoor.organismId();
+        disableNpcOrganism.add(organismId);
+        this.stateData.tell(new OrganismChangeState(organismId, OrganismType.NPC, StateType.ActionType.DEAD_STATE, self()), self());
         if (disableNpcOrganism.size() == 4) {
             disableNpcOrganism.forEach(id -> {
                 if (openNpcDoorMap.containsKey(id)) {
@@ -161,14 +171,14 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
                     openNpcDoorMap.remove(id);
                 }
                 Cancellable cancellable = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(tick), self(),
-                        new OpenNpcDoor(closeNpcDoor.organismId(), organismTemplateId, OrganismType.NPC, randomNpcSkillId(organismTemplateId)), getContext().dispatcher(), self());
-                openNpcDoorMap.put(organismTemplateId, cancellable);
+                        new OpenNpcDoor(organismId, organismTemplateId, OrganismType.NPC), getContext().dispatcher(), self());
+                openNpcDoorMap.put(organismId, cancellable);
             });
             buffData.tell(new AddBuff(null, 10012, 0L, boss.getId(), 10000L, scene, attributeData, stateData, new HashMap<>()), self());
         } else {
             Cancellable cancellable = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(tick * 2), self(),
-                    new OpenNpcDoor(closeNpcDoor.organismId(), organismTemplateId, OrganismType.NPC, randomNpcSkillId(organismTemplateId)), getContext().dispatcher(), self());
-            openNpcDoorMap.put(organismTemplateId, cancellable);
+                    new OpenNpcDoor(organismId, organismTemplateId, OrganismType.NPC), getContext().dispatcher(), self());
+            openNpcDoorMap.put(organismId, cancellable);
         }
     }
 
@@ -182,8 +192,8 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
         return RandomUtil.randomInt(2) + 2;
     }
 
-    private boolean validUseSkill(int organismTemplateId) {
-        return disableNpcOrganism.contains(organismTemplateId);
+    private boolean validUseSkill(long organismId) {
+        return disableNpcOrganism.contains(organismId);
     }
 
     public int getTriggerId() {

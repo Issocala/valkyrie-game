@@ -5,5 +5,5 @@ package application.module.scene.operate;
  * @date 2022-5-2
  * @Source 1.0
  */
-public record OpenNpcDoor(long organismId, int organismTemplateId, byte organismType, int skillTemplateId) {
+public record OpenNpcDoor(long organismId, int organismTemplateId, byte organismType) {
 }

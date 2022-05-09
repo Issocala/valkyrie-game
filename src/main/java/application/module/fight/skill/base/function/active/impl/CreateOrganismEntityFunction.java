@@ -5,6 +5,7 @@ import akka.actor.Props;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
 import application.module.fight.skill.base.function.active.FightSkillActiveFunction;
 import application.module.fight.skill.base.skill.FightSkillWrap;
+import application.module.organism.ItemOrganism;
 import application.module.organism.MonsterOrganism;
 import application.module.organism.NpcOrganism;
 import application.module.organism.OrganismType;
@@ -37,9 +38,14 @@ public class CreateOrganismEntityFunction extends FightSkillActiveFunction {
                 useSkillDataTemp.getScene().tell(new SceneOrganismEntry(new MonsterOrganism(organismTemplateId),
                         new PositionInfo(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY()), duration), ActorRef.noSender());
             }
-        }else if (type == OrganismType.NPC) {
+        } else if (type == OrganismType.NPC) {
             for (int i = 0; i < number; i++) {
                 useSkillDataTemp.getScene().tell(new SceneOrganismEntry(new NpcOrganism(organismTemplateId),
+                        new PositionInfo(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY()), duration), ActorRef.noSender());
+            }
+        } else if (type == OrganismType.ITEM) {
+            for (int i = 0; i < number; i++) {
+                useSkillDataTemp.getScene().tell(new SceneOrganismEntry(new ItemOrganism(organismTemplateId),
                         new PositionInfo(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY()), duration), ActorRef.noSender());
             }
         }

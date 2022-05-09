@@ -89,6 +89,8 @@ public class Scene extends UntypedAbstractActor {
 
     private final Map<Long, MonsterOrganism> monsterOrganismMap = new HashMap<>();
 
+    private final Map<Long, ItemOrganism> itemOrganismMap = new HashMap<>();
+
     private final List<ActorRef> scenePortalRefreshMonsterTriggerList = new ArrayList<>();
 
     public Scene(int sceneTemplateId) {
@@ -137,6 +139,10 @@ public class Scene extends UntypedAbstractActor {
     }
 
     private void fuckNpc(FuckNpc fuckNpc) {
+        var cs10311 = fuckNpc.cs10311();
+        scenePortalRefreshMonsterTriggerList.forEach(trigger -> {
+            trigger.tell(new CloseNpcDoor(cs10311.getOrganismNpcId(), 0), self());
+        });
 
     }
 
@@ -196,15 +202,23 @@ public class Scene extends UntypedAbstractActor {
         Organism organism = sceneOrganismEntry.organism();
         PositionInfo positionInfo = sceneOrganismEntry.positionInfo();
         if (organism instanceof NpcOrganism npcOrganism) {
-            putPositionInfo(npcOrganism.getId(), positionInfo);
-            npcOrganismMap.put(npcOrganism.getId(), npcOrganism);
-            sendToAllClient(SceneProtocols.SCENE_RETURN_ENTITY, SceneProtocolBuilder.getSc10304(npcOrganism.getId(),
-                    npcOrganism.getOrganismType(), getPositionInfo(npcOrganism.getId()), npcOrganism.getOrganismTemplateId()));
+            long id = npcOrganism.getId();
+            putPositionInfo(id, positionInfo);
+            npcOrganismMap.put(id, npcOrganism);
+            sendToAllClient(SceneProtocols.SCENE_RETURN_ENTITY, SceneProtocolBuilder.getSc10304(id,
+                    npcOrganism.getOrganismType(), positionInfo, npcOrganism.getOrganismTemplateId()));
         } else if (organism instanceof MonsterOrganism monsterOrganism) {
-            putPositionInfo(monsterOrganism.getId(), positionInfo);
-            monsterOrganismMap.put(monsterOrganism.getId(), monsterOrganism);
-            sendToAllClient(SceneProtocols.SCENE_RETURN_ENTITY, SceneProtocolBuilder.getSc10304(monsterOrganism.getId(),
-                    monsterOrganism.getOrganismType(), getPositionInfo(monsterOrganism.getId()), monsterOrganism.getOrganismTemplateId()));
+            long id = monsterOrganism.getId();
+            putPositionInfo(id, positionInfo);
+            monsterOrganismMap.put(id, monsterOrganism);
+            sendToAllClient(SceneProtocols.SCENE_RETURN_ENTITY, SceneProtocolBuilder.getSc10304(id,
+                    monsterOrganism.getOrganismType(), positionInfo, monsterOrganism.getOrganismTemplateId()));
+        } else if (organism instanceof ItemOrganism itemOrganism) {
+            long id = itemOrganism.getId();
+            putPositionInfo(id, positionInfo);
+            itemOrganismMap.put(id, itemOrganism);
+            sendToAllClient(SceneProtocols.SCENE_RETURN_ENTITY, SceneProtocolBuilder.getSc10304(id,
+                    itemOrganism.getOrganismType(), positionInfo, itemOrganism.getOrganismTemplateId()));
         }
 
         this.sceneData.tell(new Publish(new CreateOrganismEntityAfter(clientMap.values(), organism)), self());
