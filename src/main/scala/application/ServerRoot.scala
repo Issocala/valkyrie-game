@@ -1,7 +1,6 @@
 package application
 
-import akka.actor.SupervisorStrategy.{Decider, Restart, Resume, Stop}
-import akka.actor.{Actor, ActorInitializationException, ActorKilledException, ActorRef, DeathPactException, OneForOneStrategy, Props, SupervisorStrategy}
+import akka.actor.{Actor, ActorRef, Props}
 import application.ServerRoot.MainMessage
 import application.client.ClientAgent
 import application.condition.ConditionContainer
@@ -62,17 +61,6 @@ class ServerRoot extends Actor with LogActor {
     newAgent.get ! message
     newAgent
   }
-
-  final val decider: Decider = {
-    case _: ActorInitializationException => Stop
-    case _: ActorKilledException => Stop
-    case _: DeathPactException => Stop
-    case _: NullPointerException => Resume
-    case _: Exception => Restart
-  }
-
-  override def supervisorStrategy: SupervisorStrategy = OneForOneStrategy()(decider)
-
 
 }
 
