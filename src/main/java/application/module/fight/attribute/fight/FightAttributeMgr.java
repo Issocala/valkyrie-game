@@ -42,12 +42,34 @@ public class FightAttributeMgr {
      */
     private Map<Short, Long> fightAttributeMap = new HashMap<>();
 
-    public static Long getValue(Map<Short, Long> map, short id) {
+    public static long getValue(Map<Short, Long> map, short id) {
         if (AttributeTemplateIdContainer.VALUE_EXTRA.containsKey(id)) {
             short extId = AttributeTemplateIdContainer.VALUE_EXTRA.get(id);
             return map.getOrDefault(id, 0L) + map.getOrDefault(extId, 0L);
         }
         return map.getOrDefault(id, 0L);
+    }
+
+    public static long getRoleAttack(Map<Short, Long> map) {
+        return map.getOrDefault(ATTACK, 0L) + map.getOrDefault(ATTACK_EXTRA, 0L) +
+                map.getOrDefault(MAGIC, 0L) + map.getOrDefault(MAGIC_EXTRA, 0L) +
+                map.getOrDefault(ROLE_ATTACK, 0L) + map.getOrDefault(ROLE_ATTACK_EXTRA, 0L);
+    }
+
+    public static long getRoleAttackDefence(Map<Short, Long> map) {
+        return map.getOrDefault(ATTACK_DEFENCE, 0L) + map.getOrDefault(ATTACK_DEFENCE_EXTRA, 0L) +
+                map.getOrDefault(ROLE_DEFENCE, 0L) + map.getOrDefault(ROLE_DEFENCE_EXTRA, 0L);
+    }
+
+    public static long getRoleMagicDefence(Map<Short, Long> map) {
+        return map.getOrDefault(MAGIC_DEFENCE, 0L) + map.getOrDefault(MAGIC_DEFENCE_EXTRA, 0L) +
+                map.getOrDefault(ROLE_DEFENCE, 0L) + map.getOrDefault(ROLE_DEFENCE_EXTRA, 0L);
+    }
+
+    public static long getRolePierce(Map<Short, Long> map) {
+        return map.getOrDefault(ATTACK_PIERCE, 0L) + map.getOrDefault(ATTACK_PIERCE_EXTRA, 0L) +
+                map.getOrDefault(MAGIC_PIERCE, 0L) + map.getOrDefault(MAGIC_PIERCE_EXTRA, 0L) +
+                map.getOrDefault(ROLE_PIERCE, 0L) + map.getOrDefault(ROLE_PIERCE_EXTRA, 0L);
     }
 
 //    public Map<Short, Long> getCurrAttribute() {
