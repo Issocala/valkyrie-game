@@ -19,7 +19,6 @@ import application.module.organism.Organism;
 import application.module.organism.OrganismType;
 import application.module.player.data.message.event.PlayerLogin;
 import application.module.scene.operate.AoiSendMessageToClient;
-import application.module.scene.operate.SceneOrganismExit;
 import application.module.scene.operate.event.CreateOrganismEntityAfter;
 import application.module.scene.operate.event.CreatePlayerEntitiesAfter;
 import application.module.scene.operate.event.PlayerReceiveAfter;
@@ -122,7 +121,7 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
             if (addHp.organismType() == OrganismType.PLAYER) {
                 addHp.scene().tell(new PlayerDead(addHp.organismId(), addHp.sourceId(), addHp.sourceType()), self());
             } else {
-                addHp.scene().tell(new SceneOrganismExit(addHp.organismId(), addHp.organismType()), self());
+                addHp.scene().tell(new MonsterDead(addHp.organismId(), addHp.organismType(), addHp.sourceId(), addHp.sourceType()), self());
             }
         }
         currHp = Math.min(FightAttributeMgr.getValue(fightAttributeMap, MAX_HP), currHp);
