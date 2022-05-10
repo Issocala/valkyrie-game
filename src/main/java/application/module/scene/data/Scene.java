@@ -7,6 +7,7 @@ import application.client.Client.SendToClientJ;
 import application.guid.IdUtils;
 import application.module.common.CommonProtocolBuilder;
 import application.module.common.CommonProtocols;
+import application.module.fight.attribute.data.message.MonsterDead;
 import application.module.fight.attribute.data.message.PlayerDead;
 import application.module.fight.buff.data.message.AddBuff;
 import application.module.fight.skill.FightSkillProtocolBuilder;
@@ -105,7 +106,7 @@ public class Scene extends UntypedAbstractActor {
         for (int i = 0; i < length; i += 2) {
             this.playerBirths[index++] = new Vector(birthPoint[i], birthPoint[i + 1]);
         }
-        getContext().getSystem().scheduler().schedule(Duration.ofMillis(1000), Duration.ofMillis(1000), this::selectClient, getContext().dispatcher());
+        getContext().getSystem().scheduler().scheduleWithFixedDelay(Duration.ofMillis(1000), Duration.ofMillis(1000), this::selectClient, getContext().dispatcher());
     }
 
     public static Props create(int sceneId) {
@@ -134,8 +135,13 @@ public class Scene extends UntypedAbstractActor {
             case HelpUseSkill helpUseSkill -> npcUseSkill(helpUseSkill);
             case PickUpItem pickUpItem -> pickUpItem(pickUpItem);
             case FuckNpc fuckNpc -> fuckNpc(fuckNpc);
+            case MonsterDead monsterDead -> monsterDead(monsterDead);
             default -> throw new IllegalStateException("Unexpected value: " + message.getClass().getName());
         }
+    }
+
+    private void monsterDead(MonsterDead monsterDead) {
+        sceneOrganismExit(monsterDead.organismId(), monsterDead.organismType());
     }
 
     private void fuckNpc(FuckNpc fuckNpc) {
@@ -178,10 +184,9 @@ public class Scene extends UntypedAbstractActor {
     }
 
     private void getPlayerDataToOtherScene(GetPlayerDataToOtherScene getPlayerDataToOtherScene) {
-        ScenePlayerEntry scenePlayerEntry = getPlayerDataToOtherScene.scenePlayerEntry();
-        Client.ReceivedFromClient r = scenePlayerEntry.r();
-        getPlayerDataToOtherScene.scene().tell(new ScenePlayerEntryWrap(scenePlayerEntry, getPlayerInfo(r.uID())), self());
-        scenePlayerExit(r);
+        long playerId = getPlayerDataToOtherScene.playerId();
+        getPlayerDataToOtherScene.scene().tell(new ScenePlayerEntryWrap(getPlayerDataToOtherScene.client(), getPlayerInfo(playerId)), self());
+        scenePlayerExit(playerId);
     }
 
     private void sceneFlash(SceneFlash sceneFlash) {
@@ -195,7 +200,7 @@ public class Scene extends UntypedAbstractActor {
     }
 
     private void playerLogout(PlayerLogout playerLogout) {
-        scenePlayerExit(playerLogout.r());
+        scenePlayerExit(playerLogout.r().uID());
     }
 
     private void sceneOrganismEntry(SceneOrganismEntry sceneOrganismEntry) {
@@ -208,6 +213,9 @@ public class Scene extends UntypedAbstractActor {
             sendToAllClient(SceneProtocols.SCENE_RETURN_ENTITY, SceneProtocolBuilder.getSc10304(id,
                     npcOrganism.getOrganismType(), positionInfo, npcOrganism.getOrganismTemplateId()));
         } else if (organism instanceof MonsterOrganism monsterOrganism) {
+            if (monsterOrganismMap.size() >= MAX_MONSTER_COUNT) {
+                return;
+            }
             long id = monsterOrganism.getId();
             putPositionInfo(id, positionInfo);
             monsterOrganismMap.put(id, monsterOrganism);
@@ -229,10 +237,15 @@ public class Scene extends UntypedAbstractActor {
     }
 
     private void sceneOrganismExit(SceneOrganismExit sceneOrganismExit) {
-        long organismId = sceneOrganismExit.organismId();
-        byte organismType = sceneOrganismExit.organismType();
+        sceneOrganismExit(sceneOrganismExit.organismId(), sceneOrganismExit.organismType());
+    }
+
+    private void sceneOrganismExit(long organismId, byte organismType) {
         if (organismType == OrganismType.MONSTER) {
             if (Objects.nonNull(removePositionInfo(organismId))) {
+                if (monsterOrganismMap.get(organismId).getOrganismTemplateId() == 10009) {
+                    dealBossDead();
+                }
                 monsterOrganismMap.remove(organismId);
                 sendToAllClient(SceneProtocols.SCENE_EXIT, SceneProtocolBuilder.getSc10301(organismId));
             }
@@ -241,7 +254,40 @@ public class Scene extends UntypedAbstractActor {
                 npcOrganismMap.remove(organismId);
                 sendToAllClient(SceneProtocols.SCENE_EXIT, SceneProtocolBuilder.getSc10301(organismId));
             }
+        } else if (organismType == OrganismType.ITEM) {
+            if (Objects.nonNull(removePositionInfo(organismId))) {
+                itemOrganismMap.remove(organismId);
+                sendToAllClient(SceneProtocols.SCENE_EXIT, SceneProtocolBuilder.getSc10301(organismId));
+            }
         }
+    }
+
+    // TODO: 2022-5-9 临时处理boss死亡
+    private void dealBossDead() {
+        //场景所有怪物消失
+        Iterator<Long> iterator = monsterOrganismMap.keySet().iterator();
+        while (iterator.hasNext()) {
+            long organismId = iterator.next();
+            monsterOrganismMap.remove(organismId);
+            sendToAllClient(SceneProtocols.SCENE_EXIT, SceneProtocolBuilder.getSc10301(organismId));
+        }
+
+        //销毁场景触发器
+        getContext().stop(scenePortalRefreshMonsterTriggerList.get(0));
+
+        getContext().getSystem().scheduler().scheduleOnce(Duration.ofMillis(10000), this::sceneOut, getContext().dispatcher());
+
+    }
+
+    private void sceneOut() {
+        Iterator<Map.Entry<Long, ActorRef>> iterator = clientMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Long, ActorRef> entry = iterator.next();
+            this.sceneData.tell(new ReturnPerScene(entry.getKey(), entry.getValue()), self());
+        }
+
+        this.sceneData.tell(new SceneOut(sceneTemplateId), self());
+
     }
 
     private void sceneInit(SceneInit sceneInit) {
@@ -286,7 +332,8 @@ public class Scene extends UntypedAbstractActor {
             }
         });
         //获取场景实体的数据
-        getSceneAllOrganism(r, playerId);
+        getSceneAllOrganism(r.client(), playerId);
+        this.sceneData.tell(new PlayerEntrySuccess(playerId, sceneTemplateId), self());
     }
 
     private void sceneStop(SceneStop sceneStop) {
@@ -300,51 +347,48 @@ public class Scene extends UntypedAbstractActor {
     }
 
     private void scenePlayerExit(ScenePlayerExit scenePlayerExit) {
-        scenePlayerExit(scenePlayerExit.r());
+        scenePlayerExit(scenePlayerExit.r().uID());
     }
 
-    private void scenePlayerExit(Client.ReceivedFromClient r) {
-        long playerId = r.uID();
+    private void scenePlayerExit(long playerId) {
         sendToOtherClient(SceneProtocols.SCENE_EXIT, SceneProtocolBuilder.getSc10301(playerId), playerId);
         PositionInfo positionInfo = positionInfoMap.get(playerId);
         positionInfoMap.remove(playerId);
-        clientMap.remove(r.uID());
-        playerInfoMap.remove(r.uID());
+        clientMap.remove(playerId);
+        playerInfoMap.remove(playerId);
 
         //TODO 退出场景，玩家信息需要清空
         sender().tell(new ScenePlayerExitReturn(playerId, getSceneTemplateId(), positionInfo), self());
     }
 
     private void scenePlayerEntryWrap(ScenePlayerEntryWrap scenePlayerEntryWrap) {
-        ScenePlayerEntry scenePlayerEntry = scenePlayerEntryWrap.scenePlayerEntry();
-        Client.ReceivedFromClient r = scenePlayerEntry.r();
-        long playerId = r.uID();
-        this.clientMap.put(playerId, r.client());
-        this.playerInfoMap.put(playerId, scenePlayerEntryWrap.playerInfo());
+        PlayerInfo playerInfo = scenePlayerEntryWrap.playerInfo();
+        long playerId = playerInfo.id();
+        ActorRef client = scenePlayerEntryWrap.client();
+        this.clientMap.put(playerId, client);
+        this.playerInfoMap.put(playerId, playerInfo);
         PositionInfo positionInfo = positionInfoMap.get(playerId);
         if (Objects.isNull(positionInfo)) {
             Vector vector = getPlayerBirth();
             positionInfo = new PositionInfo(vector.x(), vector.y(), DEFAULT_FACE);
             positionInfoMap.put(playerId, positionInfo);
         }
-        r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_ENTER,
+        client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_ENTER,
                 SceneProtocolBuilder.getSc10300(sceneTemplateId, positionInfo)), self());
         //给场景的其他玩家发送我进来了
         PositionInfo finalPositionInfo = positionInfo;
-        clientMap.forEach((id, client) -> {
+        clientMap.forEach((id, client1) -> {
             if (id != playerId) {
-                client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
+                client1.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
                         SceneProtocolBuilder.getSc10304(playerId, OrganismType.PLAYER, finalPositionInfo,
                                 getPlayerInfo(playerId).profession())), self());
             }
         });
 
         //获取场景实体的数据
-        getSceneAllOrganismOutSelf(r, playerId);
-    }
+        getSceneAllOrganismOutSelf(client, playerId);
 
-    private void scenePlayerEntryWrap(Client.ReceivedFromClient r, long playerId) {
-
+        this.sceneData.tell(new PlayerEntrySuccess(playerId, sceneTemplateId), self());
     }
 
     private void sceneMove(SceneMove sceneMove) {
@@ -502,16 +546,16 @@ public class Scene extends UntypedAbstractActor {
         });
     }
 
-    private void getSceneAllOrganism(Client.ReceivedFromClient r, long organismId) {
+    private void getSceneAllOrganism(ActorRef client, long organismId) {
         playerInfoMap.forEach((id, playerInfo) ->
-                r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
+                client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
                         SceneProtocolBuilder.getSc10304(id, OrganismType.PLAYER, getPositionInfo(id), playerInfo.profession())), self()));
         npcOrganismMap.values().forEach(npcOrganism ->
-                r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
+                client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
                         SceneProtocolBuilder.getSc10304(npcOrganism.getId(), npcOrganism.getOrganismType(),
                                 getPositionInfo(npcOrganism.getId()), npcOrganism.getOrganismTemplateId())), self()));
         monsterOrganismMap.values().forEach(monsterOrganism ->
-                r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
+                client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
                         SceneProtocolBuilder.getSc10304(monsterOrganism.getId(), monsterOrganism.getOrganismType(),
                                 getPositionInfo(monsterOrganism.getId()), monsterOrganism.getOrganismTemplateId())), self()));
         List<Organism> list = new ArrayList<>(npcOrganismMap.values());
@@ -520,19 +564,19 @@ public class Scene extends UntypedAbstractActor {
 
     }
 
-    private void getSceneAllOrganismOutSelf(Client.ReceivedFromClient r, long organismId) {
+    private void getSceneAllOrganismOutSelf(ActorRef client, long organismId) {
         playerInfoMap.forEach((id, playerInfo) -> {
             if (id != organismId) {
-                r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
+                client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
                         SceneProtocolBuilder.getSc10304(id, OrganismType.PLAYER, getPositionInfo(id), playerInfo.profession())), self());
             }
         });
         npcOrganismMap.values().forEach(npcOrganism ->
-                r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
+                client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
                         SceneProtocolBuilder.getSc10304(npcOrganism.getId(), npcOrganism.getOrganismType(),
                                 getPositionInfo(npcOrganism.getId()), npcOrganism.getOrganismTemplateId())), self()));
         monsterOrganismMap.values().forEach(monsterOrganism ->
-                r.client().tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
+                client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
                         SceneProtocolBuilder.getSc10304(monsterOrganism.getId(), monsterOrganism.getOrganismType(),
                                 getPositionInfo(monsterOrganism.getId()), monsterOrganism.getOrganismTemplateId())), self()));
         List<Organism> list = new ArrayList<>(npcOrganismMap.values());

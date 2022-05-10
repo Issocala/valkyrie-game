@@ -1,5 +1,6 @@
 package application.module.scene.operate;
 
+import akka.actor.ActorRef;
 import application.module.player.data.domain.PlayerInfo;
 
 /**
@@ -7,5 +8,5 @@ import application.module.player.data.domain.PlayerInfo;
  * @date 2022-4-24
  * @Source 1.0
  */
-public record ScenePlayerEntryWrap(ScenePlayerEntry scenePlayerEntry, PlayerInfo playerInfo) {
+public record ScenePlayerEntryWrap(ActorRef client, PlayerInfo playerInfo) {
 }

@@ -69,6 +69,8 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
             cancellable.cancel();
         });
         cancellableMap = null;
+        openNpcDoorMap.values().forEach(Cancellable::cancel);
+        openNpcDoorMap = null;
     }
 
     @Override

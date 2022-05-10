@@ -7,5 +7,5 @@ import akka.actor.ActorRef;
  * @date 2022-4-24
  * @Source 1.0
  */
-public record GetPlayerDataToOtherScene(ScenePlayerEntry scenePlayerEntry, ActorRef scene) {
+public record GetPlayerDataToOtherScene(ActorRef client, long playerId, int sceneId, ActorRef scene) {
 }
