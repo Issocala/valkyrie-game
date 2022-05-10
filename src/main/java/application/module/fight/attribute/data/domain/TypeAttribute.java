@@ -43,7 +43,7 @@ public class TypeAttribute {
 
         addFightAttribute(id2FightAttributeMap);
         fightAttributeMap.put(VAR_HP, FightAttributeMgr.getValue(fightAttributeMap, MAX_HP));
-        fightAttributeMap.put(VAR_MP, FightAttributeMgr.getValue(fightAttributeMap, VAR_MP));
+        fightAttributeMap.put(VAR_MP, FightAttributeMgr.getValue(fightAttributeMap, MAX_MP));
     }
 
     public void addFightAttribute(Map<Short, Long> map) {
