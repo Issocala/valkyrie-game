@@ -162,14 +162,17 @@ public class ActorDataDispatcher extends AbstractActor {
                     10,
                     Duration.ofMinutes(1),
                     DeciderBuilder.match(ArithmeticException.class, e -> SupervisorStrategy.resume())
-                            .match(NullPointerException.class, e -> SupervisorStrategy.restart())
-                            .match(IllegalArgumentException.class, e -> SupervisorStrategy.stop())
-                            .matchAny(o -> (SupervisorStrategy.Directive) SupervisorStrategy.escalate())
+                            .match(NullPointerException.class, e -> {
+                                sender().tell(DataAgent.Init$.MODULE$, self());
+                                return SupervisorStrategy.restart();
+                            })
+                            .match(IllegalArgumentException.class, e -> {
+                                sender().tell(DataAgent.Init$.MODULE$, self());
+                                return SupervisorStrategy.stop();
+                            })
+                            .matchAny(o -> {
+                                sender().tell(DataAgent.Init$.MODULE$, self());
+                                return (SupervisorStrategy.Directive) SupervisorStrategy.escalate();
+                            })
                             .build());
-
-    @Override
-    public void preRestart(Throwable cause, Optional<Object> msg) {
-        init();
-    }
-
 }
