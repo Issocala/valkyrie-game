@@ -85,4 +85,13 @@ public class SceneProtocolBuilder {
                 .build();
     }
 
+    public static Scene.SC10312 getSc10312(long organismId, Scene.CS10312 cs10312) {
+        return Scene.SC10312.newBuilder()
+                .setOrganismId(organismId)
+                .setPositionX(cs10312.getPositionX())
+                .setPositionY(cs10312.getPositionY())
+                .setTime(cs10312.getTime())
+                .build();
+    }
+
 }

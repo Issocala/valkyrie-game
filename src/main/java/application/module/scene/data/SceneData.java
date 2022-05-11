@@ -74,7 +74,19 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
             case PlayerEntrySuccess playerEntrySuccess -> playerEntrySuccess(playerEntrySuccess);
             case ReturnPerScene returnPerScene -> returnPerScene(returnPerScene);
             case SceneOut sceneOut -> sceneOut(sceneOut);
+            case SceneRush sceneRush -> sceneRush(sceneRush);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase.getClass().getName());
+        }
+    }
+
+    private void sceneRush(SceneRush sceneRush) {
+        long playerId = sceneRush.r().uID();
+        if (validPlayerEntering(playerId)) {
+            return;
+        }
+        if (this.playerId2SceneIdMap.containsKey(playerId)) {
+            int sceneId = this.playerId2SceneIdMap.get(playerId);
+            this.sceneId2SceneMap.get(sceneId).tell(sceneRush, self());
         }
     }
 

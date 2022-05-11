@@ -34,4 +34,6 @@ public interface SceneProtocols {
 
     int FUCK_NPC = GameProtocols.SCENE + 11;
 
+    int SCENE_RUSH = GameProtocols.SCENE + 12;
+
 }

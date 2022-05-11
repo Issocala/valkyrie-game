@@ -97,6 +97,17 @@ public class SceneModule extends AbstractModule {
             case SceneProtocols.RECEIVE -> receive(r);
             case SceneProtocols.PICK_UP_ITEM -> pickUpItem(r);
             case SceneProtocols.FUCK_NPC -> fuckNpc(r);
+            case SceneProtocols.SCENE_RUSH -> rush(r);
+        }
+    }
+
+    private void rush(Client.ReceivedFromClient r) {
+
+        try {
+            var cs10312 = Scene.CS10312.parseFrom(r.message());
+            this.sceneData.tell(new SceneRush(r, cs10312), self());
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
         }
     }
 

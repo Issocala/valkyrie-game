@@ -136,8 +136,19 @@ public class Scene extends UntypedAbstractActor {
             case PickUpItem pickUpItem -> pickUpItem(pickUpItem);
             case FuckNpc fuckNpc -> fuckNpc(fuckNpc);
             case MonsterDead monsterDead -> monsterDead(monsterDead);
+            case SceneRush sceneRush -> sceneRush(sceneRush);
             default -> throw new IllegalStateException("Unexpected value: " + message.getClass().getName());
         }
+    }
+
+    private void sceneRush(SceneRush sceneRush) {
+        Client.ReceivedFromClient r = sceneRush.r();
+        protocol.Scene.CS10312 cs10312 = sceneRush.cs10312();
+        long organismId = cs10312.getOrganismId();
+        positionInfoMap.put(organismId, new PositionInfo(cs10312.getPositionX(), cs10312.getPositionY(),
+                positionInfoMap.get(organismId).getFace()));
+        //TODO 需要根据时间加速度，判断是否移动位置距离上一次同步合理
+        sendToOtherClient(r.protoID(), SceneProtocolBuilder.getSc10312(organismId, cs10312), organismId);
     }
 
     private void monsterDead(MonsterDead monsterDead) {
