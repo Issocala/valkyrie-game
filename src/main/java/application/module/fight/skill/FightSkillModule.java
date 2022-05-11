@@ -4,6 +4,8 @@ import akka.actor.ActorRef;
 import application.condition.Condition;
 import application.condition.ConditionContainer;
 import application.condition.ConditionContext;
+import application.module.common.CommonProtocolBuilder;
+import application.module.common.CommonProtocols;
 import application.module.common.data.domain.DataMessage;
 import application.module.fight.attribute.AttributeTemplateId;
 import application.module.fight.attribute.data.AttributeData;
@@ -27,16 +29,12 @@ import application.module.fight.skill.operate.SkillIsLearnType;
 import application.module.fight.skill.operate.info.SkillUseInfo;
 import application.module.fight.skill.util.PassiveTriggerType;
 import application.module.fight.skill.util.SkillType;
-import application.module.organism.Organism;
 import application.module.organism.OrganismType;
 import application.module.player.data.PlayerEntityData;
 import application.module.player.data.message.event.PlayerLogin;
 import application.module.scene.data.SceneData;
 import application.module.state.data.StateData;
-import application.util.CommonOperateTypeInfo;
-import application.util.DataMessageAndReply;
-import application.util.RandomUtil;
-import application.util.StringUtils;
+import application.util.*;
 import com.cala.orm.message.DataReturnMessage;
 import com.cala.orm.message.OperateType;
 import com.cala.orm.message.SubscribeEvent;
@@ -116,10 +114,11 @@ public class FightSkillModule extends AbstractModule {
         }
         FightSkillWrap fightSkillWrap = FightSkillWrapContainer.getFightSkillWrap(useSkillDataTemp.getSkillId());
         FightSkillTemplate fightSkillTemplate = fightSkillWrap.getFightSkillTemplate();
-        if (FightAttributeMgr.getValue(useSkillDataTemp.getAttackAttributeMap(), AttributeTemplateId.VAR_HP) <= fightSkillTemplate.costHp()
-                || FightAttributeMgr.getValue(useSkillDataTemp.getAttackAttributeMap(), AttributeTemplateId.VAR_MP) < fightSkillTemplate.costMp()) {
-            //TODO 考虑是否需要返回客户端错误信息
-//            return;
+        if (FightAttributeMgr.getValue(useSkillDataTemp.getAttackAttributeMap(), AttributeTemplateId.VAR_MP) <= fightSkillTemplate.costMp()
+                || FightAttributeMgr.getValue(useSkillDataTemp.getAttackAttributeMap(), AttributeTemplateId.VAR_HP) < fightSkillTemplate.costHp()) {
+            useSkillDataTemp.getR().client().tell(new application.client.Client.SendToClientJ(CommonProtocols.APPLICATION_ERROR,
+                    CommonProtocolBuilder.getSc10080(ApplicationErrorCode.USE_SKILL_HP_MP)), self());
+            return;
         }
         fightRuntimeContext.startCD(fightSkillTemplate);
 
