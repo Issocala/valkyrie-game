@@ -86,7 +86,9 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         }
         if (this.playerId2SceneIdMap.containsKey(playerId)) {
             int sceneId = this.playerId2SceneIdMap.get(playerId);
-            this.sceneId2SceneMap.get(sceneId).tell(sceneRush, self());
+            if (this.sceneId2SceneMap.containsKey(sceneId)) {
+                this.sceneId2SceneMap.get(sceneId).tell(sceneRush, self());
+            }
         }
     }
 
@@ -144,7 +146,9 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         }
         if (this.playerId2SceneIdMap.containsKey(playerId)) {
             int sceneId = this.playerId2SceneIdMap.get(playerId);
-            this.sceneId2SceneMap.get(sceneId).tell(playerReceive, self());
+            if (this.sceneId2SceneMap.containsKey(sceneId)) {
+                this.sceneId2SceneMap.get(sceneId).tell(playerReceive, self());
+            }
         }
     }
 
@@ -221,7 +225,9 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         }
         if (this.playerId2SceneIdMap.containsKey(playerId)) {
             int sceneId = this.playerId2SceneIdMap.get(playerId);
-            this.sceneId2SceneMap.get(sceneId).tell(sceneJump, self());
+            if (this.sceneId2SceneMap.containsKey(sceneId)) {
+                this.sceneId2SceneMap.get(sceneId).tell(sceneJump, self());
+            }
         }
     }
 
@@ -250,7 +256,9 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         }
         if (this.playerId2SceneIdMap.containsKey(playerId)) {
             int sceneId = this.playerId2SceneIdMap.get(playerId);
-            this.sceneId2SceneMap.get(sceneId).tell(sceneStop, self());
+            if (this.sceneId2SceneMap.containsKey(sceneId)) {
+                this.sceneId2SceneMap.get(sceneId).tell(sceneStop, self());
+            }
         }
     }
 
@@ -292,7 +300,9 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         }
         if (this.playerId2SceneIdMap.containsKey(playerId)) {
             int sceneId = this.playerId2SceneIdMap.get(playerId);
-            this.sceneId2SceneMap.get(sceneId).tell(sceneMove, self());
+            if (this.sceneId2SceneMap.containsKey(sceneId)) {
+                this.sceneId2SceneMap.get(sceneId).tell(sceneMove, self());
+            }
         }
     }
 
