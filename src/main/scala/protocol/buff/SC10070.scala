@@ -4,15 +4,27 @@
 // Protofile syntax: PROTO2
 
 package protocol.buff
+import _root_.scalapb.internal.compat.JavaConverters._
 
 @SerialVersionUID(0L)
 final case class SC10070(
+    organismId: _root_.scala.Long,
+    buffInfo: _root_.scala.Seq[protocol.buff.BuffInfo] = _root_.scala.Seq.empty,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SC10070] {
     @transient
     private[this] var __serializedSizeCachedValue: _root_.scala.Int = 0
     private[this] def __computeSerializedValue(): _root_.scala.Int = {
       var __size = 0
+      
+      {
+        val __value = organismId
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(1, __value)
+      };
+      buffInfo.foreach { __item =>
+        val __value = __item
+        __size += 1 + _root_.com.google.protobuf.CodedOutputStream.computeUInt32SizeNoTag(__value.serializedSize) + __value.serializedSize
+      }
       __size += unknownFields.serializedSize
       __size
     }
@@ -25,12 +37,39 @@ final case class SC10070(
       read
     }
     def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
+      
+      {
+        val __v = organismId
+        _output__.writeInt64(1, __v)
+      };
+      buffInfo.foreach { __v =>
+        val __m = __v
+        _output__.writeTag(2, 2)
+        _output__.writeUInt32NoTag(__m.serializedSize)
+        __m.writeTo(_output__)
+      };
       unknownFields.writeTo(_output__)
     }
+    def withOrganismId(__v: _root_.scala.Long): SC10070 = copy(organismId = __v)
+    def clearBuffInfo = copy(buffInfo = _root_.scala.Seq.empty)
+    def addBuffInfo(__vs: protocol.buff.BuffInfo*): SC10070 = addAllBuffInfo(__vs)
+    def addAllBuffInfo(__vs: Iterable[protocol.buff.BuffInfo]): SC10070 = copy(buffInfo = buffInfo ++ __vs)
+    def withBuffInfo(__v: _root_.scala.Seq[protocol.buff.BuffInfo]): SC10070 = copy(buffInfo = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
-    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = throw new MatchError(__fieldNumber)
-    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = throw new MatchError(__field)
+    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
+      (__fieldNumber: @_root_.scala.unchecked) match {
+        case 1 => organismId
+        case 2 => buffInfo
+      }
+    }
+    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
+      _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
+      (__field.number: @_root_.scala.unchecked) match {
+        case 1 => _root_.scalapb.descriptors.PLong(organismId)
+        case 2 => _root_.scalapb.descriptors.PRepeated(buffInfo.iterator.map(_.toPMessage).toVector)
+      }
+    }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
     def companion = protocol.buff.SC10070
     // @@protoc_insertion_point(GeneratedMessage[protocol.SC10070])
@@ -40,34 +79,56 @@ object SC10070 extends scalapb.GeneratedMessageCompanion[protocol.buff.SC10070] 
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[protocol.buff.SC10070] with scalapb.HasBuilder[protocol.buff.SC10070] with scalapb.JavaProtoSupport[protocol.buff.SC10070, protocol.Buff.SC10070] = this
   def toJavaProto(scalaPbSource: protocol.buff.SC10070): protocol.Buff.SC10070 = {
     val javaPbOut = protocol.Buff.SC10070.newBuilder
+    javaPbOut.setOrganismId(scalaPbSource.organismId)
+    javaPbOut.addAllBuffInfo(_root_.scalapb.internal.compat.toIterable(scalaPbSource.buffInfo.iterator.map(protocol.buff.BuffInfo.toJavaProto(_))).asJava)
     javaPbOut.build
   }
   def fromJavaProto(javaPbSource: protocol.Buff.SC10070): protocol.buff.SC10070 = protocol.buff.SC10070(
+    organismId = javaPbSource.getOrganismId.longValue,
+    buffInfo = javaPbSource.getBuffInfoList.asScala.iterator.map(protocol.buff.BuffInfo.fromJavaProto(_)).toSeq
   )
   def merge(`_message__`: protocol.buff.SC10070, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.buff.SC10070 = newBuilder(_message__).merge(_input__).result()
   implicit def messageReads: _root_.scalapb.descriptors.Reads[protocol.buff.SC10070] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
       protocol.buff.SC10070(
+        organismId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).get.as[_root_.scala.Long],
+        buffInfo = __fieldsMap.get(scalaDescriptor.findFieldByNumber(2).get).map(_.as[_root_.scala.Seq[protocol.buff.BuffInfo]]).getOrElse(_root_.scala.Seq.empty)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = BuffProto.javaDescriptor.getMessageTypes().get(0)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = BuffProto.scalaDescriptor.messages(0)
-  def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = BuffProto.javaDescriptor.getMessageTypes().get(1)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = BuffProto.scalaDescriptor.messages(1)
+  def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
+    var __out: _root_.scalapb.GeneratedMessageCompanion[_] = null
+    (__number: @_root_.scala.unchecked) match {
+      case 2 => __out = protocol.buff.BuffInfo
+    }
+    __out
+  }
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = protocol.buff.SC10070(
+    organismId = 0L,
+    buffInfo = _root_.scala.Seq.empty
   )
   final class Builder private (
+    private var __organismId: _root_.scala.Long,
+    private val __buffInfo: _root_.scala.collection.immutable.VectorBuilder[protocol.buff.BuffInfo],
     private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
   ) extends _root_.scalapb.MessageBuilder[protocol.buff.SC10070] {
+    private var __requiredFields0: _root_.scala.Long = 0x1L
     def merge(`_input__`: _root_.com.google.protobuf.CodedInputStream): this.type = {
       var _done__ = false
       while (!_done__) {
         val _tag__ = _input__.readTag()
         _tag__ match {
           case 0 => _done__ = true
+          case 8 =>
+            __organismId = _input__.readInt64()
+            __requiredFields0 &= 0xfffffffffffffffeL
+          case 18 =>
+            __buffInfo += _root_.scalapb.LiteParser.readMessage[protocol.buff.BuffInfo](_input__)
           case tag =>
             if (_unknownFields__ == null) {
               _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -78,25 +139,40 @@ object SC10070 extends scalapb.GeneratedMessageCompanion[protocol.buff.SC10070] 
       this
     }
     def result(): protocol.buff.SC10070 = {
+      if (__requiredFields0 != 0L) { throw new _root_.com.google.protobuf.InvalidProtocolBufferException("Message missing required fields.") } 
       protocol.buff.SC10070(
+        organismId = __organismId,
+        buffInfo = __buffInfo.result(),
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
       )
     }
   }
   object Builder extends _root_.scalapb.MessageBuilderCompanion[protocol.buff.SC10070, protocol.buff.SC10070.Builder] {
     def apply(): Builder = new Builder(
+      __organismId = 0L,
+      __buffInfo = new _root_.scala.collection.immutable.VectorBuilder[protocol.buff.BuffInfo],
       `_unknownFields__` = null
     )
     def apply(`_message__`: protocol.buff.SC10070): Builder = new Builder(
+        __organismId = _message__.organismId,
+        __buffInfo = new _root_.scala.collection.immutable.VectorBuilder[protocol.buff.BuffInfo] ++= _message__.buffInfo,
         `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
   }
   def newBuilder: Builder = protocol.buff.SC10070.Builder()
   def newBuilder(`_message__`: protocol.buff.SC10070): Builder = protocol.buff.SC10070.Builder(_message__)
   implicit class SC10070Lens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.buff.SC10070]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.buff.SC10070](_l) {
+    def organismId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.organismId)((c_, f_) => c_.copy(organismId = f_))
+    def buffInfo: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[protocol.buff.BuffInfo]] = field(_.buffInfo)((c_, f_) => c_.copy(buffInfo = f_))
   }
+  final val ORGANISMID_FIELD_NUMBER = 1
+  final val BUFFINFO_FIELD_NUMBER = 2
   def of(
+    organismId: _root_.scala.Long,
+    buffInfo: _root_.scala.Seq[protocol.buff.BuffInfo]
   ): _root_.protocol.buff.SC10070 = _root_.protocol.buff.SC10070(
+    organismId,
+    buffInfo
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.SC10070])
 }

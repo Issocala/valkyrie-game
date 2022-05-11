@@ -1,18 +1,25 @@
 package protocol;
 
+message BuffInfo
+{
+    required int32 buffTemplateId = 1;
+    required int32 currCoverCount = 2;
+}
+
 message SC10070
 {
-
+    required int64 organismId = 1;
+    repeated BuffInfo buffInfo = 2;
 }
 
 message SC10071
 {
     required int64 fightOrganismId = 1;
-    required int32 buffTemplateId = 2;
+    required BuffInfo buffInfo = 2;
 }
 
 message SC10072
 {
     required int64 fightOrganismId = 1;
-    required int32 buffTemplateId = 2;
+    required BuffInfo buffInfo = 2;
 }
