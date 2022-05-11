@@ -3,12 +3,18 @@ package application.module.fight.buff.data;
 import akka.actor.ActorRef;
 import akka.actor.Cancellable;
 import akka.actor.Props;
+import application.module.fight.buff.FightBuffProtocolBuilder;
+import application.module.fight.buff.FightBuffProtocols;
 import application.module.fight.buff.data.domain.FightOrganismBuff;
 import application.module.fight.buff.data.message.*;
 import application.module.fight.buff.function.message.AddBuffFunction;
 import application.module.fight.buff.function.message.RemoveBuffFunction;
 import application.module.fight.buff.function.message.TickBuffFunction;
 import application.module.fight.buff.type.BuffRepeatRuleType;
+import application.module.player.data.message.event.PlayerLogin;
+import application.module.scene.operate.AoiSendMessageToClient;
+import application.module.scene.operate.event.CreateOrganismEntityAfter;
+import application.module.scene.operate.event.CreatePlayerEntitiesAfter;
 import mobius.core.java.api.AbstractLogActor;
 import mobius.modular.client.Client;
 import template.FightBuffTemplate;
@@ -47,7 +53,34 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
                 .match(TickBuffFunction.class, this::tickBuffFunction)
                 .match(RemoveBuffFunction.class, this::remove)
                 .match(GetAllBuff.class, this::getAllBuff)
+                .match(CreatePlayerEntitiesAfter.class, this::createPlayerEntitiesAfter)
+                .match(CreateOrganismEntityAfter.class, this::createOrganismEntityAfter)
+                .match(PlayerLogin.class, this::playerLogin)
                 .build();
+    }
+
+    private void playerLogin(PlayerLogin playerLogin) {
+
+    }
+
+    private void createOrganismEntityAfter(CreateOrganismEntityAfter createOrganismEntityAfter) {
+
+    }
+
+    private void createPlayerEntitiesAfter(CreatePlayerEntitiesAfter createPlayerEntitiesAfter) {
+        long playerId = createPlayerEntitiesAfter.playerId();
+        Map<Long, ActorRef> clientMap = createPlayerEntitiesAfter.clientMap();
+        ActorRef client = clientMap.get(playerId);
+        clientMap.forEach((id, client1) -> {
+            if (Objects.isNull(client1)) {
+                return;
+            }
+            if (id != playerId) {
+                returnClientAllBuff(playerId, client1);
+            }
+            returnClientAllBuff(id, client);
+        });
+        createPlayerEntitiesAfter.organisms().forEach(organism -> returnClientAllBuff(organism.getId(), client));
     }
 
     private void getAllBuff(GetAllBuff getAllBuff) {
@@ -109,6 +142,8 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
                 scheduleTickOnce(addBuff.r(), fightOrganismBuff);
             }
         }
+        addBuff.scene().tell(new AoiSendMessageToClient(FightBuffProtocols.ADD,
+                FightBuffProtocolBuilder.getSc10071(toId, fightOrganismBuff), toId), self());
     }
 
     public void removeBuff(RemoveBuff removeBuff) {
@@ -123,17 +158,19 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
         }
     }
 
-    private void remove(RemoveBuffFunction removeBuffFunction, int coverCount) {
-        FightOrganismBuff fightOrganismBuff = removeBuffFunction.fightOrganismBuff();
-        int buffTemplateId = fightOrganismBuff.getBuffTemplateId();
+    private void remove(RemoveBuffFunction remove, int coverCount) {
+        FightOrganismBuff buff = remove.fightOrganismBuff();
+        int buffTemplateId = buff.getBuffTemplateId();
         for (int i = 0; i < coverCount; i++) {
-            fightOrganismBuff.setCurrCoverCount(fightOrganismBuff.getCurrCoverCount() - 1);
-            if (fightOrganismBuff.getCurrCoverCount() <= 0) {
+            buff.setCurrCoverCount(buff.getCurrCoverCount() - 1);
+            if (buff.getCurrCoverCount() <= 0) {
                 this.fightOrganismBuffMap.remove(buffTemplateId);
             }
-            fightOrganismBuff.getFunction().tell(new RemoveBuffFunction(removeBuffFunction.r(), fightOrganismBuff), self());
-            cancellable(fightOrganismBuff.getId());
+            buff.getFunction().tell(new RemoveBuffFunction(remove.r(), buff), self());
+            cancellable(buff.getId());
         }
+        buff.getScene().tell(new AoiSendMessageToClient(FightBuffProtocols.REMOVE,
+                FightBuffProtocolBuilder.getSc10072(buff.getToId(), buff), buff.getToId()), self());
     }
 
     private void remove(RemoveBuffFunction removeBuffFunction) {
@@ -189,4 +226,10 @@ public class FightOrganismBuffContainer extends AbstractLogActor {
         removeCancellableMap.put(fightOrganismBuff.getId(), cancellable);
     }
 
+    private void returnClientAllBuff(long fightOrganismId, ActorRef client) {
+        if (Objects.nonNull(client)) {
+            client.tell(new application.client.Client.SendToClientJ(FightBuffProtocols.GET,
+                    FightBuffProtocolBuilder.getSc10070(fightOrganismId, this.fightOrganismBuffMap)), self());
+        }
+    }
 }

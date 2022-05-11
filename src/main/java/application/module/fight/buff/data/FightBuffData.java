@@ -5,6 +5,9 @@ import akka.actor.Props;
 import application.module.fight.buff.data.domain.FightBuffEntity;
 import application.module.fight.buff.data.message.AddBuff;
 import application.module.fight.buff.data.message.RemoveBuff;
+import application.module.player.data.message.event.PlayerLogin;
+import application.module.scene.operate.event.CreateOrganismEntityAfter;
+import application.module.scene.operate.event.CreatePlayerEntitiesAfter;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
 import com.cala.orm.cache.DataInit;
@@ -37,24 +40,59 @@ public class FightBuffData extends AbstractDataCacheManager<FightBuffEntity> {
         switch (dataBase) {
             case AddBuff addBuff -> addBuff(addBuff);
             case RemoveBuff removeBuff -> removeBuff(removeBuff);
+            case PlayerLogin playerLogin -> playerLogin(playerLogin);
+            case CreatePlayerEntitiesAfter createPlayerEntitiesAfter -> createPlayerEntitiesAfter(createPlayerEntitiesAfter);
+            case CreateOrganismEntityAfter createOrganismEntityAfter -> createOrganismEntityAfter(createOrganismEntityAfter);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase);
         }
     }
 
-    private void removeBuff(RemoveBuff removeBuff) {
-        ActorRef fightOrganismBuffContainer = fightOrganismBuffContainerMap.get(removeBuff.toId());
+    private void createOrganismEntityAfter(CreateOrganismEntityAfter createOrganismEntityAfter) {
+        long id = createOrganismEntityAfter.organism().getId();
+        ActorRef fightOrganismBuffContainer = fightOrganismBuffContainerMap.get(id);
         if (Objects.isNull(fightOrganismBuffContainer)) {
             fightOrganismBuffContainer = getContext().actorOf(FightOrganismBuffContainer.create());
-            fightOrganismBuffContainerMap.put(removeBuff.toId(), fightOrganismBuffContainer);
+            fightOrganismBuffContainerMap.put(id, fightOrganismBuffContainer);
+        }
+        fightOrganismBuffContainer.tell(createOrganismEntityAfter, self());
+    }
+
+    private void createPlayerEntitiesAfter(CreatePlayerEntitiesAfter createPlayerEntitiesAfter) {
+        long id = createPlayerEntitiesAfter.playerId();
+        ActorRef fightOrganismBuffContainer = fightOrganismBuffContainerMap.get(id);
+        if (Objects.isNull(fightOrganismBuffContainer)) {
+            fightOrganismBuffContainer = getContext().actorOf(FightOrganismBuffContainer.create());
+            fightOrganismBuffContainerMap.put(id, fightOrganismBuffContainer);
+        }
+        fightOrganismBuffContainer.tell(createPlayerEntitiesAfter, self());
+    }
+
+    private void playerLogin(PlayerLogin playerLogin) {
+        long id = playerLogin.playerInfo().id();
+        ActorRef fightOrganismBuffContainer = fightOrganismBuffContainerMap.get(id);
+        if (Objects.isNull(fightOrganismBuffContainer)) {
+            fightOrganismBuffContainer = getContext().actorOf(FightOrganismBuffContainer.create());
+            fightOrganismBuffContainerMap.put(id, fightOrganismBuffContainer);
+        }
+        fightOrganismBuffContainer.tell(playerLogin, self());
+    }
+
+    private void removeBuff(RemoveBuff removeBuff) {
+        long id = removeBuff.toId();
+        ActorRef fightOrganismBuffContainer = fightOrganismBuffContainerMap.get(id);
+        if (Objects.isNull(fightOrganismBuffContainer)) {
+            fightOrganismBuffContainer = getContext().actorOf(FightOrganismBuffContainer.create());
+            fightOrganismBuffContainerMap.put(id, fightOrganismBuffContainer);
         }
         fightOrganismBuffContainer.tell(removeBuff, self());
     }
 
     private void addBuff(AddBuff addBuff) {
-        ActorRef fightOrganismBuffContainer = fightOrganismBuffContainerMap.get(addBuff.toId());
+        long id = addBuff.toId();
+        ActorRef fightOrganismBuffContainer = fightOrganismBuffContainerMap.get(id);
         if (Objects.isNull(fightOrganismBuffContainer)) {
             fightOrganismBuffContainer = getContext().actorOf(FightOrganismBuffContainer.create());
-            fightOrganismBuffContainerMap.put(addBuff.toId(), fightOrganismBuffContainer);
+            fightOrganismBuffContainerMap.put(id, fightOrganismBuffContainer);
         }
         fightOrganismBuffContainer.tell(addBuff, sender());
     }
