@@ -8,6 +8,7 @@ import application.module.fight.buff.data.message.RemoveBuff;
 import application.module.player.data.message.event.PlayerLogin;
 import application.module.scene.operate.event.CreateOrganismEntityAfter;
 import application.module.scene.operate.event.CreatePlayerEntitiesAfter;
+import application.module.scene.operate.event.PlayerReceiveAfter;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;
 import com.cala.orm.cache.DataInit;
@@ -43,8 +44,13 @@ public class FightBuffData extends AbstractDataCacheManager<FightBuffEntity> {
             case PlayerLogin playerLogin -> playerLogin(playerLogin);
             case CreatePlayerEntitiesAfter createPlayerEntitiesAfter -> createPlayerEntitiesAfter(createPlayerEntitiesAfter);
             case CreateOrganismEntityAfter createOrganismEntityAfter -> createOrganismEntityAfter(createOrganismEntityAfter);
+            case PlayerReceiveAfter playerReceiveAfter -> playerReceiveAfter(playerReceiveAfter);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase);
         }
+    }
+
+    private void playerReceiveAfter(PlayerReceiveAfter playerReceiveAfter) {
+
     }
 
     private void createOrganismEntityAfter(CreateOrganismEntityAfter createOrganismEntityAfter) {
