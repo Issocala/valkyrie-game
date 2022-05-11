@@ -16,3 +16,9 @@ message SC10081
 {
     required int64 serverTime = 1;
 }
+
+//心跳包
+message CS10082
+{
+    required int64 serverTime = 1;
+}

@@ -154,3 +154,21 @@ message CS10311
   required int64 organismId = 1;
   required int64 organismNpcId = 2;
 }
+
+//冲锋
+message CS10312
+{
+  required int64 organismId = 1;
+  required float positionX = 2;
+  required float positionY = 3;
+  required float time = 4;
+}
+
+//冲锋
+message SC10312
+{
+  required int64 organismId = 1;
+  required float positionX = 2;
+  required float positionY = 3;
+  required float time = 4;
+}
