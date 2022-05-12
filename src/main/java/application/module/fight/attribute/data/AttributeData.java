@@ -116,6 +116,14 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
         long currHp = fightAttributeMap.getOrDefault(VAR_HP, 0L) + hp;
         if (currHp <= 0) {
             currHp = 0;
+            // TODO: 2022-5-12 这里可以处理一些免死之类的 
+        }
+        currHp = Math.min(FightAttributeMgr.getValue(fightAttributeMap, MAX_HP), currHp);
+        log.debug("-----organismId = {}---organismType = {}---hp = {}", addHp.organismId(), addHp.organismType(), currHp);
+        fightAttributeMap.put(VAR_HP, currHp);
+        addHp.scene().tell(new AoiSendMessageToClient(AttributeProtocols.FIGHT_ATTRIBUTE_GET,
+                AttributeProtocolBuilder.get10040(addHp.organismId(), Map.copyOf(fightAttributeMap)), addHp.organismId()), self());
+        if (currHp == 0) {
             addHp.stateData().tell(new OrganismChangeState(addHp.organismId(),
                     addHp.organismType(), StateType.ActionType.DEAD_STATE, addHp.scene()), self());
             if (addHp.organismType() == OrganismType.PLAYER) {
@@ -124,11 +132,6 @@ public class AttributeData extends AbstractDataCacheManager<Attribute> {
                 addHp.scene().tell(new MonsterDead(addHp.organismId(), addHp.organismType(), addHp.sourceId(), addHp.sourceType()), self());
             }
         }
-        currHp = Math.min(FightAttributeMgr.getValue(fightAttributeMap, MAX_HP), currHp);
-        log.debug("-----organismId = {}---organismType = {}---hp = {}", addHp.organismId(), addHp.organismType(), currHp);
-        fightAttributeMap.put(VAR_HP, currHp);
-        addHp.scene().tell(new AoiSendMessageToClient(AttributeProtocols.FIGHT_ATTRIBUTE_GET,
-                AttributeProtocolBuilder.get10040(addHp.organismId(), Map.copyOf(fightAttributeMap)), addHp.organismId()), self());
     }
 
     private void createOrganismEntityAfter(CreateOrganismEntityAfter createOrganismEntityAfter) {
