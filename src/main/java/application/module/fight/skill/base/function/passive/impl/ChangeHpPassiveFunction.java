@@ -13,7 +13,7 @@ import template.FightPassiveSkillProcessTemplate;
  * @date 2022-5-6
  * @Source 1.0
  */
-public class ChangeHpPassiveFunction extends FightPassiveSkillFunction {
+public class ChangeHpPassiveFunction implements FightPassiveSkillFunction {
     @Override
     public void castSkill(FightPassiveSkillWrap fightPassiveSkillWrap, FightPassiveSkillProcessTemplate processTemplate, PassiveSkillDataTemp passiveSkillDataTemp) {
         long finalHp = Long.parseLong(processTemplate.attributeParameter());

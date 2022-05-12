@@ -3,12 +3,10 @@ package application.module.fight.skill.base.function.active.impl;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import application.module.fight.attribute.AttributeTemplateId;
-import application.module.fight.buff.data.message.AddBuff;
 import application.module.fight.buff.data.message.RemoveBuff;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
 import application.module.fight.skill.base.function.active.FightSkillActiveFunction;
 import application.module.fight.skill.base.skill.FightSkillWrap;
-import application.util.StringUtils;
 import template.FightSkillProcessTemplate;
 
 import java.util.Map;
@@ -19,7 +17,7 @@ import java.util.Map;
  * @date 2022-2-28
  * @Source 1.0
  */
-public class MadWarrior3Function extends FightSkillActiveFunction {
+public class MadWarrior3Function implements FightSkillActiveFunction {
 
     public static Props create() {
         return Props.create(MadWarrior3Function.class);

@@ -2,7 +2,6 @@ package application.module.fight.skill.base.function.active.impl;
 
 import akka.actor.ActorRef;
 import application.module.fight.attribute.data.message.AddHp;
-import application.module.fight.attribute.fight.FightAttributeMgr;
 import application.module.fight.skill.FightSkillProtocolBuilder;
 import application.module.fight.skill.FightSkillProtocols;
 import application.module.fight.skill.base.context.UseSkillDataTemp;
@@ -25,7 +24,7 @@ import static application.module.fight.attribute.AttributeTemplateId.*;
  * @date 2022-4-29
  * @Source 1.0
  */
-public class FixedDamageFunction extends FightSkillActiveFunction {
+public class FixedDamageFunction implements FightSkillActiveFunction {
     @Override
     public void castSkill(FightSkillWrap fightSkillWrap, FightSkillProcessTemplate fightSkillProcessTemplate, UseSkillDataTemp useSkillDataTemp) {
         int[] parameter = StringUtils.toIntArray(fightSkillProcessTemplate.attributeParameter());

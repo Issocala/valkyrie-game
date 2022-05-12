@@ -13,7 +13,7 @@ import template.FightPassiveSkillProcessTemplate;
  * @date 2022-4-15
  * @Source 1.0
  */
-public class AddBuffPassiveFunction extends FightPassiveSkillFunction {
+public class AddBuffPassiveFunction implements FightPassiveSkillFunction {
 
     @Override
     public void castSkill(FightPassiveSkillWrap fightPassiveSkillWrap, FightPassiveSkillProcessTemplate processTemplate, PassiveSkillDataTemp dataTemp) {

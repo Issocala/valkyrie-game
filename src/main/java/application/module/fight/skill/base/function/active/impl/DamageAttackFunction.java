@@ -22,7 +22,7 @@ import static application.module.fight.attribute.fight.FightAttributeMgr.basicAt
  * @date 2022-2-28
  * @Source 1.0
  */
-public class DamageAttackFunction extends FightSkillActiveFunction {
+public class DamageAttackFunction implements FightSkillActiveFunction {
 
     public static Props create() {
         return Props.create(DamageAttackFunction.class);
@@ -35,7 +35,7 @@ public class DamageAttackFunction extends FightSkillActiveFunction {
         if (StringUtils.isEmpty(fightSkillProcessTemplate.attributeParameter())) {
             damage = 0;
             damageRate = 1;
-        }else {
+        } else {
             String[] attributeParameter = StringUtils.toStringArray(fightSkillProcessTemplate.attributeParameter());
             //技能固定伤害
             damage = Integer.parseInt(attributeParameter[0]);

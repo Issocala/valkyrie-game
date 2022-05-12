@@ -6,5 +6,4 @@ package application.module.fight.skill.base.function;
  * @Source 1.0
  */
 public interface FightSkillFunction {
-
 }

@@ -14,7 +14,7 @@ import template.FightSkillProcessTemplate;
  * @date 2022-4-11
  * @Source 1.0
  */
-public class AddBuffFunction extends FightSkillActiveFunction {
+public class AddBuffFunction implements FightSkillActiveFunction {
 
     public static Props create() {
         return Props.create(AddBuffFunction.class);

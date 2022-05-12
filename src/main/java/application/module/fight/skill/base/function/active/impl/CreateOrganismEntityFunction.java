@@ -20,7 +20,7 @@ import template.OrganismDataTemplateHolder;
  * @date 2022-4-20
  * @Source 1.0
  */
-public class CreateOrganismEntityFunction extends FightSkillActiveFunction {
+public class CreateOrganismEntityFunction implements FightSkillActiveFunction {
 
     public static Props create() {
         return Props.create(CreateOrganismEntityFunction.class);

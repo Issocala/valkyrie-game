@@ -20,7 +20,7 @@ import java.util.Map;
  * @date 2022-2-28
  * @Source 1.0
  */
-public class MadWarrior2Function extends FightSkillActiveFunction {
+public class MadWarrior2Function implements FightSkillActiveFunction {
 
     public static Props create() {
         return Props.create(MadWarrior2Function.class);

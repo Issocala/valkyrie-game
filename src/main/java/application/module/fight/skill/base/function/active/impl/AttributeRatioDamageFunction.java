@@ -26,7 +26,7 @@ import static application.module.fight.attribute.AttributeTemplateId.BOSS_ADD_DA
  * @date 2022-5-2
  * @Source 1.0
  */
-public class AttributeRatioDamageFunction extends FightSkillActiveFunction {
+public class AttributeRatioDamageFunction implements FightSkillActiveFunction {
     @Override
     public void castSkill(FightSkillWrap fightSkillWrap, FightSkillProcessTemplate fightSkillProcessTemplate, UseSkillDataTemp useSkillDataTemp) {
         String[] parameter = StringUtils.toStringArray(fightSkillProcessTemplate.attributeParameter());

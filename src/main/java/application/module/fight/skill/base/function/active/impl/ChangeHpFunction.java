@@ -10,7 +10,7 @@ import template.FightSkillProcessTemplate;
  * @date 2022-5-6
  * @Source 1.0
  */
-public class ChangeHpFunction extends FightSkillActiveFunction {
+public class ChangeHpFunction implements FightSkillActiveFunction {
     @Override
     public void castSkill(FightSkillWrap fightSkillWrap, FightSkillProcessTemplate fightSkillProcessTemplate, UseSkillDataTemp useSkillDataTemp) {
 

@@ -13,7 +13,7 @@ import template.FightSkillProcessTemplate;
  * @date 2022-4-29
  * @Source 1.0
  */
-public class IceMagic4Function extends FightSkillActiveFunction {
+public class IceMagic4Function implements FightSkillActiveFunction {
     @Override
     public void castSkill(FightSkillWrap fightSkillWrap, FightSkillProcessTemplate fightSkillProcessTemplate, UseSkillDataTemp useSkillDataTemp) {
         useSkillDataTemp.getTargetParameters().forEach(targetParameter -> {
