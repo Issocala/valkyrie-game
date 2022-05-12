@@ -114,11 +114,13 @@ public class FightSkillModule extends AbstractModule {
         }
         FightSkillWrap fightSkillWrap = FightSkillWrapContainer.getFightSkillWrap(useSkillDataTemp.getSkillId());
         FightSkillTemplate fightSkillTemplate = fightSkillWrap.getFightSkillTemplate();
-        if (FightAttributeMgr.getValue(useSkillDataTemp.getAttackAttributeMap(), AttributeTemplateId.VAR_MP) <= fightSkillTemplate.costMp()
-                || FightAttributeMgr.getValue(useSkillDataTemp.getAttackAttributeMap(), AttributeTemplateId.VAR_HP) < fightSkillTemplate.costHp()) {
-            useSkillDataTemp.getR().client().tell(new application.client.Client.SendToClientJ(CommonProtocols.APPLICATION_ERROR,
-                    CommonProtocolBuilder.getSc10080(ApplicationErrorCode.USE_SKILL_HP_MP)), self());
-            return;
+        if (useSkillDataTemp.getAttackType() != OrganismType.NPC) {
+            if (FightAttributeMgr.getValue(useSkillDataTemp.getAttackAttributeMap(), AttributeTemplateId.VAR_MP) < fightSkillTemplate.costMp()
+                    || FightAttributeMgr.getValue(useSkillDataTemp.getAttackAttributeMap(), AttributeTemplateId.VAR_HP) <= fightSkillTemplate.costHp()) {
+                useSkillDataTemp.getR().client().tell(new application.client.Client.SendToClientJ(CommonProtocols.APPLICATION_ERROR,
+                        CommonProtocolBuilder.getSc10080(ApplicationErrorCode.USE_SKILL_HP_MP)), self());
+                return;
+            }
         }
         fightRuntimeContext.startCD(fightSkillTemplate);
 

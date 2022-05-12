@@ -46,6 +46,8 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
 
     private MonsterOrganism boss;
 
+    private static final int SCENE_ENTRY = 10011;
+
     private final Map<Long, NpcOrganism> npcOrganismMap = new HashMap<>();
 
     private final Set<Long> disableNpcOrganism = new HashSet<>();
@@ -94,21 +96,24 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
     private void helpUseSkill(HelpUseSkill helpUseSkill) {
         int templateId = helpUseSkill.organismTemplateId();
         long id = helpUseSkill.organismId();
+        if (templateId == SCENE_ENTRY) {
+            getContext().system().scheduler().scheduleOnce(Duration.ofMillis(itemTick), self(),
+                    new HelpUseSkill(SCENE_ENTRY, helpUseSkill.organismId(), helpUseSkill.organismType(), helpUseSkill.skillTemplateId()),
+                    getContext().dispatcher(), self());
+            int num = randomMonsterSkillIdNum();
+            for (int i = 0; i < num; i++) {
+                this.scene.tell(helpUseSkill, self());
+            }
+            return;
+        }
         if (helpUseSkill.organismType() == OrganismType.NPC) {
             if (validUseSkill(id)) {
                 this.scene.tell(helpUseSkill, self());
             }
+            int skillId = randomNpcSkillId(templateId);
             Cancellable cancellable = getContext().system().scheduler().scheduleOnce(Duration.ofMillis(tick), self(),
-                    new HelpUseSkill(templateId, id, helpUseSkill.organismType(), randomNpcSkillId(templateId)), getContext().dispatcher(), self());
+                    new HelpUseSkill(templateId, id, helpUseSkill.organismType(), skillId), getContext().dispatcher(), self());
             cancellableMap.put(helpUseSkill.organismId(), cancellable);
-        } else if (helpUseSkill.organismType() == OrganismType.MONSTER) {
-            this.scene.tell(helpUseSkill, self());
-            int num = randomMonsterSkillIdNum();
-            getContext().system().scheduler().scheduleOnce(Duration.ofMillis(itemTick), self(),
-                    new HelpUseSkill(templateId, id, helpUseSkill.organismType(), 10081), getContext().dispatcher(), self());
-            for (int i = 0; i < num; i++) {
-                this.scene.tell(helpUseSkill, self());
-            }
         }
     }
 
@@ -154,10 +159,15 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
         cancellableMap.put(npcOrganism4.getId(), cancellable4);
 
         int templateId5 = 10009;
-        this.boss = new MonsterOrganism(10009);
+        this.boss = new MonsterOrganism(templateId5);
         scene.tell(new SceneOrganismEntry(this.boss, new PositionInfo(0, 4.5f), 0), self());
+
+        NpcOrganism npcOrganism6 = new NpcOrganism(SCENE_ENTRY);
+        npcOrganismMap.put(npcOrganism6.getId(), npcOrganism6);
+        scene.tell(new SceneOrganismEntry(npcOrganism6, new PositionInfo(19, -0.2f), 0), self());
+        OrganismDataTemplate dataTemplate = OrganismDataTemplateHolder.getData(SCENE_ENTRY);
         getContext().system().scheduler().scheduleOnce(Duration.ofMillis(itemTick), self(),
-                new HelpUseSkill(templateId5, this.boss.getId(), this.boss.getOrganismType(), 10081), getContext().dispatcher(), self());
+                new HelpUseSkill(SCENE_ENTRY, npcOrganism6.getId(), npcOrganism6.getOrganismType(), dataTemplate.skills()[0]), getContext().dispatcher(), self());
     }
 
     private void closeNpcDoor(CloseNpcDoor closeNpcDoor) {
@@ -195,7 +205,7 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
     }
 
     private boolean validUseSkill(long organismId) {
-        return disableNpcOrganism.contains(organismId);
+        return !disableNpcOrganism.contains(organismId);
     }
 
     public int getTriggerId() {
