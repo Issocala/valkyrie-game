@@ -67,9 +67,7 @@ public class ScenePortalRefreshMonsterTrigger extends AbstractLogActor {
     @Override
     public void postStop() throws Exception {
         super.postStop();
-        cancellableMap.forEach((integer, cancellable) -> {
-            cancellable.cancel();
-        });
+        cancellableMap.values().forEach(Cancellable::cancel);
         cancellableMap = null;
         openNpcDoorMap.values().forEach(Cancellable::cancel);
         openNpcDoorMap = null;

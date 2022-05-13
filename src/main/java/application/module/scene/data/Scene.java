@@ -254,8 +254,10 @@ public class Scene extends UntypedAbstractActor {
     private void sceneOrganismExit(long organismId, byte organismType) {
         if (organismType == OrganismType.MONSTER) {
             if (Objects.nonNull(removePositionInfo(organismId))) {
-                if (monsterOrganismMap.get(organismId).getOrganismTemplateId() == 10009) {
-                    dealBossDead();
+                if (monsterOrganismMap.containsKey(organismId)) {
+                    if (monsterOrganismMap.get(organismId).getOrganismTemplateId() == 10009) {
+                        dealBossDead();
+                    }
                 }
                 monsterOrganismMap.remove(organismId);
                 sendToAllClient(SceneProtocols.SCENE_EXIT, SceneProtocolBuilder.getSc10301(organismId));
@@ -276,12 +278,10 @@ public class Scene extends UntypedAbstractActor {
     // TODO: 2022-5-9 临时处理boss死亡
     private void dealBossDead() {
         //场景所有怪物消失
-        Iterator<Long> iterator = monsterOrganismMap.keySet().iterator();
-        while (iterator.hasNext()) {
-            long organismId = iterator.next();
-            monsterOrganismMap.remove(organismId);
+        monsterOrganismMap.keySet().removeIf(organismId -> {
             sendToAllClient(SceneProtocols.SCENE_EXIT, SceneProtocolBuilder.getSc10301(organismId));
-        }
+            return true;
+        });
 
         //销毁场景触发器
         getContext().stop(scenePortalRefreshMonsterTriggerList.get(0));
@@ -291,14 +291,11 @@ public class Scene extends UntypedAbstractActor {
     }
 
     private void sceneOut() {
-        Iterator<Map.Entry<Long, ActorRef>> iterator = clientMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<Long, ActorRef> entry = iterator.next();
+        clientMap.entrySet().removeIf(entry -> {
             this.sceneData.tell(new ReturnPerScene(entry.getKey(), entry.getValue()), self());
-        }
-
+            return true;
+        });
         this.sceneData.tell(new SceneOut(sceneTemplateId), self());
-
     }
 
     private void sceneInit(SceneInit sceneInit) {
