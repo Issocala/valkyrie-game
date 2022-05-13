@@ -30,6 +30,7 @@ public class TemplateParser {
                     case "EquipPotential" -> EquipPotentialTemplateHolder.addData(EquipPotentialTemplate.parse(cbb));
                     case "FightPassiveSkill" -> FightPassiveSkillTemplateHolder.addData(FightPassiveSkillTemplate.parse(cbb));
                     case "FightPassiveSkillProcess" -> FightPassiveSkillProcessTemplateHolder.addData(FightPassiveSkillProcessTemplate.parse(cbb));
+                    case "EquipmentSlotLanguage" -> EquipmentSlotLanguageTemplateHolder.addData(EquipmentSlotLanguageTemplate.parse(cbb));
 
                 }
             }
