@@ -2,7 +2,7 @@ package application.module.scene.fight.attribute;
 
 import application.module.organism.MonsterOrganism;
 import application.module.player.PlayerConfig;
-import application.module.player.PlayerFight;
+import application.module.organism.PlayerFight;
 import application.module.player.fight.attribute.AttributeTemplateIdContainer;
 import application.module.scene.fight.skill.base.context.UseSkillDataTemp;
 import application.util.AttributeMapUtil;

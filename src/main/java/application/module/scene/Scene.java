@@ -2,7 +2,7 @@ package application.module.scene;
 
 import akka.actor.ActorRef;
 import application.guid.IdUtils;
-import application.module.player.PlayerFight;
+import application.module.organism.PlayerFight;
 import application.module.scene.container.SceneMgrContainer;
 import application.module.scene.organism.ItemSceneMgr;
 import application.module.scene.organism.MonsterSceneMgr;

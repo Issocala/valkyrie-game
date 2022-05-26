@@ -1,7 +1,6 @@
 package application.module.scene.organism;
 
 import application.module.organism.MonsterOrganism;
-import application.module.player.PlayerFight;
 import application.module.scene.Scene;
 import application.module.scene.SceneMgr;
 import com.cala.orm.message.OperateType;

@@ -2,7 +2,7 @@ package application.module.scene.organism;
 
 import akka.actor.ActorRef;
 import application.client.Client;
-import application.module.player.PlayerFight;
+import application.module.organism.PlayerFight;
 import application.module.player.fight.skill.operate.SkillUseScene;
 import application.module.player.util.PlayerOperateType;
 import application.module.scene.Scene;

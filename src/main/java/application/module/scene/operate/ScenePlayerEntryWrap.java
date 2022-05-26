@@ -1,6 +1,6 @@
 package application.module.scene.operate;
 
-import application.module.player.PlayerFight;
+import application.module.organism.PlayerFight;
 
 /**
  * @author Luo Yong

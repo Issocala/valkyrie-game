@@ -5,7 +5,7 @@ import akka.actor.Props;
 import application.module.common.CommonProtocolBuilder;
 import application.module.common.CommonProtocols;
 import application.module.organism.*;
-import application.module.player.PlayerFight;
+import application.module.organism.PlayerFight;
 import application.module.player.data.entity.PlayerInfo;
 import application.module.player.data.message.event.PlayerLogout;
 import application.module.player.fight.attribute.AttributeProtocolBuilder;

@@ -1,6 +1,6 @@
 package application.module.player.operate;
 
-import application.module.player.PlayerFight;
+import application.module.organism.PlayerFight;
 import com.cala.orm.message.OperateType;
 
 /**

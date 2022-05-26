@@ -3,6 +3,7 @@ package application.module.player;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import application.module.common.data.domain.DataMessage;
+import application.module.organism.PlayerFight;
 import application.module.player.data.entity.PlayerEntity;
 import application.module.player.fight.attribute.AttributePlayerMgr;
 import application.module.player.operate.CheckPlayerInitFinal;
@@ -15,7 +16,6 @@ import com.cala.orm.message.OperateType;
 import mobius.core.java.api.AbstractLogActor;
 import mobius.modular.client.Client;
 import scala.collection.immutable.HashSet;
-import scala.collection.immutable.Set;
 
 import java.time.Duration;
 

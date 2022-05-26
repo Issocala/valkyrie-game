@@ -1,8 +1,7 @@
-package application.module.player;
+package application.module.organism;
 
 import akka.actor.ActorRef;
-import application.module.organism.FightOrganism;
-import application.module.organism.OrganismType;
+import application.module.player.Player;
 import application.module.player.data.entity.PlayerInfo;
 import application.module.player.fight.attribute.AttributePlayerMgr;
 import application.module.player.fight.buff.BuffPlayerMgr;
