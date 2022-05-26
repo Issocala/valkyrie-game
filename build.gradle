@@ -100,7 +100,7 @@ dependencies {
     implementation "com.mobius:mobius-net_${libraryVersion.scalaMain}:${libraryVersion.mobius}"
     implementation "com.mobius:mobius-db_${libraryVersion.scalaMain}:${libraryVersion.mobius}"
     implementation "com.mobius:mobius-modular_${libraryVersion.scalaMain}:${libraryVersion.mobius}"
-    implementation 'com.cala:orm-framework:0.0.16'
+    implementation 'com.cala:orm-framework:0.0.18'
     implementation 'javax.persistence:persistence-api:1.0.2'
     implementation "com.fasterxml.jackson.core:jackson-databind:2.13.0"
     implementation 'com.github.ben-manes.caffeine:caffeine:3.0.4'
@@ -114,11 +114,8 @@ tasks.withType(JavaCompile) {
 }
 tasks.withType(ScalaCompile) {
     // for JEP 406
-    options.compilerArgs += "--enable-preview";
+    options.compilerArgs += "--enable-preview"
     options.encoding = 'UTF-8'
 
 }
 
-tasks.withType(Test).all {
-    jvmArgs += '--enable-preview'
-}

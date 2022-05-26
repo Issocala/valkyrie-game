@@ -4,7 +4,7 @@ import akka.actor.ActorRef;
 import application.guid.IdUtils;
 import application.module.common.data.domain.DataMessage;
 import application.module.user.data.UserData;
-import application.module.user.data.domain.User;
+import application.module.user.data.entity.User;
 import application.module.user.data.message.UserGetByAccount;
 import application.module.user.data.message.UserInsertByAccount;
 import application.module.user.operate.UserLoginType;

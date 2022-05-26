@@ -1,13 +1,13 @@
 /* 由程序自动生成，请勿修改。*/
 package template;
 
-public record EquipTemplate(int id,byte stage,byte slot,byte step,byte profession,byte gender,long[][] baseAttr,long[][] extraAttr,long[][] godAttr,long[][] potentialAttr){
+public record EquipTemplate(int id,byte stage,byte step,byte slot,byte profession,byte gender,long[][] baseAttr,long[][] extraAttr,long[][] godAttr,long[][] potentialAttr){
 
     public static EquipTemplate parse(CustomByteBuffer cbb){
         var id = cbb.getInt();
         var stage = cbb.get();
-        var slot = cbb.get();
         var step = cbb.get();
+        var slot = cbb.get();
         var profession = cbb.get();
         var gender = cbb.get();
         var baseAttrLength = cbb.getInt();
@@ -47,7 +47,7 @@ public record EquipTemplate(int id,byte stage,byte slot,byte step,byte professio
             }
         }
 
-        var temp = new EquipTemplate(id,stage,slot,step,profession,gender,baseAttr,extraAttr,godAttr,potentialAttr);
+        var temp = new EquipTemplate(id,stage,step,slot,profession,gender,baseAttr,extraAttr,godAttr,potentialAttr);
         return temp;
     }
 }

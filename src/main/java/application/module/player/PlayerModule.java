@@ -3,18 +3,15 @@ package application.module.player;
 import akka.actor.ActorRef;
 import application.guid.IdUtils;
 import application.module.common.data.domain.DataMessage;
-import application.module.fight.attribute.data.AttributeData;
+import application.module.player.fight.attribute.data.AttributeData;
 import application.module.player.data.PlayerEntityData;
-import application.module.player.data.domain.PlayerData;
-import application.module.player.data.domain.PlayerEntity;
-import application.module.player.data.domain.PlayerInfo;
+import application.module.player.data.entity.PlayerData;
+import application.module.player.data.entity.PlayerEntity;
+import application.module.player.data.entity.PlayerInfo;
 import application.module.player.data.message.event.PlayerLogin;
 import application.module.player.data.message.event.PlayerLogout;
 import application.module.player.data.message.event.PlayerRegister;
-import application.module.player.operate.PlayerCreateInsertType;
-import application.module.player.operate.PlayerCreateSelectType;
-import application.module.player.operate.PlayerGetAllType;
-import application.module.player.operate.PlayerLoginSelectType;
+import application.module.player.operate.*;
 import application.module.player.operate.info.PlayerOperateTypeInfo;
 import application.module.scene.data.SceneData;
 import application.module.scene.operate.event.CreatePlayerEntitiesAfter;
@@ -27,8 +24,7 @@ import mobius.modular.client.Client;
 import mobius.modular.module.api.AbstractModule;
 import protocol.Player;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Luo Yong
@@ -39,12 +35,15 @@ public class PlayerModule extends AbstractModule {
 
     private ActorRef playerEntityData;
     private ActorRef sceneData;
+    private Map<Class<?>, ActorRef> dataMap;
+    private final Map<Long, ActorRef> playerActorMap = new HashMap<>();
 
     @Override
     public void initData() {
         this.dataAgent().tell(new DataMessage.RequestData(PlayerEntityData.class), self());
         this.dataAgent().tell(new DataMessage.RequestData(SceneData.class), self());
         this.dataAgent().tell(new DataMessage.RequestData(AttributeData.class), self());
+        this.dataAgent().tell(new DataMessage.RequestAllData(), self());
     }
 
     @Override
@@ -55,7 +54,12 @@ public class PlayerModule extends AbstractModule {
                 .match(DataReturnMessage.class, this::dataResultMessage)
                 .match(DataReturnManyMessage.class, this::dataResultManyMessage)
                 .match(CreatePlayerEntitiesAfter.class, this::createPlayerEntitiesAfter)
+                .match(DataMessage.AllDataResult.class, this::allDataResult)
                 .build();
+    }
+
+    private void allDataResult(DataMessage.AllDataResult allDataResult) {
+        setDataMap(allDataResult.map());
     }
 
     private void createPlayerEntitiesAfter(CreatePlayerEntitiesAfter createPlayerEntitiesAfter) {
@@ -187,6 +191,11 @@ public class PlayerModule extends AbstractModule {
     }
 
     private void logout(Client.ReceivedFromClient r) {
+        ActorRef actorRef = playerActorMap.get(r.uID());
+        if (Objects.nonNull(actorRef)) {
+            getContext().stop(actorRef);
+            playerActorMap.remove(r.uID());
+        }
         this.playerEntityData.tell(new Publish(new PlayerLogout(r)), self());
     }
 
@@ -206,6 +215,14 @@ public class PlayerModule extends AbstractModule {
     }
 
     private void login(Client.ReceivedFromClient r, PlayerEntity playerEntity) {
+        long playerId = playerEntity.getId();
+        ActorRef oldPlayerActor = playerActorMap.get(playerId);
+        if (Objects.nonNull(oldPlayerActor)) {
+            getContext().stop(oldPlayerActor);
+        }
+        playerActorMap.put(playerId, r.client());
+        ActorRef playerActor = getContext().actorOf(PlayerActor.props(playerEntity));
+        playerActor.tell(new PlayerInit(r.client(), getDataMap()), self());
         r.client().tell(new application.client.Client.SendToClientJ(PlayerProtocols.LOGIN,
                 PlayerProtocolBuilder.getSc10022(true, playerEntity.getId())), self());
         this.playerEntityData.tell(new Publish(new PlayerLogin(r, playerEntity.getPlayerInfo())), self());
@@ -242,5 +259,15 @@ public class PlayerModule extends AbstractModule {
             this.sceneData = dataResult.actorRef();
             this.sceneData.tell(new SubscribeEvent(CreatePlayerEntitiesAfter.class, self()), self());
         }
+    }
+
+    //get and set
+
+    public Map<Class<?>, ActorRef> getDataMap() {
+        return dataMap;
+    }
+
+    public void setDataMap(Map<Class<?>, ActorRef> dataMap) {
+        this.dataMap = dataMap;
     }
 }

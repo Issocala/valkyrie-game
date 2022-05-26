@@ -1,6 +1,6 @@
 package application.module.player.operate.info;
 
-import application.module.player.data.domain.PlayerEntity;
+import application.module.player.data.entity.PlayerEntity;
 import com.cala.orm.message.OperateTypeInfo;
 import mobius.modular.client.Client;
 

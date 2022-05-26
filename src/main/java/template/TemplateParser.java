@@ -21,7 +21,6 @@ public class TemplateParser {
                     case "FightSkill" -> FightSkillTemplateHolder.addData(FightSkillTemplate.parse(cbb));
                     case "FightSkillProcess" -> FightSkillProcessTemplateHolder.addData(FightSkillProcessTemplate.parse(cbb));
                     case "FightBuff" -> FightBuffTemplateHolder.addData(FightBuffTemplate.parse(cbb));
-                    case "Effect" -> EffectTemplateHolder.addData(EffectTemplate.parse(cbb));
                     case "OrganismData" -> OrganismDataTemplateHolder.addData(OrganismDataTemplate.parse(cbb));
                     case "SceneData" -> SceneDataTemplateHolder.addData(SceneDataTemplate.parse(cbb));
                     case "AttributeTree" -> AttributeTreeTemplateHolder.addData(AttributeTreeTemplate.parse(cbb));
@@ -30,7 +29,6 @@ public class TemplateParser {
                     case "EquipPotential" -> EquipPotentialTemplateHolder.addData(EquipPotentialTemplate.parse(cbb));
                     case "FightPassiveSkill" -> FightPassiveSkillTemplateHolder.addData(FightPassiveSkillTemplate.parse(cbb));
                     case "FightPassiveSkillProcess" -> FightPassiveSkillProcessTemplateHolder.addData(FightPassiveSkillProcessTemplate.parse(cbb));
-                    case "EquipmentSlotLanguage" -> EquipmentSlotLanguageTemplateHolder.addData(EquipmentSlotLanguageTemplate.parse(cbb));
 
                 }
             }

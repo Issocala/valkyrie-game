@@ -4,7 +4,7 @@ import akka.actor.ActorRef;
 import application.module.common.data.domain.DataMessage;
 import application.module.example.operate.GetType;
 import application.module.example.operate.SaveType;
-import application.module.player.data.domain.PlayerEntity;
+import application.module.player.data.entity.PlayerEntity;
 import application.module.user.data.UserData;
 import com.cala.orm.message.DataReturnMessage;
 import com.google.protobuf.InvalidProtocolBufferException;

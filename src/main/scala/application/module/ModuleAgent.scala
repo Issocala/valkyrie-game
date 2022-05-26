@@ -1,15 +1,12 @@
 package application.module
 
-import akka.actor.{ActorRef, Props}
+import akka.actor.SupervisorStrategy.{Escalate, Resume}
+import akka.actor.{ActorRef, OneForOneStrategy, Props, SupervisorStrategy}
 import application.module.common.CommonModuleHolder
 import application.module.example.ExampleModuleHolder
-import application.module.fight.attribute.AttributeModuleHolder
-import application.module.fight.buff.FightBuffModuleHolder
-import application.module.fight.skill.FightSkillModuleHolder
 import application.module.gm.GmModuleHolder
 import application.module.player.PlayerModuleHolder
 import application.module.scene.SceneModuleHolder
-import application.module.state.StateModuleHolder
 import application.module.user.UserModuleHolder
 import mobius.core.ActorExtension.LogActor
 import mobius.modular.module._
@@ -29,27 +26,28 @@ object ModuleAgent {
   final case object RequestClientMessageHandler
 
   private[module] val modules = List[ModuleHolder](UserModuleHolder.getInstance(), ExampleModuleHolder.getInstance(),
-    PlayerModuleHolder.getInstance(), SceneModuleHolder.getInstance(), AttributeModuleHolder.getInstance(), FightSkillModuleHolder.getInstance(),
-    FightBuffModuleHolder.getInstance(), CommonModuleHolder.getInstance(), StateModuleHolder.getInstance(), GmModuleHolder.getInstance())
+    PlayerModuleHolder.getInstance(), SceneModuleHolder.getInstance(), CommonModuleHolder.getInstance(), GmModuleHolder.getInstance())
 }
 
 
 /**
-  * register modules with protocolID, and pass then to any connecting client in future
-  *
-  * Created by RXL on 2018/3/31.
-  *
-  */
+ * register modules with protocolID, and pass then to any connecting client in future
+ *
+ * Created by RXL on 2018/3/31.
+ *
+ */
 class ModuleAgent extends LogActor {
 
   import ModuleAgent._
 
+  import scala.concurrent.duration._
+  import scala.language.postfixOps
+
   var messageHandler: Map[Int, ActorRef] = Map() //must be immutable
 
-  var dataAgent: Option[ActorRef] = None
+  var dataAgent: ActorRef = _
 
   def initModules(dataAgent: ActorRef): Unit = {
-    this.dataAgent = Option(dataAgent)
     messageHandler.foreach(context stop _._2)
     val v = for {
       m <- ModuleAgent.modules
@@ -57,12 +55,22 @@ class ModuleAgent extends LogActor {
       e = actor ! mobius.modular.module.Module.InitModule(dataAgent)
       pid <- m.Protocols
     } yield (pid, actor)
-
+    this.dataAgent = dataAgent
 
     messageHandler = v.toMap
     context.children.foreach(c => log.debug(s"children~~~~~~~~:${c.path}"))
     messageHandler.foreach(p => log.debug(s"protocols:${p._1} dealer:${p._2}"))
   }
+
+  //temporary SupervisorStrategy
+  override val supervisorStrategy: SupervisorStrategy =
+    OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
+      case _: ArithmeticException => Resume
+      case t => log.debug(s"exception caught on sender: $sender()")
+        sender() ! initModules(dataAgent)
+        super.supervisorStrategy.decider.applyOrElse(t, (_: Any) => Escalate)
+    }
+
 
   override def receive: Receive = {
     case Module.InitModule(d) => initModules(d)

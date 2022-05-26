@@ -6,7 +6,7 @@ import application.client.Client;
 import application.module.player.PlayerDataMessage;
 import application.module.player.PlayerProtocolBuilder;
 import application.module.player.PlayerProtocols;
-import application.module.player.data.domain.PlayerEntity;
+import application.module.player.data.entity.PlayerEntity;
 import application.module.scene.operate.event.CreatePlayerEntitiesAfter;
 import com.cala.orm.cache.AbstractDataCacheManager;
 import com.cala.orm.cache.AbstractEntityBase;

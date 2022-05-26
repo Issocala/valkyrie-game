@@ -32,6 +32,8 @@ private[application] object Client {
 
   final case class LoginSuccess(id: Long)
 
+  final case class UpdateMessage(messageSet: Set[Integer], playerActor: ActorRef)
+
   val UnknownUser: Long = -12
 }
 
@@ -108,6 +110,7 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
     close()
   }
 
+
   override def receive: Receive = {
     case Received(data) => onReceivedFromSocket(data)
     case p2client: SendToClient => connection ! Write(protocolToByteString(p2client))
@@ -121,15 +124,21 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
     case ReLogin => connectionReplaced()
     case ModuleAgentRef(a) => pause(a)
     case Tick => tick()
+    case UpdateMessage(messageSet, playerActor) => updateMessage(messageSet, playerActor)
     case x => log.debug("unhandled client msg:" + x)
   }
 
-    private def tick(): Unit = {
-      val time = System.currentTimeMillis() - tickFinalTimestamp;
-      if (time > fixedTick) {
-        close()
-      }
+  def updateMessage(messageSet: Set[Integer], playerActor: ActorRef): Unit = {
+    messageSet.foreach((id: Integer) => messageHandler += (id.toInt -> playerActor))
+
+  }
+
+  private def tick(): Unit = {
+    val time = System.currentTimeMillis() - tickFinalTimestamp;
+    if (time > fixedTick) {
+      //        close()
     }
+  }
 
   private def onReceivedFromSocket(data: ByteString): Unit = {
     val bs = buffer ++ data

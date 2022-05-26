@@ -1,7 +1,7 @@
 package application.module.player.data.message.event;
 
 
-import application.module.player.data.domain.PlayerInfo;
+import application.module.player.data.entity.PlayerInfo;
 import com.cala.orm.message.DataBase;
 import com.cala.orm.message.Event;
 import mobius.modular.client.Client;

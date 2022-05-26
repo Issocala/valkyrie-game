@@ -7,6 +7,9 @@ import application.condition.ConditionContainer
 import application.data.{ActorDataDispatcher, DataAgent}
 import application.db.DataBaseAgent
 import application.module.ModuleAgent
+import application.module.player.fight.attribute.provider.AttributeRegister
+import application.module.scene.fight.buff.function.FightBuffFunctionContainer
+import application.module.scene.fight.skill.base.function.FightSkillFunctionContainer
 import application.util.StaticConfigLoad
 import mobius.core.ActorExtension.LogActor
 import mobius.db.message.{DbInit, Test}
@@ -35,8 +38,7 @@ class ServerRoot extends Actor with LogActor {
 
   def onServerStart(): Unit = {
     //策划配置数据加载
-    StaticConfigLoad.init()
-    ConditionContainer.register();
+    loadData()
 
     dbAgent = start(dbAgent, "dbAgent", DataBaseAgent.props(), DbInit)
     dbAgent.get ! Test
@@ -46,6 +48,15 @@ class ServerRoot extends Actor with LogActor {
 
     clientAgent = start(clientAgent, "clientAgent", ClientAgent.props(), ClientAgent.Init)
     clientAgent.get ! ClientAgent.ModuleAgentRef(moduleAgent.get)
+  }
+
+  def loadData(): Unit = {
+    //策划配置数据加载
+    StaticConfigLoad.init()
+    ConditionContainer.register()
+    AttributeRegister.register()
+    FightSkillFunctionContainer.registerSkillAndPassive()
+    FightBuffFunctionContainer.register()
   }
 
   override def receive: Receive = {

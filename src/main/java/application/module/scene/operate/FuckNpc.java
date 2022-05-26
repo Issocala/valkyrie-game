@@ -10,5 +10,5 @@ import protocol.Scene;
  * @date 2022-5-7
  * @Source 1.0
  */
-public record FuckNpc(Client.ReceivedFromClient r, Scene.CS10311 cs10311, ActorRef buffData, ActorRef attribute) implements DataBase {
+public record FuckNpc(Client.ReceivedFromClient r, Scene.CS10311 cs10311, ActorRef attribute) implements DataBase {
 }

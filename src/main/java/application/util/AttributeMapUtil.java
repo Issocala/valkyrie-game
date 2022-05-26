@@ -69,4 +69,8 @@ public class AttributeMapUtil {
         return new HashMap<>(map);
     }
 
+    public static boolean isEmpty(Map<Short, Long> map) {
+        return Objects.isNull(map) || map.size() == 0;
+    }
+
 }

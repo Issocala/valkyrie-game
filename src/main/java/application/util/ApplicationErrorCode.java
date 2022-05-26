@@ -12,5 +12,7 @@ public interface ApplicationErrorCode {
     int USE_SKILL_STATE = 10002;
     //当前场景不能使用技能
     int USE_SKILL_SCENE = 10003;
+    //场景未开启
+    int SCENE_UNOPENED = 10004;
 
 }

@@ -1,6 +1,6 @@
 package application.module.player;
 
-import application.module.player.data.domain.PlayerEntity;
+import application.module.player.data.entity.PlayerEntity;
 import protocol.Player;
 
 import java.util.List;

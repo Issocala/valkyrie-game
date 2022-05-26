@@ -1,6 +1,6 @@
 package application.module.scene.operate;
 
-import application.module.scene.data.domain.PositionInfo;
+import application.module.scene.data.entity.PositionInfo;
 import com.cala.orm.message.DataBase;
 
 /**

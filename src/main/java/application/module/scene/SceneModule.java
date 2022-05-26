@@ -2,21 +2,20 @@ package application.module.scene;
 
 import akka.actor.ActorRef;
 import application.module.common.data.domain.DataMessage;
-import application.module.fight.attribute.data.AttributeData;
-import application.module.fight.attribute.data.message.PlayerDead;
-import application.module.fight.buff.data.FightBuffData;
-import application.module.player.data.PlayerEntityData;
 import application.module.player.data.message.event.PlayerLogin;
-import application.module.player.data.message.event.PlayerLogout;
+import application.module.player.fight.attribute.data.message.PlayerDead;
 import application.module.scene.data.SceneData;
-import application.module.scene.operate.*;
-import application.module.state.data.StateData;
+import application.module.scene.operate.AllSceneInitFinally;
+import application.module.scene.operate.SceneInit;
+import application.module.scene.operate.SceneOut;
 import com.cala.orm.message.DataReturnMessage;
-import com.cala.orm.message.SubscribeEvent;
-import com.google.protobuf.InvalidProtocolBufferException;
 import mobius.modular.client.Client;
 import mobius.modular.module.api.AbstractModule;
-import protocol.Scene;
+import template.SceneDataTemplateHolder;
+
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Luo Yong
@@ -26,29 +25,21 @@ import protocol.Scene;
 public class SceneModule extends AbstractModule {
 
     private ActorRef sceneData;
-    private ActorRef playerEntityData;
-    private ActorRef attributeData;
-    private ActorRef stateData;
-    private ActorRef buffData;
+
+    public final static int MAIN_SCENE = 20003;
+
+    private final Map<Integer, ActorRef> sceneId2SceneMap = new HashMap<>();
 
     @Override
     public void initData() {
         this.dataAgent().tell(new DataMessage.RequestData(SceneData.class), self());
-        this.dataAgent().tell(new DataMessage.RequestData(PlayerEntityData.class), self());
-        this.dataAgent().tell(new DataMessage.RequestData(AttributeData.class), self());
-        this.dataAgent().tell(new DataMessage.RequestData(StateData.class), self());
-        this.dataAgent().tell(new DataMessage.RequestData(FightBuffData.class), self());
     }
 
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(Client.ReceivedFromClient.class, this::receivedFromClient)
                 .match(DataMessage.DataResult.class, this::dataResult)
                 .match(DataReturnMessage.class, this::dataResultMessage)
-                .match(PlayerLogin.class, this::playerLogin)
-                .match(PlayerLogout.class, this::playerLogout)
-                .match(PlayerDead.class, this::playerDead)
                 .build();
     }
 
@@ -56,9 +47,6 @@ public class SceneModule extends AbstractModule {
         this.sceneData.tell(playerDead, self());
     }
 
-    private void playerLogout(PlayerLogout playerLogout) {
-        this.sceneData.tell(playerLogout, self());
-    }
 
     private void dataResultMessage(DataReturnMessage d) {
 
@@ -67,124 +55,37 @@ public class SceneModule extends AbstractModule {
     private void dataResult(DataMessage.DataResult d) {
         if (d.clazz() == SceneData.class) {
             this.sceneData = d.actorRef();
-
-        } else if (d.clazz() == PlayerEntityData.class) {
-            this.playerEntityData = d.actorRef();
-            this.playerEntityData.tell(new SubscribeEvent(PlayerLogin.class, self()), self());
-            this.playerEntityData.tell(new SubscribeEvent(PlayerLogout.class, self()), self());
-        } else if (d.clazz() == AttributeData.class) {
-            this.attributeData = d.actorRef();
-            this.attributeData.tell(new SubscribeEvent(PlayerDead.class, self()), self());
-        } else if (d.clazz() == StateData.class) {
-            this.stateData = d.actorRef();
-        } else if (d.clazz() == FightBuffData.class) {
-            this.buffData = d.actorRef();
+            sceneInit(new SceneInit());
         }
+    }
 
-        if (sceneData != null && this.playerEntityData != null && attributeData != null && stateData != null && buffData != null) {
-            this.sceneData.tell(new SceneInit(stateData, buffData, attributeData), self());
-        }
+    private void sceneInit(SceneInit sceneInit) {
+        SceneDataTemplateHolder.getValues().forEach(template -> {
+            int templateId = template.id();
+            ActorRef scene = getContext().actorOf(SceneActor.create(templateId));
+            this.sceneId2SceneMap.put(templateId, scene);
+            scene.tell(sceneInit, self());
+        });
+        AllSceneInitFinally allSceneInitFinally = new AllSceneInitFinally(Map.copyOf(this.sceneId2SceneMap));
+        this.sceneId2SceneMap.values().forEach(sceneActor ->
+                sceneActor.tell(allSceneInitFinally, self()));
+        this.sceneData.tell(allSceneInitFinally, self());
     }
 
     private void receivedFromClient(Client.ReceivedFromClient r) {
-        switch (r.protoID()) {
-            case SceneProtocols.SCENE_ENTER -> enterScene(r);
-            case SceneProtocols.SCENE_EXIT -> exitScene(r);
-            case SceneProtocols.SCENE_MOVE -> move(r);
-            case SceneProtocols.SCENE_STOP -> stop(r);
-            case SceneProtocols.SCENE_JUMP -> jump(r);
-            case SceneProtocols.SCENE_FLASH -> flash(r);
-            case SceneProtocols.RECEIVE -> receive(r);
-            case SceneProtocols.PICK_UP_ITEM -> pickUpItem(r);
-            case SceneProtocols.FUCK_NPC -> fuckNpc(r);
-            case SceneProtocols.SCENE_RUSH -> rush(r);
-        }
     }
 
-    private void rush(Client.ReceivedFromClient r) {
 
-        try {
-            var cs10312 = Scene.CS10312.parseFrom(r.message());
-            this.sceneData.tell(new SceneRush(r, cs10312), self());
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void fuckNpc(Client.ReceivedFromClient r) {
-        try {
-            var cs10311 = Scene.CS10311.parseFrom(r.message());
-            this.sceneData.tell(new FuckNpc(r, cs10311, this.buffData, this.attributeData), self());
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void pickUpItem(Client.ReceivedFromClient r) {
-        try {
-            var cs10310 = Scene.CS10310.parseFrom(r.message());
-            this.sceneData.tell(new PickUpItem(r, cs10310, this.buffData, this.attributeData), self());
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void receive(Client.ReceivedFromClient r) {
-        this.sceneData.tell(new PlayerReceive(r), self());
-    }
-
-    private void flash(Client.ReceivedFromClient r) {
-        try {
-            var cs10306 = Scene.CS10306.parseFrom(r.message());
-            this.sceneData.tell(new SceneFlash(r, cs10306), self());
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void jump(Client.ReceivedFromClient r) {
-        try {
-            var cs10305 = Scene.CS10305.parseFrom(r.message());
-            this.sceneData.tell(new SceneJump(r, cs10305), self());
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void stop(Client.ReceivedFromClient r) {
-        try {
-            var cs10303 = Scene.CS10303.parseFrom(r.message());
-            this.sceneData.tell(new SceneStop(r, cs10303), self());
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void move(Client.ReceivedFromClient r) {
-        try {
-            var cs10302 = Scene.CS10302.parseFrom(r.message());
-            this.sceneData.tell(new SceneMove(r, cs10302), self());
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void exitScene(Client.ReceivedFromClient r) {
-        try {
-            var cs10301 = Scene.CS10301.parseFrom(r.message());
-            this.sceneData.tell(new ScenePlayerExit(r, cs10301), self());
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void enterScene(Client.ReceivedFromClient r) {
-        try {
-            var cs10300 = Scene.CS10300.parseFrom(r.message());
-            this.sceneData.tell(new ScenePlayerEntry(r, cs10300), self());
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        }
+    private void sceneOut(SceneOut sceneOut) {
+        int sceneId = sceneOut.sceneId();
+        getContext().stop(sceneId2SceneMap.get(sceneId));
+        sceneId2SceneMap.remove(sceneId);
+        getContext().getSystem().scheduler().scheduleOnce(Duration.ofSeconds(10), () -> {
+            ActorRef scene = getContext().actorOf(SceneActor.create(sceneId));
+            this.sceneId2SceneMap.put(sceneId, scene);
+            scene.tell(new SceneInit(), self());
+            scene.tell(new AllSceneInitFinally(Map.copyOf(this.sceneId2SceneMap)), self());
+        }, getContext().dispatcher());
     }
 
     private void playerLogin(PlayerLogin playerLogin) {

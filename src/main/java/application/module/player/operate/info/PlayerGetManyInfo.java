@@ -1,6 +1,6 @@
 package application.module.player.operate.info;
 
-import application.module.player.data.domain.PlayerEntity;
+import application.module.player.data.entity.PlayerEntity;
 import application.util.CommonOperateTypeInfo;
 
 import java.util.List;

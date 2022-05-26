@@ -1,6 +1,6 @@
 package application.module.scene;
 
-import application.module.scene.data.domain.PositionInfo;
+import application.module.scene.data.entity.PositionInfo;
 import application.util.Vector;
 import protocol.Scene;
 

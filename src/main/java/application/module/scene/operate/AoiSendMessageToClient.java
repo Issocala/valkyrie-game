@@ -1,5 +1,6 @@
 package application.module.scene.operate;
 
+import com.cala.orm.message.OperateType;
 import com.google.protobuf.GeneratedMessageV3;
 
 /**
@@ -7,5 +8,5 @@ import com.google.protobuf.GeneratedMessageV3;
  * @date 2022-4-14
  * @Source 1.0
  */
-public record AoiSendMessageToClient(int protoId, GeneratedMessageV3 message, long organismId) {
+public record AoiSendMessageToClient(int protoId, GeneratedMessageV3 message, long organismId) implements OperateType {
 }

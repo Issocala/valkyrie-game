@@ -1,10 +1,11 @@
 /* 由程序自动生成，请勿修改。*/
 package template;
 
-public record FightSkillTemplate(int id,byte skillType,byte activeSkillType,byte skillTargetType,byte skillAimType,long cdTime,int costHp,int costMp,int[] skillProcess){
+public record FightSkillTemplate(int id,String skillIcon,byte skillType,byte activeSkillType,byte skillTargetType,byte skillAimType,long cdTime,int costHp,int costMp,int[] skillProcess){
 
     public static FightSkillTemplate parse(CustomByteBuffer cbb){
         var id = cbb.getInt();
+        var skillIcon = cbb.getString();
         var skillType = cbb.get();
         var activeSkillType = cbb.get();
         var skillTargetType = cbb.get();
@@ -18,7 +19,7 @@ public record FightSkillTemplate(int id,byte skillType,byte activeSkillType,byte
             skillProcess[i] = cbb.getInt();
         }
 
-        var temp = new FightSkillTemplate(id,skillType,activeSkillType,skillTargetType,skillAimType,cdTime,costHp,costMp,skillProcess);
+        var temp = new FightSkillTemplate(id,skillIcon,skillType,activeSkillType,skillTargetType,skillAimType,cdTime,costHp,costMp,skillProcess);
         return temp;
     }
 }

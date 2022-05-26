@@ -1,16 +1,14 @@
 package application.data;
 
 import akka.actor.*;
-import akka.event.Logging;
-import akka.event.LoggingAdapter;
 import akka.japi.pf.DeciderBuilder;
 import application.module.common.data.domain.DataMessage;
-import application.module.fight.attribute.data.AttributeData;
-import application.module.fight.buff.data.FightBuffData;
-import application.module.fight.skill.data.SkillData;
 import application.module.player.data.PlayerEntityData;
+import application.module.player.fight.attribute.data.AttributeData;
+import application.module.player.fight.buff.data.FightBuffData;
+import application.module.player.fight.skill.data.SkillData;
+import application.module.player.fight.state.data.StateData;
 import application.module.scene.data.SceneData;
-import application.module.state.data.StateData;
 import application.module.user.data.UserData;
 import com.cala.orm.OrmProcessor;
 import com.cala.orm.cache.AbstractDataCacheManager;
@@ -34,9 +32,7 @@ import static com.cala.orm.cache.AbstractDataCacheManager.DATA_AND_DB_DISPATCHER
  * @date 2021-11-19
  * @Source 1.0
  */
-public class ActorDataDispatcher extends AbstractActor {
-
-    private final LoggingAdapter logger = Logging.getLogger(getContext().getSystem(), this);
+public class ActorDataDispatcher extends AbstractLoggingActor {
 
     /**
      * 创建props方法，方法名
@@ -70,7 +66,12 @@ public class ActorDataDispatcher extends AbstractActor {
         return receiveBuilder()
                 .match(DataAgent.Init$.class, init -> init())
                 .match(DataMessage.RequestData.class, requestData -> requestData(requestData.clazz()))
+                .match(DataMessage.RequestAllData.class, this::requestAllData)
                 .build();
+    }
+
+    private void requestAllData(DataMessage.RequestAllData requestAllData) {
+        sender().tell(new DataMessage.AllDataResult(Map.copyOf(this.class2DbCacheManagerMap)), self());
     }
 
     private void requestData(Class<?> clazz) {
@@ -84,7 +85,7 @@ public class ActorDataDispatcher extends AbstractActor {
     private void init() {
         Set<Class<?>> entityClazzs = new HashSet<>();
         //数据库表初始化
-        OrmProcessor.INSTANCE.initOrmDefinitions("application", entityClazzs);
+        OrmProcessor.INSTANCE.initOrmDefinitions("application", entityClazzs, "entity");
         //数据库连接初始化
         DbConnection.init();
         new SchemaUpdate().execute(DbConnection.getConnection(DbConnection.DB_USER), entityClazzs);
@@ -97,7 +98,7 @@ public class ActorDataDispatcher extends AbstractActor {
     private ActorRef getActor(Class<? extends AbstractDataCacheManager<?>> clazz) {
         ActorRef actorRef = class2DbCacheManagerMap.get(clazz);
         if (Objects.isNull(actorRef)) {
-            logger.error("ActorDataDispatcherImpl not register {}", clazz.getSimpleName());
+            log().error("ActorDataDispatcherImpl not register {}", clazz.getSimpleName());
         }
         return actorRef;
     }
@@ -161,18 +162,16 @@ public class ActorDataDispatcher extends AbstractActor {
             new OneForOneStrategy(
                     10,
                     Duration.ofMinutes(1),
-                    DeciderBuilder.match(ArithmeticException.class, e -> SupervisorStrategy.resume())
-                            .match(NullPointerException.class, e -> {
-                                sender().tell(DataAgent.Init$.MODULE$, self());
-                                return SupervisorStrategy.restart();
-                            })
-                            .match(IllegalArgumentException.class, e -> {
-                                sender().tell(DataAgent.Init$.MODULE$, self());
-                                return SupervisorStrategy.stop();
-                            })
-                            .matchAny(o -> {
-                                sender().tell(DataAgent.Init$.MODULE$, self());
-                                return (SupervisorStrategy.Directive) SupervisorStrategy.escalate();
-                            })
+                    DeciderBuilder
+//                            .match(ArithmeticException.class, e -> SupervisorStrategy.resume())
+//                            .match(NullPointerException.class, e -> {
+//                                sender().tell(new DataInit(), self());
+//                                return SupervisorStrategy.restart();
+//                            })
+//                            .match(IllegalArgumentException.class, e -> {
+//                                self().tell(DataAgent.Init$.MODULE$, self());
+//                                return SupervisorStrategy.stop();
+//                            })
+                            .matchAny(o -> SupervisorStrategy.resume())
                             .build());
 }

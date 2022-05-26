@@ -1,7 +1,7 @@
 package application.module.user.data;
 
 import akka.actor.Props;
-import application.module.user.data.domain.User;
+import application.module.user.data.entity.User;
 import application.module.user.data.message.UserGetByAccount;
 import application.module.user.data.message.UserInsertByAccount;
 import com.cala.orm.cache.AbstractDataCacheManager;

@@ -10,5 +10,5 @@ import protocol.Scene;
  * @date 2022-5-7
  * @Source 1.0
  */
-public record PickUpItem(Client.ReceivedFromClient r, Scene.CS10310 cs10310, ActorRef buffData, ActorRef attributeData) implements DataBase {
+public record PickUpItem(Client.ReceivedFromClient r, Scene.CS10310 cs10310, ActorRef attributeData) implements DataBase {
 }

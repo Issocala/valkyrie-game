@@ -4,7 +4,7 @@ import application.condition.Condition;
 import application.condition.ConditionContext;
 import application.condition.ConditionType;
 import application.condition.annotation.ConditionId;
-import application.module.fight.skill.base.context.UseSkillDataTemp;
+import application.module.scene.fight.skill.base.context.UseSkillDataTemp;
 import template.FightSkillTemplate;
 import template.FightSkillTemplateHolder;
 
