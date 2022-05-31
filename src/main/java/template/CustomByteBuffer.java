@@ -1,7 +1,6 @@
 package template;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
+import java.nio.*;
 import java.nio.charset.StandardCharsets;
 
 public class CustomByteBuffer {

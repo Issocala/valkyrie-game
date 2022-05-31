@@ -6,9 +6,7 @@ import application.module.common.data.domain.DataMessage;
 import application.module.organism.PlayerFight;
 import application.module.player.data.entity.PlayerEntity;
 import application.module.player.fight.attribute.AttributePlayerMgr;
-import application.module.player.operate.CheckPlayerInitFinal;
-import application.module.player.operate.PlayerInit;
-import application.module.player.operate.PlayerLoginOpt;
+import application.module.player.operate.*;
 import application.module.player.util.IgnoreOpt;
 import com.cala.orm.message.DataReturnManyMessage;
 import com.cala.orm.message.DataReturnMessage;
@@ -52,8 +50,21 @@ public class PlayerActor extends AbstractLogActor {
                 .match(DataReturnManyMessage.class, this::dataResultManyMessage)
                 .match(OperateType.class, this::operateType)
                 .match(PlayerInit.class, this::playerInit)
+                .match(PlayerLoginInit.class, this::playerLoginInit)
+                .match(PlayerSendMyselfAndGetTarget.class, this::playerSendMyselfAndGetTarget)
                 .match(CheckPlayerInitFinal.class, this::checkPlayerInitFinal)
                 .build();
+    }
+
+    private void playerSendMyselfAndGetTarget(PlayerSendMyselfAndGetTarget target) {
+        player.getClient().tell(new application.client.Client.SendToClientJ(PlayerProtocols.EntityInfo,
+                PlayerProtocolBuilder.getSc10025(target.info().playerEntity())), self());
+        target.sendClient().tell(new application.client.Client.SendToClientJ(PlayerProtocols.EntityInfo,
+                PlayerProtocolBuilder.getSc10025(player.getPlayerEntity())), self());
+    }
+
+    private void playerLoginInit(PlayerLoginInit playerLoginInit) {
+        player.getPlayerActorMap().put(playerLoginInit.playerId(), playerLoginInit.playerActor());
     }
 
     private void checkPlayerInitFinal(CheckPlayerInitFinal checkPlayerInitFinal) {
@@ -74,6 +85,7 @@ public class PlayerActor extends AbstractLogActor {
     private void playerInit(PlayerInit playerInit) {
         player = new Player(this.playerEntity, self(), playerInit.dataMap());
         player.init(playerInit);
+
         scala.collection.immutable.Set<Integer> set = new HashSet<>();
         for (int i : player.getMessageMap().keySet()) {
             set = set.incl(i);

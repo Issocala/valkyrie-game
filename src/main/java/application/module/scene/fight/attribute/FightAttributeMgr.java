@@ -10,10 +10,7 @@ import application.util.MathConstant;
 import application.util.RandomUtil;
 import protocol.Skill;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static application.module.player.fight.attribute.AttributeTemplateId.*;
 
@@ -24,9 +21,9 @@ import static application.module.player.fight.attribute.AttributeTemplateId.*;
  */
 public class FightAttributeMgr {
 
-    private Map<Short, Long> fightMap;
+    private Map<Short, Long> fightMap = new HashMap<>();
 
-    private Set<Short> dirtyFightSet;
+    private Set<Short> dirtyFightSet = new HashSet<>();
 
     public void addFightMap(Map<Short, Long> fightMap) {
         doAddAttribute(this.fightMap, fightMap);
@@ -215,7 +212,7 @@ public class FightAttributeMgr {
             long finalDamage = (long) (skillDamage * (1 + specialDamage) * (1 + extDamage));
             // TODO: 2022-4-29 这里后续放到被动伤害结算前,做成被动通用逻辑
             if (targetAttributeMap.containsKey(BOSS_ADD_DAMAGE)) {
-                finalDamage = targetAttributeMap.get(BOSS_ADD_DAMAGE) * finalDamage / MathConstant.TEN_THOUSAND;
+                finalDamage += targetAttributeMap.get(BOSS_ADD_DAMAGE) * finalDamage / MathConstant.TEN_THOUSAND;
             }
             if (targetAttributeMap.containsKey(ICE_MAGIC_SHIELD)) {
                 long curMp = targetAttributeMap.get(VAR_MP);

@@ -7,6 +7,7 @@ import application.condition.ConditionContext;
 import application.module.common.CommonProtocolBuilder;
 import application.module.common.CommonProtocols;
 import application.module.organism.FightOrganism;
+import application.module.organism.PlayerFight;
 import application.module.player.fight.attribute.AttributeTemplateId;
 import application.module.scene.Scene;
 import application.module.scene.fight.attribute.FightAttributeMgr;
@@ -27,8 +28,11 @@ import application.util.RandomUtil;
 import application.util.StringUtils;
 import protocol.Skill;
 import template.FightPassiveSkillTemplate;
+import template.FightSkillProcessTemplate;
+import template.FightSkillProcessTemplateHolder;
 import template.FightSkillTemplate;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -42,9 +46,32 @@ public class FightSkillMgr {
 
     private FightOrganism owner;
 
-    private Set<Integer> enableSkillSet;
+    private Set<Integer> enableSkillSet = new HashSet<>();
 
     private final FightRuntimeContext fightRuntimeContext = new FightRuntimeContext();
+
+    public void activeUseSkill(Scene scene, Skill.CS10055 cs10055) {
+
+        if (!owner.getFightStateMgr().isSkillUse()) {
+            return;
+        }
+
+        UseSkillDataTemp useSkillDataTemp = scene.getTarget(cs10055, null, true);
+        useSkillDataTemp.setAttack(owner);
+        useSkillDataTemp.setSkillOrganismId(cs10055.getSkillOrganismId());
+        useSkillDataTemp.setSkillProcessId(cs10055.getSkillProcessId());
+        activeUseSkill(FightSkillProcessTemplateHolder.getData(useSkillDataTemp.getSkillProcessId()), useSkillDataTemp, fightRuntimeContext);
+    }
+
+    public void activeUseSkill(FightSkillProcessTemplate fightSkillProcessTemplate, UseSkillDataTemp useSkillDataTemp, FightRuntimeContext fightRuntimeContext) {
+        if (Objects.isNull(fightSkillProcessTemplate)) {
+            return;
+        }
+        FightSkillActiveFunction fightSkillActiveFunction = FightSkillFunctionContainer.getFunction(fightSkillProcessTemplate.function());
+        if (Objects.nonNull(fightSkillActiveFunction)) {
+            fightSkillActiveFunction.castSkill(null, fightSkillProcessTemplate, useSkillDataTemp);
+        }
+    }
 
     public void activeUseSkill(Scene scene, Skill.CS10052 cs10052) {
 
@@ -52,7 +79,9 @@ public class FightSkillMgr {
             return;
         }
 
-        UseSkillDataTemp useSkillDataTemp = UseSkillDataTemp.of(cs10052, scene);
+        UseSkillDataTemp useSkillDataTemp = scene.getTarget(null, cs10052, false);
+        useSkillDataTemp.setAttack(owner);
+        useSkillDataTemp.setSkillOrganismId(cs10052.getSkillOrganismId());
         FightSkillWrap fightSkillWrap = FightSkillWrapContainer.getFightSkillWrap(useSkillDataTemp.getSkillId());
         if (Objects.isNull(fightSkillWrap)) {
             return;
@@ -62,11 +91,13 @@ public class FightSkillMgr {
             return;
         }
         FightSkillTemplate fightSkillTemplate = fightSkillWrap.getFightSkillTemplate();
-        if (FightAttributeMgr.getValue(owner.getFightAttributeMgr().getFightMap(), AttributeTemplateId.VAR_MP) < fightSkillTemplate.costMp()
-                || FightAttributeMgr.getValue(getAttackAttributeMap(), AttributeTemplateId.VAR_HP) <= fightSkillTemplate.costHp()) {
-            useSkillDataTemp.getR().client().tell(new application.client.Client.SendToClientJ(CommonProtocols.APPLICATION_ERROR,
-                    CommonProtocolBuilder.getSc10080(ApplicationErrorCode.USE_SKILL_HP_MP)), ActorRef.noSender());
-            return;
+        if (owner instanceof PlayerFight playerFight) {
+            if (FightAttributeMgr.getValue(owner.getFightAttributeMgr().getFightMap(), AttributeTemplateId.VAR_MP) < fightSkillTemplate.costMp()
+                    || FightAttributeMgr.getValue(getAttackAttributeMap(), AttributeTemplateId.VAR_HP) <= fightSkillTemplate.costHp()) {
+                playerFight.getClient().tell(new application.client.Client.SendToClientJ(CommonProtocols.APPLICATION_ERROR,
+                        CommonProtocolBuilder.getSc10080(ApplicationErrorCode.USE_SKILL_HP_MP)), ActorRef.noSender());
+                return;
+            }
         }
 
         fightRuntimeContext.startCD(fightSkillTemplate);

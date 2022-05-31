@@ -4,10 +4,13 @@ import akka.actor.{ActorRef, Cancellable, Props, ReceiveTimeout, Stash}
 import akka.io.Tcp._
 import akka.util.ByteString
 import application.client.Client._
+import application.module.common.CommonProtocols
 import application.module.player.PlayerProtocols
+import application.util.ApplicationErrorCode
 import mobius.core.ActorExtension.LogActor
 import mobius.modular.client.Client.ReceivedFromClient
 import mobius.net.FrameExtractor
+import protocol.common.SC10080
 import protocol.p1.sc3
 import scalapb.GeneratedMessage
 
@@ -50,7 +53,7 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
   private val bytesBuilder = ByteString.newBuilder
   private var userID: Long = Client.UnknownUser
   var messageHandler: Map[Int, ActorRef] = Map()
-  var fixedTick: Long = 3000
+  var fixedTick: Long = 11000
   var tickFinalTimestamp: Long = System.currentTimeMillis()
   val c: Cancellable = context.system.scheduler.scheduleWithFixedDelay(java.time.Duration.ofMillis(this.fixedTick),
     java.time.Duration.ofMillis(this.fixedTick), self, Tick, context.dispatcher, self)
@@ -66,6 +69,8 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
       case None => log.error(s"protocol handler not found, id:${protocolId}")
     }
     c.cancel()
+    connection ! Write(protocolToByteString(SendToClient(CommonProtocols.APPLICATION_ERROR,
+      SC10080(ApplicationErrorCode.CLIENT_DISCONNECT))))
     context stop self
   }
 
@@ -110,7 +115,6 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
     close()
   }
 
-
   override def receive: Receive = {
     case Received(data) => onReceivedFromSocket(data)
     case p2client: SendToClient => connection ! Write(protocolToByteString(p2client))
@@ -136,7 +140,7 @@ private[client] class Client(val connection: ActorRef) extends LogActor with Sta
   private def tick(): Unit = {
     val time = System.currentTimeMillis() - tickFinalTimestamp;
     if (time > fixedTick) {
-      //        close()
+//      close()
     }
   }
 

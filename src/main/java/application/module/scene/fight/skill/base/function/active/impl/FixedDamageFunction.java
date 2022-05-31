@@ -29,6 +29,10 @@ public class FixedDamageFunction implements FightSkillActiveFunction {
 
         List<Skill.DamageData> damageDataList = new ArrayList<>();
 
+        if (useSkillDataTemp.getTargetParameters().size() == 0) {
+            return;
+        }
+
         useSkillDataTemp.getTargetParameters().forEach(targetParameter -> {
             Map<Short, Long> targetAttributeMap = targetParameter.getFightMap();
             Skill.DamageData.Builder builder = Skill.DamageData.newBuilder();

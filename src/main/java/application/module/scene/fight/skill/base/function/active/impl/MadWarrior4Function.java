@@ -2,6 +2,7 @@ package application.module.scene.fight.skill.base.function.active.impl;
 
 import akka.actor.Props;
 import application.module.player.fight.attribute.AttributeTemplateId;
+import application.module.scene.fight.buff.FightOrganismBuff;
 import application.module.scene.fight.skill.base.context.UseSkillDataTemp;
 import application.module.scene.fight.skill.base.function.active.FightSkillActiveFunction;
 import application.module.scene.fight.skill.base.skill.FightSkillWrap;
@@ -10,6 +11,8 @@ import template.FightSkillProcessTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static application.module.scene.fight.buff.FightBuffMgr.createBuff;
 
 
 /**
@@ -34,15 +37,14 @@ public class MadWarrior4Function implements FightSkillActiveFunction {
         final long douQi = fightMap.getOrDefault(AttributeTemplateId.DOU_QI, 0L);
         if (douQi > 0) {
             Map<Short, Long> extFightMap = new HashMap<>();
-            extFightMap.put(AttributeTemplateId.CRIT_RATIO, 200L * douQi);
-            extFightMap.put(AttributeTemplateId.CRIT_ADD_DAMAGE_RATIO, 500L * douQi);
+            extFightMap.put(AttributeTemplateId.CRIT_RATIO, 200L * douQi + 1);
+            extFightMap.put(AttributeTemplateId.CRIT_ADD_DAMAGE_RATIO, 500L * douQi + 1);
             for (int i = 0; i < douQi; i++) {
-                useSkillDataTemp.removeBuff(10002);
+                useSkillDataTemp.removeBuff(10002, useSkillDataTemp.getAttack());
             }
-            useSkillDataTemp.getTargetParameters().forEach(targetParameter -> {
-                useSkillDataTemp.addBuff(10002, useSkillDataTemp.getAttack(),
-                        targetParameter.getTargetOrganism(), duration + douQi * 1000);
-            });
+            FightOrganismBuff buff = createBuff(buffId, useSkillDataTemp.getAttack(), useSkillDataTemp.getTarget(), duration);
+            buff.setAttributeMap(extFightMap);
+            useSkillDataTemp.getAttack().getFightBuffMgr().addBuff(buff);
         }
     }
 }

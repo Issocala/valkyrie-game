@@ -6,7 +6,7 @@ import application.module.player.data.message.event.PlayerLogin;
 import application.module.player.operate.PlayerLoginDbReturn;
 import application.module.player.scene.operate.PlayerSceneGetSceneOpt;
 import application.module.scene.SceneActor;
-import application.module.scene.data.entity.PositionInfo;
+import application.util.Vector3;
 import application.module.scene.data.entity.SceneEntity;
 import application.module.scene.operate.AllSceneInitFinally;
 import application.module.scene.operate.SceneOut;
@@ -20,7 +20,6 @@ import com.cala.orm.db.message.DbUpdate;
 import com.cala.orm.message.DBReturnMessage;
 import com.cala.orm.message.DataBase;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -81,7 +80,7 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         //TODO 这里需要拿场景配置，看是否是常驻场景，保存上一个常驻场景的id
         if (scenePlayerExitReturn.sceneTemplateId() == MAIN_SCENE) {
             long playerId = scenePlayerExitReturn.playerId();
-            SceneEntity sceneEntity = new SceneEntity(playerId, scenePlayerExitReturn.sceneTemplateId(), scenePlayerExitReturn.positionInfo());
+            SceneEntity sceneEntity = new SceneEntity(playerId, scenePlayerExitReturn.sceneTemplateId(), scenePlayerExitReturn.vector3());
             put(scenePlayerExitReturn.playerId(), sceneEntity);
             if (containsKey(playerId)) {
                 getDbManager().tell(new DbUpdate(self(), sceneEntity, null, false), self());
@@ -105,7 +104,7 @@ public class SceneData extends AbstractDataCacheManager<SceneEntity> {
         long playerId = playerLoginDbReturn.playerLogin().playerInfo().id();
         if (Objects.isNull(sceneEntity)) {
             sceneEntity = new SceneEntity(playerId, MAIN_SCENE,
-                    new PositionInfo(SceneActor.DEFAULT_X, SceneActor.DEFAULT_Y, SceneActor.DEFAULT_FACE));
+                    new Vector3(SceneActor.DEFAULT_X, SceneActor.DEFAULT_Y, SceneActor.DEFAULT_FACE));
             this.put(playerId, sceneEntity);
             this.getDbManager().tell(new DbInsert(self(), sceneEntity, playerLoginDbReturn, false), self());
         }

@@ -1,6 +1,6 @@
 package application.module.scene.operate;
 
-import application.module.scene.data.entity.PositionInfo;
+import application.util.Vector3;
 import com.cala.orm.message.DataBase;
 
 /**
@@ -8,5 +8,5 @@ import com.cala.orm.message.DataBase;
  * @date 2022-4-19
  * @Source 1.0
  */
-public record ScenePlayerExitReturn(long playerId, int sceneTemplateId, PositionInfo positionInfo) implements DataBase {
+public record ScenePlayerExitReturn(long playerId, int sceneTemplateId, Vector3 vector3) implements DataBase {
 }

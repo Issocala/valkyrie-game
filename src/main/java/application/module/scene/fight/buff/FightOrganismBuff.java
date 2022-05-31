@@ -10,6 +10,7 @@ import template.FightBuffTemplateHolder;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Luo Yong
@@ -94,9 +95,15 @@ public class FightOrganismBuff extends LongId {
         this.to = to;
         this.duration = duration == 0 ? fightBuffTemplate.duration() : duration;
         this.function = FightBuffFunctionContainer.getBuffFunction(FightBuffTemplateHolder.getData(buffTemplateId).buffProcess());
+//        if (Objects.isNull(this.function)) {
+//            throw new NullPointerException("buff过程函数配置有误！");
+//        }
     }
 
     public boolean addSelf() {
+        if (Objects.isNull(function)) {
+            return false;
+        }
         function.addBuffFunction(from, to, this);
         return true;
     }

@@ -220,9 +220,10 @@ public class PlayerModule extends AbstractModule {
         if (Objects.nonNull(oldPlayerActor)) {
             getContext().stop(oldPlayerActor);
         }
-        playerActorMap.put(playerId, r.client());
         ActorRef playerActor = getContext().actorOf(PlayerActor.props(playerEntity));
-        playerActor.tell(new PlayerInit(r.client(), getDataMap()), self());
+        playerActorMap.put(playerId, playerActor);
+        playerActor.tell(new PlayerInit(r.client(), getDataMap(), new HashMap<>(this.playerActorMap)), self());
+        playerActorMap.values().forEach(playerActor1 -> playerActor1.tell(new PlayerLoginInit(playerId, playerActor), self()));
         r.client().tell(new application.client.Client.SendToClientJ(PlayerProtocols.LOGIN,
                 PlayerProtocolBuilder.getSc10022(true, playerEntity.getId())), self());
         this.playerEntityData.tell(new Publish(new PlayerLogin(r, playerEntity.getPlayerInfo())), self());

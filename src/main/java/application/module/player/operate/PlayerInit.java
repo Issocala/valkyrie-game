@@ -9,5 +9,5 @@ import java.util.Map;
  * @date 2022-5-16
  * @Source 1.0
  */
-public record PlayerInit(ActorRef client, Map<Class<?>, ActorRef> dataMap) {
+public record PlayerInit(ActorRef client, Map<Class<?>, ActorRef> dataMap, Map<Long, ActorRef> playerActorMap) {
 }

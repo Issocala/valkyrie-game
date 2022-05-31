@@ -35,6 +35,7 @@ public class FSMStateContainer {
         add(StateType.FightType.SPEED_DOWN_STATE, new SpeedDownState(StateType.FightType.SPEED_DOWN_STATE));
         add(StateType.FightType.DIZZINESS_STATE, new DizzinessState(StateType.FightType.DIZZINESS_STATE));
         add(StateType.FightType.SPEED_UP_STATE, new SpeedUpState(StateType.FightType.SPEED_UP_STATE));
+        add(StateType.FightType.FRENZY_STATE, new FrenzyState(StateType.FightType.FRENZY_STATE));
     }
 
     private static void add(short id, FSMStateBase fsmStateBase) {

@@ -19,7 +19,6 @@ import application.guid.IdUtils;
 import application.module.organism.FightOrganism;
 import application.module.organism.OrganismType;
 import application.module.scene.Scene;
-import application.module.scene.fight.buff.FightOrganismBuff;
 import application.util.LongId;
 import com.google.protobuf.GeneratedMessageV3;
 import mobius.modular.client.Client;
@@ -54,6 +53,8 @@ public class UseSkillDataTemp extends LongId {
     private Scene scene;
     private FightOrganism attack;
     private FightOrganism target;
+    private int skillProcessId;
+    private int skillOrganismId;
 
     private final Map<Short, Long> changeAttributeMap = new HashMap<>();
 
@@ -84,6 +85,8 @@ public class UseSkillDataTemp extends LongId {
     }
 
     public static UseSkillDataTemp of(Skill.CS10055 cs10055, Scene scene) {
+//        UseSkillDataTemp useSkillDataTemp = new UseSkillDataTemp(cs10055.getSkillProcessId(), cs10055.getFightOrganismId(), cs10055.getTargetIdList(),
+//                cs10055.getSkillPositionX(), cs10055.getSkillPositionY(), 0, 0);
         UseSkillDataTemp useSkillDataTemp = new UseSkillDataTemp(cs10055.getSkillProcessId(), cs10055.getFightOrganismId(), cs10055.getTargetIdList(),
                 0, 0, 0, 0);
         useSkillDataTemp.setScene(scene);
@@ -106,11 +109,11 @@ public class UseSkillDataTemp extends LongId {
     }
 
     public void addBuff(int templateId, FightOrganism from, FightOrganism to, long duration) {
-        getAttack().getFightBuffMgr().addBuff(templateId, from, to, duration);
+        to.getFightBuffMgr().addBuff(templateId, from, to, duration);
     }
 
-    public void removeBuff(int buffTemplateId) {
-        getAttack().getFightBuffMgr().removeBuff(buffTemplateId);
+    public void removeBuff(int buffTemplateId, FightOrganism to) {
+        to.getFightBuffMgr().removeBuff(buffTemplateId);
     }
 
     //get and set
@@ -246,6 +249,22 @@ public class UseSkillDataTemp extends LongId {
 
     public Map<Short, Long> getFightMap() {
         return getAttack().getFightMap();
+    }
+
+    public int getSkillProcessId() {
+        return skillProcessId;
+    }
+
+    public void setSkillProcessId(int skillProcessId) {
+        this.skillProcessId = skillProcessId;
+    }
+
+    public int getSkillOrganismId() {
+        return skillOrganismId;
+    }
+
+    public void setSkillOrganismId(int skillOrganismId) {
+        this.skillOrganismId = skillOrganismId;
     }
 }
 

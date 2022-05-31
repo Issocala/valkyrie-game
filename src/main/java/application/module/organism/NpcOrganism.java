@@ -1,6 +1,7 @@
 package application.module.organism;
 
-import application.module.scene.data.entity.PositionInfo;
+import application.module.scene.Scene;
+import application.util.Vector3;
 
 /**
  * @author Luo Yong
@@ -14,8 +15,24 @@ public class NpcOrganism extends FightOrganism {
         super(OrganismType.NPC, organismTemplateId);
     }
 
-    public NpcOrganism(int organismTemplateId, PositionInfo positionInfo) {
-        super(OrganismType.NPC, positionInfo, organismTemplateId);
+    public NpcOrganism(int organismTemplateId, Vector3 v) {
+        super(OrganismType.NPC, v, organismTemplateId);
+    }
+
+    public static NpcOrganism of(Scene scene, int organismTemplateId) {
+        NpcOrganism npcOrganism = new NpcOrganism(organismTemplateId);
+        npcOrganism.init(scene);
+        return npcOrganism;
+    }
+
+    public static NpcOrganism of(Scene scene, int organismTemplateId, Vector3 v) {
+        NpcOrganism npcOrganism = new NpcOrganism(organismTemplateId, v);
+        npcOrganism.init(scene);
+        return npcOrganism;
+    }
+
+    public void init(Scene scene) {
+        setScene(scene);
     }
 
     @Override
@@ -26,5 +43,10 @@ public class NpcOrganism extends FightOrganism {
     @Override
     protected void addMpAfter(FightOrganism attach, long currMp) {
 
+    }
+
+    @Override
+    public boolean isEnemy(FightOrganism fightOrganism) {
+        return false;
     }
 }

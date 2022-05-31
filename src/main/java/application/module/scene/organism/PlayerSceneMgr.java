@@ -2,7 +2,9 @@ package application.module.scene.organism;
 
 import akka.actor.ActorRef;
 import application.client.Client;
+import application.module.organism.FightOrganism;
 import application.module.organism.PlayerFight;
+import application.module.player.fight.skill.operate.SkillProcessUseScene;
 import application.module.player.fight.skill.operate.SkillUseScene;
 import application.module.player.util.PlayerOperateType;
 import application.module.scene.Scene;
@@ -40,15 +42,37 @@ public class PlayerSceneMgr implements SceneMgr {
 
     public void receiver(Scene scene, PlayerOperateType type) {
         if (type instanceof SkillUseScene skillUseScene) {
-            mobius.modular.client.Client.ReceivedFromClient r = skillUseScene.r();
-            PlayerFight playerFight = this.playerFightMap.get(r.uID());
-            if (Objects.nonNull(playerFight)) {
-                playerFight.setClient(r.client());
-                playerFight.getFightSkillMgr().activeUseSkill(scene, skillUseScene.cs10052());
+            skillUseScene(scene, skillUseScene);
+        } else if (type instanceof SkillProcessUseScene skillProcessUseScene) {
+            skillProcessUseScene(scene, skillProcessUseScene);
+        }
+    }
+
+    private void skillUseScene(Scene scene, SkillUseScene skillUseScene) {
+        mobius.modular.client.Client.ReceivedFromClient r = skillUseScene.r();
+        FightOrganism fightOrganism = scene.getFightOrganism(skillUseScene.cs10052().getFightOrganismId());
+        if (fightOrganism instanceof PlayerFight playerFight) {
+            playerFight.setClient(r.client());
+            playerFight.getFightSkillMgr().activeUseSkill(scene, skillUseScene.cs10052());
+        } else {
+            if (Objects.nonNull(fightOrganism)) {
+                fightOrganism.getFightSkillMgr().activeUseSkill(scene, skillUseScene.cs10052());
             }
         }
     }
 
+    private void skillProcessUseScene(Scene scene, SkillProcessUseScene skillProcessUseScene) {
+        mobius.modular.client.Client.ReceivedFromClient r = skillProcessUseScene.r();
+        FightOrganism fightOrganism = scene.getFightOrganism(skillProcessUseScene.cs10055().getFightOrganismId());
+        if (fightOrganism instanceof PlayerFight playerFight) {
+            playerFight.setClient(r.client());
+            playerFight.getFightSkillMgr().activeUseSkill(scene, skillProcessUseScene.cs10055());
+        } else {
+            if (Objects.nonNull(fightOrganism)) {
+                fightOrganism.getFightSkillMgr().activeUseSkill(scene, skillProcessUseScene.cs10055());
+            }
+        }
+    }
 
     @Override
     public void init(Scene scene) {
@@ -105,11 +129,15 @@ public class PlayerSceneMgr implements SceneMgr {
                 this.aiAgentPlayerId = 0;
             } else {
                 ActorRef actorRef = this.playerFightMap.get(this.aiAgentPlayerId).getClient();
-                if (Objects.isNull(actorRef)) {
+                if (Objects.isNull(actorRef) || actorRef.isTerminated()) {
                     this.aiAgentPlayerId = 0;
                 }
             }
         }
+    }
+
+    public PlayerFight getAiPlayerFight() {
+        return getPlayerFight(this.aiAgentPlayerId);
     }
 
     @Override

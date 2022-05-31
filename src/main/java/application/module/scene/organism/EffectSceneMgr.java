@@ -1,7 +1,7 @@
 package application.module.scene.organism;
 
 import akka.actor.ActorRef;
-import application.module.organism.NpcOrganism;
+import application.module.organism.EffectOrganism;
 import application.module.scene.Scene;
 import application.module.scene.SceneMgr;
 import application.module.scene.SceneProtocolBuilder;
@@ -16,39 +16,39 @@ import java.util.Map;
 
 /**
  * @author Luo Yong
- * @date 2022-5-16
+ * @date 2022-5-31
  * @Source 1.0
  */
-public class NpcSceneMgr implements SceneMgr {
+public class EffectSceneMgr implements SceneMgr {
     private Scene scene;
-    private final Map<Long, NpcOrganism> npcMap = new HashMap<>();
+    private final Map<Long, EffectOrganism> effectMap = new HashMap<>();
 
-    public void addNpcOrganism(NpcOrganism npcOrganism) {
-        addNpcOrganism(npcOrganism, 0);
+    public void addEffectOrganism(EffectOrganism effectOrganism) {
+        addEffectOrganism(effectOrganism, 0);
     }
 
-    public void addNpcOrganism(NpcOrganism npcOrganism, long duration) {
-        this.npcMap.put(npcOrganism.getId(), npcOrganism);
-        npcOrganism.sendSelfDataToSceneClient(this.scene);
+    public void addEffectOrganism(EffectOrganism effectOrganism, long duration) {
+        this.effectMap.put(effectOrganism.getId(), effectOrganism);
+        effectOrganism.sendSelfDataToSceneClient(this.scene);
         if (duration > 0) {
             ActorRef sceneActor = scene.getSceneActor();
             scene.getContext().system().scheduler().scheduleOnce(Duration.ofMillis(duration), sceneActor,
-                    new SceneOrganismExit(npcOrganism.getId(), npcOrganism.getOrganismType()),
+                    new SceneOrganismExit(effectOrganism.getId(), effectOrganism.getOrganismType()),
                     scene.getContext().dispatcher(), sceneActor);
         }
     }
 
-    public void removeNpcOrganism(long id) {
-        this.npcMap.remove(id);
+    public void removeEffectOrganism(long id) {
+        this.effectMap.remove(id);
         scene.getPlayerSceneMgr().sendToAllClient(scene, SceneProtocols.SCENE_EXIT, SceneProtocolBuilder.getSc10301(id));
     }
 
-    public NpcOrganism getNpcOrganism(long id) {
-        return this.npcMap.get(id);
+    public EffectOrganism getEffectOrganism(long id) {
+        return this.effectMap.get(id);
     }
 
-    public boolean containsNpcOrganism(long id) {
-        return this.npcMap.containsKey(id);
+    public boolean containsEffectOrganism(long id) {
+        return this.effectMap.containsKey(id);
     }
 
 
@@ -67,7 +67,7 @@ public class NpcSceneMgr implements SceneMgr {
         return List.of();
     }
 
-    public Map<Long, NpcOrganism> getNpcMap() {
-        return npcMap;
+    public Map<Long, EffectOrganism> getEffectMap() {
+        return effectMap;
     }
 }

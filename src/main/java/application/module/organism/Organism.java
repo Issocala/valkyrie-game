@@ -2,7 +2,7 @@ package application.module.organism;
 
 import application.guid.IdUtils;
 import application.module.scene.Scene;
-import application.module.scene.data.entity.PositionInfo;
+import application.util.Vector3;
 import application.util.LongId;
 
 /**
@@ -16,7 +16,9 @@ public abstract class Organism extends LongId {
 
     private final byte organismType;
 
-    private PositionInfo positionInfo;
+    private Vector3 point;
+
+    private Vector3 direction;
 
     private final int organismTemplateId;
 
@@ -26,18 +28,18 @@ public abstract class Organism extends LongId {
         this(IdUtils.fastSimpleUUIDLong(), organismType, null, organismTemplateId);
     }
 
-    public Organism(byte organismType, PositionInfo positionInfo, int organismTemplateId) {
-        this(IdUtils.fastSimpleUUIDLong(), organismType, positionInfo, organismTemplateId);
+    public Organism(byte organismType, Vector3 point, int organismTemplateId) {
+        this(IdUtils.fastSimpleUUIDLong(), organismType, point, organismTemplateId);
     }
 
     public Organism(long id, byte organismType, int organismTemplateId) {
-        this(id, organismType, null, organismTemplateId);
+        this(id, organismType, Vector3.ZERO, organismTemplateId);
     }
 
-    public Organism(long id, byte organismType, PositionInfo positionInfo, int organismTemplateId) {
+    public Organism(long id, byte organismType, Vector3 point, int organismTemplateId) {
         super(id);
         this.organismType = organismType;
-        this.positionInfo = positionInfo;
+        this.point = point;
         this.organismTemplateId = organismTemplateId;
     }
 
@@ -45,12 +47,20 @@ public abstract class Organism extends LongId {
         return organismType;
     }
 
-    public PositionInfo getPositionInfo() {
-        return positionInfo;
+    public Vector3 getPoint() {
+        return point;
     }
 
-    public void setPositionInfo(PositionInfo positionInfo) {
-        this.positionInfo = positionInfo;
+    public void setPoint(Vector3 point) {
+        this.point = point;
+    }
+
+    public Vector3 getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Vector3 direction) {
+        this.direction = direction;
     }
 
     public int getOrganismTemplateId() {

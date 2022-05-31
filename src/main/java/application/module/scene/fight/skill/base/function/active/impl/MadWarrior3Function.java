@@ -28,7 +28,7 @@ public class MadWarrior3Function implements FightSkillActiveFunction {
         Map<Short, Long> fightMap = useSkillDataTemp.getFightMap();
         long douQi = fightMap.getOrDefault(AttributeTemplateId.DOU_QI, 0L);
         if (douQi > 0) {
-            useSkillDataTemp.addBuff(10002, useSkillDataTemp.getAttack(), useSkillDataTemp.getAttack());
+            useSkillDataTemp.removeBuff(10002, useSkillDataTemp.getAttack());
             // TODO: 2022-4-29 击退效果
         }
     }

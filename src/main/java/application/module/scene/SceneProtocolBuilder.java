@@ -1,7 +1,6 @@
 package application.module.scene;
 
-import application.module.scene.data.entity.PositionInfo;
-import application.util.Vector;
+import application.util.Vector3;
 import protocol.Scene;
 
 /**
@@ -11,11 +10,11 @@ import protocol.Scene;
  */
 public class SceneProtocolBuilder {
 
-    public static Scene.SC10300 getSc10300(long sceneId, PositionInfo positionInfo) {
+    public static Scene.SC10300 getSc10300(long sceneId, Vector3 vector3) {
         return Scene.SC10300.newBuilder()
                 .setSceneId(sceneId)
-                .setPositionX(positionInfo.getPositionX())
-                .setPositionY(positionInfo.getPositionY())
+                .setPositionX(vector3.x())
+                .setPositionY(vector3.y())
                 .build();
     }
 
@@ -39,13 +38,13 @@ public class SceneProtocolBuilder {
                 .build();
     }
 
-    public static Scene.SC10304 getSc10304(long organismId, byte organismType, PositionInfo positionInfo, int organismIdTemplate) {
+    public static Scene.SC10304 getSc10304(long organismId, byte organismType, Vector3 vector3, int organismIdTemplate) {
         return Scene.SC10304.newBuilder()
                 .setOrganismId(organismId)
                 .setOrganismType(organismType)
-                .setPositionX(positionInfo.getPositionX())
-                .setPositionY(positionInfo.getPositionY())
-                .setFace(positionInfo.getFace())
+                .setPositionX(vector3.x())
+                .setPositionY(vector3.y())
+                .setFace((int) vector3.z())
                 .setOrganismTemplateId(organismIdTemplate)
                 .build();
     }
@@ -65,11 +64,11 @@ public class SceneProtocolBuilder {
                 .build();
     }
 
-    public static Scene.SC10306 getSc10306(long organismId, Vector vector) {
+    public static Scene.SC10306 getSc10306(long organismId, Vector3 v) {
         return Scene.SC10306.newBuilder()
                 .setOrganismId(organismId)
-                .setPositionX(vector.x())
-                .setPositionY(vector.y())
+                .setPositionX(v.x())
+                .setPositionY(v.y())
                 .build();
     }
 

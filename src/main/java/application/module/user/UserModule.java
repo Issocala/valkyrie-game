@@ -136,6 +136,10 @@ public class UserModule extends AbstractModule {
                 r.client().tell(UserProtocolBuilder.getSc10010(false, "算我球球你了，账号密码好好输入吧！"), self());
                 return;
             }
+            if (accountInfo.getAccount().matches("\\W") || accountInfo.getPassword().matches("\\W")) {
+                r.client().tell(UserProtocolBuilder.getSc10010(false, "算我球球你了，账号密码好好输入吧！"), self());
+                return;
+            }
             var user = User.of(IdUtils.fastSimpleUUIDLong(), accountInfo.getAccount(), cs10010.getName(), codecPassword(accountInfo.getPassword()));
             this.userData.tell(new UserInsertByAccount(self(), user, new UserRegisterType(new CommonOperateTypeInfo(r, cs10010))), self());
         } catch (InvalidProtocolBufferException e) {

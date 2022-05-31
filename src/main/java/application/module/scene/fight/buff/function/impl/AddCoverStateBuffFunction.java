@@ -27,12 +27,10 @@ public class AddCoverStateBuffFunction extends FightOrganismBuffFunction {
         if (fightBuffTemplate.attributeMap().length > 0) {
             AttributeMapUtil.add(map, StringUtils.toAttributeMap(fightBuffTemplate.attributeMap()));
         }
-//        if (map.size() > 0) {
-//            buff.getAttributeData().tell(new UpdateFightAttribute(map, buff.getTo(),
-//                    buff.getScene(), buff.getStateData()), self());
-//        }
-//        buff.getStateData().tell(new OrganismChangeState(buff.getTo(), (byte) 1,
-//                stateType, buff.getScene()), self());
+        if (map.size() > 0) {
+           to.getFightAttributeMgr().addFightMap(map);
+        }
+        to.getFightStateMgr().changeState(stateType, to.getScene());
         return true;
     }
 
@@ -45,12 +43,10 @@ public class AddCoverStateBuffFunction extends FightOrganismBuffFunction {
         if (fightBuffTemplate.attributeMap().length > 0) {
             AttributeMapUtil.sub(map, StringUtils.toAttributeMap(fightBuffTemplate.attributeMap()));
         }
-//        if (map.size() > 0) {
-//            fightOrganismBuff.getAttributeData().tell(new UpdateFightAttribute(map, fightOrganismBuff.getTo(),
-//                    fightOrganismBuff.getScene(), fightOrganismBuff.getStateData()), self());
-//        }
-//        fightOrganismBuff.getStateData().tell(new OrganismCancelState(fightOrganismBuff.getTo(), (byte) 1,
-//                stateType, fightOrganismBuff.getScene()), self());
+        if (map.size() > 0) {
+            to.getFightAttributeMgr().subFightMap(map);
+        }
+        to.getFightStateMgr().cancelState(stateType, to.getScene());
         return true;
     }
 

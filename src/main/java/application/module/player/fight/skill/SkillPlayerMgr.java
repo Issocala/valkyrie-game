@@ -5,6 +5,7 @@ import application.module.player.Player;
 import application.module.player.fight.skill.data.SkillData;
 import application.module.player.fight.skill.data.entity.Skill;
 import application.module.player.fight.skill.operate.PlayerSkillGetOpt;
+import application.module.player.fight.skill.operate.SkillProcessUseScene;
 import application.module.player.fight.skill.operate.SkillUseScene;
 import application.module.player.util.IgnoreOpt;
 import application.module.player.util.PlayerMgr;
@@ -61,7 +62,7 @@ public class SkillPlayerMgr implements PlayerMgr {
         for (int skillId : organismDataTemplate.skills()) {
             set.add(skillId);
         }
-        this.skill.getDisableSkillSet().addAll(set);
+        this.skill.getEnableSkillSet().addAll(set);
         player.addInitFinalSet(this.getClass());
     }
 
@@ -70,11 +71,17 @@ public class SkillPlayerMgr implements PlayerMgr {
         try {
             switch (r.protoID()) {
                 case FightSkillProtocols.USE -> use(player, r);
+                case FightSkillProtocols.USE_PROCESS -> process(player, r);
             }
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void process(Player player, Client.ReceivedFromClient r) throws InvalidProtocolBufferException {
+        protocol.Skill.CS10055 cs10055 = protocol.Skill.CS10055.parseFrom(r.message());
+        player.getScene().tell(new SkillProcessUseScene(r, cs10055), player.getPlayerActor());
     }
 
     private void use(Player player, Client.ReceivedFromClient r) throws InvalidProtocolBufferException {

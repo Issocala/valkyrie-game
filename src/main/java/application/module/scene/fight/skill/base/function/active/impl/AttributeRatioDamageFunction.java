@@ -30,6 +30,10 @@ public class AttributeRatioDamageFunction implements FightSkillActiveFunction {
         double ratio = Double.parseDouble(parameter[1]);
         List<Skill.DamageData> damageDataList = new ArrayList<>();
 
+        if (useSkillDataTemp.getTargetParameters().size() == 0) {
+            return;
+        }
+
         useSkillDataTemp.getTargetParameters().forEach(targetParameter -> {
             Map<Short, Long> targetAttributeMap = targetParameter.getFightMap();
             Skill.DamageData.Builder builder = Skill.DamageData.newBuilder();
@@ -37,7 +41,7 @@ public class AttributeRatioDamageFunction implements FightSkillActiveFunction {
 
             // TODO: 2022-4-29 这里后续放到被动伤害结算前,做成被动通用逻辑
             if (targetAttributeMap.containsKey(BOSS_ADD_DAMAGE)) {
-                finalDamage = targetAttributeMap.get(BOSS_ADD_DAMAGE) * finalDamage / MathConstant.TEN_THOUSAND;
+                finalDamage += targetAttributeMap.get(BOSS_ADD_DAMAGE) * finalDamage / MathConstant.TEN_THOUSAND;
             }
             if (targetAttributeMap.containsKey(ICE_MAGIC_SHIELD)) {
                 long curMp = targetAttributeMap.get(VAR_MP);

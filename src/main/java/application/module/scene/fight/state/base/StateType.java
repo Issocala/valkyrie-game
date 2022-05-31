@@ -60,6 +60,11 @@ public interface StateType {
          */
         short SPEED_UP_STATE = 406;
 
+        /**
+         * 狂暴
+         */
+        short FRENZY_STATE = 407;
+
         static boolean validNoUseSkill(Set<FightState> fightStateSet) {
             for (FightState fightState : fightStateSet) {
                 if (validNoUseSkill(fightState.getId())) {

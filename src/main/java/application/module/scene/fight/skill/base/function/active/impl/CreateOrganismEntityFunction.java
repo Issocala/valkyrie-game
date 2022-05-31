@@ -1,17 +1,12 @@
 package application.module.scene.fight.skill.base.function.active.impl;
 
-import akka.actor.ActorRef;
 import akka.actor.Props;
-import application.module.organism.ItemOrganism;
-import application.module.organism.MonsterOrganism;
-import application.module.organism.NpcOrganism;
-import application.module.organism.OrganismType;
-import application.module.scene.data.entity.PositionInfo;
+import application.module.organism.*;
 import application.module.scene.fight.skill.base.context.UseSkillDataTemp;
 import application.module.scene.fight.skill.base.function.active.FightSkillActiveFunction;
 import application.module.scene.fight.skill.base.skill.FightSkillWrap;
-import application.module.scene.operate.SceneOrganismEntry;
 import application.util.StringUtils;
+import application.util.Vector3;
 import template.FightSkillProcessTemplate;
 import template.OrganismDataTemplateHolder;
 
@@ -33,22 +28,31 @@ public class CreateOrganismEntityFunction implements FightSkillActiveFunction {
         int number = attributeParameter[1];
         long duration = attributeParameter[2];
         short type = OrganismDataTemplateHolder.getData(organismTemplateId).type();
-        if (type == OrganismType.MONSTER) {
-            for (int i = 0; i < number; i++) {
-//                useSkillDataTemp.getScene().tell(new SceneOrganismEntry(new MonsterOrganism(organismTemplateId,
-//                        new PositionInfo(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY())), duration), ActorRef.noSender());
-            }
-        } else if (type == OrganismType.NPC) {
-            for (int i = 0; i < number; i++) {
-//                useSkillDataTemp.getScene().tell(new SceneOrganismEntry(new NpcOrganism(organismTemplateId,
-//                        new PositionInfo(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY())), duration), ActorRef.noSender());
-            }
-        } else if (type == OrganismType.ITEM) {
-            for (int i = 0; i < number; i++) {
-//                useSkillDataTemp.getScene().tell(new SceneOrganismEntry(new ItemOrganism(organismTemplateId,
-//                        new PositionInfo(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY())), duration), ActorRef.noSender());
-            }
+        switch (type) {
+            case OrganismType.MONSTER:
+                for (int i = 0; i < number; i++) {
+                    MonsterOrganism monster = MonsterOrganism.of(useSkillDataTemp.getScene(), organismTemplateId,
+                            Vector3.ofXY(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY()));
+                    useSkillDataTemp.getScene().getMonsterSceneMgr().addMonsterOrganism(monster, duration);
+                }
+            case OrganismType.NPC:
+                for (int i = 0; i < number; i++) {
+                    NpcOrganism npc = NpcOrganism.of(useSkillDataTemp.getScene(), organismTemplateId,
+                            Vector3.ofXY(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY()));
+                    useSkillDataTemp.getScene().getNpcSceneMgr().addNpcOrganism(npc, duration);
+                }
+            case OrganismType.ITEM:
+                for (int i = 0; i < number; i++) {
+                    ItemOrganism item = ItemOrganism.of(useSkillDataTemp.getScene(), organismTemplateId,
+                            Vector3.ofXY(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY()));
+                    useSkillDataTemp.getScene().getItemSceneMgr().addItemOrganism(item, duration);
+                }
+            case OrganismType.EFFECT:
+                for (int i = 0; i < number; i++) {
+                    EffectOrganism effect = EffectOrganism.of(useSkillDataTemp.getScene(), organismTemplateId,
+                            Vector3.ofXY(useSkillDataTemp.getSkillPosX(), useSkillDataTemp.getSkillPosY()));
+                    useSkillDataTemp.getScene().getEffectSceneMgr().addEffectOrganism(effect, duration);
+                }
         }
-
     }
 }

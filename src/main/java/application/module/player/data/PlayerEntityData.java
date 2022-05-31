@@ -43,27 +43,10 @@ public class PlayerEntityData extends AbstractDataCacheManager<PlayerEntity> {
         switch (dataBase) {
             case PlayerDataMessage.PlayerByUserId playerByUserId -> getPlayerByUserId(playerByUserId);
             case PlayerDataMessage.PlayerByUserIdAndProfession playerByUserIdAndProfession -> getPlayerByUserIdAndProfession(playerByUserIdAndProfession);
-            case CreatePlayerEntitiesAfter createPlayerEntitiesAfter -> createPlayerEntitiesAfter(createPlayerEntitiesAfter);
             default -> throw new IllegalStateException("Unexpected value: " + dataBase.getClass().getName());
         }
     }
 
-    private void createPlayerEntitiesAfter(CreatePlayerEntitiesAfter createPlayerEntitiesAfter) {
-        long playerId = createPlayerEntitiesAfter.playerId();
-        List<PlayerEntity> playerEntityList = new ArrayList<>();
-        createPlayerEntitiesAfter.clientMap().forEach((id, client) -> {
-            if (id != playerId) {
-                client.tell(new Client.SendToClientJ(PlayerProtocols.EntityInfo,
-                        PlayerProtocolBuilder.getSc10025(List.of((PlayerEntity) get(playerId)))), self());
-            }
-            playerEntityList.add((PlayerEntity) get(id));
-        });
-        ActorRef client = createPlayerEntitiesAfter.clientMap().get(playerId);
-        if (Objects.nonNull(client)) {
-            client.tell(new Client.SendToClientJ(PlayerProtocols.EntityInfo,
-                    PlayerProtocolBuilder.getSc10025(playerEntityList)), self());
-        }
-    }
 
     private void getPlayerByUserIdAndProfession(PlayerDataMessage.PlayerByUserIdAndProfession playerByUserIdAndProfession) {
         PlayerEntity playerEntity = (PlayerEntity) playerByUserIdAndProfession.abstractEntityBase();

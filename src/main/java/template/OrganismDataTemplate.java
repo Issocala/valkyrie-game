@@ -1,7 +1,7 @@
 /* 由程序自动生成，请勿修改。*/
 package template;
 
-public record OrganismDataTemplate(int id,byte type,String attributeMap,int[] skills,int ai){
+public record OrganismDataTemplate(int id,byte type,String attributeMap,int[] skills,int ai,String prefab2){
 
     public static OrganismDataTemplate parse(CustomByteBuffer cbb){
         var id = cbb.getInt();
@@ -13,8 +13,9 @@ public record OrganismDataTemplate(int id,byte type,String attributeMap,int[] sk
             skills[i] = cbb.getInt();
         }
         var ai = cbb.getInt();
+        var prefab2 = cbb.getString();
 
-        var temp = new OrganismDataTemplate(id,type,attributeMap,skills,ai);
+        var temp = new OrganismDataTemplate(id,type,attributeMap,skills,ai,prefab2);
         return temp;
     }
 }

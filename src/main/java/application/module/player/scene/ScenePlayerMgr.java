@@ -2,14 +2,18 @@ package application.module.player.scene;
 
 import akka.actor.ActorRef;
 import application.module.player.Player;
+import application.module.player.PlayerProtocolBuilder;
+import application.module.player.PlayerProtocols;
+import application.module.player.operate.PlayerSendMyselfAndGetTarget;
 import application.module.player.scene.operate.PlayerSceneGetOpt;
 import application.module.player.scene.operate.PlayerSceneGetSceneOpt;
 import application.module.player.util.IgnoreOpt;
+import application.module.player.util.PlayerCreateEntityInfo;
 import application.module.player.util.PlayerMgr;
 import application.module.scene.SceneModule;
 import application.module.scene.SceneProtocols;
 import application.module.scene.data.SceneData;
-import application.module.scene.data.entity.PositionInfo;
+import application.util.Vector3;
 import application.module.scene.data.entity.SceneEntity;
 import application.module.scene.operate.*;
 import com.cala.orm.cache.AbstractBase;
@@ -91,6 +95,18 @@ public class ScenePlayerMgr implements PlayerMgr {
             setPreSceneId(getCurrSceneId());
             setCurrSceneId(playerEntrySuccessOpt.sceneId());
             setSceneSwitching(false);
+
+            player.getClient().tell(new application.client.Client.SendToClientJ(PlayerProtocols.EntityInfo,
+                    PlayerProtocolBuilder.getSc10025(player.getPlayerEntity())), player.getPlayerActor());
+
+            playerEntrySuccessOpt.inSceneOtherPlayerIds().forEach(otherPlayerId -> {
+                ActorRef otherPlayerActor = player.getPlayerActorMap().get(otherPlayerId);
+                if (Objects.isNull(otherPlayerActor)) {
+                    return;
+                }
+                otherPlayerActor.tell(new PlayerSendMyselfAndGetTarget(PlayerCreateEntityInfo.of(
+                        player.getPlayerEntity()), player.getClient()), player.getClient());
+            });
         } else {
             throw new IllegalStateException("Unexpected value: " + p.getClass().getName());
         }
@@ -107,7 +123,7 @@ public class ScenePlayerMgr implements PlayerMgr {
             this.preSceneId = sceneEntity.getSceneTemplateId();
         } else {
             player.getDataMap().get(SceneData.class).tell(new DataInsert(player.getPlayerActor(),
-                    new SceneEntity(player.getId(), this.preSceneId, new PositionInfo()),
+                    new SceneEntity(player.getId(), this.preSceneId, Vector3.ZERO),
                     IgnoreOpt.INSTANCE), player.getPlayerActor());
         }
         getSceneData(player).tell(new PlayerSceneGetSceneOpt(this.preSceneId, null), player.getPlayerActor());

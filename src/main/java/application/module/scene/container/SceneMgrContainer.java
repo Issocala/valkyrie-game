@@ -1,10 +1,7 @@
 package application.module.scene.container;
 
 import application.module.scene.SceneMgr;
-import application.module.scene.organism.ItemSceneMgr;
-import application.module.scene.organism.MonsterSceneMgr;
-import application.module.scene.organism.NpcSceneMgr;
-import application.module.scene.organism.PlayerSceneMgr;
+import application.module.scene.organism.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +23,7 @@ public class SceneMgrContainer {
         set.add(new MonsterSceneMgr());
         set.add(new NpcSceneMgr());
         set.add(new ItemSceneMgr());
+        set.add(new EffectSceneMgr());
 
         return set;
     }

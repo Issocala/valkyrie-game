@@ -9,7 +9,7 @@ import application.module.player.fight.skill.FightSkillProtocols;
 import application.module.scene.Scene;
 import application.module.scene.SceneProtocolBuilder;
 import application.module.scene.SceneProtocols;
-import application.module.scene.data.entity.PositionInfo;
+import application.util.Vector3;
 import application.module.scene.fight.attribute.FightAttributeMgr;
 import application.module.scene.fight.buff.FightBuffMgr;
 import application.module.scene.fight.buff.FightBuffProtocolBuilder;
@@ -18,6 +18,8 @@ import application.module.scene.fight.skill.FightSkillMgr;
 import application.module.scene.fight.skill.FightSkillProtocolBuilder;
 import application.module.scene.fight.state.FightStateMgr;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static application.module.player.fight.attribute.AttributeTemplateId.*;
@@ -39,26 +41,28 @@ public abstract class FightOrganism extends Organism {
 
     private FightSkillMgr fightSkillMgr;
 
+    private List<FightOrganism> childOrganism = new ArrayList<>();
+
 
     public FightOrganism(byte organismType, int organismTemplateId) {
         this(IdUtils.fastSimpleUUIDLong(), organismType, organismTemplateId);
     }
 
-    public FightOrganism(byte organismType, PositionInfo positionInfo, int organismTemplateId) {
-        this(IdUtils.fastSimpleUUIDLong(), organismType, positionInfo, organismTemplateId);
+    public FightOrganism(byte organismType, Vector3 vector3, int organismTemplateId) {
+        this(IdUtils.fastSimpleUUIDLong(), organismType, vector3, organismTemplateId);
     }
 
     public FightOrganism(long id, byte organismType, int organismTemplateId) {
-        this(id, organismType, null, organismTemplateId);
+        this(id, organismType, Vector3.ZERO, organismTemplateId);
     }
 
-    public FightOrganism(long id, byte organismType, PositionInfo positionInfo, int organismTemplateId) {
-        super(id, organismType, positionInfo, organismTemplateId);
+    public FightOrganism(long id, byte organismType, Vector3 vector3, int organismTemplateId) {
+        super(id, organismType, vector3, organismTemplateId);
         this.fightAttributeMgr = new FightAttributeMgr();
         this.fightBuffMgr = new FightBuffMgr();
         this.fightBuffMgr.setOwner(this);
         this.fightStateMgr = new FightStateMgr();
-        this.fightBuffMgr.setOwner(this);
+        this.fightStateMgr.setOwner(this);
         this.fightSkillMgr = new FightSkillMgr();
         this.fightSkillMgr.setOwner(this);
     }
@@ -119,11 +123,11 @@ public abstract class FightOrganism extends Organism {
 
     public void sendSelfData(ActorRef client) {
         client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
-                SceneProtocolBuilder.getSc10304(getId(), getOrganismType(), getPositionInfo(), getOrganismTemplateId())), getScene().getSceneActor());
-
-        client.tell(new application.client.Client.SendToClientJ(FightSkillProtocols.GET_ALL,
-                FightSkillProtocolBuilder.getSc10050(getId(), getFightSkillMgr().getEnableSkillSet())), getScene().getSceneActor());
-
+                SceneProtocolBuilder.getSc10304(getId(), getOrganismType(), getPoint(), getOrganismTemplateId())), getScene().getSceneActor());
+        if (getOrganismType() == OrganismType.PLAYER) {
+            client.tell(new application.client.Client.SendToClientJ(FightSkillProtocols.GET_ALL,
+                    FightSkillProtocolBuilder.getSc10050(getId(), getFightSkillMgr().getEnableSkillSet())), getScene().getSceneActor());
+        }
         client.tell(new application.client.Client.SendToClientJ(AttributeProtocols.FIGHT_ATTRIBUTE_GET,
                 AttributeProtocolBuilder.get10040(getId(), getFightMap())), getScene().getSceneActor());
 
@@ -131,9 +135,30 @@ public abstract class FightOrganism extends Organism {
                 FightBuffProtocolBuilder.getSc10070(getId(), getFightBuffMgr().getFightOrganismBuffs())), getScene().getSceneActor());
     }
 
+    public void sendSelfDataToSceneClient(Scene scene) {
+        scene.getPlayerSceneMgr().getPlayerFightMap().values().forEach(playerFight -> {
+            ActorRef client = playerFight.getClient();
+            client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
+                    SceneProtocolBuilder.getSc10304(getId(), getOrganismType(), getPoint(), getOrganismTemplateId())), getScene().getSceneActor());
+
+            if (getOrganismType() == OrganismType.PLAYER) {
+                client.tell(new application.client.Client.SendToClientJ(FightSkillProtocols.GET_ALL,
+                        FightSkillProtocolBuilder.getSc10050(getId(), getFightSkillMgr().getEnableSkillSet())), getScene().getSceneActor());
+            }
+
+            client.tell(new application.client.Client.SendToClientJ(AttributeProtocols.FIGHT_ATTRIBUTE_GET,
+                    AttributeProtocolBuilder.get10040(getId(), getFightMap())), getScene().getSceneActor());
+
+            client.tell(new application.client.Client.SendToClientJ(FightBuffProtocols.GET,
+                    FightBuffProtocolBuilder.getSc10070(getId(), getFightBuffMgr().getFightOrganismBuffs())), getScene().getSceneActor());
+        });
+    }
+
     public void switchScene() {
         fightBuffMgr.switchScene();
     }
+
+    public abstract boolean isEnemy(FightOrganism fightOrganism);
 
     //get and set
 

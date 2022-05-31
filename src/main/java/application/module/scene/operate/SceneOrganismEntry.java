@@ -1,7 +1,6 @@
 package application.module.scene.operate;
 
 import application.module.organism.Organism;
-import application.module.scene.data.entity.PositionInfo;
 
 /**
  * @author Luo Yong

@@ -19,6 +19,8 @@ public interface OrganismType {
 
     byte BOSS = 6;
 
+    byte EFFECT = 7;
+
 
     static boolean isFightOrganism(Organism organism) {
         return isFightOrganism(organism.getOrganismType());

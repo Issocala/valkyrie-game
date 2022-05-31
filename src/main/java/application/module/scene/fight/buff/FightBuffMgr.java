@@ -3,6 +3,8 @@ package application.module.scene.fight.buff;
 import akka.actor.Cancellable;
 import application.module.organism.FightOrganism;
 import application.module.scene.fight.buff.type.BuffCoverRuleType;
+import application.module.scene.operate.AoiSendMessageToClient;
+import template.FightBuffTemplate;
 
 import java.util.*;
 
@@ -37,9 +39,6 @@ public class FightBuffMgr {
 
     public void addBuff(int templateId, FightOrganism from, FightOrganism to, long duration) {
         FightOrganismBuff buff = createBuff(templateId, from, to, duration);
-        if (Objects.isNull(buff)) {
-            return;
-        }
         addBuff(buff);
     }
 
@@ -89,7 +88,7 @@ public class FightBuffMgr {
         return new FightOrganismBuff(templateId, from, to);
     }
 
-    public FightOrganismBuff createBuff(int templateId, FightOrganism from, FightOrganism to, long duration) {
+    public static FightOrganismBuff createBuff(int templateId, FightOrganism from, FightOrganism to, long duration) {
         return new FightOrganismBuff(templateId, from, to, duration);
     }
 
@@ -201,8 +200,24 @@ public class FightBuffMgr {
     }
 
     public void switchScene() {
+        List<FightOrganismBuff> temp = new ArrayList<>();
         fightOrganismBuffs.values().forEach(fightOrganismBuff -> {
-
+            FightBuffTemplate template = fightOrganismBuff.getFightBuffTemplate();
+            if (template.switchSceneRemove() == 1) {
+                temp.add(fightOrganismBuff);
+            }
+        });
+        temp.forEach(buff -> {
+            int currCount = buff.getCurrCoverCount();
+            for (int i = 0; i < currCount; i++) {
+                if (buff.getCurrCoverCount() > 0) {
+                    buff.setCurrCoverCount(buff.getCurrCoverCount() - 1);
+                    buff.removeSelf();
+                }
+            }
+            this.fightOrganismBuffs.remove(buff.getBuffTemplateId());
+            owner.getScene().getPlayerSceneMgr().sendToAllClient(owner.getScene(), FightBuffProtocols.REMOVE,
+                    FightBuffProtocolBuilder.getSc10072(buff.getTo().getId(), buff));
         });
     }
 

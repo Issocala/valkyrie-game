@@ -7,5 +7,5 @@ package application.util;
  * @date 2021-12-31
  * @Source 1.0
  */
-public record PreScene(long preSceneRefId, Vector vector) {
+public record PreScene(long preSceneRefId, Vector3 point, Vector3 direction) {
 }

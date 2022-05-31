@@ -14,6 +14,8 @@ import com.cala.orm.cache.AbstractBase;
 import com.cala.orm.cache.message.DataGet;
 import com.cala.orm.message.OperateType;
 import mobius.modular.client.Client;
+import template.AttributeTemplate;
+import template.AttributeTemplateHolder;
 import template.AttributeTreeTemplate;
 import template.AttributeTreeTemplateHolder;
 
@@ -76,19 +78,38 @@ public class AttributePlayerMgr implements PlayerMgr {
         calculateAllFighting();
     }
 
+
     /**
      * 计算更新战力
      */
     public long calculateAllFighting() {
-        long fighting = 0;
-        allTemplateAttributeMap.forEach((id, value) -> {
+        return calculateAllFighting(allTemplateAttributeMap);
+    }
 
-            if (AttributeTemplateIdContainer.VALUE.contains(id)) {
-
-            } else {
-
+    /**
+     * 计算战力
+     */
+    public long calculateAllFighting(Map<Short, Long> map) {
+        long fighting;
+        long baseCal = 0;
+        long attributeType1 = 0;
+        long attributeType2 = 0;
+        for (Map.Entry<Short, Long> entry : map.entrySet()) {
+            short id = entry.getKey();
+            AttributeTemplate template = AttributeTemplateHolder.getData(id);
+            if (Objects.isNull(template)) {
+                continue;
             }
-        });
+            long value = FightAttributeMgr.getValue(map, id);
+            float baseCalTemp = template.baseCal() * value;
+            if (template.attributeType() == 1) {
+                attributeType1 += baseCalTemp;
+            } else if (template.attributeType() == 2) {
+                attributeType2 += template.extraCal() * value;
+            }
+            baseCal += baseCalTemp;
+        }
+        fighting = baseCal + attributeType1 / 640000 * attributeType2;
         return fighting;
     }
 
@@ -100,7 +121,7 @@ public class AttributePlayerMgr implements PlayerMgr {
     }
 
     public void initAfter(Player player) {
-        updateAttribute(player, (short) 2, false);
+        updateAttribute(player, (short) 2, true);
     }
 
     @Override

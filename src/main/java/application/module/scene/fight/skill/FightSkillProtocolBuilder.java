@@ -26,7 +26,7 @@ public class FightSkillProtocolBuilder {
     }
 
     public static Skill.SC10050 getSc10050(long playerId, Set<Integer> skillSet) {
-        return Skill.SC10050.newBuilder().addAllSkillId(skillSet).setOrganismId((int) playerId).build();
+        return Skill.SC10050.newBuilder().addAllSkillId(skillSet).setOrganismId(playerId).build();
     }
 
     public static Skill.SC10053 getSc10053(long attackId, int skillId, int processId, List<Skill.DamageData> damageDataList) {

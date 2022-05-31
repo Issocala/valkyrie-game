@@ -1,6 +1,7 @@
 package application.module.scene.data.entity;
 
 import application.util.AbstractBuilder;
+import application.util.Vector3;
 import com.cala.orm.annotation.DbDeserialize;
 import com.cala.orm.annotation.DbPojoBuilder;
 import com.cala.orm.cache.AbstractEntityBase;
@@ -27,39 +28,39 @@ public class SceneEntity extends AbstractEntityBase {
      */
     @Column
     @Convert(converter = JsonAttributeConverter.class)
-    private final PositionInfo positionInfo;
+    private final Vector3 point;
 
     /**
      * @param id
      */
     public SceneEntity(Long id) {
-        this(id, 0, new PositionInfo());
+        this(id, 0, Vector3.ZERO);
     }
 
-    public SceneEntity(Long id, int sceneTemplateId, PositionInfo positionInfo) {
+    public SceneEntity(Long id, int sceneTemplateId, Vector3 point) {
         super(id);
         this.sceneTemplateId = sceneTemplateId;
-        this.positionInfo = positionInfo;
+        this.point = point;
     }
 
     @DbPojoBuilder
     public static class Builder extends AbstractBuilder {
         private int sceneTemplateId;
 
-        private PositionInfo positionInfo;
+        private Vector3 point;
 
         public Builder setSceneTemplateId(int sceneTemplateId) {
             this.sceneTemplateId = sceneTemplateId;
             return this;
         }
 
-        public Builder setPositionInfo(PositionInfo positionInfo) {
-            this.positionInfo = positionInfo;
+        public Builder setPositionInfo(Vector3 v) {
+            this.point = v;
             return this;
         }
 
         public SceneEntity build(){
-            return new SceneEntity(getId(), sceneTemplateId, positionInfo);
+            return new SceneEntity(getId(), sceneTemplateId, point);
         }
     }
 
@@ -67,7 +68,7 @@ public class SceneEntity extends AbstractEntityBase {
         return sceneTemplateId;
     }
 
-    public PositionInfo getPositionInfo() {
-        return positionInfo;
+    public Vector3 getPoint() {
+        return point;
     }
 }

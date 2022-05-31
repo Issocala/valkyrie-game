@@ -7,7 +7,7 @@ import application.module.player.fight.attribute.AttributePlayerMgr;
 import application.module.player.fight.buff.BuffPlayerMgr;
 import application.module.player.fight.skill.SkillPlayerMgr;
 import application.module.player.fight.state.StatePlayerMgr;
-import application.module.scene.data.entity.PositionInfo;
+import application.util.Vector3;
 
 /**
  * @author Luo Yong
@@ -24,7 +24,7 @@ public class PlayerFight extends FightOrganism {
 
     private PlayerInfo playerInfo;
 
-    private PositionInfo positionInfo;
+    private Vector3 vector3;
 
     public PlayerFight(long playerId, int profession) {
         super(playerId, OrganismType.PLAYER, profession);
@@ -83,13 +83,13 @@ public class PlayerFight extends FightOrganism {
     }
 
     @Override
-    public PositionInfo getPositionInfo() {
-        return positionInfo;
+    public Vector3 getPoint() {
+        return vector3;
     }
 
     @Override
-    public void setPositionInfo(PositionInfo positionInfo) {
-        this.positionInfo = positionInfo;
+    public void setPoint(Vector3 point) {
+        this.vector3 = point;
     }
 
     @Override
@@ -102,5 +102,10 @@ public class PlayerFight extends FightOrganism {
     @Override
     protected void addMpAfter(FightOrganism attach, long currMp) {
 
+    }
+
+    @Override
+    public boolean isEnemy(FightOrganism fightOrganism) {
+        return false;
     }
 }

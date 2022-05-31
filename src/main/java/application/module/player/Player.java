@@ -1,8 +1,6 @@
 package application.module.player;
 
 import akka.actor.ActorRef;
-import application.module.organism.Organism;
-import application.module.organism.OrganismType;
 import application.module.player.container.PlayerMgrContainer;
 import application.module.player.data.entity.PlayerEntity;
 import application.module.player.operate.PlayerInit;
@@ -24,9 +22,9 @@ import java.util.Set;
  */
 public class Player extends LongId {
 
-
-
     private final ActorRef playerActor;
+
+    private Map<Long, ActorRef> playerActorMap = new HashMap<>();
 
     private final PlayerEntity playerEntity;
 
@@ -53,6 +51,7 @@ public class Player extends LongId {
 
     public void init(PlayerInit playerInit) {
         setClient(playerInit.client());
+        playerActorMap = playerInit.playerActorMap();
         Set<PlayerMgr> playerMgrSet = PlayerMgrContainer.getPlayerMgr();
         playerMgrSet.forEach(playerMgr -> {
             putMgr(playerMgr.getClass(), playerMgr);
@@ -131,4 +130,9 @@ public class Player extends LongId {
     public void setClient(ActorRef client) {
         this.client = client;
     }
+
+    public Map<Long, ActorRef> getPlayerActorMap() {
+        return playerActorMap;
+    }
+
 }
