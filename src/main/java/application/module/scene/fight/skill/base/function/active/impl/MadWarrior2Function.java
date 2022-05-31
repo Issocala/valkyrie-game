@@ -38,10 +38,9 @@ public class MadWarrior2Function implements FightSkillActiveFunction {
         long douQi = fightMap.getOrDefault(AttributeTemplateId.DOU_QI, 0L);
         if (douQi > 0) {
             useSkillDataTemp.removeBuff(10002, useSkillDataTemp.getAttack());
-
-            useSkillDataTemp.getTargetParameters().forEach(targetParameter -> {
-                targetParameter.addBuff(buffId, useSkillDataTemp.getAttack(), targetParameter.getTargetOrganism(), duration);
-            });
+            FightOrganismBuff buff = FightBuffMgr.createBuff(buffId, useSkillDataTemp.getAttack(), useSkillDataTemp.getAttack(), duration);
+            buff.setAttributeMap(map);
+            useSkillDataTemp.getAttack().getFightBuffMgr().addBuff(buff);
         }
     }
 }
