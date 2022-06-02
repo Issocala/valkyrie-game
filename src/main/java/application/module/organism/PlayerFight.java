@@ -47,8 +47,8 @@ public class PlayerFight extends FightOrganism {
         SkillPlayerMgr skillMgr = (SkillPlayerMgr) player.getMgrMap().get(SkillPlayerMgr.class);
         this.getFightSkillMgr().setEnableSkillSet(skillMgr.getSkill().getEnableSkillSet());
 
-        AttributePlayerMgr attributePlayerMgr = (AttributePlayerMgr) player.getMgr(AttributePlayerMgr.class);
-        this.getFightAttributeMgr().setFightMap(attributePlayerMgr.getFightAttributeMap());
+        AttributePlayerMgr attributePlayerMgr = player.getAttributePlayerMgr();
+        this.getFightAttributeMgr().setFightMap(attributePlayerMgr.getPlayerInitFightAttributeMap());
 
         BuffPlayerMgr buffPlayerMgr = (BuffPlayerMgr) player.getMgr(BuffPlayerMgr.class);
 

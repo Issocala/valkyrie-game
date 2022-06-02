@@ -3,6 +3,7 @@ package application.module.player;
 import akka.actor.ActorRef;
 import application.module.player.container.PlayerMgrContainer;
 import application.module.player.data.entity.PlayerEntity;
+import application.module.player.fight.attribute.AttributePlayerMgr;
 import application.module.player.operate.PlayerInit;
 import application.module.player.scene.ScenePlayerMgr;
 import application.module.player.util.PlayerMgr;
@@ -59,6 +60,10 @@ public class Player extends LongId {
             playerMgr.getOperateTypes().forEach(operateType -> this.operateTypeMgrMap.put(operateType, playerMgr));
         });
         this.mgrMap.values().forEach(playerMgr -> playerMgr.init(this));
+    }
+
+    public AttributePlayerMgr getAttributePlayerMgr() {
+        return (AttributePlayerMgr) getMgr(AttributePlayerMgr.class);
     }
 
     //get and set

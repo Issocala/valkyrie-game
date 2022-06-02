@@ -155,12 +155,12 @@ public class FightBuffMgr {
 
     private boolean validReplaceTime(FightOrganismBuff buff, FightOrganismBuff oldBuff) {
         oldBuff.setExpiredTime(buff.getDuration() + System.currentTimeMillis());
-        return true;
+        return false;
     }
 
     private boolean validRepeatTime(FightOrganismBuff buff, FightOrganismBuff oldBuff) {
         oldBuff.setExpiredTime(buff.getDuration() + oldBuff.getExpiredTime());
-        return true;
+        return false;
     }
 
     private boolean validRepeatEffectAndReplaceTime(FightOrganismBuff buff, FightOrganismBuff oldBuff) {

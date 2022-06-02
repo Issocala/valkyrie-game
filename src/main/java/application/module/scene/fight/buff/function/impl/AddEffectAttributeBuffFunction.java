@@ -26,7 +26,7 @@ public class AddEffectAttributeBuffFunction extends FightOrganismBuffFunction {
     @Override
     public boolean removeBuffFunction(FightOrganism from, FightOrganism to, FightOrganismBuff buff) {
         Map<Short, Long> map = new HashMap<>();
-        AttributeMapUtil.sub(map, buff.getCountAttributeMap());
+        AttributeMapUtil.add(map, buff.getCountAttributeMap());
         to.getFightAttributeMgr().subFightMap(map);
         return true;
     }

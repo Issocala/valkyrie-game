@@ -4,6 +4,7 @@ import akka.actor.ActorRef;
 import application.client.Client;
 import application.module.organism.FightOrganism;
 import application.module.organism.PlayerFight;
+import application.module.player.fight.attribute.operate.PlayerAddAttributeOpt;
 import application.module.player.fight.skill.operate.SkillProcessUseScene;
 import application.module.player.fight.skill.operate.SkillUseScene;
 import application.module.player.util.PlayerOperateType;
@@ -45,7 +46,17 @@ public class PlayerSceneMgr implements SceneMgr {
             skillUseScene(scene, skillUseScene);
         } else if (type instanceof SkillProcessUseScene skillProcessUseScene) {
             skillProcessUseScene(scene, skillProcessUseScene);
+        } else if (type instanceof PlayerAddAttributeOpt opt) {
+            playerAddAttributeOpt(opt);
         }
+    }
+
+    private void playerAddAttributeOpt(PlayerAddAttributeOpt opt) {
+        PlayerFight playerFight = getPlayerFight(opt.playerId());
+        if (Objects.isNull(playerFight)) {
+            return;
+        }
+        playerFight.getFightAttributeMgr().addFightMap(opt.map());
     }
 
     private void skillUseScene(Scene scene, SkillUseScene skillUseScene) {

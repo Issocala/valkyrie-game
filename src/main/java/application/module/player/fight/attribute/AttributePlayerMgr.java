@@ -56,12 +56,17 @@ public class AttributePlayerMgr implements PlayerMgr {
         player.addInitFinalSet(this.getClass());
     }
 
+
+    public void updateAttribute(Player player, short type) {
+        updateAttribute(player, type, true);
+    }
+
     /**
      * 更新属性
      *
-     * @param isSendFightToScene 除了玩家初始化的时候，其他时候都应该是true
+     * @param isSendFighting 除了玩家初始化的时候，其他时候都应该是true
      */
-    public void updateAttribute(Player player, short type, boolean isSendFightToScene) {
+    public void updateAttribute(Player player, short type, boolean isSendFighting) {
         AttributeNode attributeNode = typeId2AttributeMap.get(type);
         if (Objects.isNull(attributeNode)) {
             AttributeTreeTemplate attributeTreeTemplate = AttributeTreeTemplateHolder.getData(type);
@@ -72,10 +77,9 @@ public class AttributePlayerMgr implements PlayerMgr {
 
         FightAttributeMgr.doAddAttribute(allTemplateAttributeMap, id2FightAttributeMap);
 
-        if (isSendFightToScene) {
-            player.getScene().tell(new UpdateFightAttribute(id2FightAttributeMap, player.getId(), OrganismType.PLAYER), player.getPlayerActor());
+        if (isSendFighting) {
+            calculateAllFighting();
         }
-        calculateAllFighting();
     }
 
 
@@ -83,7 +87,9 @@ public class AttributePlayerMgr implements PlayerMgr {
      * 计算更新战力
      */
     public long calculateAllFighting() {
-        return calculateAllFighting(allTemplateAttributeMap);
+        // TODO: 2022-6-2 需要添加处理发送战力给客户端
+        long fighting = calculateAllFighting(allTemplateAttributeMap);
+        return fighting;
     }
 
     /**
@@ -113,7 +119,7 @@ public class AttributePlayerMgr implements PlayerMgr {
         return fighting;
     }
 
-    public Map<Short, Long> getFightAttributeMap() {
+    public Map<Short, Long> getPlayerInitFightAttributeMap() {
         Map<Short, Long> fightAttributeMap = new HashMap<>(allTemplateAttributeMap);
         fightAttributeMap.put(VAR_HP, FightAttributeMgr.getValue(fightAttributeMap, MAX_HP));
         fightAttributeMap.put(VAR_MP, FightAttributeMgr.getValue(fightAttributeMap, MAX_MP));
@@ -121,7 +127,7 @@ public class AttributePlayerMgr implements PlayerMgr {
     }
 
     public void initAfter(Player player) {
-        updateAttribute(player, (short) 2, true);
+        updateAttribute(player, (short) 2, false);
     }
 
     @Override

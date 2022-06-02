@@ -32,11 +32,11 @@ public class AddCoverAttributeBuffFunction extends FightOrganismBuffFunction {
     public boolean removeBuffFunction(FightOrganism from, FightOrganism to, FightOrganismBuff buff) {
         FightBuffTemplate fightBuffTemplate = buff.getFightBuffTemplate();
         Map<Short, Long> map = new HashMap<>();
-        AttributeMapUtil.sub(map, StringUtils.toAttributeMap(fightBuffTemplate.attributeMap()));
+        AttributeMapUtil.add(map, StringUtils.toAttributeMap(fightBuffTemplate.attributeMap()));
         if (buff.getCurrCoverCount() == fightBuffTemplate.buffCoverCount() - 1) {
-            AttributeMapUtil.sub(map, StringUtils.toAttributeMap(fightBuffTemplate.MaxCoverAttributeMap()));
+            AttributeMapUtil.add(map, StringUtils.toAttributeMap(fightBuffTemplate.MaxCoverAttributeMap()));
         }
-        to.getFightAttributeMgr().addFightMap(map);
+        to.getFightAttributeMgr().subFightMap(map);
         return true;
     }
 

@@ -108,7 +108,7 @@ public class PlayerActor extends AbstractLogActor {
 
     private void playerInitAfter(CheckPlayerInitFinal checkPlayerInitFinal) {
         // TODO: 2022-5-18 处理属性
-        AttributePlayerMgr attributePlayerMgr = (AttributePlayerMgr) player.getMgr(AttributePlayerMgr.class);
+        AttributePlayerMgr attributePlayerMgr = player.getAttributePlayerMgr();
         attributePlayerMgr.initAfter(player);
         PlayerFight playerFight = new PlayerFight(player.getId(), playerEntity.getProfession());
         playerFight.setClient(checkPlayerInitFinal.client());

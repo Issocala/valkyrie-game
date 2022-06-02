@@ -41,7 +41,7 @@ public class AddCoverStateBuffFunction extends FightOrganismBuffFunction {
         short stateType = (short) stateTypes[0];
         Map<Short, Long> map = new HashMap<>();
         if (fightBuffTemplate.attributeMap().length > 0) {
-            AttributeMapUtil.sub(map, StringUtils.toAttributeMap(fightBuffTemplate.attributeMap()));
+            AttributeMapUtil.add(map, StringUtils.toAttributeMap(fightBuffTemplate.attributeMap()));
         }
         if (map.size() > 0) {
             to.getFightAttributeMgr().subFightMap(map);

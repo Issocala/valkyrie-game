@@ -39,8 +39,8 @@ public class AddEffectStateBuffFunction extends FightOrganismBuffFunction {
         int[] stateTypes = StringUtils.toIntArray(fightBuffTemplate.parameter());
         short stateType = (short) stateTypes[0];
         Map<Short, Long> map = new HashMap<>();
-        AttributeMapUtil.sub(map, buff.getAttributeMap());
-        AttributeMapUtil.sub(buff.getCountAttributeMap(), buff.getAttributeMap());
+        AttributeMapUtil.add(map, buff.getAttributeMap());
+        AttributeMapUtil.add(buff.getCountAttributeMap(), buff.getAttributeMap());
         if (map.size() > 0) {
             to.getFightAttributeMgr().subFightMap(map);
         }
