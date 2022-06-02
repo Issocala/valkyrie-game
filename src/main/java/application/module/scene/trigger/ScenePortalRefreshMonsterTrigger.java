@@ -49,6 +49,7 @@ public class ScenePortalRefreshMonsterTrigger {
     }
 
     public void helpUseSkill(DoorData doorData) {
+
         EffectOrganism effectOrganism = doorData.effectOrganism;
         int templateId = effectOrganism.getOrganismTemplateId();
         int skillId = randomNpcSkillId(templateId);
@@ -135,6 +136,9 @@ public class ScenePortalRefreshMonsterTrigger {
     }
 
     public void tick() {
+        if (scene.getPlayerSceneMgr().getPlayerFightMap().isEmpty()) {
+            return;
+        }
         doDoor();
         doSceneEntity();
     }
@@ -218,6 +222,7 @@ public class ScenePortalRefreshMonsterTrigger {
 
         public SceneEntityData(NpcOrganism npcOrganism) {
             this.npcOrganism = npcOrganism;
+            this.preUseSkillTime = System.currentTimeMillis();
         }
 
         public boolean isUseSkill() {

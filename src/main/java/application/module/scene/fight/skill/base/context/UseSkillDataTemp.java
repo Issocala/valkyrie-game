@@ -85,10 +85,8 @@ public class UseSkillDataTemp extends LongId {
     }
 
     public static UseSkillDataTemp of(Skill.CS10055 cs10055, Scene scene) {
-//        UseSkillDataTemp useSkillDataTemp = new UseSkillDataTemp(cs10055.getSkillProcessId(), cs10055.getFightOrganismId(), cs10055.getTargetIdList(),
-//                cs10055.getSkillPositionX(), cs10055.getSkillPositionY(), 0, 0);
         UseSkillDataTemp useSkillDataTemp = new UseSkillDataTemp(cs10055.getSkillProcessId(), cs10055.getFightOrganismId(), cs10055.getTargetIdList(),
-                0, 0, 0, 0);
+                cs10055.getSkillPositionX(), cs10055.getSkillPositionY(), 0, 0);
         useSkillDataTemp.setScene(scene);
         useSkillDataTemp.setAttackType(OrganismType.PLAYER);
         return useSkillDataTemp;

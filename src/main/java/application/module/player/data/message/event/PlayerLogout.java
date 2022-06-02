@@ -9,5 +9,5 @@ import mobius.modular.client.Client;
  * @date 2022-4-18
  * @Source 1.0
  */
-public record PlayerLogout(Client.ReceivedFromClient r) implements DataBase, Event {
+public record PlayerLogout(long playerId) implements DataBase, Event {
 }

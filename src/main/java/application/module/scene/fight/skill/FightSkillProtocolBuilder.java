@@ -29,12 +29,14 @@ public class FightSkillProtocolBuilder {
         return Skill.SC10050.newBuilder().addAllSkillId(skillSet).setOrganismId(playerId).build();
     }
 
-    public static Skill.SC10053 getSc10053(long attackId, int skillId, int processId, List<Skill.DamageData> damageDataList) {
+    public static Skill.SC10053 getSc10053(long attackId, int processId, int skillId,
+                                           List<Skill.DamageData> damageDataList, int skillOrganismId) {
         return Skill.SC10053.newBuilder()
                 .setAttackId(attackId)
                 .setSkillId(skillId)
                 .setProcessId(processId)
                 .addAllDamageData(damageDataList)
+                .setSkillOrganismId(skillOrganismId)
                 .build();
     }
 

@@ -40,6 +40,7 @@ public class SceneModule extends AbstractModule {
         return receiveBuilder()
                 .match(DataMessage.DataResult.class, this::dataResult)
                 .match(DataReturnMessage.class, this::dataResultMessage)
+                .match(SceneOut.class, this::sceneOut)
                 .build();
     }
 
@@ -80,11 +81,17 @@ public class SceneModule extends AbstractModule {
         int sceneId = sceneOut.sceneId();
         getContext().stop(sceneId2SceneMap.get(sceneId));
         sceneId2SceneMap.remove(sceneId);
-        getContext().getSystem().scheduler().scheduleOnce(Duration.ofSeconds(10), () -> {
+        sceneId2SceneMap.values().forEach(sceneActor ->
+                sceneActor.tell(new AllSceneInitFinally(Map.copyOf(this.sceneId2SceneMap)), self()));
+        getContext().getSystem().scheduler().scheduleOnce(Duration.ofSeconds(20), () -> {
             ActorRef scene = getContext().actorOf(SceneActor.create(sceneId));
             this.sceneId2SceneMap.put(sceneId, scene);
             scene.tell(new SceneInit(), self());
-            scene.tell(new AllSceneInitFinally(Map.copyOf(this.sceneId2SceneMap)), self());
+            AllSceneInitFinally allSceneInitFinally = new AllSceneInitFinally(Map.copyOf(this.sceneId2SceneMap));
+            sceneId2SceneMap.values().forEach(sceneActor ->
+                    sceneActor.tell(allSceneInitFinally, self()));
+            this.sceneData.tell(allSceneInitFinally, self());
+
         }, getContext().dispatcher());
     }
 

@@ -66,6 +66,7 @@ public class FixedDamageFunction implements FightSkillActiveFunction {
         });
 
         useSkillDataTemp.sendToAllClient(FightSkillProtocols.USE_RESULT, FightSkillProtocolBuilder.getSc10053(
-                useSkillDataTemp.getAttackId(), fightSkillProcessTemplate.id(), useSkillDataTemp.getSkillId(), damageDataList));
+                useSkillDataTemp.getAttackId(), fightSkillProcessTemplate.id(), useSkillDataTemp.getSkillId(),
+                damageDataList, useSkillDataTemp.getSkillOrganismId()));
     }
 }

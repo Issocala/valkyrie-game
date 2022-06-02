@@ -51,7 +51,8 @@ public class ScenePlayerMgr implements PlayerMgr {
                 SceneProtocols.SCENE_JUMP, SceneProtocols.SCENE_FLASH, SceneProtocols.AI, SceneProtocols.HELP_USE_SKILL,
                 SceneProtocols.RECEIVE, SceneProtocols.PICK_UP_ITEM, SceneProtocols.FUCK_NPC, SceneProtocols.SCENE_RUSH);
 
-        operateTypeList = List.of(PlayerSceneGetOpt.class, PlayerSceneGetSceneOpt.class, PlayerEntrySuccessOpt.class);
+        operateTypeList = List.of(PlayerSceneGetOpt.class, PlayerSceneGetSceneOpt.class, PlayerEntrySuccessOpt.class,
+                PlayerEntryErrorOpt.class);
     }
 
     @Override
@@ -88,18 +89,18 @@ public class ScenePlayerMgr implements PlayerMgr {
 
     @Override
     public void receiver(Player player, OperateType p) {
-        if (p instanceof PlayerSceneGetSceneOpt playerSceneGetSceneOpt) {
-            playerSceneGetSceneOpt(player, playerSceneGetSceneOpt);
-        } else if (p instanceof PlayerEntrySuccessOpt playerEntrySuccessOpt) {
-            setScene(playerEntrySuccessOpt.sceneActor());
+        if (p instanceof PlayerSceneGetSceneOpt opt) {
+            playerSceneGetSceneOpt(player, opt);
+        } else if (p instanceof PlayerEntrySuccessOpt opt) {
+            setScene(opt.sceneActor());
             setPreSceneId(getCurrSceneId());
-            setCurrSceneId(playerEntrySuccessOpt.sceneId());
+            setCurrSceneId(opt.sceneId());
             setSceneSwitching(false);
 
             player.getClient().tell(new application.client.Client.SendToClientJ(PlayerProtocols.EntityInfo,
                     PlayerProtocolBuilder.getSc10025(player.getPlayerEntity())), player.getPlayerActor());
 
-            playerEntrySuccessOpt.inSceneOtherPlayerIds().forEach(otherPlayerId -> {
+            opt.inSceneOtherPlayerIds().forEach(otherPlayerId -> {
                 ActorRef otherPlayerActor = player.getPlayerActorMap().get(otherPlayerId);
                 if (Objects.isNull(otherPlayerActor)) {
                     return;
@@ -107,7 +108,10 @@ public class ScenePlayerMgr implements PlayerMgr {
                 otherPlayerActor.tell(new PlayerSendMyselfAndGetTarget(PlayerCreateEntityInfo.of(
                         player.getPlayerEntity()), player.getClient()), player.getClient());
             });
-        } else {
+        } else if (p instanceof PlayerEntryErrorOpt opt) {
+            setSceneSwitching(false);
+        }
+        else {
             throw new IllegalStateException("Unexpected value: " + p.getClass().getName());
         }
     }

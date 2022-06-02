@@ -3,6 +3,7 @@ package application.module.player;
 import akka.actor.ActorRef;
 import application.guid.IdUtils;
 import application.module.common.data.domain.DataMessage;
+import application.module.player.operate.PlayerRemovePlayerActor;
 import application.module.player.fight.attribute.data.AttributeData;
 import application.module.player.data.PlayerEntityData;
 import application.module.player.data.entity.PlayerData;
@@ -34,22 +35,17 @@ import java.util.*;
 public class PlayerModule extends AbstractModule {
 
     private ActorRef playerEntityData;
-    private ActorRef sceneData;
     private Map<Class<?>, ActorRef> dataMap;
     private final Map<Long, ActorRef> playerActorMap = new HashMap<>();
 
     @Override
     public void initData() {
-        this.dataAgent().tell(new DataMessage.RequestData(PlayerEntityData.class), self());
-        this.dataAgent().tell(new DataMessage.RequestData(SceneData.class), self());
-        this.dataAgent().tell(new DataMessage.RequestData(AttributeData.class), self());
         this.dataAgent().tell(new DataMessage.RequestAllData(), self());
     }
 
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(DataMessage.DataResult.class, this::dataResult)
                 .match(Client.ReceivedFromClient.class, this::onReceiveFromClient)
                 .match(DataReturnMessage.class, this::dataResultMessage)
                 .match(DataReturnManyMessage.class, this::dataResultManyMessage)
@@ -60,6 +56,7 @@ public class PlayerModule extends AbstractModule {
 
     private void allDataResult(DataMessage.AllDataResult allDataResult) {
         setDataMap(allDataResult.map());
+        this.playerEntityData = allDataResult.map().get(PlayerEntityData.class);
     }
 
     private void createPlayerEntitiesAfter(CreatePlayerEntitiesAfter createPlayerEntitiesAfter) {
@@ -191,12 +188,14 @@ public class PlayerModule extends AbstractModule {
     }
 
     private void logout(Client.ReceivedFromClient r) {
-        ActorRef actorRef = playerActorMap.get(r.uID());
-        if (Objects.nonNull(actorRef)) {
-            getContext().stop(actorRef);
+        long playerId = r.uID();
+        ActorRef playerActor = playerActorMap.get(playerId);
+        if (Objects.nonNull(playerActor)) {
+            playerActor.tell(new PlayerLogout(playerId), self());
             playerActorMap.remove(r.uID());
+            playerActorMap.values().forEach(playerActor1 ->
+                    playerActor1.tell(new PlayerRemovePlayerActor(playerId), self()));
         }
-        this.playerEntityData.tell(new Publish(new PlayerLogout(r)), self());
     }
 
     private void delete(Client.ReceivedFromClient r) {
@@ -221,9 +220,9 @@ public class PlayerModule extends AbstractModule {
             getContext().stop(oldPlayerActor);
         }
         ActorRef playerActor = getContext().actorOf(PlayerActor.props(playerEntity));
+        playerActorMap.values().forEach(playerActor1 -> playerActor1.tell(new PlayerAddPlayerActor(playerId, playerActor), self()));
         playerActorMap.put(playerId, playerActor);
         playerActor.tell(new PlayerInit(r.client(), getDataMap(), new HashMap<>(this.playerActorMap)), self());
-        playerActorMap.values().forEach(playerActor1 -> playerActor1.tell(new PlayerLoginInit(playerId, playerActor), self()));
         r.client().tell(new application.client.Client.SendToClientJ(PlayerProtocols.LOGIN,
                 PlayerProtocolBuilder.getSc10022(true, playerEntity.getId())), self());
         this.playerEntityData.tell(new Publish(new PlayerLogin(r, playerEntity.getPlayerInfo())), self());
@@ -253,14 +252,6 @@ public class PlayerModule extends AbstractModule {
                 playerEntity, new PlayerGetAllType(new CommonOperateTypeInfo(r, null))), self());
     }
 
-    private void dataResult(DataMessage.DataResult dataResult) {
-        if (dataResult.clazz() == PlayerEntityData.class) {
-            this.playerEntityData = dataResult.actorRef();
-        }else if (dataResult.clazz() == SceneData.class) {
-            this.sceneData = dataResult.actorRef();
-            this.sceneData.tell(new SubscribeEvent(CreatePlayerEntitiesAfter.class, self()), self());
-        }
-    }
 
     //get and set
 

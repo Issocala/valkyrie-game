@@ -9,6 +9,7 @@ import application.module.player.fight.skill.FightSkillProtocols;
 import application.module.scene.Scene;
 import application.module.scene.SceneProtocolBuilder;
 import application.module.scene.SceneProtocols;
+import application.module.scene.operate.SceneTick;
 import application.util.Vector3;
 import application.module.scene.fight.attribute.FightAttributeMgr;
 import application.module.scene.fight.buff.FightBuffMgr;
@@ -59,12 +60,17 @@ public abstract class FightOrganism extends Organism {
     public FightOrganism(long id, byte organismType, Vector3 vector3, int organismTemplateId) {
         super(id, organismType, vector3, organismTemplateId);
         this.fightAttributeMgr = new FightAttributeMgr();
+        this.fightAttributeMgr.setOwner(this);
         this.fightBuffMgr = new FightBuffMgr();
         this.fightBuffMgr.setOwner(this);
         this.fightStateMgr = new FightStateMgr();
         this.fightStateMgr.setOwner(this);
         this.fightSkillMgr = new FightSkillMgr();
         this.fightSkillMgr.setOwner(this);
+    }
+
+    public void tick(SceneTick sceneTick) {
+        fightBuffMgr.tick();
     }
 
     public void addHp(FightOrganism attach, long hp) {
@@ -94,7 +100,7 @@ public abstract class FightOrganism extends Organism {
         long currHp = fightAttributeMap.getOrDefault(VAR_MP, 0L) + mp;
         if (currHp <= 0) {
             currHp = 0;
-            // TODO: 2022-5-12 这里可以处理一些免死之类的 免试记得设置currHp为1
+            // TODO: 2022-5-12 这里可以处理一些免死之类的 免死记得设置currHp为1
         }
         currHp = Math.min(FightAttributeMgr.getValue(fightAttributeMap, MAX_MP), currHp);
         fightAttributeMap.put(VAR_MP, currHp);

@@ -8,7 +8,10 @@ import application.module.scene.container.SceneMgrContainer;
 import application.module.scene.fight.skill.base.context.TargetParameter;
 import application.module.scene.fight.skill.base.context.UseSkillDataTemp;
 import application.module.scene.fight.skill.util.SkillAimType;
+import application.module.scene.operate.SceneOut;
+import application.module.scene.operate.SceneTick;
 import application.module.scene.organism.*;
+import application.module.scene.trigger.ScenePortalRefreshMonsterTrigger;
 import application.util.CommonOperateTypeInfo;
 import application.util.RandomUtil;
 import application.util.Vector3;
@@ -19,6 +22,7 @@ import template.FightSkillTemplateHolder;
 import template.SceneDataTemplate;
 import template.SceneDataTemplateHolder;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -44,11 +48,11 @@ public class Scene {
 
     private final ActorRef sceneActor;
 
-    private final ActorRef sceneModule;
+    private ActorRef sceneModule;
 
     private final Vector3[] playerBirths;
 
-    private final Map<Integer, ActorRef> sceneId2SceneMap = new HashMap<>();
+    private Map<Integer, ActorRef> sceneId2SceneMap = new HashMap<>();
 
     private final Map<Class<?>, ActorRef> dataMap = new HashMap<>();
 
@@ -58,11 +62,12 @@ public class Scene {
 
     private AbstractActor.ActorContext context;
 
-    public Scene(ActorRef sceneActor, int sceneTemplateId, ActorRef sceneModule) {
+    private ScenePortalRefreshMonsterTrigger trigger;
+
+    public Scene(ActorRef sceneActor, int sceneTemplateId) {
         this.sceneId = IdUtils.fastSimpleUUIDLong();
         this.sceneActor = sceneActor;
         this.sceneTemplateId = sceneTemplateId;
-        this.sceneModule = sceneModule;
         this.sceneDataTemplate = SceneDataTemplateHolder.getData(sceneTemplateId);
         float[] birthPoint = this.sceneDataTemplate.birthPoint();
         int length = birthPoint.length;
@@ -120,7 +125,11 @@ public class Scene {
                 if (Objects.nonNull(playerFight)) {
                     useSkillDataTemp.getTargetParameters().add(new TargetParameter(playerFight));
                 } else {
-                    useSkillDataTemp.getTargetParameters().add(new TargetParameter(getFightOrganism(id)));
+                    FightOrganism organism = getFightOrganism(id);
+                    if (Objects.isNull(organism)) {
+                        return;
+                    }
+                    useSkillDataTemp.getTargetParameters().add(new TargetParameter(organism));
                 }
             });
             return useSkillDataTemp;
@@ -146,7 +155,11 @@ public class Scene {
             if (Objects.nonNull(playerFight)) {
                 useSkillDataTemp.getTargetParameters().add(new TargetParameter(playerFight));
             } else {
-                useSkillDataTemp.getTargetParameters().add(new TargetParameter(getFightOrganism(id)));
+                FightOrganism organism = getFightOrganism(id);
+                if (Objects.isNull(organism)) {
+                    return;
+                }
+                useSkillDataTemp.getTargetParameters().add(new TargetParameter(organism));
             }
         });
         return useSkillDataTemp;
@@ -167,6 +180,23 @@ public class Scene {
         return fightOrganism;
     }
 
+    // TODO: 2022-5-9 临时处理boss死亡
+    public void dealBossDead() {
+        //场景所有怪物消失
+        getMonsterSceneMgr().getMonsterMap().keySet().removeIf(organismId -> {
+            getPlayerSceneMgr().sendToAllClient(this, SceneProtocols.SCENE_EXIT, SceneProtocolBuilder.getSc10301(organismId));
+            return true;
+        });
+        trigger = null;
+        getContext().getSystem().scheduler().scheduleOnce(Duration.ofMillis(10000), this.sceneActor,
+                new SceneOut(this.getSceneTemplateId()), getContext().dispatcher(), this.sceneActor);
+
+    }
+
+    public void tick(SceneTick sceneTick) {
+        getPlayerSceneMgr().getPlayerFightMap().values().forEach(playerFight -> playerFight.tick(sceneTick));
+        getMonsterSceneMgr().getMonsterMap().values().forEach(monsterOrganism -> monsterOrganism.tick(sceneTick));
+    }
 
     //get and set
 
@@ -212,5 +242,29 @@ public class Scene {
 
     public AbstractActor.ActorContext getContext() {
         return context;
+    }
+
+    public ScenePortalRefreshMonsterTrigger getTrigger() {
+        return trigger;
+    }
+
+    public void setTrigger(ScenePortalRefreshMonsterTrigger trigger) {
+        this.trigger = trigger;
+    }
+
+    public Map<Integer, ActorRef> getSceneId2SceneMap() {
+        return sceneId2SceneMap;
+    }
+
+    public void setSceneId2SceneMap(Map<Integer, ActorRef> sceneId2SceneMap) {
+        this.sceneId2SceneMap = sceneId2SceneMap;
+    }
+
+    public ActorRef getSceneModule() {
+        return sceneModule;
+    }
+
+    public void setSceneModule(ActorRef sceneModule) {
+        this.sceneModule = sceneModule;
     }
 }

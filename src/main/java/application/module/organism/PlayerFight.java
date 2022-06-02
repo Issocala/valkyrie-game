@@ -4,9 +4,19 @@ import akka.actor.ActorRef;
 import application.module.player.Player;
 import application.module.player.data.entity.PlayerInfo;
 import application.module.player.fight.attribute.AttributePlayerMgr;
+import application.module.player.fight.attribute.AttributeProtocolBuilder;
+import application.module.player.fight.attribute.AttributeProtocols;
 import application.module.player.fight.buff.BuffPlayerMgr;
+import application.module.player.fight.skill.FightSkillProtocols;
 import application.module.player.fight.skill.SkillPlayerMgr;
 import application.module.player.fight.state.StatePlayerMgr;
+import application.module.scene.Scene;
+import application.module.scene.SceneProtocolBuilder;
+import application.module.scene.SceneProtocols;
+import application.module.scene.fight.buff.FightBuffProtocolBuilder;
+import application.module.scene.fight.buff.FightBuffProtocols;
+import application.module.scene.fight.skill.FightSkillProtocolBuilder;
+import application.module.scene.fight.state.base.StateType;
 import application.util.Vector3;
 
 /**
@@ -45,6 +55,29 @@ public class PlayerFight extends FightOrganism {
         StatePlayerMgr statePlayerMgr = (StatePlayerMgr) player.getMgr(StatePlayerMgr.class);
 
     }
+    public void sendSelfDataToSceneOtherClient(Scene scene) {
+        scene.getPlayerSceneMgr().getPlayerFightMap().values().forEach(playerFight -> {
+            if (playerFight == this) {
+                return;
+            }
+            ActorRef client = playerFight.getClient();
+            client.tell(new application.client.Client.SendToClientJ(SceneProtocols.SCENE_RETURN_ENTITY,
+                    SceneProtocolBuilder.getSc10304(getId(), getOrganismType(), getPoint(), getOrganismTemplateId())), getScene().getSceneActor());
+
+            if (getOrganismType() == OrganismType.PLAYER) {
+                client.tell(new application.client.Client.SendToClientJ(FightSkillProtocols.GET_ALL,
+                        FightSkillProtocolBuilder.getSc10050(getId(), getFightSkillMgr().getEnableSkillSet())), getScene().getSceneActor());
+            }
+
+            client.tell(new application.client.Client.SendToClientJ(AttributeProtocols.FIGHT_ATTRIBUTE_GET,
+                    AttributeProtocolBuilder.get10040(getId(), getFightMap())), getScene().getSceneActor());
+
+            client.tell(new application.client.Client.SendToClientJ(FightBuffProtocols.GET,
+                    FightBuffProtocolBuilder.getSc10070(getId(), getFightBuffMgr().getFightOrganismBuffs())), getScene().getSceneActor());
+        });
+    }
+
+    //get and set
 
     public long getId() {
         return playerInfo.id();
@@ -95,7 +128,7 @@ public class PlayerFight extends FightOrganism {
     @Override
     protected void addHpAfter(FightOrganism attach, long currHp) {
         if (currHp == 0) {
-            // TODO: 2022-5-19 改变玩家状态
+            getFightStateMgr().changeState(StateType.ActionType.DEAD_STATE, getScene());
         }
     }
 

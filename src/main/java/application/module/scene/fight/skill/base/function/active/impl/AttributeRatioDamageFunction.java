@@ -62,7 +62,7 @@ public class AttributeRatioDamageFunction implements FightSkillActiveFunction {
             targetParameter.addHp(useSkillDataTemp.getAttack(), -finalDamage);
         });
         useSkillDataTemp.sendToAllClient(FightSkillProtocols.USE_RESULT, FightSkillProtocolBuilder.getSc10053(useSkillDataTemp.getAttackId(),
-                fightSkillProcessTemplate.id(), useSkillDataTemp.getSkillId(), damageDataList));
+                fightSkillProcessTemplate.id(), useSkillDataTemp.getSkillId(), damageDataList, useSkillDataTemp.getSkillOrganismId()));
 
     }
 }

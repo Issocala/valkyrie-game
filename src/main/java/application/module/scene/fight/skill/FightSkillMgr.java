@@ -9,6 +9,7 @@ import application.module.common.CommonProtocols;
 import application.module.organism.FightOrganism;
 import application.module.organism.PlayerFight;
 import application.module.player.fight.attribute.AttributeTemplateId;
+import application.module.player.fight.skill.FightSkillProtocols;
 import application.module.scene.Scene;
 import application.module.scene.fight.attribute.FightAttributeMgr;
 import application.module.scene.fight.skill.base.context.FightRuntimeContext;
@@ -55,7 +56,7 @@ public class FightSkillMgr {
         if (!owner.getFightStateMgr().isSkillUse()) {
             return;
         }
-
+        scene.getPlayerSceneMgr().sendToOtherClient(scene, FightSkillProtocols.USE_PROCESS, FightSkillProtocolBuilder.getSc10055(cs10055), getOwner().getId());
         UseSkillDataTemp useSkillDataTemp = scene.getTarget(cs10055, null, true);
         useSkillDataTemp.setAttack(owner);
         useSkillDataTemp.setSkillOrganismId(cs10055.getSkillOrganismId());
@@ -99,6 +100,8 @@ public class FightSkillMgr {
                 return;
             }
         }
+
+        scene.getPlayerSceneMgr().sendToOtherClient(scene, FightSkillProtocols.USE, FightSkillProtocolBuilder.getSc10052(cs10052), getOwner().getId());
 
         fightRuntimeContext.startCD(fightSkillTemplate);
         activeUseSkill(fightSkillWrap, useSkillDataTemp);

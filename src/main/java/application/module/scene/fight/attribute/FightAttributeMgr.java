@@ -1,9 +1,13 @@
 package application.module.scene.fight.attribute;
 
+import application.module.organism.FightOrganism;
 import application.module.organism.MonsterOrganism;
 import application.module.player.PlayerConfig;
 import application.module.organism.PlayerFight;
+import application.module.player.fight.attribute.AttributeProtocolBuilder;
+import application.module.player.fight.attribute.AttributeProtocols;
 import application.module.player.fight.attribute.AttributeTemplateIdContainer;
+import application.module.scene.Scene;
 import application.module.scene.fight.skill.base.context.UseSkillDataTemp;
 import application.util.AttributeMapUtil;
 import application.util.MathConstant;
@@ -21,16 +25,20 @@ import static application.module.player.fight.attribute.AttributeTemplateId.*;
  */
 public class FightAttributeMgr {
 
+    private FightOrganism owner;
+
     private Map<Short, Long> fightMap = new HashMap<>();
 
     private Set<Short> dirtyFightSet = new HashSet<>();
 
     public void addFightMap(Map<Short, Long> fightMap) {
         doAddAttribute(this.fightMap, fightMap);
+        sendToAllClient();
     }
 
     public void subFightMap(Map<Short, Long> fightMap) {
         doSubAttribute(this.fightMap, fightMap);
+        sendToAllClient();
     }
 
     public Map<Short, Long> getFightMap() {
@@ -302,4 +310,28 @@ public class FightAttributeMgr {
         AttributeMapUtil.sub(allFightAttributeMap, id2FightAttributeMap);
         AttributeTemplateIdContainer.finalFatherResult(allFightAttributeMap, id2FightAttributeMap.keySet());
     }
+
+    public void receive() {
+        this.fightMap.put(VAR_HP, getValue(this.fightMap, MAX_HP));
+        this.fightMap.put(VAR_MP, getValue(this.fightMap, MAX_MP));
+        sendToAllClient();
+    }
+
+    public void sendToAllClient() {
+        Scene scene = this.owner.getScene();
+        scene.getPlayerSceneMgr().sendToAllClient(scene, AttributeProtocols.FIGHT_ATTRIBUTE_GET,
+                AttributeProtocolBuilder.get10040(owner.getId(), Map.copyOf(fightMap)));
+    }
+
+    //get and set
+
+    public FightOrganism getOwner() {
+        return owner;
+    }
+
+    public void setOwner(FightOrganism owner) {
+        this.owner = owner;
+    }
+
+
 }

@@ -14,6 +14,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Luo Yong
@@ -24,12 +25,16 @@ public class MonsterSceneMgr implements SceneMgr {
     private Scene scene;
     private final Map<Long, MonsterOrganism> monsterMap = new HashMap<>();
 
+    private final static int MAX_NUMBER = 60;
 
     public void addMonsterOrganism(MonsterOrganism monsterOrganism) {
         addMonsterOrganism(monsterOrganism, 0);
     }
 
     public void addMonsterOrganism(MonsterOrganism monsterOrganism, long duration) {
+        if (monsterMap.size() >= MAX_NUMBER) {
+            return;
+        }
         this.monsterMap.put(monsterOrganism.getId(), monsterOrganism);
         monsterOrganism.sendSelfDataToSceneClient(monsterOrganism.getScene());
         if (duration > 0) {
@@ -41,6 +46,10 @@ public class MonsterSceneMgr implements SceneMgr {
     }
 
     public void removeMonsterOrganism(long id) {
+        MonsterOrganism organism = this.monsterMap.get(id);
+        if (Objects.nonNull(organism) && organism.getOrganismTemplateId() == 10009) {
+            scene.dealBossDead();
+        }
         this.monsterMap.remove(id);
         scene.getPlayerSceneMgr().sendToAllClient(scene, SceneProtocols.SCENE_EXIT, SceneProtocolBuilder.getSc10301(id));
     }

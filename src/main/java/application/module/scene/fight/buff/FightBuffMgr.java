@@ -1,9 +1,7 @@
 package application.module.scene.fight.buff;
 
-import akka.actor.Cancellable;
 import application.module.organism.FightOrganism;
 import application.module.scene.fight.buff.type.BuffCoverRuleType;
-import application.module.scene.operate.AoiSendMessageToClient;
 import template.FightBuffTemplate;
 
 import java.util.*;
@@ -29,10 +27,6 @@ public class FightBuffMgr {
      */
     private final Set<Integer> immuneIdSet = new HashSet<>();
 
-    private final Map<Long, Cancellable> cancellableMap = new HashMap<>();
-
-    private final Map<Long, Cancellable> removeCancellableMap = new HashMap<>();
-
     public void addBuff(int templateId, FightOrganism from, FightOrganism to) {
         addBuff(templateId, from, to, 0);
     }
@@ -48,20 +42,18 @@ public class FightBuffMgr {
         }
         FightOrganismBuff oldBuff = this.fightOrganismBuffs.get(buff.getBuffTemplateId());
         if (Objects.isNull(oldBuff)) {
-            if (buff.getFunction() != null) {
-                buff.addSelf();
-            }
+            buff.addSelf();
             this.fightOrganismBuffs.put(buff.getBuffTemplateId(), buff);
         } else {
             oldBuff.addSelf();
         }
 
         owner.getScene().getPlayerSceneMgr().sendToAllClient(owner.getScene(), FightBuffProtocols.ADD,
-                FightBuffProtocolBuilder.getSc10071(buff.getTo().getId(), buff));
+                FightBuffProtocolBuilder.getSc10071(owner.getId(), buff));
     }
 
     public boolean removeBuff(FightOrganismBuff buff) {
-        if (Objects.isNull(buff) || Objects.isNull(buff.getFunction())) {
+        if (Objects.isNull(buff)) {
             return false;
         }
         if (buff.getCurrCoverCount() > 0) {
@@ -72,7 +64,7 @@ public class FightBuffMgr {
             this.fightOrganismBuffs.remove(buff.getBuffTemplateId());
         }
         owner.getScene().getPlayerSceneMgr().sendToAllClient(owner.getScene(), FightBuffProtocols.REMOVE,
-                FightBuffProtocolBuilder.getSc10072(buff.getTo().getId(), buff));
+                FightBuffProtocolBuilder.getSc10072(owner.getId(), buff));
         return true;
     }
 
@@ -82,6 +74,19 @@ public class FightBuffMgr {
             return false;
         }
         return removeBuff(buff);
+    }
+
+    private void removeBuff(List<FightOrganismBuff> removeList) {
+        for (FightOrganismBuff buff : removeList) {
+            int currCoverCount = buff.getCurrCoverCount();
+            if (currCoverCount > 1) {
+                for (int i = 0; i < currCoverCount; i++) {
+                    removeBuff(buff);
+                }
+            } else {
+                removeBuff(buff);
+            }
+        }
     }
 
     public FightOrganismBuff createBuff(int templateId, FightOrganism from, FightOrganism to) {
@@ -220,6 +225,24 @@ public class FightBuffMgr {
                     FightBuffProtocolBuilder.getSc10072(buff.getTo().getId(), buff));
         });
     }
+
+    public void tick() {
+        if (fightOrganismBuffs.isEmpty()) {
+            return;
+        }
+        List<FightOrganismBuff> list = new ArrayList<>();
+        fightOrganismBuffs.values().forEach(buff -> {
+            buff.tick();
+            if (buff.isExpiredTime()) {
+                list.add(buff);
+            }
+        });
+        if (list.isEmpty()) {
+            return;
+        }
+        removeBuff(list);
+    }
+
 
     // get and set
 

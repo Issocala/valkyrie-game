@@ -5,6 +5,7 @@ import akka.actor.Props;
 import application.module.common.data.domain.DataMessage;
 import application.module.organism.PlayerFight;
 import application.module.player.data.entity.PlayerEntity;
+import application.module.player.data.message.event.PlayerLogout;
 import application.module.player.fight.attribute.AttributePlayerMgr;
 import application.module.player.operate.*;
 import application.module.player.util.IgnoreOpt;
@@ -50,10 +51,20 @@ public class PlayerActor extends AbstractLogActor {
                 .match(DataReturnManyMessage.class, this::dataResultManyMessage)
                 .match(OperateType.class, this::operateType)
                 .match(PlayerInit.class, this::playerInit)
-                .match(PlayerLoginInit.class, this::playerLoginInit)
+                .match(PlayerAddPlayerActor.class, this::playerAddPlayerActor)
                 .match(PlayerSendMyselfAndGetTarget.class, this::playerSendMyselfAndGetTarget)
                 .match(CheckPlayerInitFinal.class, this::checkPlayerInitFinal)
+                .match(PlayerLogout.class, this::playerLogout)
+                .match(PlayerRemovePlayerActor.class, this::playerRemovePlayerActor)
                 .build();
+    }
+
+    private void playerRemovePlayerActor(PlayerRemovePlayerActor playerRemovePlayerActor) {
+        player.getPlayerActorMap().remove(playerRemovePlayerActor.playerId());
+    }
+
+    private void playerLogout(PlayerLogout playerLogout) {
+        player.getScene().tell(playerLogout, self());
     }
 
     private void playerSendMyselfAndGetTarget(PlayerSendMyselfAndGetTarget target) {
@@ -63,8 +74,8 @@ public class PlayerActor extends AbstractLogActor {
                 PlayerProtocolBuilder.getSc10025(player.getPlayerEntity())), self());
     }
 
-    private void playerLoginInit(PlayerLoginInit playerLoginInit) {
-        player.getPlayerActorMap().put(playerLoginInit.playerId(), playerLoginInit.playerActor());
+    private void playerAddPlayerActor(PlayerAddPlayerActor playerAddPlayerActor) {
+        player.getPlayerActorMap().put(playerAddPlayerActor.playerId(), playerAddPlayerActor.playerActor());
     }
 
     private void checkPlayerInitFinal(CheckPlayerInitFinal checkPlayerInitFinal) {

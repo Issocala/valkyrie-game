@@ -165,6 +165,14 @@ public class FightStateMgr {
         return !StateType.FightType.validNoUseSkill(this.fightStateSet);
     }
 
+    //TODO 校验玩家当前状态是否可以移动
+    public boolean isMoveUse() {
+        if (StateType.ActionType.validNoUseSkill(this.currActionState)) {
+            return false;
+        }
+        return !StateType.FightType.validNoUseSkill(this.fightStateSet);
+    }
+
     public FightOrganism getOwner() {
         return owner;
     }

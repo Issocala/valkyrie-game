@@ -42,7 +42,7 @@ public class MadWarrior4Function implements FightSkillActiveFunction {
             for (int i = 0; i < douQi; i++) {
                 useSkillDataTemp.removeBuff(10002, useSkillDataTemp.getAttack());
             }
-            FightOrganismBuff buff = createBuff(buffId, useSkillDataTemp.getAttack(), useSkillDataTemp.getTarget(), duration);
+            FightOrganismBuff buff = createBuff(buffId, useSkillDataTemp.getAttack(), useSkillDataTemp.getAttack(), duration);
             buff.setAttributeMap(extFightMap);
             useSkillDataTemp.getAttack().getFightBuffMgr().addBuff(buff);
         }

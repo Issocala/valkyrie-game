@@ -74,6 +74,16 @@ public class FightOrganismBuff extends LongId {
      */
     private int currCoverCount = 1;
 
+    /**
+     * 周期时间
+     */
+    private long periodTime;
+
+    /**
+     * 最后一次触发时间
+     */
+    private long lastTickTime;
+
     public FightOrganismBuff() {
         this(0);
     }
@@ -94,16 +104,16 @@ public class FightOrganismBuff extends LongId {
         this.from = from;
         this.to = to;
         this.duration = duration == 0 ? fightBuffTemplate.duration() : duration;
+        if (this.duration > 0) {
+            this.expiredTime = createTime + duration;
+        }
         this.function = FightBuffFunctionContainer.getBuffFunction(FightBuffTemplateHolder.getData(buffTemplateId).buffProcess());
-//        if (Objects.isNull(this.function)) {
-//            throw new NullPointerException("buff过程函数配置有误！");
-//        }
+        if (Objects.isNull(this.function)) {
+            throw new NullPointerException("buff过程函数配置有误！");
+        }
     }
 
     public boolean addSelf() {
-        if (Objects.isNull(function)) {
-            return false;
-        }
         function.addBuffFunction(from, to, this);
         return true;
     }
@@ -113,6 +123,20 @@ public class FightOrganismBuff extends LongId {
         return true;
     }
 
+    public boolean isExpiredTime() {
+        return expiredTime > 0 && expiredTime <= System.currentTimeMillis();
+    }
+
+    public void tick() {
+        if (System.currentTimeMillis() - this.lastTickTime >= periodTime - 80) {
+            if (fightBuffTemplate.buffPeriodType() == 3) {
+
+            }
+        }
+
+    }
+
+    //get and set
 
     public long getCreateTime() {
         return createTime;

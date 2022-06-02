@@ -48,7 +48,8 @@ public class DamageAttackFunction implements FightSkillActiveFunction {
         for (int i = 0; i < whileTime; i++) {
             List<Skill.DamageData> damageDataList = basicAttack(useSkillDataTemp, damage, damageRate);
             useSkillDataTemp.sendToAllClient(FightSkillProtocols.USE_RESULT, FightSkillProtocolBuilder.getSc10053(
-                    useSkillDataTemp.getAttackId(), fightSkillProcessTemplate.id(), useSkillDataTemp.getSkillId(), damageDataList));
+                    useSkillDataTemp.getAttackId(), fightSkillProcessTemplate.id(), useSkillDataTemp.getSkillId(),
+                    damageDataList, useSkillDataTemp.getSkillOrganismId()));
         }
     }
 }
