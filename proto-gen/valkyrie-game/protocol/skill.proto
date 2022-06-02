@@ -75,6 +75,7 @@ message SC10053
   required int64 attackId = 2; //施法战斗者
   required int32 processId = 3; //技能过程id
   repeated DamageData damageData = 4; //目标伤害列表
+  required int32 skillOrganismId = 5; //技能单位id
 }
 
 //取消技能
@@ -98,6 +99,9 @@ message CS10055
   required int32 skillProcessId = 2; //技能过程id
   repeated int64 targetId = 3 [packed = true];  //目标战斗单位id
   required int32 skillOrganismId = 4; //技能单位id
+  optional float skillPositionX = 5;  //技能步骤横坐标
+  optional float skillPositionY = 6;  //技能步骤纵坐标
+  required int32 skillId = 7;//技能id
 }
 
 //广播技能过程作用

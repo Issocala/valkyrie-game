@@ -20,10 +20,29 @@ public final class Equip {
 
     /**
      * <pre>
+     * 装备唯一ID
+     * </pre>
+     *
+     * <code>required int64 id = 1;</code>
+     * @return Whether the id field is set.
+     */
+    boolean hasId();
+    /**
+     * <pre>
+     * 装备唯一ID
+     * </pre>
+     *
+     * <code>required int64 id = 1;</code>
+     * @return The id.
+     */
+    long getId();
+
+    /**
+     * <pre>
      * 装备配置ID
      * </pre>
      *
-     * <code>required int32 equipId = 1;</code>
+     * <code>required int32 equipId = 2;</code>
      * @return Whether the equipId field is set.
      */
     boolean hasEquipId();
@@ -32,73 +51,37 @@ public final class Equip {
      * 装备配置ID
      * </pre>
      *
-     * <code>required int32 equipId = 1;</code>
+     * <code>required int32 equipId = 2;</code>
      * @return The equipId.
      */
     int getEquipId();
 
     /**
      * <pre>
-     * 装备潜能评级 (0未鉴定，1以上为评级)
+     * 装备附加信息
      * </pre>
      *
-     * <code>required int32 potentialGrade = 2;</code>
-     * @return Whether the potentialGrade field is set.
+     * <code>required .protocol.EquipExtraInfo extra = 3;</code>
+     * @return Whether the extra field is set.
      */
-    boolean hasPotentialGrade();
+    boolean hasExtra();
     /**
      * <pre>
-     * 装备潜能评级 (0未鉴定，1以上为评级)
+     * 装备附加信息
      * </pre>
      *
-     * <code>required int32 potentialGrade = 2;</code>
-     * @return The potentialGrade.
+     * <code>required .protocol.EquipExtraInfo extra = 3;</code>
+     * @return The extra.
      */
-    int getPotentialGrade();
-
+    protocol.Equip.EquipExtraInfo getExtra();
     /**
      * <pre>
-     * 装备潜能属性
+     * 装备附加信息
      * </pre>
      *
-     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
+     * <code>required .protocol.EquipExtraInfo extra = 3;</code>
      */
-    java.util.List<protocol.Base.AttributeMap> 
-        getPotentialAttributeMapList();
-    /**
-     * <pre>
-     * 装备潜能属性
-     * </pre>
-     *
-     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-     */
-    protocol.Base.AttributeMap getPotentialAttributeMap(int index);
-    /**
-     * <pre>
-     * 装备潜能属性
-     * </pre>
-     *
-     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-     */
-    int getPotentialAttributeMapCount();
-    /**
-     * <pre>
-     * 装备潜能属性
-     * </pre>
-     *
-     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-     */
-    java.util.List<? extends protocol.Base.AttributeMapOrBuilder> 
-        getPotentialAttributeMapOrBuilderList();
-    /**
-     * <pre>
-     * 装备潜能属性
-     * </pre>
-     *
-     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-     */
-    protocol.Base.AttributeMapOrBuilder getPotentialAttributeMapOrBuilder(
-        int index);
+    protocol.Equip.EquipExtraInfoOrBuilder getExtraOrBuilder();
   }
   /**
    * <pre>
@@ -117,7 +100,6 @@ public final class Equip {
       super(builder);
     }
     private EquipInfo() {
-      potentialAttributeMap_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -153,21 +135,25 @@ public final class Equip {
               break;
             case 8: {
               bitField0_ |= 0x00000001;
-              equipId_ = input.readInt32();
+              id_ = input.readInt64();
               break;
             }
             case 16: {
               bitField0_ |= 0x00000002;
-              potentialGrade_ = input.readInt32();
+              equipId_ = input.readInt32();
               break;
             }
             case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
-                potentialAttributeMap_ = new java.util.ArrayList<protocol.Base.AttributeMap>();
-                mutable_bitField0_ |= 0x00000004;
+              protocol.Equip.EquipExtraInfo.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000004) != 0)) {
+                subBuilder = extra_.toBuilder();
               }
-              potentialAttributeMap_.add(
-                  input.readMessage(protocol.Base.AttributeMap.PARSER, extensionRegistry));
+              extra_ = input.readMessage(protocol.Equip.EquipExtraInfo.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(extra_);
+                extra_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000004;
               break;
             }
             default: {
@@ -185,9 +171,6 @@ public final class Equip {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000004) != 0)) {
-          potentialAttributeMap_ = java.util.Collections.unmodifiableList(potentialAttributeMap_);
-        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -206,109 +189,89 @@ public final class Equip {
     }
 
     private int bitField0_;
-    public static final int EQUIPID_FIELD_NUMBER = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private long id_;
+    /**
+     * <pre>
+     * 装备唯一ID
+     * </pre>
+     *
+     * <code>required int64 id = 1;</code>
+     * @return Whether the id field is set.
+     */
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * 装备唯一ID
+     * </pre>
+     *
+     * <code>required int64 id = 1;</code>
+     * @return The id.
+     */
+    public long getId() {
+      return id_;
+    }
+
+    public static final int EQUIPID_FIELD_NUMBER = 2;
     private int equipId_;
     /**
      * <pre>
      * 装备配置ID
      * </pre>
      *
-     * <code>required int32 equipId = 1;</code>
+     * <code>required int32 equipId = 2;</code>
      * @return Whether the equipId field is set.
      */
     public boolean hasEquipId() {
-      return ((bitField0_ & 0x00000001) != 0);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <pre>
      * 装备配置ID
      * </pre>
      *
-     * <code>required int32 equipId = 1;</code>
+     * <code>required int32 equipId = 2;</code>
      * @return The equipId.
      */
     public int getEquipId() {
       return equipId_;
     }
 
-    public static final int POTENTIALGRADE_FIELD_NUMBER = 2;
-    private int potentialGrade_;
+    public static final int EXTRA_FIELD_NUMBER = 3;
+    private protocol.Equip.EquipExtraInfo extra_;
     /**
      * <pre>
-     * 装备潜能评级 (0未鉴定，1以上为评级)
+     * 装备附加信息
      * </pre>
      *
-     * <code>required int32 potentialGrade = 2;</code>
-     * @return Whether the potentialGrade field is set.
+     * <code>required .protocol.EquipExtraInfo extra = 3;</code>
+     * @return Whether the extra field is set.
      */
-    public boolean hasPotentialGrade() {
-      return ((bitField0_ & 0x00000002) != 0);
+    public boolean hasExtra() {
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <pre>
-     * 装备潜能评级 (0未鉴定，1以上为评级)
+     * 装备附加信息
      * </pre>
      *
-     * <code>required int32 potentialGrade = 2;</code>
-     * @return The potentialGrade.
+     * <code>required .protocol.EquipExtraInfo extra = 3;</code>
+     * @return The extra.
      */
-    public int getPotentialGrade() {
-      return potentialGrade_;
-    }
-
-    public static final int POTENTIALATTRIBUTEMAP_FIELD_NUMBER = 3;
-    private java.util.List<protocol.Base.AttributeMap> potentialAttributeMap_;
-    /**
-     * <pre>
-     * 装备潜能属性
-     * </pre>
-     *
-     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-     */
-    public java.util.List<protocol.Base.AttributeMap> getPotentialAttributeMapList() {
-      return potentialAttributeMap_;
+    public protocol.Equip.EquipExtraInfo getExtra() {
+      return extra_ == null ? protocol.Equip.EquipExtraInfo.getDefaultInstance() : extra_;
     }
     /**
      * <pre>
-     * 装备潜能属性
+     * 装备附加信息
      * </pre>
      *
-     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
+     * <code>required .protocol.EquipExtraInfo extra = 3;</code>
      */
-    public java.util.List<? extends protocol.Base.AttributeMapOrBuilder> 
-        getPotentialAttributeMapOrBuilderList() {
-      return potentialAttributeMap_;
-    }
-    /**
-     * <pre>
-     * 装备潜能属性
-     * </pre>
-     *
-     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-     */
-    public int getPotentialAttributeMapCount() {
-      return potentialAttributeMap_.size();
-    }
-    /**
-     * <pre>
-     * 装备潜能属性
-     * </pre>
-     *
-     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-     */
-    public protocol.Base.AttributeMap getPotentialAttributeMap(int index) {
-      return potentialAttributeMap_.get(index);
-    }
-    /**
-     * <pre>
-     * 装备潜能属性
-     * </pre>
-     *
-     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-     */
-    public protocol.Base.AttributeMapOrBuilder getPotentialAttributeMapOrBuilder(
-        int index) {
-      return potentialAttributeMap_.get(index);
+    public protocol.Equip.EquipExtraInfoOrBuilder getExtraOrBuilder() {
+      return extra_ == null ? protocol.Equip.EquipExtraInfo.getDefaultInstance() : extra_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -318,19 +281,21 @@ public final class Equip {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       if (!hasEquipId()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasPotentialGrade()) {
+      if (!hasExtra()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      for (int i = 0; i < getPotentialAttributeMapCount(); i++) {
-        if (!getPotentialAttributeMap(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
+      if (!getExtra().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
       }
       memoizedIsInitialized = 1;
       return true;
@@ -340,13 +305,13 @@ public final class Equip {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeInt32(1, equipId_);
+        output.writeInt64(1, id_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        output.writeInt32(2, potentialGrade_);
+        output.writeInt32(2, equipId_);
       }
-      for (int i = 0; i < potentialAttributeMap_.size(); i++) {
-        output.writeMessage(3, potentialAttributeMap_.get(i));
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeMessage(3, getExtra());
       }
       unknownFields.writeTo(output);
     }
@@ -359,15 +324,15 @@ public final class Equip {
       size = 0;
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, equipId_);
+          .computeInt64Size(1, id_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, potentialGrade_);
+          .computeInt32Size(2, equipId_);
       }
-      for (int i = 0; i < potentialAttributeMap_.size(); i++) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, potentialAttributeMap_.get(i));
+          .computeMessageSize(3, getExtra());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -384,18 +349,21 @@ public final class Equip {
       }
       protocol.Equip.EquipInfo other = (protocol.Equip.EquipInfo) obj;
 
+      if (hasId() != other.hasId()) return false;
+      if (hasId()) {
+        if (getId()
+            != other.getId()) return false;
+      }
       if (hasEquipId() != other.hasEquipId()) return false;
       if (hasEquipId()) {
         if (getEquipId()
             != other.getEquipId()) return false;
       }
-      if (hasPotentialGrade() != other.hasPotentialGrade()) return false;
-      if (hasPotentialGrade()) {
-        if (getPotentialGrade()
-            != other.getPotentialGrade()) return false;
+      if (hasExtra() != other.hasExtra()) return false;
+      if (hasExtra()) {
+        if (!getExtra()
+            .equals(other.getExtra())) return false;
       }
-      if (!getPotentialAttributeMapList()
-          .equals(other.getPotentialAttributeMapList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -407,17 +375,18 @@ public final class Equip {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasId()) {
+        hash = (37 * hash) + ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getId());
+      }
       if (hasEquipId()) {
         hash = (37 * hash) + EQUIPID_FIELD_NUMBER;
         hash = (53 * hash) + getEquipId();
       }
-      if (hasPotentialGrade()) {
-        hash = (37 * hash) + POTENTIALGRADE_FIELD_NUMBER;
-        hash = (53 * hash) + getPotentialGrade();
-      }
-      if (getPotentialAttributeMapCount() > 0) {
-        hash = (37 * hash) + POTENTIALATTRIBUTEMAP_FIELD_NUMBER;
-        hash = (53 * hash) + getPotentialAttributeMapList().hashCode();
+      if (hasExtra()) {
+        hash = (37 * hash) + EXTRA_FIELD_NUMBER;
+        hash = (53 * hash) + getExtra().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -551,22 +520,22 @@ public final class Equip {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
-          getPotentialAttributeMapFieldBuilder();
+          getExtraFieldBuilder();
         }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        equipId_ = 0;
+        id_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
-        potentialGrade_ = 0;
+        equipId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        if (potentialAttributeMapBuilder_ == null) {
-          potentialAttributeMap_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+        if (extraBuilder_ == null) {
+          extra_ = null;
         } else {
-          potentialAttributeMapBuilder_.clear();
+          extraBuilder_.clear();
         }
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -596,21 +565,20 @@ public final class Equip {
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.equipId_ = equipId_;
+          result.id_ = id_;
           to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.potentialGrade_ = potentialGrade_;
+          result.equipId_ = equipId_;
           to_bitField0_ |= 0x00000002;
         }
-        if (potentialAttributeMapBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) != 0)) {
-            potentialAttributeMap_ = java.util.Collections.unmodifiableList(potentialAttributeMap_);
-            bitField0_ = (bitField0_ & ~0x00000004);
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          if (extraBuilder_ == null) {
+            result.extra_ = extra_;
+          } else {
+            result.extra_ = extraBuilder_.build();
           }
-          result.potentialAttributeMap_ = potentialAttributeMap_;
-        } else {
-          result.potentialAttributeMap_ = potentialAttributeMapBuilder_.build();
+          to_bitField0_ |= 0x00000004;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -661,37 +629,14 @@ public final class Equip {
 
       public Builder mergeFrom(protocol.Equip.EquipInfo other) {
         if (other == protocol.Equip.EquipInfo.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
         if (other.hasEquipId()) {
           setEquipId(other.getEquipId());
         }
-        if (other.hasPotentialGrade()) {
-          setPotentialGrade(other.getPotentialGrade());
-        }
-        if (potentialAttributeMapBuilder_ == null) {
-          if (!other.potentialAttributeMap_.isEmpty()) {
-            if (potentialAttributeMap_.isEmpty()) {
-              potentialAttributeMap_ = other.potentialAttributeMap_;
-              bitField0_ = (bitField0_ & ~0x00000004);
-            } else {
-              ensurePotentialAttributeMapIsMutable();
-              potentialAttributeMap_.addAll(other.potentialAttributeMap_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.potentialAttributeMap_.isEmpty()) {
-            if (potentialAttributeMapBuilder_.isEmpty()) {
-              potentialAttributeMapBuilder_.dispose();
-              potentialAttributeMapBuilder_ = null;
-              potentialAttributeMap_ = other.potentialAttributeMap_;
-              bitField0_ = (bitField0_ & ~0x00000004);
-              potentialAttributeMapBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getPotentialAttributeMapFieldBuilder() : null;
-            } else {
-              potentialAttributeMapBuilder_.addAllMessages(other.potentialAttributeMap_);
-            }
-          }
+        if (other.hasExtra()) {
+          mergeExtra(other.getExtra());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -700,16 +645,17 @@ public final class Equip {
 
       @java.lang.Override
       public final boolean isInitialized() {
+        if (!hasId()) {
+          return false;
+        }
         if (!hasEquipId()) {
           return false;
         }
-        if (!hasPotentialGrade()) {
+        if (!hasExtra()) {
           return false;
         }
-        for (int i = 0; i < getPotentialAttributeMapCount(); i++) {
-          if (!getPotentialAttributeMap(i).isInitialized()) {
-            return false;
-          }
+        if (!getExtra().isInitialized()) {
+          return false;
         }
         return true;
       }
@@ -734,24 +680,77 @@ public final class Equip {
       }
       private int bitField0_;
 
+      private long id_ ;
+      /**
+       * <pre>
+       * 装备唯一ID
+       * </pre>
+       *
+       * <code>required int64 id = 1;</code>
+       * @return Whether the id field is set.
+       */
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <pre>
+       * 装备唯一ID
+       * </pre>
+       *
+       * <code>required int64 id = 1;</code>
+       * @return The id.
+       */
+      public long getId() {
+        return id_;
+      }
+      /**
+       * <pre>
+       * 装备唯一ID
+       * </pre>
+       *
+       * <code>required int64 id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(long value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备唯一ID
+       * </pre>
+       *
+       * <code>required int64 id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0L;
+        onChanged();
+        return this;
+      }
+
       private int equipId_ ;
       /**
        * <pre>
        * 装备配置ID
        * </pre>
        *
-       * <code>required int32 equipId = 1;</code>
+       * <code>required int32 equipId = 2;</code>
        * @return Whether the equipId field is set.
        */
       public boolean hasEquipId() {
-        return ((bitField0_ & 0x00000001) != 0);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <pre>
        * 装备配置ID
        * </pre>
        *
-       * <code>required int32 equipId = 1;</code>
+       * <code>required int32 equipId = 2;</code>
        * @return The equipId.
        */
       public int getEquipId() {
@@ -762,12 +761,12 @@ public final class Equip {
        * 装备配置ID
        * </pre>
        *
-       * <code>required int32 equipId = 1;</code>
+       * <code>required int32 equipId = 2;</code>
        * @param value The equipId to set.
        * @return This builder for chaining.
        */
       public Builder setEquipId(int value) {
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         equipId_ = value;
         onChanged();
         return this;
@@ -777,379 +776,170 @@ public final class Equip {
        * 装备配置ID
        * </pre>
        *
-       * <code>required int32 equipId = 1;</code>
+       * <code>required int32 equipId = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearEquipId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         equipId_ = 0;
         onChanged();
         return this;
       }
 
-      private int potentialGrade_ ;
+      private protocol.Equip.EquipExtraInfo extra_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          protocol.Equip.EquipExtraInfo, protocol.Equip.EquipExtraInfo.Builder, protocol.Equip.EquipExtraInfoOrBuilder> extraBuilder_;
       /**
        * <pre>
-       * 装备潜能评级 (0未鉴定，1以上为评级)
+       * 装备附加信息
        * </pre>
        *
-       * <code>required int32 potentialGrade = 2;</code>
-       * @return Whether the potentialGrade field is set.
+       * <code>required .protocol.EquipExtraInfo extra = 3;</code>
+       * @return Whether the extra field is set.
        */
-      public boolean hasPotentialGrade() {
-        return ((bitField0_ & 0x00000002) != 0);
+      public boolean hasExtra() {
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <pre>
-       * 装备潜能评级 (0未鉴定，1以上为评级)
+       * 装备附加信息
        * </pre>
        *
-       * <code>required int32 potentialGrade = 2;</code>
-       * @return The potentialGrade.
+       * <code>required .protocol.EquipExtraInfo extra = 3;</code>
+       * @return The extra.
        */
-      public int getPotentialGrade() {
-        return potentialGrade_;
+      public protocol.Equip.EquipExtraInfo getExtra() {
+        if (extraBuilder_ == null) {
+          return extra_ == null ? protocol.Equip.EquipExtraInfo.getDefaultInstance() : extra_;
+        } else {
+          return extraBuilder_.getMessage();
+        }
       }
       /**
        * <pre>
-       * 装备潜能评级 (0未鉴定，1以上为评级)
+       * 装备附加信息
        * </pre>
        *
-       * <code>required int32 potentialGrade = 2;</code>
-       * @param value The potentialGrade to set.
-       * @return This builder for chaining.
+       * <code>required .protocol.EquipExtraInfo extra = 3;</code>
        */
-      public Builder setPotentialGrade(int value) {
-        bitField0_ |= 0x00000002;
-        potentialGrade_ = value;
+      public Builder setExtra(protocol.Equip.EquipExtraInfo value) {
+        if (extraBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          extra_ = value;
+          onChanged();
+        } else {
+          extraBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备附加信息
+       * </pre>
+       *
+       * <code>required .protocol.EquipExtraInfo extra = 3;</code>
+       */
+      public Builder setExtra(
+          protocol.Equip.EquipExtraInfo.Builder builderForValue) {
+        if (extraBuilder_ == null) {
+          extra_ = builderForValue.build();
+          onChanged();
+        } else {
+          extraBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备附加信息
+       * </pre>
+       *
+       * <code>required .protocol.EquipExtraInfo extra = 3;</code>
+       */
+      public Builder mergeExtra(protocol.Equip.EquipExtraInfo value) {
+        if (extraBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+              extra_ != null &&
+              extra_ != protocol.Equip.EquipExtraInfo.getDefaultInstance()) {
+            extra_ =
+              protocol.Equip.EquipExtraInfo.newBuilder(extra_).mergeFrom(value).buildPartial();
+          } else {
+            extra_ = value;
+          }
+          onChanged();
+        } else {
+          extraBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备附加信息
+       * </pre>
+       *
+       * <code>required .protocol.EquipExtraInfo extra = 3;</code>
+       */
+      public Builder clearExtra() {
+        if (extraBuilder_ == null) {
+          extra_ = null;
+          onChanged();
+        } else {
+          extraBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备附加信息
+       * </pre>
+       *
+       * <code>required .protocol.EquipExtraInfo extra = 3;</code>
+       */
+      public protocol.Equip.EquipExtraInfo.Builder getExtraBuilder() {
+        bitField0_ |= 0x00000004;
         onChanged();
-        return this;
+        return getExtraFieldBuilder().getBuilder();
       }
       /**
        * <pre>
-       * 装备潜能评级 (0未鉴定，1以上为评级)
+       * 装备附加信息
        * </pre>
        *
-       * <code>required int32 potentialGrade = 2;</code>
-       * @return This builder for chaining.
+       * <code>required .protocol.EquipExtraInfo extra = 3;</code>
        */
-      public Builder clearPotentialGrade() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        potentialGrade_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private java.util.List<protocol.Base.AttributeMap> potentialAttributeMap_ =
-        java.util.Collections.emptyList();
-      private void ensurePotentialAttributeMapIsMutable() {
-        if (!((bitField0_ & 0x00000004) != 0)) {
-          potentialAttributeMap_ = new java.util.ArrayList<protocol.Base.AttributeMap>(potentialAttributeMap_);
-          bitField0_ |= 0x00000004;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          protocol.Base.AttributeMap, protocol.Base.AttributeMap.Builder, protocol.Base.AttributeMapOrBuilder> potentialAttributeMapBuilder_;
-
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public java.util.List<protocol.Base.AttributeMap> getPotentialAttributeMapList() {
-        if (potentialAttributeMapBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(potentialAttributeMap_);
+      public protocol.Equip.EquipExtraInfoOrBuilder getExtraOrBuilder() {
+        if (extraBuilder_ != null) {
+          return extraBuilder_.getMessageOrBuilder();
         } else {
-          return potentialAttributeMapBuilder_.getMessageList();
+          return extra_ == null ?
+              protocol.Equip.EquipExtraInfo.getDefaultInstance() : extra_;
         }
       }
       /**
        * <pre>
-       * 装备潜能属性
+       * 装备附加信息
        * </pre>
        *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
+       * <code>required .protocol.EquipExtraInfo extra = 3;</code>
        */
-      public int getPotentialAttributeMapCount() {
-        if (potentialAttributeMapBuilder_ == null) {
-          return potentialAttributeMap_.size();
-        } else {
-          return potentialAttributeMapBuilder_.getCount();
-        }
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public protocol.Base.AttributeMap getPotentialAttributeMap(int index) {
-        if (potentialAttributeMapBuilder_ == null) {
-          return potentialAttributeMap_.get(index);
-        } else {
-          return potentialAttributeMapBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public Builder setPotentialAttributeMap(
-          int index, protocol.Base.AttributeMap value) {
-        if (potentialAttributeMapBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensurePotentialAttributeMapIsMutable();
-          potentialAttributeMap_.set(index, value);
-          onChanged();
-        } else {
-          potentialAttributeMapBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public Builder setPotentialAttributeMap(
-          int index, protocol.Base.AttributeMap.Builder builderForValue) {
-        if (potentialAttributeMapBuilder_ == null) {
-          ensurePotentialAttributeMapIsMutable();
-          potentialAttributeMap_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          potentialAttributeMapBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public Builder addPotentialAttributeMap(protocol.Base.AttributeMap value) {
-        if (potentialAttributeMapBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensurePotentialAttributeMapIsMutable();
-          potentialAttributeMap_.add(value);
-          onChanged();
-        } else {
-          potentialAttributeMapBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public Builder addPotentialAttributeMap(
-          int index, protocol.Base.AttributeMap value) {
-        if (potentialAttributeMapBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensurePotentialAttributeMapIsMutable();
-          potentialAttributeMap_.add(index, value);
-          onChanged();
-        } else {
-          potentialAttributeMapBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public Builder addPotentialAttributeMap(
-          protocol.Base.AttributeMap.Builder builderForValue) {
-        if (potentialAttributeMapBuilder_ == null) {
-          ensurePotentialAttributeMapIsMutable();
-          potentialAttributeMap_.add(builderForValue.build());
-          onChanged();
-        } else {
-          potentialAttributeMapBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public Builder addPotentialAttributeMap(
-          int index, protocol.Base.AttributeMap.Builder builderForValue) {
-        if (potentialAttributeMapBuilder_ == null) {
-          ensurePotentialAttributeMapIsMutable();
-          potentialAttributeMap_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          potentialAttributeMapBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public Builder addAllPotentialAttributeMap(
-          java.lang.Iterable<? extends protocol.Base.AttributeMap> values) {
-        if (potentialAttributeMapBuilder_ == null) {
-          ensurePotentialAttributeMapIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, potentialAttributeMap_);
-          onChanged();
-        } else {
-          potentialAttributeMapBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public Builder clearPotentialAttributeMap() {
-        if (potentialAttributeMapBuilder_ == null) {
-          potentialAttributeMap_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
-          onChanged();
-        } else {
-          potentialAttributeMapBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public Builder removePotentialAttributeMap(int index) {
-        if (potentialAttributeMapBuilder_ == null) {
-          ensurePotentialAttributeMapIsMutable();
-          potentialAttributeMap_.remove(index);
-          onChanged();
-        } else {
-          potentialAttributeMapBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public protocol.Base.AttributeMap.Builder getPotentialAttributeMapBuilder(
-          int index) {
-        return getPotentialAttributeMapFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public protocol.Base.AttributeMapOrBuilder getPotentialAttributeMapOrBuilder(
-          int index) {
-        if (potentialAttributeMapBuilder_ == null) {
-          return potentialAttributeMap_.get(index);  } else {
-          return potentialAttributeMapBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public java.util.List<? extends protocol.Base.AttributeMapOrBuilder> 
-           getPotentialAttributeMapOrBuilderList() {
-        if (potentialAttributeMapBuilder_ != null) {
-          return potentialAttributeMapBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(potentialAttributeMap_);
-        }
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public protocol.Base.AttributeMap.Builder addPotentialAttributeMapBuilder() {
-        return getPotentialAttributeMapFieldBuilder().addBuilder(
-            protocol.Base.AttributeMap.getDefaultInstance());
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public protocol.Base.AttributeMap.Builder addPotentialAttributeMapBuilder(
-          int index) {
-        return getPotentialAttributeMapFieldBuilder().addBuilder(
-            index, protocol.Base.AttributeMap.getDefaultInstance());
-      }
-      /**
-       * <pre>
-       * 装备潜能属性
-       * </pre>
-       *
-       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 3;</code>
-       */
-      public java.util.List<protocol.Base.AttributeMap.Builder> 
-           getPotentialAttributeMapBuilderList() {
-        return getPotentialAttributeMapFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          protocol.Base.AttributeMap, protocol.Base.AttributeMap.Builder, protocol.Base.AttributeMapOrBuilder> 
-          getPotentialAttributeMapFieldBuilder() {
-        if (potentialAttributeMapBuilder_ == null) {
-          potentialAttributeMapBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              protocol.Base.AttributeMap, protocol.Base.AttributeMap.Builder, protocol.Base.AttributeMapOrBuilder>(
-                  potentialAttributeMap_,
-                  ((bitField0_ & 0x00000004) != 0),
+      private com.google.protobuf.SingleFieldBuilderV3<
+          protocol.Equip.EquipExtraInfo, protocol.Equip.EquipExtraInfo.Builder, protocol.Equip.EquipExtraInfoOrBuilder> 
+          getExtraFieldBuilder() {
+        if (extraBuilder_ == null) {
+          extraBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              protocol.Equip.EquipExtraInfo, protocol.Equip.EquipExtraInfo.Builder, protocol.Equip.EquipExtraInfoOrBuilder>(
+                  getExtra(),
                   getParentForChildren(),
                   isClean());
-          potentialAttributeMap_ = null;
+          extra_ = null;
         }
-        return potentialAttributeMapBuilder_;
+        return extraBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -1199,6 +989,1062 @@ public final class Equip {
 
     @java.lang.Override
     public protocol.Equip.EquipInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface EquipExtraInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.EquipExtraInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * 装备潜能评级 (0未鉴定，1以上为评级)
+     * </pre>
+     *
+     * <code>required int32 potentialGrade = 1;</code>
+     * @return Whether the potentialGrade field is set.
+     */
+    boolean hasPotentialGrade();
+    /**
+     * <pre>
+     * 装备潜能评级 (0未鉴定，1以上为评级)
+     * </pre>
+     *
+     * <code>required int32 potentialGrade = 1;</code>
+     * @return The potentialGrade.
+     */
+    int getPotentialGrade();
+
+    /**
+     * <pre>
+     * 装备潜能属性
+     * </pre>
+     *
+     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+     */
+    java.util.List<protocol.Base.AttributeMap> 
+        getPotentialAttributeMapList();
+    /**
+     * <pre>
+     * 装备潜能属性
+     * </pre>
+     *
+     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+     */
+    protocol.Base.AttributeMap getPotentialAttributeMap(int index);
+    /**
+     * <pre>
+     * 装备潜能属性
+     * </pre>
+     *
+     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+     */
+    int getPotentialAttributeMapCount();
+    /**
+     * <pre>
+     * 装备潜能属性
+     * </pre>
+     *
+     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+     */
+    java.util.List<? extends protocol.Base.AttributeMapOrBuilder> 
+        getPotentialAttributeMapOrBuilderList();
+    /**
+     * <pre>
+     * 装备潜能属性
+     * </pre>
+     *
+     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+     */
+    protocol.Base.AttributeMapOrBuilder getPotentialAttributeMapOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   * 装备附加信息
+   * </pre>
+   *
+   * Protobuf type {@code protocol.EquipExtraInfo}
+   */
+  public  static final class EquipExtraInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.EquipExtraInfo)
+      EquipExtraInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use EquipExtraInfo.newBuilder() to construct.
+    private EquipExtraInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private EquipExtraInfo() {
+      potentialAttributeMap_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new EquipExtraInfo();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private EquipExtraInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              potentialGrade_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                potentialAttributeMap_ = new java.util.ArrayList<protocol.Base.AttributeMap>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              potentialAttributeMap_.add(
+                  input.readMessage(protocol.Base.AttributeMap.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          potentialAttributeMap_ = java.util.Collections.unmodifiableList(potentialAttributeMap_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Equip.internal_static_protocol_EquipExtraInfo_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Equip.internal_static_protocol_EquipExtraInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Equip.EquipExtraInfo.class, protocol.Equip.EquipExtraInfo.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int POTENTIALGRADE_FIELD_NUMBER = 1;
+    private int potentialGrade_;
+    /**
+     * <pre>
+     * 装备潜能评级 (0未鉴定，1以上为评级)
+     * </pre>
+     *
+     * <code>required int32 potentialGrade = 1;</code>
+     * @return Whether the potentialGrade field is set.
+     */
+    public boolean hasPotentialGrade() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * 装备潜能评级 (0未鉴定，1以上为评级)
+     * </pre>
+     *
+     * <code>required int32 potentialGrade = 1;</code>
+     * @return The potentialGrade.
+     */
+    public int getPotentialGrade() {
+      return potentialGrade_;
+    }
+
+    public static final int POTENTIALATTRIBUTEMAP_FIELD_NUMBER = 2;
+    private java.util.List<protocol.Base.AttributeMap> potentialAttributeMap_;
+    /**
+     * <pre>
+     * 装备潜能属性
+     * </pre>
+     *
+     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+     */
+    public java.util.List<protocol.Base.AttributeMap> getPotentialAttributeMapList() {
+      return potentialAttributeMap_;
+    }
+    /**
+     * <pre>
+     * 装备潜能属性
+     * </pre>
+     *
+     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+     */
+    public java.util.List<? extends protocol.Base.AttributeMapOrBuilder> 
+        getPotentialAttributeMapOrBuilderList() {
+      return potentialAttributeMap_;
+    }
+    /**
+     * <pre>
+     * 装备潜能属性
+     * </pre>
+     *
+     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+     */
+    public int getPotentialAttributeMapCount() {
+      return potentialAttributeMap_.size();
+    }
+    /**
+     * <pre>
+     * 装备潜能属性
+     * </pre>
+     *
+     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+     */
+    public protocol.Base.AttributeMap getPotentialAttributeMap(int index) {
+      return potentialAttributeMap_.get(index);
+    }
+    /**
+     * <pre>
+     * 装备潜能属性
+     * </pre>
+     *
+     * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+     */
+    public protocol.Base.AttributeMapOrBuilder getPotentialAttributeMapOrBuilder(
+        int index) {
+      return potentialAttributeMap_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasPotentialGrade()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      for (int i = 0; i < getPotentialAttributeMapCount(); i++) {
+        if (!getPotentialAttributeMap(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt32(1, potentialGrade_);
+      }
+      for (int i = 0; i < potentialAttributeMap_.size(); i++) {
+        output.writeMessage(2, potentialAttributeMap_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, potentialGrade_);
+      }
+      for (int i = 0; i < potentialAttributeMap_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, potentialAttributeMap_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Equip.EquipExtraInfo)) {
+        return super.equals(obj);
+      }
+      protocol.Equip.EquipExtraInfo other = (protocol.Equip.EquipExtraInfo) obj;
+
+      if (hasPotentialGrade() != other.hasPotentialGrade()) return false;
+      if (hasPotentialGrade()) {
+        if (getPotentialGrade()
+            != other.getPotentialGrade()) return false;
+      }
+      if (!getPotentialAttributeMapList()
+          .equals(other.getPotentialAttributeMapList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasPotentialGrade()) {
+        hash = (37 * hash) + POTENTIALGRADE_FIELD_NUMBER;
+        hash = (53 * hash) + getPotentialGrade();
+      }
+      if (getPotentialAttributeMapCount() > 0) {
+        hash = (37 * hash) + POTENTIALATTRIBUTEMAP_FIELD_NUMBER;
+        hash = (53 * hash) + getPotentialAttributeMapList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Equip.EquipExtraInfo parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.EquipExtraInfo parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.EquipExtraInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.EquipExtraInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.EquipExtraInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.EquipExtraInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.EquipExtraInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.EquipExtraInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Equip.EquipExtraInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.EquipExtraInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Equip.EquipExtraInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.EquipExtraInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Equip.EquipExtraInfo prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * 装备附加信息
+     * </pre>
+     *
+     * Protobuf type {@code protocol.EquipExtraInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.EquipExtraInfo)
+        protocol.Equip.EquipExtraInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Equip.internal_static_protocol_EquipExtraInfo_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Equip.internal_static_protocol_EquipExtraInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Equip.EquipExtraInfo.class, protocol.Equip.EquipExtraInfo.Builder.class);
+      }
+
+      // Construct using protocol.Equip.EquipExtraInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getPotentialAttributeMapFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        potentialGrade_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (potentialAttributeMapBuilder_ == null) {
+          potentialAttributeMap_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          potentialAttributeMapBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Equip.internal_static_protocol_EquipExtraInfo_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Equip.EquipExtraInfo getDefaultInstanceForType() {
+        return protocol.Equip.EquipExtraInfo.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Equip.EquipExtraInfo build() {
+        protocol.Equip.EquipExtraInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Equip.EquipExtraInfo buildPartial() {
+        protocol.Equip.EquipExtraInfo result = new protocol.Equip.EquipExtraInfo(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.potentialGrade_ = potentialGrade_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (potentialAttributeMapBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            potentialAttributeMap_ = java.util.Collections.unmodifiableList(potentialAttributeMap_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.potentialAttributeMap_ = potentialAttributeMap_;
+        } else {
+          result.potentialAttributeMap_ = potentialAttributeMapBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Equip.EquipExtraInfo) {
+          return mergeFrom((protocol.Equip.EquipExtraInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Equip.EquipExtraInfo other) {
+        if (other == protocol.Equip.EquipExtraInfo.getDefaultInstance()) return this;
+        if (other.hasPotentialGrade()) {
+          setPotentialGrade(other.getPotentialGrade());
+        }
+        if (potentialAttributeMapBuilder_ == null) {
+          if (!other.potentialAttributeMap_.isEmpty()) {
+            if (potentialAttributeMap_.isEmpty()) {
+              potentialAttributeMap_ = other.potentialAttributeMap_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensurePotentialAttributeMapIsMutable();
+              potentialAttributeMap_.addAll(other.potentialAttributeMap_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.potentialAttributeMap_.isEmpty()) {
+            if (potentialAttributeMapBuilder_.isEmpty()) {
+              potentialAttributeMapBuilder_.dispose();
+              potentialAttributeMapBuilder_ = null;
+              potentialAttributeMap_ = other.potentialAttributeMap_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              potentialAttributeMapBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPotentialAttributeMapFieldBuilder() : null;
+            } else {
+              potentialAttributeMapBuilder_.addAllMessages(other.potentialAttributeMap_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasPotentialGrade()) {
+          return false;
+        }
+        for (int i = 0; i < getPotentialAttributeMapCount(); i++) {
+          if (!getPotentialAttributeMap(i).isInitialized()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Equip.EquipExtraInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Equip.EquipExtraInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int potentialGrade_ ;
+      /**
+       * <pre>
+       * 装备潜能评级 (0未鉴定，1以上为评级)
+       * </pre>
+       *
+       * <code>required int32 potentialGrade = 1;</code>
+       * @return Whether the potentialGrade field is set.
+       */
+      public boolean hasPotentialGrade() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <pre>
+       * 装备潜能评级 (0未鉴定，1以上为评级)
+       * </pre>
+       *
+       * <code>required int32 potentialGrade = 1;</code>
+       * @return The potentialGrade.
+       */
+      public int getPotentialGrade() {
+        return potentialGrade_;
+      }
+      /**
+       * <pre>
+       * 装备潜能评级 (0未鉴定，1以上为评级)
+       * </pre>
+       *
+       * <code>required int32 potentialGrade = 1;</code>
+       * @param value The potentialGrade to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPotentialGrade(int value) {
+        bitField0_ |= 0x00000001;
+        potentialGrade_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备潜能评级 (0未鉴定，1以上为评级)
+       * </pre>
+       *
+       * <code>required int32 potentialGrade = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPotentialGrade() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        potentialGrade_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<protocol.Base.AttributeMap> potentialAttributeMap_ =
+        java.util.Collections.emptyList();
+      private void ensurePotentialAttributeMapIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          potentialAttributeMap_ = new java.util.ArrayList<protocol.Base.AttributeMap>(potentialAttributeMap_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          protocol.Base.AttributeMap, protocol.Base.AttributeMap.Builder, protocol.Base.AttributeMapOrBuilder> potentialAttributeMapBuilder_;
+
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public java.util.List<protocol.Base.AttributeMap> getPotentialAttributeMapList() {
+        if (potentialAttributeMapBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(potentialAttributeMap_);
+        } else {
+          return potentialAttributeMapBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public int getPotentialAttributeMapCount() {
+        if (potentialAttributeMapBuilder_ == null) {
+          return potentialAttributeMap_.size();
+        } else {
+          return potentialAttributeMapBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public protocol.Base.AttributeMap getPotentialAttributeMap(int index) {
+        if (potentialAttributeMapBuilder_ == null) {
+          return potentialAttributeMap_.get(index);
+        } else {
+          return potentialAttributeMapBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public Builder setPotentialAttributeMap(
+          int index, protocol.Base.AttributeMap value) {
+        if (potentialAttributeMapBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePotentialAttributeMapIsMutable();
+          potentialAttributeMap_.set(index, value);
+          onChanged();
+        } else {
+          potentialAttributeMapBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public Builder setPotentialAttributeMap(
+          int index, protocol.Base.AttributeMap.Builder builderForValue) {
+        if (potentialAttributeMapBuilder_ == null) {
+          ensurePotentialAttributeMapIsMutable();
+          potentialAttributeMap_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          potentialAttributeMapBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public Builder addPotentialAttributeMap(protocol.Base.AttributeMap value) {
+        if (potentialAttributeMapBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePotentialAttributeMapIsMutable();
+          potentialAttributeMap_.add(value);
+          onChanged();
+        } else {
+          potentialAttributeMapBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public Builder addPotentialAttributeMap(
+          int index, protocol.Base.AttributeMap value) {
+        if (potentialAttributeMapBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePotentialAttributeMapIsMutable();
+          potentialAttributeMap_.add(index, value);
+          onChanged();
+        } else {
+          potentialAttributeMapBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public Builder addPotentialAttributeMap(
+          protocol.Base.AttributeMap.Builder builderForValue) {
+        if (potentialAttributeMapBuilder_ == null) {
+          ensurePotentialAttributeMapIsMutable();
+          potentialAttributeMap_.add(builderForValue.build());
+          onChanged();
+        } else {
+          potentialAttributeMapBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public Builder addPotentialAttributeMap(
+          int index, protocol.Base.AttributeMap.Builder builderForValue) {
+        if (potentialAttributeMapBuilder_ == null) {
+          ensurePotentialAttributeMapIsMutable();
+          potentialAttributeMap_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          potentialAttributeMapBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public Builder addAllPotentialAttributeMap(
+          java.lang.Iterable<? extends protocol.Base.AttributeMap> values) {
+        if (potentialAttributeMapBuilder_ == null) {
+          ensurePotentialAttributeMapIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, potentialAttributeMap_);
+          onChanged();
+        } else {
+          potentialAttributeMapBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public Builder clearPotentialAttributeMap() {
+        if (potentialAttributeMapBuilder_ == null) {
+          potentialAttributeMap_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          potentialAttributeMapBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public Builder removePotentialAttributeMap(int index) {
+        if (potentialAttributeMapBuilder_ == null) {
+          ensurePotentialAttributeMapIsMutable();
+          potentialAttributeMap_.remove(index);
+          onChanged();
+        } else {
+          potentialAttributeMapBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public protocol.Base.AttributeMap.Builder getPotentialAttributeMapBuilder(
+          int index) {
+        return getPotentialAttributeMapFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public protocol.Base.AttributeMapOrBuilder getPotentialAttributeMapOrBuilder(
+          int index) {
+        if (potentialAttributeMapBuilder_ == null) {
+          return potentialAttributeMap_.get(index);  } else {
+          return potentialAttributeMapBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public java.util.List<? extends protocol.Base.AttributeMapOrBuilder> 
+           getPotentialAttributeMapOrBuilderList() {
+        if (potentialAttributeMapBuilder_ != null) {
+          return potentialAttributeMapBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(potentialAttributeMap_);
+        }
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public protocol.Base.AttributeMap.Builder addPotentialAttributeMapBuilder() {
+        return getPotentialAttributeMapFieldBuilder().addBuilder(
+            protocol.Base.AttributeMap.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public protocol.Base.AttributeMap.Builder addPotentialAttributeMapBuilder(
+          int index) {
+        return getPotentialAttributeMapFieldBuilder().addBuilder(
+            index, protocol.Base.AttributeMap.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * 装备潜能属性
+       * </pre>
+       *
+       * <code>repeated .protocol.AttributeMap potentialAttributeMap = 2;</code>
+       */
+      public java.util.List<protocol.Base.AttributeMap.Builder> 
+           getPotentialAttributeMapBuilderList() {
+        return getPotentialAttributeMapFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          protocol.Base.AttributeMap, protocol.Base.AttributeMap.Builder, protocol.Base.AttributeMapOrBuilder> 
+          getPotentialAttributeMapFieldBuilder() {
+        if (potentialAttributeMapBuilder_ == null) {
+          potentialAttributeMapBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              protocol.Base.AttributeMap, protocol.Base.AttributeMap.Builder, protocol.Base.AttributeMapOrBuilder>(
+                  potentialAttributeMap_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          potentialAttributeMap_ = null;
+        }
+        return potentialAttributeMapBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.EquipExtraInfo)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.EquipExtraInfo)
+    private static final protocol.Equip.EquipExtraInfo DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Equip.EquipExtraInfo();
+    }
+
+    public static protocol.Equip.EquipExtraInfo getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<EquipExtraInfo>
+        PARSER = new com.google.protobuf.AbstractParser<EquipExtraInfo>() {
+      @java.lang.Override
+      public EquipExtraInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new EquipExtraInfo(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<EquipExtraInfo> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EquipExtraInfo> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Equip.EquipExtraInfo getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2123,16 +2969,2693 @@ public final class Equip {
 
   }
 
+  public interface CS11101OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.CS11101)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * 装备唯一ID列表
+     * </pre>
+     *
+     * <code>repeated int64 wearIds = 1;</code>
+     * @return A list containing the wearIds.
+     */
+    java.util.List<java.lang.Long> getWearIdsList();
+    /**
+     * <pre>
+     * 装备唯一ID列表
+     * </pre>
+     *
+     * <code>repeated int64 wearIds = 1;</code>
+     * @return The count of wearIds.
+     */
+    int getWearIdsCount();
+    /**
+     * <pre>
+     * 装备唯一ID列表
+     * </pre>
+     *
+     * <code>repeated int64 wearIds = 1;</code>
+     * @param index The index of the element to return.
+     * @return The wearIds at the given index.
+     */
+    long getWearIds(int index);
+  }
+  /**
+   * <pre>
+   * 请求穿戴装备
+   * </pre>
+   *
+   * Protobuf type {@code protocol.CS11101}
+   */
+  public  static final class CS11101 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.CS11101)
+      CS11101OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use CS11101.newBuilder() to construct.
+    private CS11101(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private CS11101() {
+      wearIds_ = emptyLongList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CS11101();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CS11101(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                wearIds_ = newLongList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              wearIds_.addLong(input.readInt64());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                wearIds_ = newLongList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                wearIds_.addLong(input.readInt64());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          wearIds_.makeImmutable(); // C
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Equip.internal_static_protocol_CS11101_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Equip.internal_static_protocol_CS11101_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Equip.CS11101.class, protocol.Equip.CS11101.Builder.class);
+    }
+
+    public static final int WEARIDS_FIELD_NUMBER = 1;
+    private com.google.protobuf.Internal.LongList wearIds_;
+    /**
+     * <pre>
+     * 装备唯一ID列表
+     * </pre>
+     *
+     * <code>repeated int64 wearIds = 1;</code>
+     * @return A list containing the wearIds.
+     */
+    public java.util.List<java.lang.Long>
+        getWearIdsList() {
+      return wearIds_;
+    }
+    /**
+     * <pre>
+     * 装备唯一ID列表
+     * </pre>
+     *
+     * <code>repeated int64 wearIds = 1;</code>
+     * @return The count of wearIds.
+     */
+    public int getWearIdsCount() {
+      return wearIds_.size();
+    }
+    /**
+     * <pre>
+     * 装备唯一ID列表
+     * </pre>
+     *
+     * <code>repeated int64 wearIds = 1;</code>
+     * @param index The index of the element to return.
+     * @return The wearIds at the given index.
+     */
+    public long getWearIds(int index) {
+      return wearIds_.getLong(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < wearIds_.size(); i++) {
+        output.writeInt64(1, wearIds_.getLong(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < wearIds_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt64SizeNoTag(wearIds_.getLong(i));
+        }
+        size += dataSize;
+        size += 1 * getWearIdsList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Equip.CS11101)) {
+        return super.equals(obj);
+      }
+      protocol.Equip.CS11101 other = (protocol.Equip.CS11101) obj;
+
+      if (!getWearIdsList()
+          .equals(other.getWearIdsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getWearIdsCount() > 0) {
+        hash = (37 * hash) + WEARIDS_FIELD_NUMBER;
+        hash = (53 * hash) + getWearIdsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Equip.CS11101 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.CS11101 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.CS11101 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.CS11101 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.CS11101 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.CS11101 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.CS11101 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.CS11101 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Equip.CS11101 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.CS11101 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Equip.CS11101 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.CS11101 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Equip.CS11101 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * 请求穿戴装备
+     * </pre>
+     *
+     * Protobuf type {@code protocol.CS11101}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.CS11101)
+        protocol.Equip.CS11101OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Equip.internal_static_protocol_CS11101_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Equip.internal_static_protocol_CS11101_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Equip.CS11101.class, protocol.Equip.CS11101.Builder.class);
+      }
+
+      // Construct using protocol.Equip.CS11101.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        wearIds_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Equip.internal_static_protocol_CS11101_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Equip.CS11101 getDefaultInstanceForType() {
+        return protocol.Equip.CS11101.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Equip.CS11101 build() {
+        protocol.Equip.CS11101 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Equip.CS11101 buildPartial() {
+        protocol.Equip.CS11101 result = new protocol.Equip.CS11101(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          wearIds_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.wearIds_ = wearIds_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Equip.CS11101) {
+          return mergeFrom((protocol.Equip.CS11101)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Equip.CS11101 other) {
+        if (other == protocol.Equip.CS11101.getDefaultInstance()) return this;
+        if (!other.wearIds_.isEmpty()) {
+          if (wearIds_.isEmpty()) {
+            wearIds_ = other.wearIds_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureWearIdsIsMutable();
+            wearIds_.addAll(other.wearIds_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Equip.CS11101 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Equip.CS11101) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.Internal.LongList wearIds_ = emptyLongList();
+      private void ensureWearIdsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          wearIds_ = mutableCopy(wearIds_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <pre>
+       * 装备唯一ID列表
+       * </pre>
+       *
+       * <code>repeated int64 wearIds = 1;</code>
+       * @return A list containing the wearIds.
+       */
+      public java.util.List<java.lang.Long>
+          getWearIdsList() {
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(wearIds_) : wearIds_;
+      }
+      /**
+       * <pre>
+       * 装备唯一ID列表
+       * </pre>
+       *
+       * <code>repeated int64 wearIds = 1;</code>
+       * @return The count of wearIds.
+       */
+      public int getWearIdsCount() {
+        return wearIds_.size();
+      }
+      /**
+       * <pre>
+       * 装备唯一ID列表
+       * </pre>
+       *
+       * <code>repeated int64 wearIds = 1;</code>
+       * @param index The index of the element to return.
+       * @return The wearIds at the given index.
+       */
+      public long getWearIds(int index) {
+        return wearIds_.getLong(index);
+      }
+      /**
+       * <pre>
+       * 装备唯一ID列表
+       * </pre>
+       *
+       * <code>repeated int64 wearIds = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The wearIds to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWearIds(
+          int index, long value) {
+        ensureWearIdsIsMutable();
+        wearIds_.setLong(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备唯一ID列表
+       * </pre>
+       *
+       * <code>repeated int64 wearIds = 1;</code>
+       * @param value The wearIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addWearIds(long value) {
+        ensureWearIdsIsMutable();
+        wearIds_.addLong(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备唯一ID列表
+       * </pre>
+       *
+       * <code>repeated int64 wearIds = 1;</code>
+       * @param values The wearIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllWearIds(
+          java.lang.Iterable<? extends java.lang.Long> values) {
+        ensureWearIdsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, wearIds_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备唯一ID列表
+       * </pre>
+       *
+       * <code>repeated int64 wearIds = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearWearIds() {
+        wearIds_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.CS11101)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.CS11101)
+    private static final protocol.Equip.CS11101 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Equip.CS11101();
+    }
+
+    public static protocol.Equip.CS11101 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<CS11101>
+        PARSER = new com.google.protobuf.AbstractParser<CS11101>() {
+      @java.lang.Override
+      public CS11101 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CS11101(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CS11101> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CS11101> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Equip.CS11101 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SC11101OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.SC11101)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * 穿戴成功的ID列表
+     * </pre>
+     *
+     * <code>repeated int64 wearIds = 1;</code>
+     * @return A list containing the wearIds.
+     */
+    java.util.List<java.lang.Long> getWearIdsList();
+    /**
+     * <pre>
+     * 穿戴成功的ID列表
+     * </pre>
+     *
+     * <code>repeated int64 wearIds = 1;</code>
+     * @return The count of wearIds.
+     */
+    int getWearIdsCount();
+    /**
+     * <pre>
+     * 穿戴成功的ID列表
+     * </pre>
+     *
+     * <code>repeated int64 wearIds = 1;</code>
+     * @param index The index of the element to return.
+     * @return The wearIds at the given index.
+     */
+    long getWearIds(int index);
+  }
+  /**
+   * <pre>
+   * 返回穿戴装备
+   * </pre>
+   *
+   * Protobuf type {@code protocol.SC11101}
+   */
+  public  static final class SC11101 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.SC11101)
+      SC11101OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SC11101.newBuilder() to construct.
+    private SC11101(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SC11101() {
+      wearIds_ = emptyLongList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SC11101();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SC11101(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                wearIds_ = newLongList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              wearIds_.addLong(input.readInt64());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                wearIds_ = newLongList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                wearIds_.addLong(input.readInt64());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          wearIds_.makeImmutable(); // C
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Equip.internal_static_protocol_SC11101_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Equip.internal_static_protocol_SC11101_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Equip.SC11101.class, protocol.Equip.SC11101.Builder.class);
+    }
+
+    public static final int WEARIDS_FIELD_NUMBER = 1;
+    private com.google.protobuf.Internal.LongList wearIds_;
+    /**
+     * <pre>
+     * 穿戴成功的ID列表
+     * </pre>
+     *
+     * <code>repeated int64 wearIds = 1;</code>
+     * @return A list containing the wearIds.
+     */
+    public java.util.List<java.lang.Long>
+        getWearIdsList() {
+      return wearIds_;
+    }
+    /**
+     * <pre>
+     * 穿戴成功的ID列表
+     * </pre>
+     *
+     * <code>repeated int64 wearIds = 1;</code>
+     * @return The count of wearIds.
+     */
+    public int getWearIdsCount() {
+      return wearIds_.size();
+    }
+    /**
+     * <pre>
+     * 穿戴成功的ID列表
+     * </pre>
+     *
+     * <code>repeated int64 wearIds = 1;</code>
+     * @param index The index of the element to return.
+     * @return The wearIds at the given index.
+     */
+    public long getWearIds(int index) {
+      return wearIds_.getLong(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < wearIds_.size(); i++) {
+        output.writeInt64(1, wearIds_.getLong(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < wearIds_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt64SizeNoTag(wearIds_.getLong(i));
+        }
+        size += dataSize;
+        size += 1 * getWearIdsList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Equip.SC11101)) {
+        return super.equals(obj);
+      }
+      protocol.Equip.SC11101 other = (protocol.Equip.SC11101) obj;
+
+      if (!getWearIdsList()
+          .equals(other.getWearIdsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getWearIdsCount() > 0) {
+        hash = (37 * hash) + WEARIDS_FIELD_NUMBER;
+        hash = (53 * hash) + getWearIdsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Equip.SC11101 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.SC11101 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.SC11101 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.SC11101 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.SC11101 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.SC11101 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.SC11101 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.SC11101 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Equip.SC11101 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.SC11101 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Equip.SC11101 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.SC11101 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Equip.SC11101 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * 返回穿戴装备
+     * </pre>
+     *
+     * Protobuf type {@code protocol.SC11101}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.SC11101)
+        protocol.Equip.SC11101OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Equip.internal_static_protocol_SC11101_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Equip.internal_static_protocol_SC11101_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Equip.SC11101.class, protocol.Equip.SC11101.Builder.class);
+      }
+
+      // Construct using protocol.Equip.SC11101.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        wearIds_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Equip.internal_static_protocol_SC11101_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Equip.SC11101 getDefaultInstanceForType() {
+        return protocol.Equip.SC11101.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Equip.SC11101 build() {
+        protocol.Equip.SC11101 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Equip.SC11101 buildPartial() {
+        protocol.Equip.SC11101 result = new protocol.Equip.SC11101(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          wearIds_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.wearIds_ = wearIds_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Equip.SC11101) {
+          return mergeFrom((protocol.Equip.SC11101)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Equip.SC11101 other) {
+        if (other == protocol.Equip.SC11101.getDefaultInstance()) return this;
+        if (!other.wearIds_.isEmpty()) {
+          if (wearIds_.isEmpty()) {
+            wearIds_ = other.wearIds_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureWearIdsIsMutable();
+            wearIds_.addAll(other.wearIds_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Equip.SC11101 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Equip.SC11101) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.Internal.LongList wearIds_ = emptyLongList();
+      private void ensureWearIdsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          wearIds_ = mutableCopy(wearIds_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <pre>
+       * 穿戴成功的ID列表
+       * </pre>
+       *
+       * <code>repeated int64 wearIds = 1;</code>
+       * @return A list containing the wearIds.
+       */
+      public java.util.List<java.lang.Long>
+          getWearIdsList() {
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(wearIds_) : wearIds_;
+      }
+      /**
+       * <pre>
+       * 穿戴成功的ID列表
+       * </pre>
+       *
+       * <code>repeated int64 wearIds = 1;</code>
+       * @return The count of wearIds.
+       */
+      public int getWearIdsCount() {
+        return wearIds_.size();
+      }
+      /**
+       * <pre>
+       * 穿戴成功的ID列表
+       * </pre>
+       *
+       * <code>repeated int64 wearIds = 1;</code>
+       * @param index The index of the element to return.
+       * @return The wearIds at the given index.
+       */
+      public long getWearIds(int index) {
+        return wearIds_.getLong(index);
+      }
+      /**
+       * <pre>
+       * 穿戴成功的ID列表
+       * </pre>
+       *
+       * <code>repeated int64 wearIds = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The wearIds to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWearIds(
+          int index, long value) {
+        ensureWearIdsIsMutable();
+        wearIds_.setLong(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 穿戴成功的ID列表
+       * </pre>
+       *
+       * <code>repeated int64 wearIds = 1;</code>
+       * @param value The wearIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addWearIds(long value) {
+        ensureWearIdsIsMutable();
+        wearIds_.addLong(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 穿戴成功的ID列表
+       * </pre>
+       *
+       * <code>repeated int64 wearIds = 1;</code>
+       * @param values The wearIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllWearIds(
+          java.lang.Iterable<? extends java.lang.Long> values) {
+        ensureWearIdsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, wearIds_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 穿戴成功的ID列表
+       * </pre>
+       *
+       * <code>repeated int64 wearIds = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearWearIds() {
+        wearIds_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.SC11101)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.SC11101)
+    private static final protocol.Equip.SC11101 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Equip.SC11101();
+    }
+
+    public static protocol.Equip.SC11101 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SC11101>
+        PARSER = new com.google.protobuf.AbstractParser<SC11101>() {
+      @java.lang.Override
+      public SC11101 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SC11101(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SC11101> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SC11101> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Equip.SC11101 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface CS11102OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.CS11102)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * 装备部位列表
+     * </pre>
+     *
+     * <code>repeated int32 slots = 1;</code>
+     * @return A list containing the slots.
+     */
+    java.util.List<java.lang.Integer> getSlotsList();
+    /**
+     * <pre>
+     * 装备部位列表
+     * </pre>
+     *
+     * <code>repeated int32 slots = 1;</code>
+     * @return The count of slots.
+     */
+    int getSlotsCount();
+    /**
+     * <pre>
+     * 装备部位列表
+     * </pre>
+     *
+     * <code>repeated int32 slots = 1;</code>
+     * @param index The index of the element to return.
+     * @return The slots at the given index.
+     */
+    int getSlots(int index);
+  }
+  /**
+   * <pre>
+   * 请求卸下装备
+   * </pre>
+   *
+   * Protobuf type {@code protocol.CS11102}
+   */
+  public  static final class CS11102 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.CS11102)
+      CS11102OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use CS11102.newBuilder() to construct.
+    private CS11102(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private CS11102() {
+      slots_ = emptyIntList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CS11102();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CS11102(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                slots_ = newIntList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              slots_.addInt(input.readInt32());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                slots_ = newIntList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                slots_.addInt(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          slots_.makeImmutable(); // C
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Equip.internal_static_protocol_CS11102_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Equip.internal_static_protocol_CS11102_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Equip.CS11102.class, protocol.Equip.CS11102.Builder.class);
+    }
+
+    public static final int SLOTS_FIELD_NUMBER = 1;
+    private com.google.protobuf.Internal.IntList slots_;
+    /**
+     * <pre>
+     * 装备部位列表
+     * </pre>
+     *
+     * <code>repeated int32 slots = 1;</code>
+     * @return A list containing the slots.
+     */
+    public java.util.List<java.lang.Integer>
+        getSlotsList() {
+      return slots_;
+    }
+    /**
+     * <pre>
+     * 装备部位列表
+     * </pre>
+     *
+     * <code>repeated int32 slots = 1;</code>
+     * @return The count of slots.
+     */
+    public int getSlotsCount() {
+      return slots_.size();
+    }
+    /**
+     * <pre>
+     * 装备部位列表
+     * </pre>
+     *
+     * <code>repeated int32 slots = 1;</code>
+     * @param index The index of the element to return.
+     * @return The slots at the given index.
+     */
+    public int getSlots(int index) {
+      return slots_.getInt(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < slots_.size(); i++) {
+        output.writeInt32(1, slots_.getInt(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < slots_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(slots_.getInt(i));
+        }
+        size += dataSize;
+        size += 1 * getSlotsList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Equip.CS11102)) {
+        return super.equals(obj);
+      }
+      protocol.Equip.CS11102 other = (protocol.Equip.CS11102) obj;
+
+      if (!getSlotsList()
+          .equals(other.getSlotsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getSlotsCount() > 0) {
+        hash = (37 * hash) + SLOTS_FIELD_NUMBER;
+        hash = (53 * hash) + getSlotsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Equip.CS11102 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.CS11102 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.CS11102 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.CS11102 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.CS11102 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.CS11102 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.CS11102 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.CS11102 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Equip.CS11102 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.CS11102 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Equip.CS11102 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.CS11102 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Equip.CS11102 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * 请求卸下装备
+     * </pre>
+     *
+     * Protobuf type {@code protocol.CS11102}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.CS11102)
+        protocol.Equip.CS11102OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Equip.internal_static_protocol_CS11102_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Equip.internal_static_protocol_CS11102_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Equip.CS11102.class, protocol.Equip.CS11102.Builder.class);
+      }
+
+      // Construct using protocol.Equip.CS11102.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        slots_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Equip.internal_static_protocol_CS11102_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Equip.CS11102 getDefaultInstanceForType() {
+        return protocol.Equip.CS11102.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Equip.CS11102 build() {
+        protocol.Equip.CS11102 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Equip.CS11102 buildPartial() {
+        protocol.Equip.CS11102 result = new protocol.Equip.CS11102(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          slots_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.slots_ = slots_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Equip.CS11102) {
+          return mergeFrom((protocol.Equip.CS11102)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Equip.CS11102 other) {
+        if (other == protocol.Equip.CS11102.getDefaultInstance()) return this;
+        if (!other.slots_.isEmpty()) {
+          if (slots_.isEmpty()) {
+            slots_ = other.slots_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureSlotsIsMutable();
+            slots_.addAll(other.slots_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Equip.CS11102 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Equip.CS11102) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.Internal.IntList slots_ = emptyIntList();
+      private void ensureSlotsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          slots_ = mutableCopy(slots_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <pre>
+       * 装备部位列表
+       * </pre>
+       *
+       * <code>repeated int32 slots = 1;</code>
+       * @return A list containing the slots.
+       */
+      public java.util.List<java.lang.Integer>
+          getSlotsList() {
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(slots_) : slots_;
+      }
+      /**
+       * <pre>
+       * 装备部位列表
+       * </pre>
+       *
+       * <code>repeated int32 slots = 1;</code>
+       * @return The count of slots.
+       */
+      public int getSlotsCount() {
+        return slots_.size();
+      }
+      /**
+       * <pre>
+       * 装备部位列表
+       * </pre>
+       *
+       * <code>repeated int32 slots = 1;</code>
+       * @param index The index of the element to return.
+       * @return The slots at the given index.
+       */
+      public int getSlots(int index) {
+        return slots_.getInt(index);
+      }
+      /**
+       * <pre>
+       * 装备部位列表
+       * </pre>
+       *
+       * <code>repeated int32 slots = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The slots to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSlots(
+          int index, int value) {
+        ensureSlotsIsMutable();
+        slots_.setInt(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备部位列表
+       * </pre>
+       *
+       * <code>repeated int32 slots = 1;</code>
+       * @param value The slots to add.
+       * @return This builder for chaining.
+       */
+      public Builder addSlots(int value) {
+        ensureSlotsIsMutable();
+        slots_.addInt(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备部位列表
+       * </pre>
+       *
+       * <code>repeated int32 slots = 1;</code>
+       * @param values The slots to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllSlots(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureSlotsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, slots_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备部位列表
+       * </pre>
+       *
+       * <code>repeated int32 slots = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSlots() {
+        slots_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.CS11102)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.CS11102)
+    private static final protocol.Equip.CS11102 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Equip.CS11102();
+    }
+
+    public static protocol.Equip.CS11102 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<CS11102>
+        PARSER = new com.google.protobuf.AbstractParser<CS11102>() {
+      @java.lang.Override
+      public CS11102 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CS11102(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CS11102> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CS11102> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Equip.CS11102 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SC11102OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.SC11102)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * 装备部位列表
+     * </pre>
+     *
+     * <code>repeated int32 slots = 1;</code>
+     * @return A list containing the slots.
+     */
+    java.util.List<java.lang.Integer> getSlotsList();
+    /**
+     * <pre>
+     * 装备部位列表
+     * </pre>
+     *
+     * <code>repeated int32 slots = 1;</code>
+     * @return The count of slots.
+     */
+    int getSlotsCount();
+    /**
+     * <pre>
+     * 装备部位列表
+     * </pre>
+     *
+     * <code>repeated int32 slots = 1;</code>
+     * @param index The index of the element to return.
+     * @return The slots at the given index.
+     */
+    int getSlots(int index);
+  }
+  /**
+   * <pre>
+   * 返回卸下装备
+   * </pre>
+   *
+   * Protobuf type {@code protocol.SC11102}
+   */
+  public  static final class SC11102 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.SC11102)
+      SC11102OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SC11102.newBuilder() to construct.
+    private SC11102(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SC11102() {
+      slots_ = emptyIntList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SC11102();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SC11102(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                slots_ = newIntList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              slots_.addInt(input.readInt32());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                slots_ = newIntList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                slots_.addInt(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          slots_.makeImmutable(); // C
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Equip.internal_static_protocol_SC11102_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Equip.internal_static_protocol_SC11102_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Equip.SC11102.class, protocol.Equip.SC11102.Builder.class);
+    }
+
+    public static final int SLOTS_FIELD_NUMBER = 1;
+    private com.google.protobuf.Internal.IntList slots_;
+    /**
+     * <pre>
+     * 装备部位列表
+     * </pre>
+     *
+     * <code>repeated int32 slots = 1;</code>
+     * @return A list containing the slots.
+     */
+    public java.util.List<java.lang.Integer>
+        getSlotsList() {
+      return slots_;
+    }
+    /**
+     * <pre>
+     * 装备部位列表
+     * </pre>
+     *
+     * <code>repeated int32 slots = 1;</code>
+     * @return The count of slots.
+     */
+    public int getSlotsCount() {
+      return slots_.size();
+    }
+    /**
+     * <pre>
+     * 装备部位列表
+     * </pre>
+     *
+     * <code>repeated int32 slots = 1;</code>
+     * @param index The index of the element to return.
+     * @return The slots at the given index.
+     */
+    public int getSlots(int index) {
+      return slots_.getInt(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < slots_.size(); i++) {
+        output.writeInt32(1, slots_.getInt(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < slots_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(slots_.getInt(i));
+        }
+        size += dataSize;
+        size += 1 * getSlotsList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Equip.SC11102)) {
+        return super.equals(obj);
+      }
+      protocol.Equip.SC11102 other = (protocol.Equip.SC11102) obj;
+
+      if (!getSlotsList()
+          .equals(other.getSlotsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getSlotsCount() > 0) {
+        hash = (37 * hash) + SLOTS_FIELD_NUMBER;
+        hash = (53 * hash) + getSlotsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Equip.SC11102 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.SC11102 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.SC11102 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.SC11102 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.SC11102 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Equip.SC11102 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Equip.SC11102 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.SC11102 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Equip.SC11102 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.SC11102 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Equip.SC11102 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Equip.SC11102 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Equip.SC11102 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * 返回卸下装备
+     * </pre>
+     *
+     * Protobuf type {@code protocol.SC11102}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.SC11102)
+        protocol.Equip.SC11102OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Equip.internal_static_protocol_SC11102_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Equip.internal_static_protocol_SC11102_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Equip.SC11102.class, protocol.Equip.SC11102.Builder.class);
+      }
+
+      // Construct using protocol.Equip.SC11102.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        slots_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Equip.internal_static_protocol_SC11102_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Equip.SC11102 getDefaultInstanceForType() {
+        return protocol.Equip.SC11102.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Equip.SC11102 build() {
+        protocol.Equip.SC11102 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Equip.SC11102 buildPartial() {
+        protocol.Equip.SC11102 result = new protocol.Equip.SC11102(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          slots_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.slots_ = slots_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Equip.SC11102) {
+          return mergeFrom((protocol.Equip.SC11102)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Equip.SC11102 other) {
+        if (other == protocol.Equip.SC11102.getDefaultInstance()) return this;
+        if (!other.slots_.isEmpty()) {
+          if (slots_.isEmpty()) {
+            slots_ = other.slots_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureSlotsIsMutable();
+            slots_.addAll(other.slots_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Equip.SC11102 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Equip.SC11102) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.Internal.IntList slots_ = emptyIntList();
+      private void ensureSlotsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          slots_ = mutableCopy(slots_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <pre>
+       * 装备部位列表
+       * </pre>
+       *
+       * <code>repeated int32 slots = 1;</code>
+       * @return A list containing the slots.
+       */
+      public java.util.List<java.lang.Integer>
+          getSlotsList() {
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(slots_) : slots_;
+      }
+      /**
+       * <pre>
+       * 装备部位列表
+       * </pre>
+       *
+       * <code>repeated int32 slots = 1;</code>
+       * @return The count of slots.
+       */
+      public int getSlotsCount() {
+        return slots_.size();
+      }
+      /**
+       * <pre>
+       * 装备部位列表
+       * </pre>
+       *
+       * <code>repeated int32 slots = 1;</code>
+       * @param index The index of the element to return.
+       * @return The slots at the given index.
+       */
+      public int getSlots(int index) {
+        return slots_.getInt(index);
+      }
+      /**
+       * <pre>
+       * 装备部位列表
+       * </pre>
+       *
+       * <code>repeated int32 slots = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The slots to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSlots(
+          int index, int value) {
+        ensureSlotsIsMutable();
+        slots_.setInt(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备部位列表
+       * </pre>
+       *
+       * <code>repeated int32 slots = 1;</code>
+       * @param value The slots to add.
+       * @return This builder for chaining.
+       */
+      public Builder addSlots(int value) {
+        ensureSlotsIsMutable();
+        slots_.addInt(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备部位列表
+       * </pre>
+       *
+       * <code>repeated int32 slots = 1;</code>
+       * @param values The slots to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllSlots(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureSlotsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, slots_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 装备部位列表
+       * </pre>
+       *
+       * <code>repeated int32 slots = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSlots() {
+        slots_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.SC11102)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.SC11102)
+    private static final protocol.Equip.SC11102 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Equip.SC11102();
+    }
+
+    public static protocol.Equip.SC11102 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SC11102>
+        PARSER = new com.google.protobuf.AbstractParser<SC11102>() {
+      @java.lang.Override
+      public SC11102 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SC11102(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SC11102> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SC11102> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Equip.SC11102 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_protocol_EquipInfo_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_protocol_EquipInfo_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_EquipExtraInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_EquipExtraInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_protocol_SC11100_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_protocol_SC11100_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_CS11101_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_CS11101_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_SC11101_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_SC11101_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_CS11102_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_CS11102_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_SC11102_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_SC11102_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2142,11 +5665,16 @@ public final class Equip {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013equip.proto\022\010protocol\032\nbase.proto\"k\n\tE" +
-      "quipInfo\022\017\n\007equipId\030\001 \002(\005\022\026\n\016potentialGr" +
-      "ade\030\002 \002(\005\0225\n\025potentialAttributeMap\030\003 \003(\013" +
-      "2\026.protocol.AttributeMap\".\n\007SC11100\022#\n\006e" +
-      "quips\030\001 \003(\0132\023.protocol.EquipInfo"
+      "\n\013equip.proto\022\010protocol\032\nbase.proto\"Q\n\tE" +
+      "quipInfo\022\n\n\002id\030\001 \002(\003\022\017\n\007equipId\030\002 \002(\005\022\'\n" +
+      "\005extra\030\003 \002(\0132\030.protocol.EquipExtraInfo\"_" +
+      "\n\016EquipExtraInfo\022\026\n\016potentialGrade\030\001 \002(\005" +
+      "\0225\n\025potentialAttributeMap\030\002 \003(\0132\026.protoc" +
+      "ol.AttributeMap\".\n\007SC11100\022#\n\006equips\030\001 \003" +
+      "(\0132\023.protocol.EquipInfo\"\032\n\007CS11101\022\017\n\007we" +
+      "arIds\030\001 \003(\003\"\032\n\007SC11101\022\017\n\007wearIds\030\001 \003(\003\"" +
+      "\030\n\007CS11102\022\r\n\005slots\030\001 \003(\005\"\030\n\007SC11102\022\r\n\005" +
+      "slots\030\001 \003(\005"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2158,13 +5686,43 @@ public final class Equip {
     internal_static_protocol_EquipInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_EquipInfo_descriptor,
-        new java.lang.String[] { "EquipId", "PotentialGrade", "PotentialAttributeMap", });
-    internal_static_protocol_SC11100_descriptor =
+        new java.lang.String[] { "Id", "EquipId", "Extra", });
+    internal_static_protocol_EquipExtraInfo_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_protocol_EquipExtraInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_EquipExtraInfo_descriptor,
+        new java.lang.String[] { "PotentialGrade", "PotentialAttributeMap", });
+    internal_static_protocol_SC11100_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_protocol_SC11100_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_SC11100_descriptor,
         new java.lang.String[] { "Equips", });
+    internal_static_protocol_CS11101_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_protocol_CS11101_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_CS11101_descriptor,
+        new java.lang.String[] { "WearIds", });
+    internal_static_protocol_SC11101_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_protocol_SC11101_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_SC11101_descriptor,
+        new java.lang.String[] { "WearIds", });
+    internal_static_protocol_CS11102_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_protocol_CS11102_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_CS11102_descriptor,
+        new java.lang.String[] { "Slots", });
+    internal_static_protocol_SC11102_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_protocol_SC11102_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_SC11102_descriptor,
+        new java.lang.String[] { "Slots", });
     protocol.Base.getDescriptor();
   }
 

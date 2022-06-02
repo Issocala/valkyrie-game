@@ -1,0 +1,22 @@
+import "equip.proto";
+package protocol;
+
+// 背包信息
+message BagInfo 
+{
+    required int64 id             = 1; // 背包唯一ID
+    required int32 itemId         = 2; // 道具配置ID
+    optional EquipExtraInfo equip = 3; // 装备附加信息
+}
+
+// 推送背包列表
+message SC11200
+{
+    repeated BagInfo bags = 1; // 背包列表
+}
+
+// 推送增加的背包列表
+message SC11201
+{
+    repeated BagInfo bags = 1; // 增加的背包列表
+}

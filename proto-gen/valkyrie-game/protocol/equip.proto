@@ -4,13 +4,44 @@ package protocol;
 // 装备信息
 message EquipInfo 
 {
-    required int32 equipId                      = 1; // 装备配置ID
-    required int32 potentialGrade                = 2; // 装备潜能评级 (0未鉴定，1以上为评级)
-    repeated AttributeMap potentialAttributeMap = 3; // 装备潜能属性
+    required int64 id                           = 1; // 装备唯一ID
+    required int32 equipId                      = 2; // 装备配置ID
+    required EquipExtraInfo extra               = 3; // 装备附加信息
+}
+
+// 装备附加信息
+message EquipExtraInfo
+{
+    required int32 potentialGrade               = 1; // 装备潜能评级 (0未鉴定，1以上为评级)
+    repeated AttributeMap potentialAttributeMap = 2; // 装备潜能属性
 }
 
 // 推送已穿戴的装备列表
 message SC11100
 {
     repeated EquipInfo equips = 1; // 装备列表
+}
+
+// 请求穿戴装备
+message CS11101
+{
+    repeated int64 wearIds = 1; // 装备唯一ID列表
+}
+
+// 返回穿戴装备
+message SC11101
+{
+    repeated int64 wearIds  = 1; // 穿戴成功的ID列表
+}
+
+// 请求卸下装备
+message CS11102
+{
+    repeated int32 slots = 1; // 装备部位列表
+}
+
+// 返回卸下装备
+message SC11102
+{
+    repeated int32 slots = 1; // 装备部位列表
 }

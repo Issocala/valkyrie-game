@@ -682,6 +682,10 @@ public final class Buff {
         int index);
   }
   /**
+   * <pre>
+   *返回全部buff
+   * </pre>
+   *
    * Protobuf type {@code protocol.SC10070}
    */
   public  static final class SC10070 extends
@@ -1015,6 +1019,10 @@ public final class Buff {
       return builder;
     }
     /**
+     * <pre>
+     *返回全部buff
+     * </pre>
+     *
      * Protobuf type {@code protocol.SC10070}
      */
     public static final class Builder extends
@@ -1578,6 +1586,10 @@ public final class Buff {
     protocol.Buff.BuffInfoOrBuilder getBuffInfoOrBuilder();
   }
   /**
+   * <pre>
+   *返回新增buff
+   * </pre>
+   *
    * Protobuf type {@code protocol.SC10071}
    */
   public  static final class SC10071 extends
@@ -1904,6 +1916,10 @@ public final class Buff {
       return builder;
     }
     /**
+     * <pre>
+     *返回新增buff
+     * </pre>
+     *
      * Protobuf type {@code protocol.SC10071}
      */
     public static final class Builder extends
@@ -2324,6 +2340,10 @@ public final class Buff {
     protocol.Buff.BuffInfoOrBuilder getBuffInfoOrBuilder();
   }
   /**
+   * <pre>
+   *返回删除buff
+   * </pre>
+   *
    * Protobuf type {@code protocol.SC10072}
    */
   public  static final class SC10072 extends
@@ -2650,6 +2670,10 @@ public final class Buff {
       return builder;
     }
     /**
+     * <pre>
+     *返回删除buff
+     * </pre>
+     *
      * Protobuf type {@code protocol.SC10072}
      */
     public static final class Builder extends

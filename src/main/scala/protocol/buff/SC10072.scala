@@ -5,6 +5,8 @@
 
 package protocol.buff
 
+/** 返回删除buff
+  */
 @SerialVersionUID(0L)
 final case class SC10072(
     fightOrganismId: _root_.scala.Long,

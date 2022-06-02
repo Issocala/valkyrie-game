@@ -7881,6 +7881,25 @@ public final class Skill {
      */
     protocol.Skill.DamageDataOrBuilder getDamageDataOrBuilder(
         int index);
+
+    /**
+     * <pre>
+     *技能单位id
+     * </pre>
+     *
+     * <code>required int32 skillOrganismId = 5;</code>
+     * @return Whether the skillOrganismId field is set.
+     */
+    boolean hasSkillOrganismId();
+    /**
+     * <pre>
+     *技能单位id
+     * </pre>
+     *
+     * <code>required int32 skillOrganismId = 5;</code>
+     * @return The skillOrganismId.
+     */
+    int getSkillOrganismId();
   }
   /**
    * <pre>
@@ -7955,6 +7974,11 @@ public final class Skill {
               }
               damageData_.add(
                   input.readMessage(protocol.Skill.DamageData.PARSER, extensionRegistry));
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000008;
+              skillOrganismId_ = input.readInt32();
               break;
             }
             default: {
@@ -8123,6 +8147,31 @@ public final class Skill {
       return damageData_.get(index);
     }
 
+    public static final int SKILLORGANISMID_FIELD_NUMBER = 5;
+    private int skillOrganismId_;
+    /**
+     * <pre>
+     *技能单位id
+     * </pre>
+     *
+     * <code>required int32 skillOrganismId = 5;</code>
+     * @return Whether the skillOrganismId field is set.
+     */
+    public boolean hasSkillOrganismId() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <pre>
+     *技能单位id
+     * </pre>
+     *
+     * <code>required int32 skillOrganismId = 5;</code>
+     * @return The skillOrganismId.
+     */
+    public int getSkillOrganismId() {
+      return skillOrganismId_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -8139,6 +8188,10 @@ public final class Skill {
         return false;
       }
       if (!hasProcessId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSkillOrganismId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -8167,6 +8220,9 @@ public final class Skill {
       for (int i = 0; i < damageData_.size(); i++) {
         output.writeMessage(4, damageData_.get(i));
       }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        output.writeInt32(5, skillOrganismId_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -8191,6 +8247,10 @@ public final class Skill {
       for (int i = 0; i < damageData_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, damageData_.get(i));
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, skillOrganismId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -8224,6 +8284,11 @@ public final class Skill {
       }
       if (!getDamageDataList()
           .equals(other.getDamageDataList())) return false;
+      if (hasSkillOrganismId() != other.hasSkillOrganismId()) return false;
+      if (hasSkillOrganismId()) {
+        if (getSkillOrganismId()
+            != other.getSkillOrganismId()) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -8251,6 +8316,10 @@ public final class Skill {
       if (getDamageDataCount() > 0) {
         hash = (37 * hash) + DAMAGEDATA_FIELD_NUMBER;
         hash = (53 * hash) + getDamageDataList().hashCode();
+      }
+      if (hasSkillOrganismId()) {
+        hash = (37 * hash) + SKILLORGANISMID_FIELD_NUMBER;
+        hash = (53 * hash) + getSkillOrganismId();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -8402,6 +8471,8 @@ public final class Skill {
         } else {
           damageDataBuilder_.clear();
         }
+        skillOrganismId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -8450,6 +8521,10 @@ public final class Skill {
           result.damageData_ = damageData_;
         } else {
           result.damageData_ = damageDataBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.skillOrganismId_ = skillOrganismId_;
+          to_bitField0_ |= 0x00000008;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -8535,6 +8610,9 @@ public final class Skill {
             }
           }
         }
+        if (other.hasSkillOrganismId()) {
+          setSkillOrganismId(other.getSkillOrganismId());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -8549,6 +8627,9 @@ public final class Skill {
           return false;
         }
         if (!hasProcessId()) {
+          return false;
+        }
+        if (!hasSkillOrganismId()) {
           return false;
         }
         for (int i = 0; i < getDamageDataCount(); i++) {
@@ -9048,6 +9129,59 @@ public final class Skill {
           damageData_ = null;
         }
         return damageDataBuilder_;
+      }
+
+      private int skillOrganismId_ ;
+      /**
+       * <pre>
+       *技能单位id
+       * </pre>
+       *
+       * <code>required int32 skillOrganismId = 5;</code>
+       * @return Whether the skillOrganismId field is set.
+       */
+      public boolean hasSkillOrganismId() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <pre>
+       *技能单位id
+       * </pre>
+       *
+       * <code>required int32 skillOrganismId = 5;</code>
+       * @return The skillOrganismId.
+       */
+      public int getSkillOrganismId() {
+        return skillOrganismId_;
+      }
+      /**
+       * <pre>
+       *技能单位id
+       * </pre>
+       *
+       * <code>required int32 skillOrganismId = 5;</code>
+       * @param value The skillOrganismId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSkillOrganismId(int value) {
+        bitField0_ |= 0x00000010;
+        skillOrganismId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *技能单位id
+       * </pre>
+       *
+       * <code>required int32 skillOrganismId = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSkillOrganismId() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        skillOrganismId_ = 0;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -10694,6 +10828,63 @@ public final class Skill {
      * @return The skillOrganismId.
      */
     int getSkillOrganismId();
+
+    /**
+     * <pre>
+     *技能步骤横坐标
+     * </pre>
+     *
+     * <code>optional float skillPositionX = 5;</code>
+     * @return Whether the skillPositionX field is set.
+     */
+    boolean hasSkillPositionX();
+    /**
+     * <pre>
+     *技能步骤横坐标
+     * </pre>
+     *
+     * <code>optional float skillPositionX = 5;</code>
+     * @return The skillPositionX.
+     */
+    float getSkillPositionX();
+
+    /**
+     * <pre>
+     *技能步骤纵坐标
+     * </pre>
+     *
+     * <code>optional float skillPositionY = 6;</code>
+     * @return Whether the skillPositionY field is set.
+     */
+    boolean hasSkillPositionY();
+    /**
+     * <pre>
+     *技能步骤纵坐标
+     * </pre>
+     *
+     * <code>optional float skillPositionY = 6;</code>
+     * @return The skillPositionY.
+     */
+    float getSkillPositionY();
+
+    /**
+     * <pre>
+     *技能id
+     * </pre>
+     *
+     * <code>required int32 skillId = 7;</code>
+     * @return Whether the skillId field is set.
+     */
+    boolean hasSkillId();
+    /**
+     * <pre>
+     *技能id
+     * </pre>
+     *
+     * <code>required int32 skillId = 7;</code>
+     * @return The skillId.
+     */
+    int getSkillId();
   }
   /**
    * <pre>
@@ -10780,6 +10971,21 @@ public final class Skill {
             case 32: {
               bitField0_ |= 0x00000004;
               skillOrganismId_ = input.readInt32();
+              break;
+            }
+            case 45: {
+              bitField0_ |= 0x00000008;
+              skillPositionX_ = input.readFloat();
+              break;
+            }
+            case 53: {
+              bitField0_ |= 0x00000010;
+              skillPositionY_ = input.readFloat();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000020;
+              skillId_ = input.readInt32();
               break;
             }
             default: {
@@ -10932,6 +11138,81 @@ public final class Skill {
       return skillOrganismId_;
     }
 
+    public static final int SKILLPOSITIONX_FIELD_NUMBER = 5;
+    private float skillPositionX_;
+    /**
+     * <pre>
+     *技能步骤横坐标
+     * </pre>
+     *
+     * <code>optional float skillPositionX = 5;</code>
+     * @return Whether the skillPositionX field is set.
+     */
+    public boolean hasSkillPositionX() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <pre>
+     *技能步骤横坐标
+     * </pre>
+     *
+     * <code>optional float skillPositionX = 5;</code>
+     * @return The skillPositionX.
+     */
+    public float getSkillPositionX() {
+      return skillPositionX_;
+    }
+
+    public static final int SKILLPOSITIONY_FIELD_NUMBER = 6;
+    private float skillPositionY_;
+    /**
+     * <pre>
+     *技能步骤纵坐标
+     * </pre>
+     *
+     * <code>optional float skillPositionY = 6;</code>
+     * @return Whether the skillPositionY field is set.
+     */
+    public boolean hasSkillPositionY() {
+      return ((bitField0_ & 0x00000010) != 0);
+    }
+    /**
+     * <pre>
+     *技能步骤纵坐标
+     * </pre>
+     *
+     * <code>optional float skillPositionY = 6;</code>
+     * @return The skillPositionY.
+     */
+    public float getSkillPositionY() {
+      return skillPositionY_;
+    }
+
+    public static final int SKILLID_FIELD_NUMBER = 7;
+    private int skillId_;
+    /**
+     * <pre>
+     *技能id
+     * </pre>
+     *
+     * <code>required int32 skillId = 7;</code>
+     * @return Whether the skillId field is set.
+     */
+    public boolean hasSkillId() {
+      return ((bitField0_ & 0x00000020) != 0);
+    }
+    /**
+     * <pre>
+     *技能id
+     * </pre>
+     *
+     * <code>required int32 skillId = 7;</code>
+     * @return The skillId.
+     */
+    public int getSkillId() {
+      return skillId_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -10948,6 +11229,10 @@ public final class Skill {
         return false;
       }
       if (!hasSkillOrganismId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSkillId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -10974,6 +11259,15 @@ public final class Skill {
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         output.writeInt32(4, skillOrganismId_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        output.writeFloat(5, skillPositionX_);
+      }
+      if (((bitField0_ & 0x00000010) != 0)) {
+        output.writeFloat(6, skillPositionY_);
+      }
+      if (((bitField0_ & 0x00000020) != 0)) {
+        output.writeInt32(7, skillId_);
       }
       unknownFields.writeTo(output);
     }
@@ -11010,6 +11304,18 @@ public final class Skill {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(4, skillOrganismId_);
       }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(5, skillPositionX_);
+      }
+      if (((bitField0_ & 0x00000010) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(6, skillPositionY_);
+      }
+      if (((bitField0_ & 0x00000020) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, skillId_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -11042,6 +11348,23 @@ public final class Skill {
         if (getSkillOrganismId()
             != other.getSkillOrganismId()) return false;
       }
+      if (hasSkillPositionX() != other.hasSkillPositionX()) return false;
+      if (hasSkillPositionX()) {
+        if (java.lang.Float.floatToIntBits(getSkillPositionX())
+            != java.lang.Float.floatToIntBits(
+                other.getSkillPositionX())) return false;
+      }
+      if (hasSkillPositionY() != other.hasSkillPositionY()) return false;
+      if (hasSkillPositionY()) {
+        if (java.lang.Float.floatToIntBits(getSkillPositionY())
+            != java.lang.Float.floatToIntBits(
+                other.getSkillPositionY())) return false;
+      }
+      if (hasSkillId() != other.hasSkillId()) return false;
+      if (hasSkillId()) {
+        if (getSkillId()
+            != other.getSkillId()) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -11069,6 +11392,20 @@ public final class Skill {
       if (hasSkillOrganismId()) {
         hash = (37 * hash) + SKILLORGANISMID_FIELD_NUMBER;
         hash = (53 * hash) + getSkillOrganismId();
+      }
+      if (hasSkillPositionX()) {
+        hash = (37 * hash) + SKILLPOSITIONX_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getSkillPositionX());
+      }
+      if (hasSkillPositionY()) {
+        hash = (37 * hash) + SKILLPOSITIONY_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getSkillPositionY());
+      }
+      if (hasSkillId()) {
+        hash = (37 * hash) + SKILLID_FIELD_NUMBER;
+        hash = (53 * hash) + getSkillId();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -11215,6 +11552,12 @@ public final class Skill {
         bitField0_ = (bitField0_ & ~0x00000004);
         skillOrganismId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
+        skillPositionX_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        skillPositionY_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        skillId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
 
@@ -11259,6 +11602,18 @@ public final class Skill {
         if (((from_bitField0_ & 0x00000008) != 0)) {
           result.skillOrganismId_ = skillOrganismId_;
           to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.skillPositionX_ = skillPositionX_;
+          to_bitField0_ |= 0x00000008;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.skillPositionY_ = skillPositionY_;
+          to_bitField0_ |= 0x00000010;
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.skillId_ = skillId_;
+          to_bitField0_ |= 0x00000020;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -11328,6 +11683,15 @@ public final class Skill {
         if (other.hasSkillOrganismId()) {
           setSkillOrganismId(other.getSkillOrganismId());
         }
+        if (other.hasSkillPositionX()) {
+          setSkillPositionX(other.getSkillPositionX());
+        }
+        if (other.hasSkillPositionY()) {
+          setSkillPositionY(other.getSkillPositionY());
+        }
+        if (other.hasSkillId()) {
+          setSkillId(other.getSkillId());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -11342,6 +11706,9 @@ public final class Skill {
           return false;
         }
         if (!hasSkillOrganismId()) {
+          return false;
+        }
+        if (!hasSkillId()) {
           return false;
         }
         return true;
@@ -11629,6 +11996,165 @@ public final class Skill {
       public Builder clearSkillOrganismId() {
         bitField0_ = (bitField0_ & ~0x00000008);
         skillOrganismId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private float skillPositionX_ ;
+      /**
+       * <pre>
+       *技能步骤横坐标
+       * </pre>
+       *
+       * <code>optional float skillPositionX = 5;</code>
+       * @return Whether the skillPositionX field is set.
+       */
+      public boolean hasSkillPositionX() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <pre>
+       *技能步骤横坐标
+       * </pre>
+       *
+       * <code>optional float skillPositionX = 5;</code>
+       * @return The skillPositionX.
+       */
+      public float getSkillPositionX() {
+        return skillPositionX_;
+      }
+      /**
+       * <pre>
+       *技能步骤横坐标
+       * </pre>
+       *
+       * <code>optional float skillPositionX = 5;</code>
+       * @param value The skillPositionX to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSkillPositionX(float value) {
+        bitField0_ |= 0x00000010;
+        skillPositionX_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *技能步骤横坐标
+       * </pre>
+       *
+       * <code>optional float skillPositionX = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSkillPositionX() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        skillPositionX_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float skillPositionY_ ;
+      /**
+       * <pre>
+       *技能步骤纵坐标
+       * </pre>
+       *
+       * <code>optional float skillPositionY = 6;</code>
+       * @return Whether the skillPositionY field is set.
+       */
+      public boolean hasSkillPositionY() {
+        return ((bitField0_ & 0x00000020) != 0);
+      }
+      /**
+       * <pre>
+       *技能步骤纵坐标
+       * </pre>
+       *
+       * <code>optional float skillPositionY = 6;</code>
+       * @return The skillPositionY.
+       */
+      public float getSkillPositionY() {
+        return skillPositionY_;
+      }
+      /**
+       * <pre>
+       *技能步骤纵坐标
+       * </pre>
+       *
+       * <code>optional float skillPositionY = 6;</code>
+       * @param value The skillPositionY to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSkillPositionY(float value) {
+        bitField0_ |= 0x00000020;
+        skillPositionY_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *技能步骤纵坐标
+       * </pre>
+       *
+       * <code>optional float skillPositionY = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSkillPositionY() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        skillPositionY_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private int skillId_ ;
+      /**
+       * <pre>
+       *技能id
+       * </pre>
+       *
+       * <code>required int32 skillId = 7;</code>
+       * @return Whether the skillId field is set.
+       */
+      public boolean hasSkillId() {
+        return ((bitField0_ & 0x00000040) != 0);
+      }
+      /**
+       * <pre>
+       *技能id
+       * </pre>
+       *
+       * <code>required int32 skillId = 7;</code>
+       * @return The skillId.
+       */
+      public int getSkillId() {
+        return skillId_;
+      }
+      /**
+       * <pre>
+       *技能id
+       * </pre>
+       *
+       * <code>required int32 skillId = 7;</code>
+       * @param value The skillId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSkillId(int value) {
+        bitField0_ |= 0x00000040;
+        skillId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *技能id
+       * </pre>
+       *
+       * <code>required int32 skillId = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSkillId() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        skillId_ = 0;
         onChanged();
         return this;
       }
@@ -12857,18 +13383,20 @@ public final class Skill {
       "killOrganismId\030\010 \002(\005\"u\n\007CS10053\022\027\n\017fight" +
       "OrganismId\030\001 \002(\003\022\017\n\007skillId\030\002 \002(\005\022\024\n\010tar" +
       "getId\030\003 \003(\003B\002\020\001\022\021\n\ttimestamp\030\004 \001(\003\022\027\n\017sk" +
-      "illOrganismId\030\005 \002(\005\"i\n\007SC10053\022\017\n\007skillI" +
-      "d\030\001 \002(\005\022\020\n\010attackId\030\002 \002(\003\022\021\n\tprocessId\030\003" +
-      " \002(\005\022(\n\ndamageData\030\004 \003(\0132\024.protocol.Dama" +
-      "geData\"3\n\007CS10054\022\017\n\007skillId\030\001 \002(\005\022\027\n\017sk" +
-      "illOrganismId\030\002 \002(\005\"E\n\007SC10054\022\017\n\007skillI" +
-      "d\030\001 \002(\005\022\020\n\010attackId\030\002 \002(\003\022\027\n\017skillOrgani" +
-      "smId\030\003 \002(\005\"i\n\007CS10055\022\027\n\017fightOrganismId" +
-      "\030\001 \002(\003\022\026\n\016skillProcessId\030\002 \002(\005\022\024\n\010target" +
-      "Id\030\003 \003(\003B\002\020\001\022\027\n\017skillOrganismId\030\004 \002(\005\"i\n" +
-      "\007SC10055\022\027\n\017fightOrganismId\030\001 \002(\003\022\026\n\016ski" +
+      "illOrganismId\030\005 \002(\005\"\202\001\n\007SC10053\022\017\n\007skill" +
+      "Id\030\001 \002(\005\022\020\n\010attackId\030\002 \002(\003\022\021\n\tprocessId\030" +
+      "\003 \002(\005\022(\n\ndamageData\030\004 \003(\0132\024.protocol.Dam" +
+      "ageData\022\027\n\017skillOrganismId\030\005 \002(\005\"3\n\007CS10" +
+      "054\022\017\n\007skillId\030\001 \002(\005\022\027\n\017skillOrganismId\030" +
+      "\002 \002(\005\"E\n\007SC10054\022\017\n\007skillId\030\001 \002(\005\022\020\n\010att" +
+      "ackId\030\002 \002(\003\022\027\n\017skillOrganismId\030\003 \002(\005\"\252\001\n" +
+      "\007CS10055\022\027\n\017fightOrganismId\030\001 \002(\003\022\026\n\016ski" +
       "llProcessId\030\002 \002(\005\022\024\n\010targetId\030\003 \003(\003B\002\020\001\022" +
-      "\027\n\017skillOrganismId\030\004 \002(\005"
+      "\027\n\017skillOrganismId\030\004 \002(\005\022\026\n\016skillPositio" +
+      "nX\030\005 \001(\002\022\026\n\016skillPositionY\030\006 \001(\002\022\017\n\007skil" +
+      "lId\030\007 \002(\005\"i\n\007SC10055\022\027\n\017fightOrganismId\030" +
+      "\001 \002(\003\022\026\n\016skillProcessId\030\002 \002(\005\022\024\n\010targetI" +
+      "d\030\003 \003(\003B\002\020\001\022\027\n\017skillOrganismId\030\004 \002(\005"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -12927,7 +13455,7 @@ public final class Skill {
     internal_static_protocol_SC10053_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_SC10053_descriptor,
-        new java.lang.String[] { "SkillId", "AttackId", "ProcessId", "DamageData", });
+        new java.lang.String[] { "SkillId", "AttackId", "ProcessId", "DamageData", "SkillOrganismId", });
     internal_static_protocol_CS10054_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_protocol_CS10054_fieldAccessorTable = new
@@ -12945,7 +13473,7 @@ public final class Skill {
     internal_static_protocol_CS10055_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_CS10055_descriptor,
-        new java.lang.String[] { "FightOrganismId", "SkillProcessId", "TargetId", "SkillOrganismId", });
+        new java.lang.String[] { "FightOrganismId", "SkillProcessId", "TargetId", "SkillOrganismId", "SkillPositionX", "SkillPositionY", "SkillId", });
     internal_static_protocol_SC10055_descriptor =
       getDescriptor().getMessageTypes().get(12);
     internal_static_protocol_SC10055_fieldAccessorTable = new

@@ -6,6 +6,8 @@
 package protocol.buff
 import _root_.scalapb.internal.compat.JavaConverters._
 
+/** 返回全部buff
+  */
 @SerialVersionUID(0L)
 final case class SC10070(
     organismId: _root_.scala.Long,
