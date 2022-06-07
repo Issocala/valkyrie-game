@@ -6,6 +6,7 @@ package application.util;
  * @Source 1.0
  */
 public interface ApplicationErrorCode {
+    int CODE_ERROR = -1;
     //蓝量或血量不足
     int USE_SKILL_HP_MP = 10001;
     //当前状态不能使用技能

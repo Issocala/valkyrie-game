@@ -54,7 +54,7 @@ public class SceneEntity extends AbstractEntityBase {
             return this;
         }
 
-        public Builder setPositionInfo(Vector3 v) {
+        public Builder setPoint(Vector3 v) {
             this.point = v;
             return this;
         }

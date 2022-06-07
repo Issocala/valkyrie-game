@@ -1,7 +1,7 @@
 package application.module.common;
 
 import akka.actor.ActorRef;
-import application.module.common.data.domain.DataMessage;
+import application.module.common.data.entity.DataMessage;
 import application.module.player.data.PlayerEntityData;
 import application.module.player.data.message.event.PlayerLogin;
 import com.cala.orm.message.DataReturnMessage;

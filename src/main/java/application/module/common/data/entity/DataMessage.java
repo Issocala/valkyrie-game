@@ -1,4 +1,4 @@
-package application.module.common.data.domain;
+package application.module.common.data.entity;
 
 import akka.actor.ActorRef;
 

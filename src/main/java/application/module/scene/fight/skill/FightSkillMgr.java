@@ -2,8 +2,9 @@ package application.module.scene.fight.skill;
 
 import akka.actor.ActorRef;
 import application.condition.Condition;
-import application.condition.ConditionContainer;
-import application.condition.ConditionContext;
+import application.condition.core.ConditionBase;
+import application.condition.core.ConditionContext;
+import application.condition.util.ConditionParser;
 import application.module.common.CommonProtocolBuilder;
 import application.module.common.CommonProtocols;
 import application.module.organism.FightOrganism;
@@ -24,6 +25,7 @@ import application.module.scene.fight.skill.base.skill.FightSkillWrap;
 import application.module.scene.fight.skill.base.skill.FightSkillWrapContainer;
 import application.module.scene.fight.skill.util.PassiveTriggerType;
 import application.module.scene.fight.skill.util.SkillType;
+import application.util.ApplicationCode;
 import application.util.ApplicationErrorCode;
 import application.util.RandomUtil;
 import application.util.StringUtils;
@@ -178,13 +180,11 @@ public class FightSkillMgr {
                 if (RandomUtil.randomInt10000() >= template.weight()) {
                     continue;
                 }
-                if (!StringUtils.isEmpty(template.condition())) {
-                    String[] ss = StringUtils.toStringArray(template.condition());
-                    short id = Short.parseShort(ss[0]);
-                    Condition condition = ConditionContainer.parseCondition(id, ss);
+                if (StringUtils.isNotEmpty(template.condition())) {
+                    ConditionBase condition = ConditionParser.parseCondition(template.condition());
                     ConditionContext conditionContext = new ConditionContext();
                     conditionContext.put(UseSkillDataTemp.class.getSimpleName(), useSkillDataTemp);
-                    if (!condition.doValid(conditionContext)) {
+                    if (condition.eligibleTo(conditionContext) != ApplicationCode.CODE_SUCCESS) {
                         continue;
                     }
                 }

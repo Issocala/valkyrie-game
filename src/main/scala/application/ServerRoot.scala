@@ -3,7 +3,7 @@ package application
 import akka.actor.{Actor, ActorRef, Props}
 import application.ServerRoot.MainMessage
 import application.client.ClientAgent
-import application.condition.ConditionContainer
+import application.condition.util.ConditionItemMgr
 import application.data.{ActorDataDispatcher, DataAgent}
 import application.db.DataBaseAgent
 import application.module.ModuleAgent
@@ -53,7 +53,7 @@ class ServerRoot extends Actor with LogActor {
   def loadData(): Unit = {
     //策划配置数据加载
     StaticConfigLoad.init()
-    ConditionContainer.register()
+    ConditionItemMgr.getInstance().register()
     AttributeRegister.register()
     FightSkillFunctionContainer.registerSkillAndPassive()
     FightBuffFunctionContainer.register()

@@ -2,7 +2,7 @@ package application.module.user;
 
 import akka.actor.ActorRef;
 import application.guid.IdUtils;
-import application.module.common.data.domain.DataMessage;
+import application.module.common.data.entity.DataMessage;
 import application.module.user.data.UserData;
 import application.module.user.data.entity.User;
 import application.module.user.data.message.UserGetByAccount;

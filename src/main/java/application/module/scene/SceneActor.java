@@ -116,6 +116,7 @@ public class SceneActor extends AbstractLogActor {
             playerFight.getPlayerActor().tell(new PlayerEntryErrorOpt(playerFight.getId(), newSceneId), self());
             return;
         }
+        // TODO: 2022-6-7 需要根据要进入的场景id进行条件校验
         scenePlayerExit(playerFight);
         ActorRef newScene = getSceneActor(newSceneId);
         newScene.tell(new ScenePlayerEntryWrap(playerFight), self());

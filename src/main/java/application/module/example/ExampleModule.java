@@ -1,7 +1,7 @@
 package application.module.example;
 
 import akka.actor.ActorRef;
-import application.module.common.data.domain.DataMessage;
+import application.module.common.data.entity.DataMessage;
 import application.module.example.operate.GetType;
 import application.module.example.operate.SaveType;
 import application.module.player.data.entity.PlayerEntity;

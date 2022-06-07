@@ -1,14 +1,15 @@
 package application.condition;
 
-/**
- * @author Luo Yong
- * @date 2022-5-6
- * @Source 1.0
- */
-public interface Condition {
+import java.util.Collection;
 
-    boolean doValid(ConditionContext conditionContext);
+public interface Condition<T> {
+	int eligibleTo(T t);
 
-    void parse(String[] ss);
+	int eligibleToOr(T t);
 
+	void addConditionItem(ConditionItem<T> conditionItem);
+
+    boolean isEmpty();
+
+	Collection<ConditionItem<T>> getConditions();
 }

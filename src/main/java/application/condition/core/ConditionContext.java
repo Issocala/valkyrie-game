@@ -1,4 +1,4 @@
-package application.condition;
+package application.condition.core;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,4 +20,7 @@ public class ConditionContext {
         return this.stringObjectMap.get(key);
     }
 
+    public boolean containsKey(String name) {
+        return stringObjectMap.containsKey(name);
+    }
 }

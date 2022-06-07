@@ -2,7 +2,7 @@ package application.data;
 
 import akka.actor.*;
 import akka.japi.pf.DeciderBuilder;
-import application.module.common.data.domain.DataMessage;
+import application.module.common.data.entity.DataMessage;
 import application.module.player.data.PlayerEntityData;
 import application.module.player.fight.attribute.data.AttributeData;
 import application.module.player.fight.buff.data.FightBuffData;

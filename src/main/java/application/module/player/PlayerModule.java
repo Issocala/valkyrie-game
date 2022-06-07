@@ -2,9 +2,8 @@ package application.module.player;
 
 import akka.actor.ActorRef;
 import application.guid.IdUtils;
-import application.module.common.data.domain.DataMessage;
+import application.module.common.data.entity.DataMessage;
 import application.module.player.operate.PlayerRemovePlayerActor;
-import application.module.player.fight.attribute.data.AttributeData;
 import application.module.player.data.PlayerEntityData;
 import application.module.player.data.entity.PlayerData;
 import application.module.player.data.entity.PlayerEntity;
@@ -14,7 +13,6 @@ import application.module.player.data.message.event.PlayerLogout;
 import application.module.player.data.message.event.PlayerRegister;
 import application.module.player.operate.*;
 import application.module.player.operate.info.PlayerOperateTypeInfo;
-import application.module.scene.data.SceneData;
 import application.module.scene.operate.event.CreatePlayerEntitiesAfter;
 import application.util.CommonOperateTypeInfo;
 import com.cala.orm.cache.message.DataGet;

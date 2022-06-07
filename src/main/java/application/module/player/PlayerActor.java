@@ -2,7 +2,7 @@ package application.module.player;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
-import application.module.common.data.domain.DataMessage;
+import application.module.common.data.entity.DataMessage;
 import application.module.organism.PlayerFight;
 import application.module.player.data.entity.PlayerEntity;
 import application.module.player.data.message.event.PlayerLogout;

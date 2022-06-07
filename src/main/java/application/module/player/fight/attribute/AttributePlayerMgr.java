@@ -78,7 +78,7 @@ public class AttributePlayerMgr implements PlayerMgr {
         FightAttributeMgr.doAddAttribute(allTemplateAttributeMap, id2FightAttributeMap);
 
         if (isSendFighting) {
-            calculateAllFighting();
+            calculateAllFighting(player);
         }
     }
 
@@ -86,7 +86,7 @@ public class AttributePlayerMgr implements PlayerMgr {
     /**
      * 计算更新战力
      */
-    public long calculateAllFighting() {
+    public long calculateAllFighting(Player player) {
         // TODO: 2022-6-2 需要添加处理发送战力给客户端
         long fighting = calculateAllFighting(allTemplateAttributeMap);
         return fighting;

@@ -1,7 +1,7 @@
 package application.module.scene;
 
 import akka.actor.ActorRef;
-import application.module.common.data.domain.DataMessage;
+import application.module.common.data.entity.DataMessage;
 import application.module.player.data.message.event.PlayerLogin;
 import application.module.player.fight.attribute.data.message.PlayerDead;
 import application.module.scene.data.SceneData;
