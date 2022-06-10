@@ -1,17 +1,14 @@
 package application.condition.util;
 
 import application.condition.ConditionItem;
-import application.condition.annotation.ConditionImpl;
 import application.condition.core.ConditionBase;
 import application.condition.core.ConditionContext;
-import application.condition.core.AbstractConditionItem;
 import application.util.DebugUtil;
 import application.util.StringUtils;
 import com.cala.orm.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
@@ -31,7 +28,7 @@ public final class ConditionParser {
                 ConditionItem<ConditionContext> item = (ConditionItem<ConditionContext>) clazz.getDeclaredConstructor().newInstance();
                 item.parser(itemData.getSecond());
                 return item;
-            } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e ) {
+            } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
                 LOGGER.error("reflect condition error!!! type:{}", type);
                 LOGGER.error("impl:{}", clazz.getSimpleName());
                 LOGGER.error("call stack:{}", DebugUtil.printStack(e));
