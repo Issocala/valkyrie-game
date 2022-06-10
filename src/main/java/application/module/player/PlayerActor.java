@@ -38,7 +38,7 @@ public class PlayerActor extends AbstractLogActor {
         this.playerEntity = playerEntity;
     }
 
-    public static Props props(PlayerEntity playerEntity) {
+    public static Props create(PlayerEntity playerEntity) {
         return Props.create(PlayerActor.class, playerEntity);
     }
 

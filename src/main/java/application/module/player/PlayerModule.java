@@ -217,7 +217,7 @@ public class PlayerModule extends AbstractModule {
         if (Objects.nonNull(oldPlayerActor)) {
             getContext().stop(oldPlayerActor);
         }
-        ActorRef playerActor = getContext().actorOf(PlayerActor.props(playerEntity));
+        ActorRef playerActor = getContext().actorOf(PlayerActor.create(playerEntity));
         playerActorMap.values().forEach(playerActor1 -> playerActor1.tell(new PlayerAddPlayerActor(playerId, playerActor), self()));
         playerActorMap.put(playerId, playerActor);
         playerActor.tell(new PlayerInit(r.client(), getDataMap(), new HashMap<>(this.playerActorMap)), self());
