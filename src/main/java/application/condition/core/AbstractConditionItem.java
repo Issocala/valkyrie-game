@@ -7,7 +7,6 @@ import application.condition.ConditionItem;
  * @date 2022-6-7
  * @Source 1.0
  */
-public abstract class ConditionItemBase implements ConditionItem<ConditionContext> {
+public abstract class AbstractConditionItem implements ConditionItem<ConditionContext> {
 
-    protected short id;
 }

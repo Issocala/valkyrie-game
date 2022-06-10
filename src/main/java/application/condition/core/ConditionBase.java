@@ -37,8 +37,6 @@ public final class ConditionBase implements Condition<ConditionContext> {
         int error = -1;
         for (ConditionItem<ConditionContext> conditionItem : items) {
             int code = conditionItem.eligibleTo(context);
-            if (Logger.isDebugEnabled()) {
-            }
             if (code == ApplicationCode.CODE_SUCCESS) {
                 return ApplicationCode.CODE_SUCCESS;
             }

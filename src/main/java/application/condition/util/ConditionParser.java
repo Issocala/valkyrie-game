@@ -4,7 +4,7 @@ import application.condition.ConditionItem;
 import application.condition.annotation.ConditionImpl;
 import application.condition.core.ConditionBase;
 import application.condition.core.ConditionContext;
-import application.condition.core.ConditionItemBase;
+import application.condition.core.AbstractConditionItem;
 import application.util.DebugUtil;
 import application.util.StringUtils;
 import com.cala.orm.util.Pair;
@@ -13,9 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Objects;
 
 @SuppressWarnings("rawtypes")
 public final class ConditionParser {
@@ -31,7 +29,6 @@ public final class ConditionParser {
             try {
                 @SuppressWarnings("unchecked")
                 ConditionItem<ConditionContext> item = (ConditionItem<ConditionContext>) clazz.getDeclaredConstructor().newInstance();
-                setIdToItem(clazz, item);
                 item.parser(itemData.getSecond());
                 return item;
             } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e ) {
@@ -41,20 +38,6 @@ public final class ConditionParser {
             }
         }
         return null;
-    }
-
-
-    private static void setIdToItem(Class<?> clazz, ConditionItem<ConditionContext> item) throws IllegalAccessException {
-        final ConditionImpl annotation = clazz.getAnnotation(ConditionImpl.class);
-        if (annotation != null) {
-            try {
-                final Field id = ConditionItemBase.class.getDeclaredField("id");
-                id.setAccessible(true);
-                id.setShort(item, annotation.id());
-            } catch (NoSuchFieldException e) {
-                LOGGER.error("can not set id to item,{}", DebugUtil.printStack(e));
-            }
-        }
     }
 
     public static ConditionBase parseCondition(String conditionData) {
@@ -74,7 +57,18 @@ public final class ConditionParser {
         return condition;
     }
 
-    private ConditionParser() {
+    public static ConditionBase parseCondition(String[][] conditionData) {
+        final ConditionBase condition = new ConditionBase();
+        if (Objects.isNull(conditionData) || conditionData.length == 0) {
+            return condition;
+        }
+        for (int i = 0; i < conditionData.length; i += 2) {
+            Pair<Short, String> pair = new Pair<>(Short.parseShort(conditionData[i][0]), conditionData[i][1]);
+            final ConditionItem<ConditionContext> conditionItem = parseConditionItem(pair);
+            if (conditionItem != null) {
+                condition.addConditionItem(conditionItem);
+            }
+        }
+        return condition;
     }
-
 }

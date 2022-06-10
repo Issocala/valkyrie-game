@@ -1,9 +1,9 @@
 package application.condition.impl;
 
-import application.condition.Condition;
-import application.condition.ConditionItem;
+import application.condition.annotation.ConditionImpl;
+import application.condition.constant.ConditionItemType;
+import application.condition.core.AbstractConditionItem;
 import application.condition.core.ConditionContext;
-import application.condition.core.ConditionItemBase;
 import application.module.scene.fight.skill.base.context.UseSkillDataTemp;
 import application.util.ApplicationCode;
 import application.util.ApplicationErrorCode;
@@ -15,7 +15,8 @@ import template.FightSkillTemplateHolder;
  * @date 2022-5-6
  * @Source 1.0
  */
-public class NormalAttackCondition extends ConditionItemBase {
+@ConditionImpl(id = ConditionItemType.NORMAL_ATTACK)
+public class NormalAttackCondition extends AbstractConditionItem {
 
     @Override
     public int eligibleTo(ConditionContext conditionContext) {
