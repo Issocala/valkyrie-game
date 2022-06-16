@@ -3,6 +3,7 @@ package application.condition.core;
 import application.condition.Condition;
 import application.condition.ConditionItem;
 import application.util.ApplicationCode;
+import application.util.ApplicationErrorCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,57 +15,57 @@ public final class ConditionBase implements Condition<ConditionContext> {
 
     private static final Logger Logger = LoggerFactory.getLogger(ConditionBase.class.getSimpleName());
 
-    private final List<ConditionItem<ConditionContext>> items = new ArrayList<>();
+    private final List<List<ConditionItem<ConditionContext>>> itemList = new ArrayList<>();
+
+    //缓存一个空对象，其他地方可以复用，避免到处创建
+    private static final ConditionBase INSTANCE = new ConditionBase();
+
+    public static ConditionBase of() {
+        return new ConditionBase();
+    }
 
     @Override
     public int eligibleTo(ConditionContext context) {
-        for (ConditionItem<ConditionContext> conditionItem : items) {
-            try {
-                int code = conditionItem.eligibleTo(context);
-                if (code != ApplicationCode.CODE_SUCCESS) {
-                    return code;
+        for (List<ConditionItem<ConditionContext>> conditionItems : itemList) {
+            int code = ApplicationErrorCode.CODE_ERROR;
+            for (ConditionItem<ConditionContext> conditionItem : conditionItems) {
+                try {
+                    code = conditionItem.eligibleTo(context);
+                    if (code != ApplicationCode.CODE_SUCCESS) {
+                        break;
+                    }
+                } catch (Exception e) {
+                    Logger.error("condition {} error", conditionItem.getClass().getSimpleName());
+                    return -1;
                 }
-            } catch (Exception e) {
-                Logger.error("condition {} error", conditionItem.getClass().getSimpleName());
-                return -1;
+            }
+            if (code == ApplicationCode.CODE_SUCCESS) {
+                return ApplicationCode.CODE_SUCCESS;
             }
         }
         return ApplicationCode.CODE_SUCCESS;
     }
 
-    @Override
-    public int eligibleToOr(ConditionContext context) {
-        int error = -1;
-        for (ConditionItem<ConditionContext> conditionItem : items) {
-            int code = conditionItem.eligibleTo(context);
-            if (code == ApplicationCode.CODE_SUCCESS) {
-                return ApplicationCode.CODE_SUCCESS;
-            }
-            error = code;
-        }
-        return error;
-    }
-
-    public void addConditionItem(ConditionItem<ConditionContext> conditionItem) {
-        items.add(conditionItem);
+    public void addConditionItem(List<ConditionItem<ConditionContext>> conditionItem) {
+        itemList.add(conditionItem);
     }
 
     @Override
     public boolean isEmpty() {
-        return items.isEmpty();
-    }
-
-    public List<ConditionItem<ConditionContext>> getItems() {
-        return items;
+        return itemList.isEmpty();
     }
 
     @Override
-    public Collection<ConditionItem<ConditionContext>> getConditions() {
-        return items;
+    public Collection<List<ConditionItem<ConditionContext>>> getConditions() {
+        return itemList;
+    }
+
+    public static ConditionBase getInstance() {
+        return INSTANCE;
     }
 
     @Override
     public String toString() {
-        return "ConditionBase [items=" + items + "]";
+        return "ConditionBase [items=" + itemList + "]";
     }
 }

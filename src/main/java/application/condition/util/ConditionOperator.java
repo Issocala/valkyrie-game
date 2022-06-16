@@ -21,14 +21,18 @@ public class ConditionOperator {
         return RuntimeResult.ok();
     }
 
-
-    public static RuntimeResult eligibleToOr(Condition<ConditionContext> condition, ConditionContext context) {
+    public static RuntimeResult eligibleTo(Condition<ConditionContext> condition, Object... objects) {
+        ConditionContext context = ConditionContext.of();
+        for (Object o : objects) {
+            context.put(o.getClass().getSimpleName(), o);
+        }
         if (condition != null) {
-            int code = condition.eligibleToOr(context);
+            int code = condition.eligibleTo(context);
             if (code != ApplicationCode.CODE_SUCCESS) {
                 return RuntimeResult.runtimeApplicationError(code);
             }
         }
         return RuntimeResult.ok();
     }
+
 }

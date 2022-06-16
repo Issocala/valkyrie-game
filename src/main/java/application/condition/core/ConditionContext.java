@@ -12,6 +12,10 @@ public class ConditionContext {
 
     private final Map<String, Object> stringObjectMap = new HashMap<>();
 
+    public static ConditionContext of() {
+        return new ConditionContext();
+    }
+
     public void put(String key, Object value) {
         this.stringObjectMap.put(key, value);
     }

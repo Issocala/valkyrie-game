@@ -8,11 +8,9 @@ package application.condition.constant;
 public interface ConditionItemType {
 
     /**
-     * 攻击是普攻
+     * 技能类型
      */
-    short NORMAL_ATTACK = 1;
+    short SKILL_TYPE = 1;
 
-    short OR = Short.MAX_VALUE - 1;
-    short AND = Short.MAX_VALUE;
 
 }

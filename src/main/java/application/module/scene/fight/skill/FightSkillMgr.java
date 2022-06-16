@@ -1,9 +1,9 @@
 package application.module.scene.fight.skill;
 
 import akka.actor.ActorRef;
-import application.condition.Condition;
 import application.condition.core.ConditionBase;
 import application.condition.core.ConditionContext;
+import application.condition.util.ConditionOperator;
 import application.condition.util.ConditionParser;
 import application.module.common.CommonProtocolBuilder;
 import application.module.common.CommonProtocols;
@@ -25,10 +25,9 @@ import application.module.scene.fight.skill.base.skill.FightSkillWrap;
 import application.module.scene.fight.skill.base.skill.FightSkillWrapContainer;
 import application.module.scene.fight.skill.util.PassiveTriggerType;
 import application.module.scene.fight.skill.util.SkillType;
-import application.util.ApplicationCode;
 import application.util.ApplicationErrorCode;
+import application.util.ArrayUtils;
 import application.util.RandomUtil;
-import application.util.StringUtils;
 import protocol.Skill;
 import template.FightPassiveSkillTemplate;
 import template.FightSkillProcessTemplate;
@@ -180,11 +179,9 @@ public class FightSkillMgr {
                 if (RandomUtil.randomInt10000() >= template.weight()) {
                     continue;
                 }
-                if (StringUtils.isNotEmpty(template.condition())) {
+                if (ArrayUtils.isNotEmpty(template.condition())) {
                     ConditionBase condition = ConditionParser.parseCondition(template.condition());
-                    ConditionContext conditionContext = new ConditionContext();
-                    conditionContext.put(UseSkillDataTemp.class.getSimpleName(), useSkillDataTemp);
-                    if (condition.eligibleTo(conditionContext) != ApplicationCode.CODE_SUCCESS) {
+                    if (!ConditionOperator.eligibleTo(condition, useSkillDataTemp).isOK()) {
                         continue;
                     }
                 }

@@ -1,15 +1,12 @@
 package application.condition;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface Condition<T> {
 	int eligibleTo(T t);
 
-	int eligibleToOr(T t);
-
-	void addConditionItem(ConditionItem<T> conditionItem);
-
     boolean isEmpty();
 
-	Collection<ConditionItem<T>> getConditions();
+	Collection<List<ConditionItem<T>>> getConditions();
 }

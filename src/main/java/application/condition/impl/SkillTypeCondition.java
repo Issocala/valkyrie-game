@@ -15,19 +15,20 @@ import template.FightSkillTemplateHolder;
  * @date 2022-5-6
  * @Source 1.0
  */
-@ConditionImpl(id = ConditionItemType.NORMAL_ATTACK)
-public class NormalAttackCondition extends AbstractConditionItem {
+@ConditionImpl(id = ConditionItemType.SKILL_TYPE)
+public class SkillTypeCondition extends AbstractConditionItem {
+
+    private byte type;
 
     @Override
     public int eligibleTo(ConditionContext conditionContext) {
         UseSkillDataTemp useSkillDataTemp = (UseSkillDataTemp) conditionContext.get(UseSkillDataTemp.class.getSimpleName());
         FightSkillTemplate template = FightSkillTemplateHolder.getData(useSkillDataTemp.getSkillId());
-
-        return template.activeSkillType() == 1 ? ApplicationCode.CODE_SUCCESS : ApplicationErrorCode.CODE_ERROR;
+        return template.activeSkillType() == type ? ApplicationCode.CODE_SUCCESS : ApplicationErrorCode.CODE_ERROR;
     }
 
     @Override
     public void parser(String s) {
-
+        type = Byte.parseByte(s);
     }
 }

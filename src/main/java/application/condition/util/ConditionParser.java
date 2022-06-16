@@ -3,6 +3,7 @@ package application.condition.util;
 import application.condition.ConditionItem;
 import application.condition.core.ConditionBase;
 import application.condition.core.ConditionContext;
+import application.util.ArrayUtils;
 import application.util.DebugUtil;
 import application.util.StringUtils;
 import com.cala.orm.util.Pair;
@@ -10,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @SuppressWarnings("rawtypes")
@@ -37,34 +41,27 @@ public final class ConditionParser {
         return null;
     }
 
-    public static ConditionBase parseCondition(String conditionData) {
-        final ConditionBase condition = new ConditionBase();
-        if (StringUtils.isEmpty(conditionData)) {
-            return condition;
+    public static ConditionBase parseCondition(String[] conditionDatas) {
+        if (ArrayUtils.isEmpty(conditionDatas)) {
+            return ConditionBase.getInstance();
         }
 
-        String[] ss = StringUtils.toStringArray(conditionData);
-        for (int i = 0; i < ss.length; i += 2) {
-            Pair<Short, String> pair = new Pair<>(Short.parseShort(ss[i]), ss[i + 1]);
-            final ConditionItem<ConditionContext> conditionItem = parseConditionItem(pair);
-            if (conditionItem != null) {
-                condition.addConditionItem(conditionItem);
+        ConditionBase condition = ConditionBase.of();
+        for (String conditionData : conditionDatas) {
+            String[] ss1 = StringUtils.toStringArrayByAnd(conditionData);
+            List<ConditionItem<ConditionContext>> conditionItems = new ArrayList<>();
+            for (String s : ss1) {
+                String[] ss = StringUtils.toStringArrayByColon(s);
+                if (ss.length != 2) {
+                    throw new RuntimeException("condition条件解析格式有问题 == " + Arrays.toString(conditionDatas));
+                }
+                Pair<Short, String> pair = new Pair<>(Short.parseShort(ss[0]), ss[1]);
+                ConditionItem<ConditionContext> conditionItem = parseConditionItem(pair);
+                if (conditionItem != null) {
+                    conditionItems.add(conditionItem);
+                }
             }
-        }
-        return condition;
-    }
-
-    public static ConditionBase parseCondition(String[][] conditionData) {
-        final ConditionBase condition = new ConditionBase();
-        if (Objects.isNull(conditionData) || conditionData.length == 0) {
-            return condition;
-        }
-        for (int i = 0; i < conditionData.length; i += 2) {
-            Pair<Short, String> pair = new Pair<>(Short.parseShort(conditionData[i][0]), conditionData[i][1]);
-            final ConditionItem<ConditionContext> conditionItem = parseConditionItem(pair);
-            if (conditionItem != null) {
-                condition.addConditionItem(conditionItem);
-            }
+            condition.addConditionItem(conditionItems);
         }
         return condition;
     }

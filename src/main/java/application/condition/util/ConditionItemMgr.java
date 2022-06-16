@@ -36,7 +36,8 @@ public class ConditionItemMgr {
     }
 
     public void register() {
-        final Set<Class<?>> classes = ClassScanningUtil.findFileClass(Condition.class.getPackageName() + "impl");
+        final Set<Class<?>> classes = ClassScanningUtil.loopFindClassBySuper(Condition.class.getPackageName() + ".impl",
+                AbstractConditionItem.class);
         registerConditionItem(classes);
     }
 
