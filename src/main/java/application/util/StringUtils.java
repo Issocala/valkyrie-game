@@ -12,8 +12,26 @@ public class StringUtils {
 
     public final static String DEFAULT_SPLIT = ",";
 
+    public final static String SEMICOLON_SPLIT = ";";
+
+    public final static String AND_SPLIT = "&";
+
+    public final static String COLON_SPLIT = ":";
+
     public static String[] toStringArray(String s) {
         return s.split(DEFAULT_SPLIT);
+    }
+
+    public static String[] toStringArrayBySemicolon(String s) {
+        return s.split(SEMICOLON_SPLIT);
+    }
+
+    public static String[] toStringArrayByAnd(String s) {
+        return s.split(AND_SPLIT);
+    }
+
+    public static String[] toStringArrayByColon(String s) {
+        return s.split(COLON_SPLIT);
     }
 
     public static String[] toStringArray(String s, String split) {

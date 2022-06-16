@@ -1,6 +1,8 @@
 package application.util;
 
 import application.module.scene.fight.skill.base.skill.FightSkillWrapContainer;
+import application.module.scene.gameinstance.wrap.GameInstanceWrap;
+import application.module.scene.gameinstance.wrap.GameInstanceWrapContainer;
 import com.typesafe.config.Config;
 import template.CustomByteBuffer;
 import template.TemplateParser;
@@ -28,5 +30,6 @@ public class StaticConfigLoad {
     private static void wrapInit() {
         //技能数据二次包装
         FightSkillWrapContainer.init();
+        GameInstanceWrapContainer.init();
     }
 }
