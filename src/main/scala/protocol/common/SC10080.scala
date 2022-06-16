@@ -5,7 +5,7 @@
 
 package protocol.common
 
-/** 公用时间
+/** 返回错误码
   */
 @SerialVersionUID(0L)
 final case class SC10080(

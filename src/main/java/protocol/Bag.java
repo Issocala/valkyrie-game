@@ -14,6 +14,1274 @@ public final class Bag {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  public interface CurrencyInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.CurrencyInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * 货币ID
+     * </pre>
+     *
+     * <code>required int32 itemId = 1;</code>
+     * @return Whether the itemId field is set.
+     */
+    boolean hasItemId();
+    /**
+     * <pre>
+     * 货币ID
+     * </pre>
+     *
+     * <code>required int32 itemId = 1;</code>
+     * @return The itemId.
+     */
+    int getItemId();
+
+    /**
+     * <pre>
+     * 货币数量
+     * </pre>
+     *
+     * <code>required int64 num = 2;</code>
+     * @return Whether the num field is set.
+     */
+    boolean hasNum();
+    /**
+     * <pre>
+     * 货币数量
+     * </pre>
+     *
+     * <code>required int64 num = 2;</code>
+     * @return The num.
+     */
+    long getNum();
+  }
+  /**
+   * <pre>
+   * 货币信息
+   * </pre>
+   *
+   * Protobuf type {@code protocol.CurrencyInfo}
+   */
+  public  static final class CurrencyInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.CurrencyInfo)
+      CurrencyInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use CurrencyInfo.newBuilder() to construct.
+    private CurrencyInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private CurrencyInfo() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CurrencyInfo();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CurrencyInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              itemId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              num_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Bag.internal_static_protocol_CurrencyInfo_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Bag.internal_static_protocol_CurrencyInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Bag.CurrencyInfo.class, protocol.Bag.CurrencyInfo.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int ITEMID_FIELD_NUMBER = 1;
+    private int itemId_;
+    /**
+     * <pre>
+     * 货币ID
+     * </pre>
+     *
+     * <code>required int32 itemId = 1;</code>
+     * @return Whether the itemId field is set.
+     */
+    public boolean hasItemId() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * 货币ID
+     * </pre>
+     *
+     * <code>required int32 itemId = 1;</code>
+     * @return The itemId.
+     */
+    public int getItemId() {
+      return itemId_;
+    }
+
+    public static final int NUM_FIELD_NUMBER = 2;
+    private long num_;
+    /**
+     * <pre>
+     * 货币数量
+     * </pre>
+     *
+     * <code>required int64 num = 2;</code>
+     * @return Whether the num field is set.
+     */
+    public boolean hasNum() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <pre>
+     * 货币数量
+     * </pre>
+     *
+     * <code>required int64 num = 2;</code>
+     * @return The num.
+     */
+    public long getNum() {
+      return num_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasItemId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasNum()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt32(1, itemId_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeInt64(2, num_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, itemId_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, num_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Bag.CurrencyInfo)) {
+        return super.equals(obj);
+      }
+      protocol.Bag.CurrencyInfo other = (protocol.Bag.CurrencyInfo) obj;
+
+      if (hasItemId() != other.hasItemId()) return false;
+      if (hasItemId()) {
+        if (getItemId()
+            != other.getItemId()) return false;
+      }
+      if (hasNum() != other.hasNum()) return false;
+      if (hasNum()) {
+        if (getNum()
+            != other.getNum()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasItemId()) {
+        hash = (37 * hash) + ITEMID_FIELD_NUMBER;
+        hash = (53 * hash) + getItemId();
+      }
+      if (hasNum()) {
+        hash = (37 * hash) + NUM_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getNum());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Bag.CurrencyInfo parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.CurrencyInfo parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.CurrencyInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.CurrencyInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.CurrencyInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.CurrencyInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.CurrencyInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.CurrencyInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Bag.CurrencyInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.CurrencyInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Bag.CurrencyInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.CurrencyInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Bag.CurrencyInfo prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * 货币信息
+     * </pre>
+     *
+     * Protobuf type {@code protocol.CurrencyInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.CurrencyInfo)
+        protocol.Bag.CurrencyInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Bag.internal_static_protocol_CurrencyInfo_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Bag.internal_static_protocol_CurrencyInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Bag.CurrencyInfo.class, protocol.Bag.CurrencyInfo.Builder.class);
+      }
+
+      // Construct using protocol.Bag.CurrencyInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        itemId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        num_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Bag.internal_static_protocol_CurrencyInfo_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Bag.CurrencyInfo getDefaultInstanceForType() {
+        return protocol.Bag.CurrencyInfo.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Bag.CurrencyInfo build() {
+        protocol.Bag.CurrencyInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Bag.CurrencyInfo buildPartial() {
+        protocol.Bag.CurrencyInfo result = new protocol.Bag.CurrencyInfo(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.itemId_ = itemId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.num_ = num_;
+          to_bitField0_ |= 0x00000002;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Bag.CurrencyInfo) {
+          return mergeFrom((protocol.Bag.CurrencyInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Bag.CurrencyInfo other) {
+        if (other == protocol.Bag.CurrencyInfo.getDefaultInstance()) return this;
+        if (other.hasItemId()) {
+          setItemId(other.getItemId());
+        }
+        if (other.hasNum()) {
+          setNum(other.getNum());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasItemId()) {
+          return false;
+        }
+        if (!hasNum()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Bag.CurrencyInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Bag.CurrencyInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int itemId_ ;
+      /**
+       * <pre>
+       * 货币ID
+       * </pre>
+       *
+       * <code>required int32 itemId = 1;</code>
+       * @return Whether the itemId field is set.
+       */
+      public boolean hasItemId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <pre>
+       * 货币ID
+       * </pre>
+       *
+       * <code>required int32 itemId = 1;</code>
+       * @return The itemId.
+       */
+      public int getItemId() {
+        return itemId_;
+      }
+      /**
+       * <pre>
+       * 货币ID
+       * </pre>
+       *
+       * <code>required int32 itemId = 1;</code>
+       * @param value The itemId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setItemId(int value) {
+        bitField0_ |= 0x00000001;
+        itemId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币ID
+       * </pre>
+       *
+       * <code>required int32 itemId = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearItemId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        itemId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private long num_ ;
+      /**
+       * <pre>
+       * 货币数量
+       * </pre>
+       *
+       * <code>required int64 num = 2;</code>
+       * @return Whether the num field is set.
+       */
+      public boolean hasNum() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <pre>
+       * 货币数量
+       * </pre>
+       *
+       * <code>required int64 num = 2;</code>
+       * @return The num.
+       */
+      public long getNum() {
+        return num_;
+      }
+      /**
+       * <pre>
+       * 货币数量
+       * </pre>
+       *
+       * <code>required int64 num = 2;</code>
+       * @param value The num to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNum(long value) {
+        bitField0_ |= 0x00000002;
+        num_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币数量
+       * </pre>
+       *
+       * <code>required int64 num = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNum() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        num_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.CurrencyInfo)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.CurrencyInfo)
+    private static final protocol.Bag.CurrencyInfo DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Bag.CurrencyInfo();
+    }
+
+    public static protocol.Bag.CurrencyInfo getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<CurrencyInfo>
+        PARSER = new com.google.protobuf.AbstractParser<CurrencyInfo>() {
+      @java.lang.Override
+      public CurrencyInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CurrencyInfo(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CurrencyInfo> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CurrencyInfo> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Bag.CurrencyInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ItemInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.ItemInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * 数量
+     * </pre>
+     *
+     * <code>required int64 num = 1;</code>
+     * @return Whether the num field is set.
+     */
+    boolean hasNum();
+    /**
+     * <pre>
+     * 数量
+     * </pre>
+     *
+     * <code>required int64 num = 1;</code>
+     * @return The num.
+     */
+    long getNum();
+  }
+  /**
+   * <pre>
+   * 道具信息
+   * </pre>
+   *
+   * Protobuf type {@code protocol.ItemInfo}
+   */
+  public  static final class ItemInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.ItemInfo)
+      ItemInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ItemInfo.newBuilder() to construct.
+    private ItemInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ItemInfo() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ItemInfo();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ItemInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              num_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Bag.internal_static_protocol_ItemInfo_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Bag.internal_static_protocol_ItemInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Bag.ItemInfo.class, protocol.Bag.ItemInfo.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int NUM_FIELD_NUMBER = 1;
+    private long num_;
+    /**
+     * <pre>
+     * 数量
+     * </pre>
+     *
+     * <code>required int64 num = 1;</code>
+     * @return Whether the num field is set.
+     */
+    public boolean hasNum() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * 数量
+     * </pre>
+     *
+     * <code>required int64 num = 1;</code>
+     * @return The num.
+     */
+    public long getNum() {
+      return num_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasNum()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt64(1, num_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, num_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Bag.ItemInfo)) {
+        return super.equals(obj);
+      }
+      protocol.Bag.ItemInfo other = (protocol.Bag.ItemInfo) obj;
+
+      if (hasNum() != other.hasNum()) return false;
+      if (hasNum()) {
+        if (getNum()
+            != other.getNum()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasNum()) {
+        hash = (37 * hash) + NUM_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getNum());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Bag.ItemInfo parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.ItemInfo parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.ItemInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.ItemInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.ItemInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.ItemInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.ItemInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.ItemInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Bag.ItemInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.ItemInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Bag.ItemInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.ItemInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Bag.ItemInfo prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * 道具信息
+     * </pre>
+     *
+     * Protobuf type {@code protocol.ItemInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.ItemInfo)
+        protocol.Bag.ItemInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Bag.internal_static_protocol_ItemInfo_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Bag.internal_static_protocol_ItemInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Bag.ItemInfo.class, protocol.Bag.ItemInfo.Builder.class);
+      }
+
+      // Construct using protocol.Bag.ItemInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        num_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Bag.internal_static_protocol_ItemInfo_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Bag.ItemInfo getDefaultInstanceForType() {
+        return protocol.Bag.ItemInfo.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Bag.ItemInfo build() {
+        protocol.Bag.ItemInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Bag.ItemInfo buildPartial() {
+        protocol.Bag.ItemInfo result = new protocol.Bag.ItemInfo(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.num_ = num_;
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Bag.ItemInfo) {
+          return mergeFrom((protocol.Bag.ItemInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Bag.ItemInfo other) {
+        if (other == protocol.Bag.ItemInfo.getDefaultInstance()) return this;
+        if (other.hasNum()) {
+          setNum(other.getNum());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasNum()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Bag.ItemInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Bag.ItemInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long num_ ;
+      /**
+       * <pre>
+       * 数量
+       * </pre>
+       *
+       * <code>required int64 num = 1;</code>
+       * @return Whether the num field is set.
+       */
+      public boolean hasNum() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <pre>
+       * 数量
+       * </pre>
+       *
+       * <code>required int64 num = 1;</code>
+       * @return The num.
+       */
+      public long getNum() {
+        return num_;
+      }
+      /**
+       * <pre>
+       * 数量
+       * </pre>
+       *
+       * <code>required int64 num = 1;</code>
+       * @param value The num to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNum(long value) {
+        bitField0_ |= 0x00000001;
+        num_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 数量
+       * </pre>
+       *
+       * <code>required int64 num = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNum() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        num_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.ItemInfo)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.ItemInfo)
+    private static final protocol.Bag.ItemInfo DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Bag.ItemInfo();
+    }
+
+    public static protocol.Bag.ItemInfo getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ItemInfo>
+        PARSER = new com.google.protobuf.AbstractParser<ItemInfo>() {
+      @java.lang.Override
+      public ItemInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ItemInfo(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ItemInfo> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ItemInfo> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Bag.ItemInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface BagInfoOrBuilder extends
       // @@protoc_insertion_point(interface_extends:protocol.BagInfo)
       com.google.protobuf.MessageOrBuilder {
@@ -58,10 +1326,37 @@ public final class Bag {
 
     /**
      * <pre>
+     * 道具附加信息
+     * </pre>
+     *
+     * <code>optional .protocol.ItemInfo item = 3;</code>
+     * @return Whether the item field is set.
+     */
+    boolean hasItem();
+    /**
+     * <pre>
+     * 道具附加信息
+     * </pre>
+     *
+     * <code>optional .protocol.ItemInfo item = 3;</code>
+     * @return The item.
+     */
+    protocol.Bag.ItemInfo getItem();
+    /**
+     * <pre>
+     * 道具附加信息
+     * </pre>
+     *
+     * <code>optional .protocol.ItemInfo item = 3;</code>
+     */
+    protocol.Bag.ItemInfoOrBuilder getItemOrBuilder();
+
+    /**
+     * <pre>
      * 装备附加信息
      * </pre>
      *
-     * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+     * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
      * @return Whether the equip field is set.
      */
     boolean hasEquip();
@@ -70,7 +1365,7 @@ public final class Bag {
      * 装备附加信息
      * </pre>
      *
-     * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+     * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
      * @return The equip.
      */
     protocol.Equip.EquipExtraInfo getEquip();
@@ -79,7 +1374,7 @@ public final class Bag {
      * 装备附加信息
      * </pre>
      *
-     * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+     * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
      */
     protocol.Equip.EquipExtraInfoOrBuilder getEquipOrBuilder();
   }
@@ -144,8 +1439,21 @@ public final class Bag {
               break;
             }
             case 26: {
-              protocol.Equip.EquipExtraInfo.Builder subBuilder = null;
+              protocol.Bag.ItemInfo.Builder subBuilder = null;
               if (((bitField0_ & 0x00000004) != 0)) {
+                subBuilder = item_.toBuilder();
+              }
+              item_ = input.readMessage(protocol.Bag.ItemInfo.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(item_);
+                item_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000004;
+              break;
+            }
+            case 34: {
+              protocol.Equip.EquipExtraInfo.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000008) != 0)) {
                 subBuilder = equip_.toBuilder();
               }
               equip_ = input.readMessage(protocol.Equip.EquipExtraInfo.PARSER, extensionRegistry);
@@ -153,7 +1461,7 @@ public final class Bag {
                 subBuilder.mergeFrom(equip_);
                 equip_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000004;
+              bitField0_ |= 0x00000008;
               break;
             }
             default: {
@@ -239,25 +1547,60 @@ public final class Bag {
       return itemId_;
     }
 
-    public static final int EQUIP_FIELD_NUMBER = 3;
+    public static final int ITEM_FIELD_NUMBER = 3;
+    private protocol.Bag.ItemInfo item_;
+    /**
+     * <pre>
+     * 道具附加信息
+     * </pre>
+     *
+     * <code>optional .protocol.ItemInfo item = 3;</code>
+     * @return Whether the item field is set.
+     */
+    public boolean hasItem() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <pre>
+     * 道具附加信息
+     * </pre>
+     *
+     * <code>optional .protocol.ItemInfo item = 3;</code>
+     * @return The item.
+     */
+    public protocol.Bag.ItemInfo getItem() {
+      return item_ == null ? protocol.Bag.ItemInfo.getDefaultInstance() : item_;
+    }
+    /**
+     * <pre>
+     * 道具附加信息
+     * </pre>
+     *
+     * <code>optional .protocol.ItemInfo item = 3;</code>
+     */
+    public protocol.Bag.ItemInfoOrBuilder getItemOrBuilder() {
+      return item_ == null ? protocol.Bag.ItemInfo.getDefaultInstance() : item_;
+    }
+
+    public static final int EQUIP_FIELD_NUMBER = 4;
     private protocol.Equip.EquipExtraInfo equip_;
     /**
      * <pre>
      * 装备附加信息
      * </pre>
      *
-     * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+     * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
      * @return Whether the equip field is set.
      */
     public boolean hasEquip() {
-      return ((bitField0_ & 0x00000004) != 0);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <pre>
      * 装备附加信息
      * </pre>
      *
-     * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+     * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
      * @return The equip.
      */
     public protocol.Equip.EquipExtraInfo getEquip() {
@@ -268,7 +1611,7 @@ public final class Bag {
      * 装备附加信息
      * </pre>
      *
-     * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+     * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
      */
     public protocol.Equip.EquipExtraInfoOrBuilder getEquipOrBuilder() {
       return equip_ == null ? protocol.Equip.EquipExtraInfo.getDefaultInstance() : equip_;
@@ -288,6 +1631,12 @@ public final class Bag {
       if (!hasItemId()) {
         memoizedIsInitialized = 0;
         return false;
+      }
+      if (hasItem()) {
+        if (!getItem().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
       }
       if (hasEquip()) {
         if (!getEquip().isInitialized()) {
@@ -309,7 +1658,10 @@ public final class Bag {
         output.writeInt32(2, itemId_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
-        output.writeMessage(3, getEquip());
+        output.writeMessage(3, getItem());
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        output.writeMessage(4, getEquip());
       }
       unknownFields.writeTo(output);
     }
@@ -330,7 +1682,11 @@ public final class Bag {
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getEquip());
+          .computeMessageSize(3, getItem());
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getEquip());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -357,6 +1713,11 @@ public final class Bag {
         if (getItemId()
             != other.getItemId()) return false;
       }
+      if (hasItem() != other.hasItem()) return false;
+      if (hasItem()) {
+        if (!getItem()
+            .equals(other.getItem())) return false;
+      }
       if (hasEquip() != other.hasEquip()) return false;
       if (hasEquip()) {
         if (!getEquip()
@@ -381,6 +1742,10 @@ public final class Bag {
       if (hasItemId()) {
         hash = (37 * hash) + ITEMID_FIELD_NUMBER;
         hash = (53 * hash) + getItemId();
+      }
+      if (hasItem()) {
+        hash = (37 * hash) + ITEM_FIELD_NUMBER;
+        hash = (53 * hash) + getItem().hashCode();
       }
       if (hasEquip()) {
         hash = (37 * hash) + EQUIP_FIELD_NUMBER;
@@ -518,6 +1883,7 @@ public final class Bag {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getItemFieldBuilder();
           getEquipFieldBuilder();
         }
       }
@@ -528,12 +1894,18 @@ public final class Bag {
         bitField0_ = (bitField0_ & ~0x00000001);
         itemId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
+        if (itemBuilder_ == null) {
+          item_ = null;
+        } else {
+          itemBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
         if (equipBuilder_ == null) {
           equip_ = null;
         } else {
           equipBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -571,12 +1943,20 @@ public final class Bag {
           to_bitField0_ |= 0x00000002;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
+          if (itemBuilder_ == null) {
+            result.item_ = item_;
+          } else {
+            result.item_ = itemBuilder_.build();
+          }
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
           if (equipBuilder_ == null) {
             result.equip_ = equip_;
           } else {
             result.equip_ = equipBuilder_.build();
           }
-          to_bitField0_ |= 0x00000004;
+          to_bitField0_ |= 0x00000008;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -633,6 +2013,9 @@ public final class Bag {
         if (other.hasItemId()) {
           setItemId(other.getItemId());
         }
+        if (other.hasItem()) {
+          mergeItem(other.getItem());
+        }
         if (other.hasEquip()) {
           mergeEquip(other.getEquip());
         }
@@ -648,6 +2031,11 @@ public final class Bag {
         }
         if (!hasItemId()) {
           return false;
+        }
+        if (hasItem()) {
+          if (!getItem().isInitialized()) {
+            return false;
+          }
         }
         if (hasEquip()) {
           if (!getEquip().isInitialized()) {
@@ -783,6 +2171,162 @@ public final class Bag {
         return this;
       }
 
+      private protocol.Bag.ItemInfo item_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          protocol.Bag.ItemInfo, protocol.Bag.ItemInfo.Builder, protocol.Bag.ItemInfoOrBuilder> itemBuilder_;
+      /**
+       * <pre>
+       * 道具附加信息
+       * </pre>
+       *
+       * <code>optional .protocol.ItemInfo item = 3;</code>
+       * @return Whether the item field is set.
+       */
+      public boolean hasItem() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <pre>
+       * 道具附加信息
+       * </pre>
+       *
+       * <code>optional .protocol.ItemInfo item = 3;</code>
+       * @return The item.
+       */
+      public protocol.Bag.ItemInfo getItem() {
+        if (itemBuilder_ == null) {
+          return item_ == null ? protocol.Bag.ItemInfo.getDefaultInstance() : item_;
+        } else {
+          return itemBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * 道具附加信息
+       * </pre>
+       *
+       * <code>optional .protocol.ItemInfo item = 3;</code>
+       */
+      public Builder setItem(protocol.Bag.ItemInfo value) {
+        if (itemBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          item_ = value;
+          onChanged();
+        } else {
+          itemBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <pre>
+       * 道具附加信息
+       * </pre>
+       *
+       * <code>optional .protocol.ItemInfo item = 3;</code>
+       */
+      public Builder setItem(
+          protocol.Bag.ItemInfo.Builder builderForValue) {
+        if (itemBuilder_ == null) {
+          item_ = builderForValue.build();
+          onChanged();
+        } else {
+          itemBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <pre>
+       * 道具附加信息
+       * </pre>
+       *
+       * <code>optional .protocol.ItemInfo item = 3;</code>
+       */
+      public Builder mergeItem(protocol.Bag.ItemInfo value) {
+        if (itemBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+              item_ != null &&
+              item_ != protocol.Bag.ItemInfo.getDefaultInstance()) {
+            item_ =
+              protocol.Bag.ItemInfo.newBuilder(item_).mergeFrom(value).buildPartial();
+          } else {
+            item_ = value;
+          }
+          onChanged();
+        } else {
+          itemBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <pre>
+       * 道具附加信息
+       * </pre>
+       *
+       * <code>optional .protocol.ItemInfo item = 3;</code>
+       */
+      public Builder clearItem() {
+        if (itemBuilder_ == null) {
+          item_ = null;
+          onChanged();
+        } else {
+          itemBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      /**
+       * <pre>
+       * 道具附加信息
+       * </pre>
+       *
+       * <code>optional .protocol.ItemInfo item = 3;</code>
+       */
+      public protocol.Bag.ItemInfo.Builder getItemBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getItemFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * 道具附加信息
+       * </pre>
+       *
+       * <code>optional .protocol.ItemInfo item = 3;</code>
+       */
+      public protocol.Bag.ItemInfoOrBuilder getItemOrBuilder() {
+        if (itemBuilder_ != null) {
+          return itemBuilder_.getMessageOrBuilder();
+        } else {
+          return item_ == null ?
+              protocol.Bag.ItemInfo.getDefaultInstance() : item_;
+        }
+      }
+      /**
+       * <pre>
+       * 道具附加信息
+       * </pre>
+       *
+       * <code>optional .protocol.ItemInfo item = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          protocol.Bag.ItemInfo, protocol.Bag.ItemInfo.Builder, protocol.Bag.ItemInfoOrBuilder> 
+          getItemFieldBuilder() {
+        if (itemBuilder_ == null) {
+          itemBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              protocol.Bag.ItemInfo, protocol.Bag.ItemInfo.Builder, protocol.Bag.ItemInfoOrBuilder>(
+                  getItem(),
+                  getParentForChildren(),
+                  isClean());
+          item_ = null;
+        }
+        return itemBuilder_;
+      }
+
       private protocol.Equip.EquipExtraInfo equip_;
       private com.google.protobuf.SingleFieldBuilderV3<
           protocol.Equip.EquipExtraInfo, protocol.Equip.EquipExtraInfo.Builder, protocol.Equip.EquipExtraInfoOrBuilder> equipBuilder_;
@@ -791,18 +2335,18 @@ public final class Bag {
        * 装备附加信息
        * </pre>
        *
-       * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+       * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
        * @return Whether the equip field is set.
        */
       public boolean hasEquip() {
-        return ((bitField0_ & 0x00000004) != 0);
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <pre>
        * 装备附加信息
        * </pre>
        *
-       * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+       * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
        * @return The equip.
        */
       public protocol.Equip.EquipExtraInfo getEquip() {
@@ -817,7 +2361,7 @@ public final class Bag {
        * 装备附加信息
        * </pre>
        *
-       * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+       * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
        */
       public Builder setEquip(protocol.Equip.EquipExtraInfo value) {
         if (equipBuilder_ == null) {
@@ -829,7 +2373,7 @@ public final class Bag {
         } else {
           equipBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
@@ -837,7 +2381,7 @@ public final class Bag {
        * 装备附加信息
        * </pre>
        *
-       * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+       * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
        */
       public Builder setEquip(
           protocol.Equip.EquipExtraInfo.Builder builderForValue) {
@@ -847,7 +2391,7 @@ public final class Bag {
         } else {
           equipBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
@@ -855,11 +2399,11 @@ public final class Bag {
        * 装备附加信息
        * </pre>
        *
-       * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+       * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
        */
       public Builder mergeEquip(protocol.Equip.EquipExtraInfo value) {
         if (equipBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) != 0) &&
+          if (((bitField0_ & 0x00000008) != 0) &&
               equip_ != null &&
               equip_ != protocol.Equip.EquipExtraInfo.getDefaultInstance()) {
             equip_ =
@@ -871,7 +2415,7 @@ public final class Bag {
         } else {
           equipBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
@@ -879,7 +2423,7 @@ public final class Bag {
        * 装备附加信息
        * </pre>
        *
-       * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+       * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
        */
       public Builder clearEquip() {
         if (equipBuilder_ == null) {
@@ -888,7 +2432,7 @@ public final class Bag {
         } else {
           equipBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       /**
@@ -896,10 +2440,10 @@ public final class Bag {
        * 装备附加信息
        * </pre>
        *
-       * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+       * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
        */
       public protocol.Equip.EquipExtraInfo.Builder getEquipBuilder() {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return getEquipFieldBuilder().getBuilder();
       }
@@ -908,7 +2452,7 @@ public final class Bag {
        * 装备附加信息
        * </pre>
        *
-       * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+       * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
        */
       public protocol.Equip.EquipExtraInfoOrBuilder getEquipOrBuilder() {
         if (equipBuilder_ != null) {
@@ -923,7 +2467,7 @@ public final class Bag {
        * 装备附加信息
        * </pre>
        *
-       * <code>optional .protocol.EquipExtraInfo equip = 3;</code>
+       * <code>optional .protocol.EquipExtraInfo equip = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           protocol.Equip.EquipExtraInfo, protocol.Equip.EquipExtraInfo.Builder, protocol.Equip.EquipExtraInfoOrBuilder> 
@@ -1041,7 +2585,7 @@ public final class Bag {
   }
   /**
    * <pre>
-   * 推送背包列表
+   * 推送背包列表（完整的）
    * </pre>
    *
    * Protobuf type {@code protocol.SC11200}
@@ -1354,7 +2898,7 @@ public final class Bag {
     }
     /**
      * <pre>
-     * 推送背包列表
+     * 推送背包列表（完整的）
      * </pre>
      *
      * Protobuf type {@code protocol.SC11200}
@@ -1916,7 +3460,7 @@ public final class Bag {
 
     /**
      * <pre>
-     * 增加的背包列表
+     * 新增or变更的背包列表
      * </pre>
      *
      * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -1925,7 +3469,7 @@ public final class Bag {
         getBagsList();
     /**
      * <pre>
-     * 增加的背包列表
+     * 新增or变更的背包列表
      * </pre>
      *
      * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -1933,7 +3477,7 @@ public final class Bag {
     protocol.Bag.BagInfo getBags(int index);
     /**
      * <pre>
-     * 增加的背包列表
+     * 新增or变更的背包列表
      * </pre>
      *
      * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -1941,7 +3485,7 @@ public final class Bag {
     int getBagsCount();
     /**
      * <pre>
-     * 增加的背包列表
+     * 新增or变更的背包列表
      * </pre>
      *
      * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -1950,7 +3494,7 @@ public final class Bag {
         getBagsOrBuilderList();
     /**
      * <pre>
-     * 增加的背包列表
+     * 新增or变更的背包列表
      * </pre>
      *
      * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -1960,7 +3504,7 @@ public final class Bag {
   }
   /**
    * <pre>
-   * 推送增加的背包列表
+   * 推送背包列表（新增、变更）
    * </pre>
    *
    * Protobuf type {@code protocol.SC11201}
@@ -2057,7 +3601,7 @@ public final class Bag {
     private java.util.List<protocol.Bag.BagInfo> bags_;
     /**
      * <pre>
-     * 增加的背包列表
+     * 新增or变更的背包列表
      * </pre>
      *
      * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2067,7 +3611,7 @@ public final class Bag {
     }
     /**
      * <pre>
-     * 增加的背包列表
+     * 新增or变更的背包列表
      * </pre>
      *
      * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2078,7 +3622,7 @@ public final class Bag {
     }
     /**
      * <pre>
-     * 增加的背包列表
+     * 新增or变更的背包列表
      * </pre>
      *
      * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2088,7 +3632,7 @@ public final class Bag {
     }
     /**
      * <pre>
-     * 增加的背包列表
+     * 新增or变更的背包列表
      * </pre>
      *
      * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2098,7 +3642,7 @@ public final class Bag {
     }
     /**
      * <pre>
-     * 增加的背包列表
+     * 新增or变更的背包列表
      * </pre>
      *
      * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2273,7 +3817,7 @@ public final class Bag {
     }
     /**
      * <pre>
-     * 推送增加的背包列表
+     * 推送背包列表（新增、变更）
      * </pre>
      *
      * Protobuf type {@code protocol.SC11201}
@@ -2479,7 +4023,7 @@ public final class Bag {
 
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2493,7 +4037,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2507,7 +4051,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2521,7 +4065,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2542,7 +4086,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2560,7 +4104,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2580,7 +4124,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2601,7 +4145,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2619,7 +4163,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2637,7 +4181,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2656,7 +4200,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2673,7 +4217,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2690,7 +4234,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2701,7 +4245,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2715,7 +4259,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2730,7 +4274,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2741,7 +4285,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2753,7 +4297,7 @@ public final class Bag {
       }
       /**
        * <pre>
-       * 增加的背包列表
+       * 新增or变更的背包列表
        * </pre>
        *
        * <code>repeated .protocol.BagInfo bags = 1;</code>
@@ -2829,6 +4373,2517 @@ public final class Bag {
 
   }
 
+  public interface SC11202OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.SC11202)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * 背包唯一ID列表
+     * </pre>
+     *
+     * <code>repeated int64 ids = 1;</code>
+     * @return A list containing the ids.
+     */
+    java.util.List<java.lang.Long> getIdsList();
+    /**
+     * <pre>
+     * 背包唯一ID列表
+     * </pre>
+     *
+     * <code>repeated int64 ids = 1;</code>
+     * @return The count of ids.
+     */
+    int getIdsCount();
+    /**
+     * <pre>
+     * 背包唯一ID列表
+     * </pre>
+     *
+     * <code>repeated int64 ids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The ids at the given index.
+     */
+    long getIds(int index);
+  }
+  /**
+   * <pre>
+   * 推送背包列表（移除）
+   * </pre>
+   *
+   * Protobuf type {@code protocol.SC11202}
+   */
+  public  static final class SC11202 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.SC11202)
+      SC11202OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SC11202.newBuilder() to construct.
+    private SC11202(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SC11202() {
+      ids_ = emptyLongList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SC11202();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SC11202(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                ids_ = newLongList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              ids_.addLong(input.readInt64());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                ids_ = newLongList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                ids_.addLong(input.readInt64());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          ids_.makeImmutable(); // C
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Bag.internal_static_protocol_SC11202_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Bag.internal_static_protocol_SC11202_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Bag.SC11202.class, protocol.Bag.SC11202.Builder.class);
+    }
+
+    public static final int IDS_FIELD_NUMBER = 1;
+    private com.google.protobuf.Internal.LongList ids_;
+    /**
+     * <pre>
+     * 背包唯一ID列表
+     * </pre>
+     *
+     * <code>repeated int64 ids = 1;</code>
+     * @return A list containing the ids.
+     */
+    public java.util.List<java.lang.Long>
+        getIdsList() {
+      return ids_;
+    }
+    /**
+     * <pre>
+     * 背包唯一ID列表
+     * </pre>
+     *
+     * <code>repeated int64 ids = 1;</code>
+     * @return The count of ids.
+     */
+    public int getIdsCount() {
+      return ids_.size();
+    }
+    /**
+     * <pre>
+     * 背包唯一ID列表
+     * </pre>
+     *
+     * <code>repeated int64 ids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The ids at the given index.
+     */
+    public long getIds(int index) {
+      return ids_.getLong(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < ids_.size(); i++) {
+        output.writeInt64(1, ids_.getLong(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < ids_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt64SizeNoTag(ids_.getLong(i));
+        }
+        size += dataSize;
+        size += 1 * getIdsList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Bag.SC11202)) {
+        return super.equals(obj);
+      }
+      protocol.Bag.SC11202 other = (protocol.Bag.SC11202) obj;
+
+      if (!getIdsList()
+          .equals(other.getIdsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getIdsCount() > 0) {
+        hash = (37 * hash) + IDS_FIELD_NUMBER;
+        hash = (53 * hash) + getIdsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Bag.SC11202 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.SC11202 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.SC11202 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.SC11202 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.SC11202 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.SC11202 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.SC11202 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.SC11202 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Bag.SC11202 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.SC11202 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Bag.SC11202 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.SC11202 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Bag.SC11202 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * 推送背包列表（移除）
+     * </pre>
+     *
+     * Protobuf type {@code protocol.SC11202}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.SC11202)
+        protocol.Bag.SC11202OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Bag.internal_static_protocol_SC11202_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Bag.internal_static_protocol_SC11202_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Bag.SC11202.class, protocol.Bag.SC11202.Builder.class);
+      }
+
+      // Construct using protocol.Bag.SC11202.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        ids_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Bag.internal_static_protocol_SC11202_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Bag.SC11202 getDefaultInstanceForType() {
+        return protocol.Bag.SC11202.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Bag.SC11202 build() {
+        protocol.Bag.SC11202 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Bag.SC11202 buildPartial() {
+        protocol.Bag.SC11202 result = new protocol.Bag.SC11202(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          ids_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.ids_ = ids_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Bag.SC11202) {
+          return mergeFrom((protocol.Bag.SC11202)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Bag.SC11202 other) {
+        if (other == protocol.Bag.SC11202.getDefaultInstance()) return this;
+        if (!other.ids_.isEmpty()) {
+          if (ids_.isEmpty()) {
+            ids_ = other.ids_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureIdsIsMutable();
+            ids_.addAll(other.ids_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Bag.SC11202 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Bag.SC11202) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.Internal.LongList ids_ = emptyLongList();
+      private void ensureIdsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          ids_ = mutableCopy(ids_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <pre>
+       * 背包唯一ID列表
+       * </pre>
+       *
+       * <code>repeated int64 ids = 1;</code>
+       * @return A list containing the ids.
+       */
+      public java.util.List<java.lang.Long>
+          getIdsList() {
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(ids_) : ids_;
+      }
+      /**
+       * <pre>
+       * 背包唯一ID列表
+       * </pre>
+       *
+       * <code>repeated int64 ids = 1;</code>
+       * @return The count of ids.
+       */
+      public int getIdsCount() {
+        return ids_.size();
+      }
+      /**
+       * <pre>
+       * 背包唯一ID列表
+       * </pre>
+       *
+       * <code>repeated int64 ids = 1;</code>
+       * @param index The index of the element to return.
+       * @return The ids at the given index.
+       */
+      public long getIds(int index) {
+        return ids_.getLong(index);
+      }
+      /**
+       * <pre>
+       * 背包唯一ID列表
+       * </pre>
+       *
+       * <code>repeated int64 ids = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The ids to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIds(
+          int index, long value) {
+        ensureIdsIsMutable();
+        ids_.setLong(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 背包唯一ID列表
+       * </pre>
+       *
+       * <code>repeated int64 ids = 1;</code>
+       * @param value The ids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addIds(long value) {
+        ensureIdsIsMutable();
+        ids_.addLong(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 背包唯一ID列表
+       * </pre>
+       *
+       * <code>repeated int64 ids = 1;</code>
+       * @param values The ids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllIds(
+          java.lang.Iterable<? extends java.lang.Long> values) {
+        ensureIdsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, ids_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 背包唯一ID列表
+       * </pre>
+       *
+       * <code>repeated int64 ids = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIds() {
+        ids_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.SC11202)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.SC11202)
+    private static final protocol.Bag.SC11202 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Bag.SC11202();
+    }
+
+    public static protocol.Bag.SC11202 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SC11202>
+        PARSER = new com.google.protobuf.AbstractParser<SC11202>() {
+      @java.lang.Override
+      public SC11202 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SC11202(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SC11202> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SC11202> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Bag.SC11202 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SC11203OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.SC11203)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    java.util.List<protocol.Bag.CurrencyInfo> 
+        getCurrenciesList();
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    protocol.Bag.CurrencyInfo getCurrencies(int index);
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    int getCurrenciesCount();
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    java.util.List<? extends protocol.Bag.CurrencyInfoOrBuilder> 
+        getCurrenciesOrBuilderList();
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    protocol.Bag.CurrencyInfoOrBuilder getCurrenciesOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   * 推送货币列表（完整的）
+   * </pre>
+   *
+   * Protobuf type {@code protocol.SC11203}
+   */
+  public  static final class SC11203 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.SC11203)
+      SC11203OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SC11203.newBuilder() to construct.
+    private SC11203(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SC11203() {
+      currencies_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SC11203();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SC11203(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                currencies_ = new java.util.ArrayList<protocol.Bag.CurrencyInfo>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              currencies_.add(
+                  input.readMessage(protocol.Bag.CurrencyInfo.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          currencies_ = java.util.Collections.unmodifiableList(currencies_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Bag.internal_static_protocol_SC11203_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Bag.internal_static_protocol_SC11203_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Bag.SC11203.class, protocol.Bag.SC11203.Builder.class);
+    }
+
+    public static final int CURRENCIES_FIELD_NUMBER = 1;
+    private java.util.List<protocol.Bag.CurrencyInfo> currencies_;
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    public java.util.List<protocol.Bag.CurrencyInfo> getCurrenciesList() {
+      return currencies_;
+    }
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    public java.util.List<? extends protocol.Bag.CurrencyInfoOrBuilder> 
+        getCurrenciesOrBuilderList() {
+      return currencies_;
+    }
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    public int getCurrenciesCount() {
+      return currencies_.size();
+    }
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    public protocol.Bag.CurrencyInfo getCurrencies(int index) {
+      return currencies_.get(index);
+    }
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    public protocol.Bag.CurrencyInfoOrBuilder getCurrenciesOrBuilder(
+        int index) {
+      return currencies_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      for (int i = 0; i < getCurrenciesCount(); i++) {
+        if (!getCurrencies(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < currencies_.size(); i++) {
+        output.writeMessage(1, currencies_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < currencies_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, currencies_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Bag.SC11203)) {
+        return super.equals(obj);
+      }
+      protocol.Bag.SC11203 other = (protocol.Bag.SC11203) obj;
+
+      if (!getCurrenciesList()
+          .equals(other.getCurrenciesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getCurrenciesCount() > 0) {
+        hash = (37 * hash) + CURRENCIES_FIELD_NUMBER;
+        hash = (53 * hash) + getCurrenciesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Bag.SC11203 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.SC11203 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.SC11203 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.SC11203 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.SC11203 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.SC11203 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.SC11203 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.SC11203 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Bag.SC11203 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.SC11203 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Bag.SC11203 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.SC11203 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Bag.SC11203 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * 推送货币列表（完整的）
+     * </pre>
+     *
+     * Protobuf type {@code protocol.SC11203}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.SC11203)
+        protocol.Bag.SC11203OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Bag.internal_static_protocol_SC11203_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Bag.internal_static_protocol_SC11203_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Bag.SC11203.class, protocol.Bag.SC11203.Builder.class);
+      }
+
+      // Construct using protocol.Bag.SC11203.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getCurrenciesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (currenciesBuilder_ == null) {
+          currencies_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          currenciesBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Bag.internal_static_protocol_SC11203_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Bag.SC11203 getDefaultInstanceForType() {
+        return protocol.Bag.SC11203.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Bag.SC11203 build() {
+        protocol.Bag.SC11203 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Bag.SC11203 buildPartial() {
+        protocol.Bag.SC11203 result = new protocol.Bag.SC11203(this);
+        int from_bitField0_ = bitField0_;
+        if (currenciesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            currencies_ = java.util.Collections.unmodifiableList(currencies_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.currencies_ = currencies_;
+        } else {
+          result.currencies_ = currenciesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Bag.SC11203) {
+          return mergeFrom((protocol.Bag.SC11203)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Bag.SC11203 other) {
+        if (other == protocol.Bag.SC11203.getDefaultInstance()) return this;
+        if (currenciesBuilder_ == null) {
+          if (!other.currencies_.isEmpty()) {
+            if (currencies_.isEmpty()) {
+              currencies_ = other.currencies_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureCurrenciesIsMutable();
+              currencies_.addAll(other.currencies_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.currencies_.isEmpty()) {
+            if (currenciesBuilder_.isEmpty()) {
+              currenciesBuilder_.dispose();
+              currenciesBuilder_ = null;
+              currencies_ = other.currencies_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              currenciesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getCurrenciesFieldBuilder() : null;
+            } else {
+              currenciesBuilder_.addAllMessages(other.currencies_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        for (int i = 0; i < getCurrenciesCount(); i++) {
+          if (!getCurrencies(i).isInitialized()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Bag.SC11203 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Bag.SC11203) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<protocol.Bag.CurrencyInfo> currencies_ =
+        java.util.Collections.emptyList();
+      private void ensureCurrenciesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          currencies_ = new java.util.ArrayList<protocol.Bag.CurrencyInfo>(currencies_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          protocol.Bag.CurrencyInfo, protocol.Bag.CurrencyInfo.Builder, protocol.Bag.CurrencyInfoOrBuilder> currenciesBuilder_;
+
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public java.util.List<protocol.Bag.CurrencyInfo> getCurrenciesList() {
+        if (currenciesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(currencies_);
+        } else {
+          return currenciesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public int getCurrenciesCount() {
+        if (currenciesBuilder_ == null) {
+          return currencies_.size();
+        } else {
+          return currenciesBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public protocol.Bag.CurrencyInfo getCurrencies(int index) {
+        if (currenciesBuilder_ == null) {
+          return currencies_.get(index);
+        } else {
+          return currenciesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder setCurrencies(
+          int index, protocol.Bag.CurrencyInfo value) {
+        if (currenciesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCurrenciesIsMutable();
+          currencies_.set(index, value);
+          onChanged();
+        } else {
+          currenciesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder setCurrencies(
+          int index, protocol.Bag.CurrencyInfo.Builder builderForValue) {
+        if (currenciesBuilder_ == null) {
+          ensureCurrenciesIsMutable();
+          currencies_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          currenciesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder addCurrencies(protocol.Bag.CurrencyInfo value) {
+        if (currenciesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCurrenciesIsMutable();
+          currencies_.add(value);
+          onChanged();
+        } else {
+          currenciesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder addCurrencies(
+          int index, protocol.Bag.CurrencyInfo value) {
+        if (currenciesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCurrenciesIsMutable();
+          currencies_.add(index, value);
+          onChanged();
+        } else {
+          currenciesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder addCurrencies(
+          protocol.Bag.CurrencyInfo.Builder builderForValue) {
+        if (currenciesBuilder_ == null) {
+          ensureCurrenciesIsMutable();
+          currencies_.add(builderForValue.build());
+          onChanged();
+        } else {
+          currenciesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder addCurrencies(
+          int index, protocol.Bag.CurrencyInfo.Builder builderForValue) {
+        if (currenciesBuilder_ == null) {
+          ensureCurrenciesIsMutable();
+          currencies_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          currenciesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder addAllCurrencies(
+          java.lang.Iterable<? extends protocol.Bag.CurrencyInfo> values) {
+        if (currenciesBuilder_ == null) {
+          ensureCurrenciesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, currencies_);
+          onChanged();
+        } else {
+          currenciesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder clearCurrencies() {
+        if (currenciesBuilder_ == null) {
+          currencies_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          currenciesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder removeCurrencies(int index) {
+        if (currenciesBuilder_ == null) {
+          ensureCurrenciesIsMutable();
+          currencies_.remove(index);
+          onChanged();
+        } else {
+          currenciesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public protocol.Bag.CurrencyInfo.Builder getCurrenciesBuilder(
+          int index) {
+        return getCurrenciesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public protocol.Bag.CurrencyInfoOrBuilder getCurrenciesOrBuilder(
+          int index) {
+        if (currenciesBuilder_ == null) {
+          return currencies_.get(index);  } else {
+          return currenciesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public java.util.List<? extends protocol.Bag.CurrencyInfoOrBuilder> 
+           getCurrenciesOrBuilderList() {
+        if (currenciesBuilder_ != null) {
+          return currenciesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(currencies_);
+        }
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public protocol.Bag.CurrencyInfo.Builder addCurrenciesBuilder() {
+        return getCurrenciesFieldBuilder().addBuilder(
+            protocol.Bag.CurrencyInfo.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public protocol.Bag.CurrencyInfo.Builder addCurrenciesBuilder(
+          int index) {
+        return getCurrenciesFieldBuilder().addBuilder(
+            index, protocol.Bag.CurrencyInfo.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public java.util.List<protocol.Bag.CurrencyInfo.Builder> 
+           getCurrenciesBuilderList() {
+        return getCurrenciesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          protocol.Bag.CurrencyInfo, protocol.Bag.CurrencyInfo.Builder, protocol.Bag.CurrencyInfoOrBuilder> 
+          getCurrenciesFieldBuilder() {
+        if (currenciesBuilder_ == null) {
+          currenciesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              protocol.Bag.CurrencyInfo, protocol.Bag.CurrencyInfo.Builder, protocol.Bag.CurrencyInfoOrBuilder>(
+                  currencies_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          currencies_ = null;
+        }
+        return currenciesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.SC11203)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.SC11203)
+    private static final protocol.Bag.SC11203 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Bag.SC11203();
+    }
+
+    public static protocol.Bag.SC11203 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SC11203>
+        PARSER = new com.google.protobuf.AbstractParser<SC11203>() {
+      @java.lang.Override
+      public SC11203 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SC11203(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SC11203> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SC11203> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Bag.SC11203 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SC11204OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.SC11204)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    java.util.List<protocol.Bag.CurrencyInfo> 
+        getCurrenciesList();
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    protocol.Bag.CurrencyInfo getCurrencies(int index);
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    int getCurrenciesCount();
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    java.util.List<? extends protocol.Bag.CurrencyInfoOrBuilder> 
+        getCurrenciesOrBuilderList();
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    protocol.Bag.CurrencyInfoOrBuilder getCurrenciesOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   * 推送货币列表（新增、变更）
+   * </pre>
+   *
+   * Protobuf type {@code protocol.SC11204}
+   */
+  public  static final class SC11204 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.SC11204)
+      SC11204OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SC11204.newBuilder() to construct.
+    private SC11204(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SC11204() {
+      currencies_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SC11204();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SC11204(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                currencies_ = new java.util.ArrayList<protocol.Bag.CurrencyInfo>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              currencies_.add(
+                  input.readMessage(protocol.Bag.CurrencyInfo.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          currencies_ = java.util.Collections.unmodifiableList(currencies_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Bag.internal_static_protocol_SC11204_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Bag.internal_static_protocol_SC11204_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Bag.SC11204.class, protocol.Bag.SC11204.Builder.class);
+    }
+
+    public static final int CURRENCIES_FIELD_NUMBER = 1;
+    private java.util.List<protocol.Bag.CurrencyInfo> currencies_;
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    public java.util.List<protocol.Bag.CurrencyInfo> getCurrenciesList() {
+      return currencies_;
+    }
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    public java.util.List<? extends protocol.Bag.CurrencyInfoOrBuilder> 
+        getCurrenciesOrBuilderList() {
+      return currencies_;
+    }
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    public int getCurrenciesCount() {
+      return currencies_.size();
+    }
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    public protocol.Bag.CurrencyInfo getCurrencies(int index) {
+      return currencies_.get(index);
+    }
+    /**
+     * <pre>
+     * 货币列表
+     * </pre>
+     *
+     * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+     */
+    public protocol.Bag.CurrencyInfoOrBuilder getCurrenciesOrBuilder(
+        int index) {
+      return currencies_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      for (int i = 0; i < getCurrenciesCount(); i++) {
+        if (!getCurrencies(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < currencies_.size(); i++) {
+        output.writeMessage(1, currencies_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < currencies_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, currencies_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Bag.SC11204)) {
+        return super.equals(obj);
+      }
+      protocol.Bag.SC11204 other = (protocol.Bag.SC11204) obj;
+
+      if (!getCurrenciesList()
+          .equals(other.getCurrenciesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getCurrenciesCount() > 0) {
+        hash = (37 * hash) + CURRENCIES_FIELD_NUMBER;
+        hash = (53 * hash) + getCurrenciesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Bag.SC11204 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.SC11204 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.SC11204 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.SC11204 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.SC11204 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Bag.SC11204 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Bag.SC11204 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.SC11204 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Bag.SC11204 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.SC11204 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Bag.SC11204 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Bag.SC11204 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Bag.SC11204 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * 推送货币列表（新增、变更）
+     * </pre>
+     *
+     * Protobuf type {@code protocol.SC11204}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.SC11204)
+        protocol.Bag.SC11204OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Bag.internal_static_protocol_SC11204_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Bag.internal_static_protocol_SC11204_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Bag.SC11204.class, protocol.Bag.SC11204.Builder.class);
+      }
+
+      // Construct using protocol.Bag.SC11204.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getCurrenciesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (currenciesBuilder_ == null) {
+          currencies_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          currenciesBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Bag.internal_static_protocol_SC11204_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Bag.SC11204 getDefaultInstanceForType() {
+        return protocol.Bag.SC11204.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Bag.SC11204 build() {
+        protocol.Bag.SC11204 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Bag.SC11204 buildPartial() {
+        protocol.Bag.SC11204 result = new protocol.Bag.SC11204(this);
+        int from_bitField0_ = bitField0_;
+        if (currenciesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            currencies_ = java.util.Collections.unmodifiableList(currencies_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.currencies_ = currencies_;
+        } else {
+          result.currencies_ = currenciesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Bag.SC11204) {
+          return mergeFrom((protocol.Bag.SC11204)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Bag.SC11204 other) {
+        if (other == protocol.Bag.SC11204.getDefaultInstance()) return this;
+        if (currenciesBuilder_ == null) {
+          if (!other.currencies_.isEmpty()) {
+            if (currencies_.isEmpty()) {
+              currencies_ = other.currencies_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureCurrenciesIsMutable();
+              currencies_.addAll(other.currencies_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.currencies_.isEmpty()) {
+            if (currenciesBuilder_.isEmpty()) {
+              currenciesBuilder_.dispose();
+              currenciesBuilder_ = null;
+              currencies_ = other.currencies_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              currenciesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getCurrenciesFieldBuilder() : null;
+            } else {
+              currenciesBuilder_.addAllMessages(other.currencies_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        for (int i = 0; i < getCurrenciesCount(); i++) {
+          if (!getCurrencies(i).isInitialized()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Bag.SC11204 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Bag.SC11204) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<protocol.Bag.CurrencyInfo> currencies_ =
+        java.util.Collections.emptyList();
+      private void ensureCurrenciesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          currencies_ = new java.util.ArrayList<protocol.Bag.CurrencyInfo>(currencies_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          protocol.Bag.CurrencyInfo, protocol.Bag.CurrencyInfo.Builder, protocol.Bag.CurrencyInfoOrBuilder> currenciesBuilder_;
+
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public java.util.List<protocol.Bag.CurrencyInfo> getCurrenciesList() {
+        if (currenciesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(currencies_);
+        } else {
+          return currenciesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public int getCurrenciesCount() {
+        if (currenciesBuilder_ == null) {
+          return currencies_.size();
+        } else {
+          return currenciesBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public protocol.Bag.CurrencyInfo getCurrencies(int index) {
+        if (currenciesBuilder_ == null) {
+          return currencies_.get(index);
+        } else {
+          return currenciesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder setCurrencies(
+          int index, protocol.Bag.CurrencyInfo value) {
+        if (currenciesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCurrenciesIsMutable();
+          currencies_.set(index, value);
+          onChanged();
+        } else {
+          currenciesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder setCurrencies(
+          int index, protocol.Bag.CurrencyInfo.Builder builderForValue) {
+        if (currenciesBuilder_ == null) {
+          ensureCurrenciesIsMutable();
+          currencies_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          currenciesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder addCurrencies(protocol.Bag.CurrencyInfo value) {
+        if (currenciesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCurrenciesIsMutable();
+          currencies_.add(value);
+          onChanged();
+        } else {
+          currenciesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder addCurrencies(
+          int index, protocol.Bag.CurrencyInfo value) {
+        if (currenciesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCurrenciesIsMutable();
+          currencies_.add(index, value);
+          onChanged();
+        } else {
+          currenciesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder addCurrencies(
+          protocol.Bag.CurrencyInfo.Builder builderForValue) {
+        if (currenciesBuilder_ == null) {
+          ensureCurrenciesIsMutable();
+          currencies_.add(builderForValue.build());
+          onChanged();
+        } else {
+          currenciesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder addCurrencies(
+          int index, protocol.Bag.CurrencyInfo.Builder builderForValue) {
+        if (currenciesBuilder_ == null) {
+          ensureCurrenciesIsMutable();
+          currencies_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          currenciesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder addAllCurrencies(
+          java.lang.Iterable<? extends protocol.Bag.CurrencyInfo> values) {
+        if (currenciesBuilder_ == null) {
+          ensureCurrenciesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, currencies_);
+          onChanged();
+        } else {
+          currenciesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder clearCurrencies() {
+        if (currenciesBuilder_ == null) {
+          currencies_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          currenciesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public Builder removeCurrencies(int index) {
+        if (currenciesBuilder_ == null) {
+          ensureCurrenciesIsMutable();
+          currencies_.remove(index);
+          onChanged();
+        } else {
+          currenciesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public protocol.Bag.CurrencyInfo.Builder getCurrenciesBuilder(
+          int index) {
+        return getCurrenciesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public protocol.Bag.CurrencyInfoOrBuilder getCurrenciesOrBuilder(
+          int index) {
+        if (currenciesBuilder_ == null) {
+          return currencies_.get(index);  } else {
+          return currenciesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public java.util.List<? extends protocol.Bag.CurrencyInfoOrBuilder> 
+           getCurrenciesOrBuilderList() {
+        if (currenciesBuilder_ != null) {
+          return currenciesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(currencies_);
+        }
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public protocol.Bag.CurrencyInfo.Builder addCurrenciesBuilder() {
+        return getCurrenciesFieldBuilder().addBuilder(
+            protocol.Bag.CurrencyInfo.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public protocol.Bag.CurrencyInfo.Builder addCurrenciesBuilder(
+          int index) {
+        return getCurrenciesFieldBuilder().addBuilder(
+            index, protocol.Bag.CurrencyInfo.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * 货币列表
+       * </pre>
+       *
+       * <code>repeated .protocol.CurrencyInfo currencies = 1;</code>
+       */
+      public java.util.List<protocol.Bag.CurrencyInfo.Builder> 
+           getCurrenciesBuilderList() {
+        return getCurrenciesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          protocol.Bag.CurrencyInfo, protocol.Bag.CurrencyInfo.Builder, protocol.Bag.CurrencyInfoOrBuilder> 
+          getCurrenciesFieldBuilder() {
+        if (currenciesBuilder_ == null) {
+          currenciesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              protocol.Bag.CurrencyInfo, protocol.Bag.CurrencyInfo.Builder, protocol.Bag.CurrencyInfoOrBuilder>(
+                  currencies_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          currencies_ = null;
+        }
+        return currenciesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.SC11204)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.SC11204)
+    private static final protocol.Bag.SC11204 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Bag.SC11204();
+    }
+
+    public static protocol.Bag.SC11204 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SC11204>
+        PARSER = new com.google.protobuf.AbstractParser<SC11204>() {
+      @java.lang.Override
+      public SC11204 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SC11204(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SC11204> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SC11204> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Bag.SC11204 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_CurrencyInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_CurrencyInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_ItemInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_ItemInfo_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_protocol_BagInfo_descriptor;
   private static final 
@@ -2844,6 +6899,21 @@ public final class Bag {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_protocol_SC11201_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_SC11202_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_SC11202_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_SC11203_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_SC11203_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_SC11204_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_SC11204_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2853,36 +6923,71 @@ public final class Bag {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\tbag.proto\022\010protocol\032\013equip.proto\"N\n\007Ba" +
-      "gInfo\022\n\n\002id\030\001 \002(\003\022\016\n\006itemId\030\002 \002(\005\022\'\n\005equ" +
-      "ip\030\003 \001(\0132\030.protocol.EquipExtraInfo\"*\n\007SC" +
-      "11200\022\037\n\004bags\030\001 \003(\0132\021.protocol.BagInfo\"*" +
-      "\n\007SC11201\022\037\n\004bags\030\001 \003(\0132\021.protocol.BagIn" +
-      "fo"
+      "\n\tbag.proto\022\010protocol\032\013equip.proto\"+\n\014Cu" +
+      "rrencyInfo\022\016\n\006itemId\030\001 \002(\005\022\013\n\003num\030\002 \002(\003\"" +
+      "\027\n\010ItemInfo\022\013\n\003num\030\001 \002(\003\"p\n\007BagInfo\022\n\n\002i" +
+      "d\030\001 \002(\003\022\016\n\006itemId\030\002 \002(\005\022 \n\004item\030\003 \001(\0132\022." +
+      "protocol.ItemInfo\022\'\n\005equip\030\004 \001(\0132\030.proto" +
+      "col.EquipExtraInfo\"*\n\007SC11200\022\037\n\004bags\030\001 " +
+      "\003(\0132\021.protocol.BagInfo\"*\n\007SC11201\022\037\n\004bag" +
+      "s\030\001 \003(\0132\021.protocol.BagInfo\"\026\n\007SC11202\022\013\n" +
+      "\003ids\030\001 \003(\003\"5\n\007SC11203\022*\n\ncurrencies\030\001 \003(" +
+      "\0132\026.protocol.CurrencyInfo\"5\n\007SC11204\022*\n\n" +
+      "currencies\030\001 \003(\0132\026.protocol.CurrencyInfo"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           protocol.Equip.getDescriptor(),
         });
-    internal_static_protocol_BagInfo_descriptor =
+    internal_static_protocol_CurrencyInfo_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_protocol_CurrencyInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_CurrencyInfo_descriptor,
+        new java.lang.String[] { "ItemId", "Num", });
+    internal_static_protocol_ItemInfo_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_protocol_ItemInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_ItemInfo_descriptor,
+        new java.lang.String[] { "Num", });
+    internal_static_protocol_BagInfo_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_protocol_BagInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_BagInfo_descriptor,
-        new java.lang.String[] { "Id", "ItemId", "Equip", });
+        new java.lang.String[] { "Id", "ItemId", "Item", "Equip", });
     internal_static_protocol_SC11200_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_protocol_SC11200_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_SC11200_descriptor,
         new java.lang.String[] { "Bags", });
     internal_static_protocol_SC11201_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_protocol_SC11201_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_SC11201_descriptor,
         new java.lang.String[] { "Bags", });
+    internal_static_protocol_SC11202_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_protocol_SC11202_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_SC11202_descriptor,
+        new java.lang.String[] { "Ids", });
+    internal_static_protocol_SC11203_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_protocol_SC11203_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_SC11203_descriptor,
+        new java.lang.String[] { "Currencies", });
+    internal_static_protocol_SC11204_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_protocol_SC11204_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_SC11204_descriptor,
+        new java.lang.String[] { "Currencies", });
     protocol.Equip.getDescriptor();
   }
 

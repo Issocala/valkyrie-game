@@ -31,7 +31,7 @@ public final class Common {
   }
   /**
    * <pre>
-   *公用时间
+   *返回错误码
    * </pre>
    *
    * Protobuf type {@code protocol.SC10080}
@@ -300,7 +300,7 @@ public final class Common {
     }
     /**
      * <pre>
-     *公用时间
+     *返回错误码
      * </pre>
      *
      * Protobuf type {@code protocol.SC10080}
@@ -2044,6 +2044,824 @@ public final class Common {
 
   }
 
+  public interface SC10083OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.SC10083)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 applicationId = 1;</code>
+     * @return Whether the applicationId field is set.
+     */
+    boolean hasApplicationId();
+    /**
+     * <code>required int32 applicationId = 1;</code>
+     * @return The applicationId.
+     */
+    int getApplicationId();
+
+    /**
+     * <pre>
+     *附带参数
+     * </pre>
+     *
+     * <code>repeated string parameter = 2;</code>
+     * @return A list containing the parameter.
+     */
+    java.util.List<java.lang.String>
+        getParameterList();
+    /**
+     * <pre>
+     *附带参数
+     * </pre>
+     *
+     * <code>repeated string parameter = 2;</code>
+     * @return The count of parameter.
+     */
+    int getParameterCount();
+    /**
+     * <pre>
+     *附带参数
+     * </pre>
+     *
+     * <code>repeated string parameter = 2;</code>
+     * @param index The index of the element to return.
+     * @return The parameter at the given index.
+     */
+    java.lang.String getParameter(int index);
+    /**
+     * <pre>
+     *附带参数
+     * </pre>
+     *
+     * <code>repeated string parameter = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the parameter at the given index.
+     */
+    com.google.protobuf.ByteString
+        getParameterBytes(int index);
+  }
+  /**
+   * <pre>
+   *返回公共公告信息
+   * </pre>
+   *
+   * Protobuf type {@code protocol.SC10083}
+   */
+  public  static final class SC10083 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.SC10083)
+      SC10083OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SC10083.newBuilder() to construct.
+    private SC10083(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SC10083() {
+      parameter_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SC10083();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SC10083(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              applicationId_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                parameter_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              parameter_.add(bs);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          parameter_ = parameter_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Common.internal_static_protocol_SC10083_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Common.internal_static_protocol_SC10083_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Common.SC10083.class, protocol.Common.SC10083.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int APPLICATIONID_FIELD_NUMBER = 1;
+    private int applicationId_;
+    /**
+     * <code>required int32 applicationId = 1;</code>
+     * @return Whether the applicationId field is set.
+     */
+    public boolean hasApplicationId() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required int32 applicationId = 1;</code>
+     * @return The applicationId.
+     */
+    public int getApplicationId() {
+      return applicationId_;
+    }
+
+    public static final int PARAMETER_FIELD_NUMBER = 2;
+    private com.google.protobuf.LazyStringList parameter_;
+    /**
+     * <pre>
+     *附带参数
+     * </pre>
+     *
+     * <code>repeated string parameter = 2;</code>
+     * @return A list containing the parameter.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getParameterList() {
+      return parameter_;
+    }
+    /**
+     * <pre>
+     *附带参数
+     * </pre>
+     *
+     * <code>repeated string parameter = 2;</code>
+     * @return The count of parameter.
+     */
+    public int getParameterCount() {
+      return parameter_.size();
+    }
+    /**
+     * <pre>
+     *附带参数
+     * </pre>
+     *
+     * <code>repeated string parameter = 2;</code>
+     * @param index The index of the element to return.
+     * @return The parameter at the given index.
+     */
+    public java.lang.String getParameter(int index) {
+      return parameter_.get(index);
+    }
+    /**
+     * <pre>
+     *附带参数
+     * </pre>
+     *
+     * <code>repeated string parameter = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the parameter at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getParameterBytes(int index) {
+      return parameter_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasApplicationId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt32(1, applicationId_);
+      }
+      for (int i = 0; i < parameter_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, parameter_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, applicationId_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < parameter_.size(); i++) {
+          dataSize += computeStringSizeNoTag(parameter_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getParameterList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Common.SC10083)) {
+        return super.equals(obj);
+      }
+      protocol.Common.SC10083 other = (protocol.Common.SC10083) obj;
+
+      if (hasApplicationId() != other.hasApplicationId()) return false;
+      if (hasApplicationId()) {
+        if (getApplicationId()
+            != other.getApplicationId()) return false;
+      }
+      if (!getParameterList()
+          .equals(other.getParameterList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasApplicationId()) {
+        hash = (37 * hash) + APPLICATIONID_FIELD_NUMBER;
+        hash = (53 * hash) + getApplicationId();
+      }
+      if (getParameterCount() > 0) {
+        hash = (37 * hash) + PARAMETER_FIELD_NUMBER;
+        hash = (53 * hash) + getParameterList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Common.SC10083 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Common.SC10083 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Common.SC10083 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Common.SC10083 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Common.SC10083 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Common.SC10083 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Common.SC10083 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Common.SC10083 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Common.SC10083 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Common.SC10083 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Common.SC10083 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Common.SC10083 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Common.SC10083 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *返回公共公告信息
+     * </pre>
+     *
+     * Protobuf type {@code protocol.SC10083}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.SC10083)
+        protocol.Common.SC10083OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Common.internal_static_protocol_SC10083_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Common.internal_static_protocol_SC10083_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Common.SC10083.class, protocol.Common.SC10083.Builder.class);
+      }
+
+      // Construct using protocol.Common.SC10083.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        applicationId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        parameter_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Common.internal_static_protocol_SC10083_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Common.SC10083 getDefaultInstanceForType() {
+        return protocol.Common.SC10083.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Common.SC10083 build() {
+        protocol.Common.SC10083 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Common.SC10083 buildPartial() {
+        protocol.Common.SC10083 result = new protocol.Common.SC10083(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.applicationId_ = applicationId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((bitField0_ & 0x00000002) != 0)) {
+          parameter_ = parameter_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.parameter_ = parameter_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Common.SC10083) {
+          return mergeFrom((protocol.Common.SC10083)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Common.SC10083 other) {
+        if (other == protocol.Common.SC10083.getDefaultInstance()) return this;
+        if (other.hasApplicationId()) {
+          setApplicationId(other.getApplicationId());
+        }
+        if (!other.parameter_.isEmpty()) {
+          if (parameter_.isEmpty()) {
+            parameter_ = other.parameter_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureParameterIsMutable();
+            parameter_.addAll(other.parameter_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasApplicationId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Common.SC10083 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Common.SC10083) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int applicationId_ ;
+      /**
+       * <code>required int32 applicationId = 1;</code>
+       * @return Whether the applicationId field is set.
+       */
+      public boolean hasApplicationId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required int32 applicationId = 1;</code>
+       * @return The applicationId.
+       */
+      public int getApplicationId() {
+        return applicationId_;
+      }
+      /**
+       * <code>required int32 applicationId = 1;</code>
+       * @param value The applicationId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setApplicationId(int value) {
+        bitField0_ |= 0x00000001;
+        applicationId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 applicationId = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearApplicationId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        applicationId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringList parameter_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureParameterIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          parameter_ = new com.google.protobuf.LazyStringArrayList(parameter_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      /**
+       * <pre>
+       *附带参数
+       * </pre>
+       *
+       * <code>repeated string parameter = 2;</code>
+       * @return A list containing the parameter.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getParameterList() {
+        return parameter_.getUnmodifiableView();
+      }
+      /**
+       * <pre>
+       *附带参数
+       * </pre>
+       *
+       * <code>repeated string parameter = 2;</code>
+       * @return The count of parameter.
+       */
+      public int getParameterCount() {
+        return parameter_.size();
+      }
+      /**
+       * <pre>
+       *附带参数
+       * </pre>
+       *
+       * <code>repeated string parameter = 2;</code>
+       * @param index The index of the element to return.
+       * @return The parameter at the given index.
+       */
+      public java.lang.String getParameter(int index) {
+        return parameter_.get(index);
+      }
+      /**
+       * <pre>
+       *附带参数
+       * </pre>
+       *
+       * <code>repeated string parameter = 2;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the parameter at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getParameterBytes(int index) {
+        return parameter_.getByteString(index);
+      }
+      /**
+       * <pre>
+       *附带参数
+       * </pre>
+       *
+       * <code>repeated string parameter = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The parameter to set.
+       * @return This builder for chaining.
+       */
+      public Builder setParameter(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureParameterIsMutable();
+        parameter_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *附带参数
+       * </pre>
+       *
+       * <code>repeated string parameter = 2;</code>
+       * @param value The parameter to add.
+       * @return This builder for chaining.
+       */
+      public Builder addParameter(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureParameterIsMutable();
+        parameter_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *附带参数
+       * </pre>
+       *
+       * <code>repeated string parameter = 2;</code>
+       * @param values The parameter to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllParameter(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureParameterIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, parameter_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *附带参数
+       * </pre>
+       *
+       * <code>repeated string parameter = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearParameter() {
+        parameter_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *附带参数
+       * </pre>
+       *
+       * <code>repeated string parameter = 2;</code>
+       * @param value The bytes of the parameter to add.
+       * @return This builder for chaining.
+       */
+      public Builder addParameterBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureParameterIsMutable();
+        parameter_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.SC10083)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.SC10083)
+    private static final protocol.Common.SC10083 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Common.SC10083();
+    }
+
+    public static protocol.Common.SC10083 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SC10083>
+        PARSER = new com.google.protobuf.AbstractParser<SC10083>() {
+      @java.lang.Override
+      public SC10083 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SC10083(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SC10083> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SC10083> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Common.SC10083 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_protocol_SC10080_descriptor;
   private static final 
@@ -2064,6 +2882,11 @@ public final class Common {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_protocol_CS10082_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_SC10083_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_SC10083_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2076,7 +2899,8 @@ public final class Common {
       "\n\014common.proto\022\010protocol\"%\n\007SC10080\022\032\n\022a" +
       "pplicationErrorId\030\001 \002(\005\"\t\n\007CS10081\"\035\n\007SC" +
       "10081\022\022\n\nserverTime\030\001 \002(\003\"\035\n\007CS10082\022\022\n\n" +
-      "serverTime\030\001 \002(\003"
+      "serverTime\030\001 \002(\003\"3\n\007SC10083\022\025\n\rapplicati" +
+      "onId\030\001 \002(\005\022\021\n\tparameter\030\002 \003(\t"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2106,6 +2930,12 @@ public final class Common {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_CS10082_descriptor,
         new java.lang.String[] { "ServerTime", });
+    internal_static_protocol_SC10083_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_protocol_SC10083_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_SC10083_descriptor,
+        new java.lang.String[] { "ApplicationId", "Parameter", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

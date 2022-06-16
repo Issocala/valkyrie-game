@@ -1,0 +1,82 @@
+package protocol;
+//status里包含读取状态、领取状态、删除状态，分别位于最后三位（默认为0）
+message MailInfo
+{
+  required int64 id  = 1;
+  optional int64 sender = 2;
+  required int64 recipient = 3;
+  required int64 sendDate = 4;
+  required int64 expiration = 5;
+  required int32 status = 6;
+  required int32 mailType = 7;
+  optional string annexList = 8;
+}
+
+//获取当前玩家的所有邮件
+message CS11300
+{
+  
+}
+
+//返回当前玩家的所有邮件
+message SC11300
+{
+  repeated MailInfo mailInfo = 1;
+}
+
+//读取一封邮件（包含检查邮件是否删除）
+message CS11301
+{
+  required int64 id = 1;
+}
+
+//读取结果
+message SC11301
+{
+  required bool success = 1;
+  optional string content = 2;
+}
+
+//一键删除
+message CS11302
+{
+
+}
+
+//返回成功删除的邮件id
+message SC11302
+{
+  repeated int64 id = 1;
+}
+
+//单个邮件附件领取
+message CS11303
+{
+  required int64 id = 1;
+}
+
+//领取结果
+message SC11303
+{
+  required bool success = 1;
+  optional string content = 2;
+}
+
+//一键领取
+message CS11304
+{
+
+}
+
+//成功领取的邮件id
+message SC11304
+{
+  repeated int64 id = 1;
+}
+
+//战斗结算（其他模块调用发送邮件）
+message SC11305
+{
+  repeated MailInfo mailInfo = 1;
+}
+

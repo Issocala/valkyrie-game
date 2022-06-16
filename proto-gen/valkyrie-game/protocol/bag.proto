@@ -1,22 +1,54 @@
 import "equip.proto";
 package protocol;
 
+// 货币信息
+message CurrencyInfo
+{
+    required int32 itemId = 1; // 货币ID
+    required int64 num    = 2; // 货币数量
+}
+
+// 道具信息
+message ItemInfo
+{
+    required int64 num = 1; // 数量
+}
+
 // 背包信息
 message BagInfo 
 {
     required int64 id             = 1; // 背包唯一ID
     required int32 itemId         = 2; // 道具配置ID
-    optional EquipExtraInfo equip = 3; // 装备附加信息
+    optional ItemInfo item        = 3; // 道具附加信息
+    optional EquipExtraInfo equip = 4; // 装备附加信息
 }
 
-// 推送背包列表
+// 推送背包列表（完整的）
 message SC11200
 {
     repeated BagInfo bags = 1; // 背包列表
 }
 
-// 推送增加的背包列表
+// 推送背包列表（新增、变更）
 message SC11201
 {
-    repeated BagInfo bags = 1; // 增加的背包列表
+    repeated BagInfo bags = 1; // 新增or变更的背包列表
+}
+
+// 推送背包列表（移除）
+message SC11202
+{
+    repeated int64 ids = 1; // 背包唯一ID列表
+}
+
+// 推送货币列表（完整的）
+message SC11203
+{
+    repeated CurrencyInfo currencies = 1; // 货币列表
+}
+
+// 推送货币列表（新增、变更）
+message SC11204
+{
+    repeated CurrencyInfo currencies = 1; // 货币列表
 }

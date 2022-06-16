@@ -8297,6 +8297,25 @@ public final class Scene {
      * @return The organismTemplateId.
      */
     int getOrganismTemplateId();
+
+    /**
+     * <pre>
+     *可选的归属id(类似宠物归属那个玩家)
+     * </pre>
+     *
+     * <code>optional int64 ownerId = 7;</code>
+     * @return Whether the ownerId field is set.
+     */
+    boolean hasOwnerId();
+    /**
+     * <pre>
+     *可选的归属id(类似宠物归属那个玩家)
+     * </pre>
+     *
+     * <code>optional int64 ownerId = 7;</code>
+     * @return The ownerId.
+     */
+    long getOwnerId();
   }
   /**
    * <pre>
@@ -8376,6 +8395,11 @@ public final class Scene {
             case 48: {
               bitField0_ |= 0x00000020;
               organismTemplateId_ = input.readInt32();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000040;
+              ownerId_ = input.readInt64();
               break;
             }
             default: {
@@ -8513,6 +8537,31 @@ public final class Scene {
       return organismTemplateId_;
     }
 
+    public static final int OWNERID_FIELD_NUMBER = 7;
+    private long ownerId_;
+    /**
+     * <pre>
+     *可选的归属id(类似宠物归属那个玩家)
+     * </pre>
+     *
+     * <code>optional int64 ownerId = 7;</code>
+     * @return Whether the ownerId field is set.
+     */
+    public boolean hasOwnerId() {
+      return ((bitField0_ & 0x00000040) != 0);
+    }
+    /**
+     * <pre>
+     *可选的归属id(类似宠物归属那个玩家)
+     * </pre>
+     *
+     * <code>optional int64 ownerId = 7;</code>
+     * @return The ownerId.
+     */
+    public long getOwnerId() {
+      return ownerId_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -8569,6 +8618,9 @@ public final class Scene {
       if (((bitField0_ & 0x00000020) != 0)) {
         output.writeInt32(6, organismTemplateId_);
       }
+      if (((bitField0_ & 0x00000040) != 0)) {
+        output.writeInt64(7, ownerId_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -8601,6 +8653,10 @@ public final class Scene {
       if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(6, organismTemplateId_);
+      }
+      if (((bitField0_ & 0x00000040) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(7, ownerId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -8649,6 +8705,11 @@ public final class Scene {
         if (getOrganismTemplateId()
             != other.getOrganismTemplateId()) return false;
       }
+      if (hasOwnerId() != other.hasOwnerId()) return false;
+      if (hasOwnerId()) {
+        if (getOwnerId()
+            != other.getOwnerId()) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -8686,6 +8747,11 @@ public final class Scene {
       if (hasOrganismTemplateId()) {
         hash = (37 * hash) + ORGANISMTEMPLATEID_FIELD_NUMBER;
         hash = (53 * hash) + getOrganismTemplateId();
+      }
+      if (hasOwnerId()) {
+        hash = (37 * hash) + OWNERID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getOwnerId());
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -8836,6 +8902,8 @@ public final class Scene {
         bitField0_ = (bitField0_ & ~0x00000010);
         organismTemplateId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
+        ownerId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
 
@@ -8887,6 +8955,10 @@ public final class Scene {
         if (((from_bitField0_ & 0x00000020) != 0)) {
           result.organismTemplateId_ = organismTemplateId_;
           to_bitField0_ |= 0x00000020;
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.ownerId_ = ownerId_;
+          to_bitField0_ |= 0x00000040;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -8954,6 +9026,9 @@ public final class Scene {
         }
         if (other.hasOrganismTemplateId()) {
           setOrganismTemplateId(other.getOrganismTemplateId());
+        }
+        if (other.hasOwnerId()) {
+          setOwnerId(other.getOwnerId());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -9221,6 +9296,59 @@ public final class Scene {
       public Builder clearOrganismTemplateId() {
         bitField0_ = (bitField0_ & ~0x00000020);
         organismTemplateId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private long ownerId_ ;
+      /**
+       * <pre>
+       *可选的归属id(类似宠物归属那个玩家)
+       * </pre>
+       *
+       * <code>optional int64 ownerId = 7;</code>
+       * @return Whether the ownerId field is set.
+       */
+      public boolean hasOwnerId() {
+        return ((bitField0_ & 0x00000040) != 0);
+      }
+      /**
+       * <pre>
+       *可选的归属id(类似宠物归属那个玩家)
+       * </pre>
+       *
+       * <code>optional int64 ownerId = 7;</code>
+       * @return The ownerId.
+       */
+      public long getOwnerId() {
+        return ownerId_;
+      }
+      /**
+       * <pre>
+       *可选的归属id(类似宠物归属那个玩家)
+       * </pre>
+       *
+       * <code>optional int64 ownerId = 7;</code>
+       * @param value The ownerId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOwnerId(long value) {
+        bitField0_ |= 0x00000040;
+        ownerId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *可选的归属id(类似宠物归属那个玩家)
+       * </pre>
+       *
+       * <code>optional int64 ownerId = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOwnerId() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        ownerId_ = 0L;
         onChanged();
         return this;
       }
@@ -16864,26 +16992,27 @@ public final class Scene {
       "Info\"C\n\007CS10303\022\022\n\norganismId\030\001 \002(\003\022$\n\010s" +
       "topInfo\030\002 \002(\0132\022.protocol.StopInfo\"C\n\007SC1" +
       "0303\022\022\n\norganismId\030\001 \002(\003\022$\n\010stopInfo\030\002 \002" +
-      "(\0132\022.protocol.StopInfo\"\203\001\n\007SC10304\022\022\n\nor" +
+      "(\0132\022.protocol.StopInfo\"\224\001\n\007SC10304\022\022\n\nor" +
       "ganismId\030\001 \002(\003\022\024\n\014organismType\030\002 \002(\005\022\021\n\t" +
       "positionX\030\003 \002(\002\022\021\n\tpositionY\030\004 \002(\002\022\014\n\004fa" +
-      "ce\030\005 \002(\005\022\032\n\022organismTemplateId\030\006 \002(\005\"C\n\007" +
-      "CS10305\022\022\n\norganismId\030\001 \002(\003\022$\n\010jumpInfo\030" +
-      "\002 \002(\0132\022.protocol.JumpInfo\"C\n\007SC10305\022\022\n\n" +
-      "organismId\030\001 \002(\003\022$\n\010jumpInfo\030\002 \002(\0132\022.pro" +
-      "tocol.JumpInfo\"C\n\007CS10306\022\021\n\tpositionX\030\001" +
-      " \002(\002\022\021\n\tpositionY\030\002 \002(\002\022\022\n\norganismId\030\003 " +
-      "\002(\003\"C\n\007SC10306\022\021\n\tpositionX\030\001 \002(\002\022\021\n\tpos" +
-      "itionY\030\002 \002(\002\022\022\n\norganismId\030\003 \002(\003\"\t\n\007SC10" +
-      "307\"6\n\007SC10308\022\022\n\norganismId\030\001 \002(\003\022\027\n\017sk" +
-      "illTemplateId\030\002 \002(\005\"\t\n\007CS10309\"5\n\007CS1031" +
-      "0\022\022\n\norganismId\030\001 \002(\003\022\026\n\016organismItemId\030" +
-      "\002 \002(\003\"4\n\007CS10311\022\022\n\norganismId\030\001 \002(\003\022\025\n\r" +
-      "organismNpcId\030\002 \002(\003\"Q\n\007CS10312\022\022\n\norgani" +
-      "smId\030\001 \002(\003\022\021\n\tpositionX\030\002 \002(\002\022\021\n\tpositio" +
-      "nY\030\003 \002(\002\022\014\n\004time\030\004 \002(\002\"Q\n\007SC10312\022\022\n\norg" +
-      "anismId\030\001 \002(\003\022\021\n\tpositionX\030\002 \002(\002\022\021\n\tposi" +
-      "tionY\030\003 \002(\002\022\014\n\004time\030\004 \002(\002"
+      "ce\030\005 \002(\005\022\032\n\022organismTemplateId\030\006 \002(\005\022\017\n\007" +
+      "ownerId\030\007 \001(\003\"C\n\007CS10305\022\022\n\norganismId\030\001" +
+      " \002(\003\022$\n\010jumpInfo\030\002 \002(\0132\022.protocol.JumpIn" +
+      "fo\"C\n\007SC10305\022\022\n\norganismId\030\001 \002(\003\022$\n\010jum" +
+      "pInfo\030\002 \002(\0132\022.protocol.JumpInfo\"C\n\007CS103" +
+      "06\022\021\n\tpositionX\030\001 \002(\002\022\021\n\tpositionY\030\002 \002(\002" +
+      "\022\022\n\norganismId\030\003 \002(\003\"C\n\007SC10306\022\021\n\tposit" +
+      "ionX\030\001 \002(\002\022\021\n\tpositionY\030\002 \002(\002\022\022\n\norganis" +
+      "mId\030\003 \002(\003\"\t\n\007SC10307\"6\n\007SC10308\022\022\n\norgan" +
+      "ismId\030\001 \002(\003\022\027\n\017skillTemplateId\030\002 \002(\005\"\t\n\007" +
+      "CS10309\"5\n\007CS10310\022\022\n\norganismId\030\001 \002(\003\022\026" +
+      "\n\016organismItemId\030\002 \002(\003\"4\n\007CS10311\022\022\n\norg" +
+      "anismId\030\001 \002(\003\022\025\n\rorganismNpcId\030\002 \002(\003\"Q\n\007" +
+      "CS10312\022\022\n\norganismId\030\001 \002(\003\022\021\n\tpositionX" +
+      "\030\002 \002(\002\022\021\n\tpositionY\030\003 \002(\002\022\014\n\004time\030\004 \002(\002\"" +
+      "Q\n\007SC10312\022\022\n\norganismId\030\001 \002(\003\022\021\n\tpositi" +
+      "onX\030\002 \002(\002\022\021\n\tpositionY\030\003 \002(\002\022\014\n\004time\030\004 \002" +
+      "(\002"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -16960,7 +17089,7 @@ public final class Scene {
     internal_static_protocol_SC10304_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_SC10304_descriptor,
-        new java.lang.String[] { "OrganismId", "OrganismType", "PositionX", "PositionY", "Face", "OrganismTemplateId", });
+        new java.lang.String[] { "OrganismId", "OrganismType", "PositionX", "PositionY", "Face", "OrganismTemplateId", "OwnerId", });
     internal_static_protocol_CS10305_descriptor =
       getDescriptor().getMessageTypes().get(12);
     internal_static_protocol_CS10305_fieldAccessorTable = new

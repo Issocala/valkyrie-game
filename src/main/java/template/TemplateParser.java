@@ -31,6 +31,18 @@ public class TemplateParser {
                     case "FightPassiveSkillProcess" -> FightPassiveSkillProcessTemplateHolder.addData(FightPassiveSkillProcessTemplate.parse(cbb));
                     case "Attribute" -> AttributeTemplateHolder.addData(AttributeTemplate.parse(cbb));
                     case "Global" -> GlobalTemplateHolder.addData(GlobalTemplate.parse(cbb));
+                    case "Strengthen" -> StrengthenTemplateHolder.addData(StrengthenTemplate.parse(cbb));
+                    case "StrengthenPerfect" -> StrengthenPerfectTemplateHolder.addData(StrengthenPerfectTemplate.parse(cbb));
+                    case "StrengthenPolish" -> StrengthenPolishTemplateHolder.addData(StrengthenPolishTemplate.parse(cbb));
+                    case "StrengthenSuit" -> StrengthenSuitTemplateHolder.addData(StrengthenSuitTemplate.parse(cbb));
+                    case "OpenFunction" -> OpenFunctionTemplateHolder.addData(OpenFunctionTemplate.parse(cbb));
+                    case "ItemInitGain" -> ItemInitGainTemplateHolder.addData(ItemInitGainTemplate.parse(cbb));
+                    case "DropGroup" -> DropGroupTemplateHolder.addData(DropGroupTemplate.parse(cbb));
+                    case "DropItem" -> DropItemTemplateHolder.addData(DropItemTemplate.parse(cbb));
+                    case "GameInstance" -> GameInstanceTemplateHolder.addData(GameInstanceTemplate.parse(cbb));
+                    case "Trigger" -> TriggerTemplateHolder.addData(TriggerTemplate.parse(cbb));
+                    case "TriggerConditions" -> TriggerConditionsTemplateHolder.addData(TriggerConditionsTemplate.parse(cbb));
+                    case "TriggerActions" -> TriggerActionsTemplateHolder.addData(TriggerActionsTemplate.parse(cbb));
 
                 }
             }

@@ -91,6 +91,7 @@ message SC10304
   required float positionY = 4;
   required int32 face = 5;
   required int32 organismTemplateId = 6;
+  optional int64 ownerId = 7; //可选的归属id(类似宠物归属那个玩家)
 }
 
 //玩家跳跃

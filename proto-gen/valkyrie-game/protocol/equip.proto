@@ -16,6 +16,14 @@ message EquipExtraInfo
     repeated AttributeMap potentialAttributeMap = 2; // 装备潜能属性
 }
 
+// 装备强化信息
+message StrengthenInfo
+{
+    required int32 slot    = 1; // 装备部位
+    required int32 level   = 2; // 强化等级
+    required int32 perfect = 3; // 完美度
+}
+
 // 推送已穿戴的装备列表
 message SC11100
 {
@@ -44,4 +52,34 @@ message CS11102
 message SC11102
 {
     repeated int32 slots = 1; // 装备部位列表
+}
+
+// 推送强化信息（完整的）
+message SC11103
+{
+    repeated StrengthenInfo strengthens = 1; // 强化信息列表
+}
+
+// 请求打磨装备
+message CS11104
+{
+    required int32 slot = 1; // 装备部位
+}
+
+// 返回打磨装备
+message SC11104
+{
+    required StrengthenInfo strengthen = 1; // 强化信息
+}
+
+// 请求强化装备
+message CS11105
+{
+    required int32 slot = 1; // 装备部位
+}
+
+// 返回强化装备
+message SC11105
+{
+    required StrengthenInfo strengthen = 1; // 强化信息
 }

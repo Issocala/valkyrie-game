@@ -1,6 +1,6 @@
 package protocol;
 
-//公用时间
+//返回错误码
 message SC10080 
 {
     required int32 applicationErrorId = 1;
@@ -21,4 +21,11 @@ message SC10081
 message CS10082
 {
     required int64 serverTime = 1;
+}
+
+//返回公共公告信息
+message SC10083
+{
+    required int32 applicationId = 1;
+    repeated string parameter = 2; //附带参数
 }

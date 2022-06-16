@@ -6,6 +6,8 @@
 package protocol.attribute
 import _root_.scalapb.internal.compat.JavaConverters._
 
+/** 返回战斗数值
+  */
 @SerialVersionUID(0L)
 final case class SC10040(
     fightOrganismId: _root_.scala.Long,

@@ -11,6 +11,8 @@ package protocol.bag
   *   背包唯一ID
   * @param itemId
   *   道具配置ID
+  * @param item
+  *   道具附加信息
   * @param equip
   *   装备附加信息
   */
@@ -18,6 +20,7 @@ package protocol.bag
 final case class BagInfo(
     id: _root_.scala.Long,
     itemId: _root_.scala.Int,
+    item: _root_.scala.Option[protocol.bag.ItemInfo] = _root_.scala.None,
     equip: _root_.scala.Option[protocol.equip.EquipExtraInfo] = _root_.scala.None,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[BagInfo] {
@@ -34,6 +37,10 @@ final case class BagInfo(
       {
         val __value = itemId
         __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(2, __value)
+      };
+      if (item.isDefined) {
+        val __value = item.get
+        __size += 1 + _root_.com.google.protobuf.CodedOutputStream.computeUInt32SizeNoTag(__value.serializedSize) + __value.serializedSize
       };
       if (equip.isDefined) {
         val __value = equip.get
@@ -61,9 +68,15 @@ final case class BagInfo(
         val __v = itemId
         _output__.writeInt32(2, __v)
       };
-      equip.foreach { __v =>
+      item.foreach { __v =>
         val __m = __v
         _output__.writeTag(3, 2)
+        _output__.writeUInt32NoTag(__m.serializedSize)
+        __m.writeTo(_output__)
+      };
+      equip.foreach { __v =>
+        val __m = __v
+        _output__.writeTag(4, 2)
         _output__.writeUInt32NoTag(__m.serializedSize)
         __m.writeTo(_output__)
       };
@@ -71,6 +84,9 @@ final case class BagInfo(
     }
     def withId(__v: _root_.scala.Long): BagInfo = copy(id = __v)
     def withItemId(__v: _root_.scala.Int): BagInfo = copy(itemId = __v)
+    def getItem: protocol.bag.ItemInfo = item.getOrElse(protocol.bag.ItemInfo.defaultInstance)
+    def clearItem: BagInfo = copy(item = _root_.scala.None)
+    def withItem(__v: protocol.bag.ItemInfo): BagInfo = copy(item = Option(__v))
     def getEquip: protocol.equip.EquipExtraInfo = equip.getOrElse(protocol.equip.EquipExtraInfo.defaultInstance)
     def clearEquip: BagInfo = copy(equip = _root_.scala.None)
     def withEquip(__v: protocol.equip.EquipExtraInfo): BagInfo = copy(equip = Option(__v))
@@ -80,7 +96,8 @@ final case class BagInfo(
       (__fieldNumber: @_root_.scala.unchecked) match {
         case 1 => id
         case 2 => itemId
-        case 3 => equip.orNull
+        case 3 => item.orNull
+        case 4 => equip.orNull
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -88,7 +105,8 @@ final case class BagInfo(
       (__field.number: @_root_.scala.unchecked) match {
         case 1 => _root_.scalapb.descriptors.PLong(id)
         case 2 => _root_.scalapb.descriptors.PInt(itemId)
-        case 3 => equip.map(_.toPMessage).getOrElse(_root_.scalapb.descriptors.PEmpty)
+        case 3 => item.map(_.toPMessage).getOrElse(_root_.scalapb.descriptors.PEmpty)
+        case 4 => equip.map(_.toPMessage).getOrElse(_root_.scalapb.descriptors.PEmpty)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -102,12 +120,14 @@ object BagInfo extends scalapb.GeneratedMessageCompanion[protocol.bag.BagInfo] w
     val javaPbOut = protocol.Bag.BagInfo.newBuilder
     javaPbOut.setId(scalaPbSource.id)
     javaPbOut.setItemId(scalaPbSource.itemId)
+    scalaPbSource.item.map(protocol.bag.ItemInfo.toJavaProto(_)).foreach(javaPbOut.setItem)
     scalaPbSource.equip.map(protocol.equip.EquipExtraInfo.toJavaProto(_)).foreach(javaPbOut.setEquip)
     javaPbOut.build
   }
   def fromJavaProto(javaPbSource: protocol.Bag.BagInfo): protocol.bag.BagInfo = protocol.bag.BagInfo(
     id = javaPbSource.getId.longValue,
     itemId = javaPbSource.getItemId.intValue,
+    item = if (javaPbSource.hasItem) Some(protocol.bag.ItemInfo.fromJavaProto(javaPbSource.getItem)) else _root_.scala.None,
     equip = if (javaPbSource.hasEquip) Some(protocol.equip.EquipExtraInfo.fromJavaProto(javaPbSource.getEquip)) else _root_.scala.None
   )
   def merge(`_message__`: protocol.bag.BagInfo, `_input__`: _root_.com.google.protobuf.CodedInputStream): protocol.bag.BagInfo = newBuilder(_message__).merge(_input__).result()
@@ -117,16 +137,18 @@ object BagInfo extends scalapb.GeneratedMessageCompanion[protocol.bag.BagInfo] w
       protocol.bag.BagInfo(
         id = __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).get.as[_root_.scala.Long],
         itemId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(2).get).get.as[_root_.scala.Int],
-        equip = __fieldsMap.get(scalaDescriptor.findFieldByNumber(3).get).flatMap(_.as[_root_.scala.Option[protocol.equip.EquipExtraInfo]])
+        item = __fieldsMap.get(scalaDescriptor.findFieldByNumber(3).get).flatMap(_.as[_root_.scala.Option[protocol.bag.ItemInfo]]),
+        equip = __fieldsMap.get(scalaDescriptor.findFieldByNumber(4).get).flatMap(_.as[_root_.scala.Option[protocol.equip.EquipExtraInfo]])
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = BagProto.javaDescriptor.getMessageTypes().get(0)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = BagProto.scalaDescriptor.messages(0)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = BagProto.javaDescriptor.getMessageTypes().get(2)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = BagProto.scalaDescriptor.messages(2)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
     var __out: _root_.scalapb.GeneratedMessageCompanion[_] = null
     (__number: @_root_.scala.unchecked) match {
-      case 3 => __out = protocol.equip.EquipExtraInfo
+      case 3 => __out = protocol.bag.ItemInfo
+      case 4 => __out = protocol.equip.EquipExtraInfo
     }
     __out
   }
@@ -135,11 +157,13 @@ object BagInfo extends scalapb.GeneratedMessageCompanion[protocol.bag.BagInfo] w
   lazy val defaultInstance = protocol.bag.BagInfo(
     id = 0L,
     itemId = 0,
+    item = _root_.scala.None,
     equip = _root_.scala.None
   )
   final class Builder private (
     private var __id: _root_.scala.Long,
     private var __itemId: _root_.scala.Int,
+    private var __item: _root_.scala.Option[protocol.bag.ItemInfo],
     private var __equip: _root_.scala.Option[protocol.equip.EquipExtraInfo],
     private var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder
   ) extends _root_.scalapb.MessageBuilder[protocol.bag.BagInfo] {
@@ -157,6 +181,8 @@ object BagInfo extends scalapb.GeneratedMessageCompanion[protocol.bag.BagInfo] w
             __itemId = _input__.readInt32()
             __requiredFields0 &= 0xfffffffffffffffdL
           case 26 =>
+            __item = Option(__item.fold(_root_.scalapb.LiteParser.readMessage[protocol.bag.ItemInfo](_input__))(_root_.scalapb.LiteParser.readMessage(_input__, _)))
+          case 34 =>
             __equip = Option(__equip.fold(_root_.scalapb.LiteParser.readMessage[protocol.equip.EquipExtraInfo](_input__))(_root_.scalapb.LiteParser.readMessage(_input__, _)))
           case tag =>
             if (_unknownFields__ == null) {
@@ -172,6 +198,7 @@ object BagInfo extends scalapb.GeneratedMessageCompanion[protocol.bag.BagInfo] w
       protocol.bag.BagInfo(
         id = __id,
         itemId = __itemId,
+        item = __item,
         equip = __equip,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
       )
@@ -181,12 +208,14 @@ object BagInfo extends scalapb.GeneratedMessageCompanion[protocol.bag.BagInfo] w
     def apply(): Builder = new Builder(
       __id = 0L,
       __itemId = 0,
+      __item = _root_.scala.None,
       __equip = _root_.scala.None,
       `_unknownFields__` = null
     )
     def apply(`_message__`: protocol.bag.BagInfo): Builder = new Builder(
         __id = _message__.id,
         __itemId = _message__.itemId,
+        __item = _message__.item,
         __equip = _message__.equip,
         `_unknownFields__` = new _root_.scalapb.UnknownFieldSet.Builder(_message__.unknownFields)
     )
@@ -196,19 +225,24 @@ object BagInfo extends scalapb.GeneratedMessageCompanion[protocol.bag.BagInfo] w
   implicit class BagInfoLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, protocol.bag.BagInfo]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, protocol.bag.BagInfo](_l) {
     def id: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.id)((c_, f_) => c_.copy(id = f_))
     def itemId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.itemId)((c_, f_) => c_.copy(itemId = f_))
+    def item: _root_.scalapb.lenses.Lens[UpperPB, protocol.bag.ItemInfo] = field(_.getItem)((c_, f_) => c_.copy(item = Option(f_)))
+    def optionalItem: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[protocol.bag.ItemInfo]] = field(_.item)((c_, f_) => c_.copy(item = f_))
     def equip: _root_.scalapb.lenses.Lens[UpperPB, protocol.equip.EquipExtraInfo] = field(_.getEquip)((c_, f_) => c_.copy(equip = Option(f_)))
     def optionalEquip: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[protocol.equip.EquipExtraInfo]] = field(_.equip)((c_, f_) => c_.copy(equip = f_))
   }
   final val ID_FIELD_NUMBER = 1
   final val ITEMID_FIELD_NUMBER = 2
-  final val EQUIP_FIELD_NUMBER = 3
+  final val ITEM_FIELD_NUMBER = 3
+  final val EQUIP_FIELD_NUMBER = 4
   def of(
     id: _root_.scala.Long,
     itemId: _root_.scala.Int,
+    item: _root_.scala.Option[protocol.bag.ItemInfo],
     equip: _root_.scala.Option[protocol.equip.EquipExtraInfo]
   ): _root_.protocol.bag.BagInfo = _root_.protocol.bag.BagInfo(
     id,
     itemId,
+    item,
     equip
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[protocol.BagInfo])

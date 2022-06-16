@@ -6,7 +6,7 @@
 package protocol.bag
 import _root_.scalapb.internal.compat.JavaConverters._
 
-/** 推送背包列表
+/** 推送背包列表（完整的）
   *
   * @param bags
   *   背包列表
@@ -85,8 +85,8 @@ object SC11200 extends scalapb.GeneratedMessageCompanion[protocol.bag.SC11200] w
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = BagProto.javaDescriptor.getMessageTypes().get(1)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = BagProto.scalaDescriptor.messages(1)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = BagProto.javaDescriptor.getMessageTypes().get(3)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = BagProto.scalaDescriptor.messages(3)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
     var __out: _root_.scalapb.GeneratedMessageCompanion[_] = null
     (__number: @_root_.scala.unchecked) match {

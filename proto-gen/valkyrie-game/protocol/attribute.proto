@@ -6,9 +6,16 @@ package protocol;
 message CS10040
 {
 }
-
+//返回战斗数值
 message SC10040
 {
     required int64 fightOrganismId = 1;
     repeated AttributeMap attributeMap = 2;
+}
+
+//返回战力
+message SC10041
+{
+    required int64 fightOrganismId = 1;
+    required int64 fighting = 2; //战力
 }

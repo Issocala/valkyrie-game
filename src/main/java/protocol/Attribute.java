@@ -480,6 +480,10 @@ public final class Attribute {
         int index);
   }
   /**
+   * <pre>
+   *返回战斗数值
+   * </pre>
+   *
    * Protobuf type {@code protocol.SC10040}
    */
   public  static final class SC10040 extends
@@ -813,6 +817,10 @@ public final class Attribute {
       return builder;
     }
     /**
+     * <pre>
+     *返回战斗数值
+     * </pre>
+     *
      * Protobuf type {@code protocol.SC10040}
      */
     public static final class Builder extends
@@ -1345,6 +1353,676 @@ public final class Attribute {
 
   }
 
+  public interface SC10041OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.SC10041)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int64 fightOrganismId = 1;</code>
+     * @return Whether the fightOrganismId field is set.
+     */
+    boolean hasFightOrganismId();
+    /**
+     * <code>required int64 fightOrganismId = 1;</code>
+     * @return The fightOrganismId.
+     */
+    long getFightOrganismId();
+
+    /**
+     * <pre>
+     *战力
+     * </pre>
+     *
+     * <code>required int64 fighting = 2;</code>
+     * @return Whether the fighting field is set.
+     */
+    boolean hasFighting();
+    /**
+     * <pre>
+     *战力
+     * </pre>
+     *
+     * <code>required int64 fighting = 2;</code>
+     * @return The fighting.
+     */
+    long getFighting();
+  }
+  /**
+   * <pre>
+   *返回战力
+   * </pre>
+   *
+   * Protobuf type {@code protocol.SC10041}
+   */
+  public  static final class SC10041 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:protocol.SC10041)
+      SC10041OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SC10041.newBuilder() to construct.
+    private SC10041(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SC10041() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SC10041();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SC10041(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              fightOrganismId_ = input.readInt64();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              fighting_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocol.Attribute.internal_static_protocol_SC10041_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocol.Attribute.internal_static_protocol_SC10041_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocol.Attribute.SC10041.class, protocol.Attribute.SC10041.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int FIGHTORGANISMID_FIELD_NUMBER = 1;
+    private long fightOrganismId_;
+    /**
+     * <code>required int64 fightOrganismId = 1;</code>
+     * @return Whether the fightOrganismId field is set.
+     */
+    public boolean hasFightOrganismId() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required int64 fightOrganismId = 1;</code>
+     * @return The fightOrganismId.
+     */
+    public long getFightOrganismId() {
+      return fightOrganismId_;
+    }
+
+    public static final int FIGHTING_FIELD_NUMBER = 2;
+    private long fighting_;
+    /**
+     * <pre>
+     *战力
+     * </pre>
+     *
+     * <code>required int64 fighting = 2;</code>
+     * @return Whether the fighting field is set.
+     */
+    public boolean hasFighting() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <pre>
+     *战力
+     * </pre>
+     *
+     * <code>required int64 fighting = 2;</code>
+     * @return The fighting.
+     */
+    public long getFighting() {
+      return fighting_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasFightOrganismId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasFighting()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt64(1, fightOrganismId_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeInt64(2, fighting_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, fightOrganismId_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, fighting_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof protocol.Attribute.SC10041)) {
+        return super.equals(obj);
+      }
+      protocol.Attribute.SC10041 other = (protocol.Attribute.SC10041) obj;
+
+      if (hasFightOrganismId() != other.hasFightOrganismId()) return false;
+      if (hasFightOrganismId()) {
+        if (getFightOrganismId()
+            != other.getFightOrganismId()) return false;
+      }
+      if (hasFighting() != other.hasFighting()) return false;
+      if (hasFighting()) {
+        if (getFighting()
+            != other.getFighting()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasFightOrganismId()) {
+        hash = (37 * hash) + FIGHTORGANISMID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getFightOrganismId());
+      }
+      if (hasFighting()) {
+        hash = (37 * hash) + FIGHTING_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getFighting());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static protocol.Attribute.SC10041 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Attribute.SC10041 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Attribute.SC10041 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Attribute.SC10041 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Attribute.SC10041 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocol.Attribute.SC10041 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocol.Attribute.SC10041 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Attribute.SC10041 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Attribute.SC10041 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static protocol.Attribute.SC10041 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static protocol.Attribute.SC10041 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static protocol.Attribute.SC10041 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(protocol.Attribute.SC10041 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *返回战力
+     * </pre>
+     *
+     * Protobuf type {@code protocol.SC10041}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.SC10041)
+        protocol.Attribute.SC10041OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocol.Attribute.internal_static_protocol_SC10041_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocol.Attribute.internal_static_protocol_SC10041_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocol.Attribute.SC10041.class, protocol.Attribute.SC10041.Builder.class);
+      }
+
+      // Construct using protocol.Attribute.SC10041.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        fightOrganismId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        fighting_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocol.Attribute.internal_static_protocol_SC10041_descriptor;
+      }
+
+      @java.lang.Override
+      public protocol.Attribute.SC10041 getDefaultInstanceForType() {
+        return protocol.Attribute.SC10041.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public protocol.Attribute.SC10041 build() {
+        protocol.Attribute.SC10041 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public protocol.Attribute.SC10041 buildPartial() {
+        protocol.Attribute.SC10041 result = new protocol.Attribute.SC10041(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.fightOrganismId_ = fightOrganismId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.fighting_ = fighting_;
+          to_bitField0_ |= 0x00000002;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocol.Attribute.SC10041) {
+          return mergeFrom((protocol.Attribute.SC10041)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocol.Attribute.SC10041 other) {
+        if (other == protocol.Attribute.SC10041.getDefaultInstance()) return this;
+        if (other.hasFightOrganismId()) {
+          setFightOrganismId(other.getFightOrganismId());
+        }
+        if (other.hasFighting()) {
+          setFighting(other.getFighting());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasFightOrganismId()) {
+          return false;
+        }
+        if (!hasFighting()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocol.Attribute.SC10041 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocol.Attribute.SC10041) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long fightOrganismId_ ;
+      /**
+       * <code>required int64 fightOrganismId = 1;</code>
+       * @return Whether the fightOrganismId field is set.
+       */
+      public boolean hasFightOrganismId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required int64 fightOrganismId = 1;</code>
+       * @return The fightOrganismId.
+       */
+      public long getFightOrganismId() {
+        return fightOrganismId_;
+      }
+      /**
+       * <code>required int64 fightOrganismId = 1;</code>
+       * @param value The fightOrganismId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFightOrganismId(long value) {
+        bitField0_ |= 0x00000001;
+        fightOrganismId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 fightOrganismId = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFightOrganismId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        fightOrganismId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long fighting_ ;
+      /**
+       * <pre>
+       *战力
+       * </pre>
+       *
+       * <code>required int64 fighting = 2;</code>
+       * @return Whether the fighting field is set.
+       */
+      public boolean hasFighting() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <pre>
+       *战力
+       * </pre>
+       *
+       * <code>required int64 fighting = 2;</code>
+       * @return The fighting.
+       */
+      public long getFighting() {
+        return fighting_;
+      }
+      /**
+       * <pre>
+       *战力
+       * </pre>
+       *
+       * <code>required int64 fighting = 2;</code>
+       * @param value The fighting to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFighting(long value) {
+        bitField0_ |= 0x00000002;
+        fighting_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *战力
+       * </pre>
+       *
+       * <code>required int64 fighting = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFighting() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        fighting_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:protocol.SC10041)
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.SC10041)
+    private static final protocol.Attribute.SC10041 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new protocol.Attribute.SC10041();
+    }
+
+    public static protocol.Attribute.SC10041 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SC10041>
+        PARSER = new com.google.protobuf.AbstractParser<SC10041>() {
+      @java.lang.Override
+      public SC10041 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SC10041(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SC10041> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SC10041> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public protocol.Attribute.SC10041 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_protocol_CS10040_descriptor;
   private static final 
@@ -1355,6 +2033,11 @@ public final class Attribute {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_protocol_SC10040_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_SC10041_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protocol_SC10041_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1367,7 +2050,8 @@ public final class Attribute {
       "\n\017attribute.proto\022\010protocol\032\nbase.proto\"" +
       "\t\n\007CS10040\"P\n\007SC10040\022\027\n\017fightOrganismId" +
       "\030\001 \002(\003\022,\n\014attributeMap\030\002 \003(\0132\026.protocol." +
-      "AttributeMap"
+      "AttributeMap\"4\n\007SC10041\022\027\n\017fightOrganism" +
+      "Id\030\001 \002(\003\022\020\n\010fighting\030\002 \002(\003"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1386,6 +2070,12 @@ public final class Attribute {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocol_SC10040_descriptor,
         new java.lang.String[] { "FightOrganismId", "AttributeMap", });
+    internal_static_protocol_SC10041_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_protocol_SC10041_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protocol_SC10041_descriptor,
+        new java.lang.String[] { "FightOrganismId", "Fighting", });
     protocol.Base.getDescriptor();
   }
 
