@@ -14,4 +14,9 @@ public interface AttributeProtocols {
      */
     int FIGHT_ATTRIBUTE_GET = GameProtocols.ATTRIBUTE;
 
+    /**
+     * 返回战力
+     */
+    int FIGHTING = GameProtocols.ATTRIBUTE + 1;
+
 }

@@ -1,5 +1,6 @@
 package application.module.scene.fight.buff;
 
+import application.client.Client;
 import protocol.Buff;
 
 import java.util.ArrayList;
@@ -26,24 +27,24 @@ public class FightBuffProtocolBuilder {
                 .build();
     }
 
-    public static Buff.SC10071 getSc10071(long organismId, FightOrganismBuff b) {
-        return Buff.SC10071.newBuilder()
-                .setFightOrganismId(organismId)
+    public static Client.SendToClientJ getSc10071(long organismId, FightOrganismBuff b) {
+        Buff.SC10071.Builder builder = Buff.SC10071.newBuilder();
+        builder.setFightOrganismId(organismId)
                 .setBuffInfo(Buff.BuffInfo.newBuilder()
                         .setBuffTemplateId(b.getBuffTemplateId())
                         .setCurrCoverCount(b.getCurrCoverCount())
-                        .build())
-                .build();
+                        .build());
+        return new Client.SendToClientJ(FightBuffProtocols.ADD, builder.build());
     }
 
-    public static Buff.SC10072 getSc10072(long organismId, FightOrganismBuff b) {
-        return Buff.SC10072.newBuilder()
-                .setFightOrganismId(organismId)
+    public static Client.SendToClientJ getSc10072(long organismId, FightOrganismBuff b) {
+        Buff.SC10072.Builder builder = Buff.SC10072.newBuilder();
+        builder.setFightOrganismId(organismId)
                 .setBuffInfo(Buff.BuffInfo.newBuilder()
                         .setBuffTemplateId(b.getBuffTemplateId())
                         .setCurrCoverCount(b.getCurrCoverCount())
-                        .build())
-                .build();
+                        .build());
+        return new Client.SendToClientJ(FightBuffProtocols.REMOVE, builder.build());
     }
 
 }

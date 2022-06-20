@@ -11,8 +11,8 @@ public interface PlayerConfig {
      * 性别限制
      */
     interface Gender {
-        byte MAN = 0;
-        byte WOMAN = 1;
+        byte MAN = 1;
+        byte WOMAN = 2;
 
         static boolean valid(byte gender) {
             return gender == MAN || gender == WOMAN;

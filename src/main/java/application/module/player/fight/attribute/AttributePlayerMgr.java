@@ -1,5 +1,6 @@
 package application.module.player.fight.attribute;
 
+import akka.actor.ActorRef;
 import application.module.organism.OrganismType;
 import application.module.player.Player;
 import application.module.player.fight.attribute.data.AttributeData;
@@ -86,10 +87,9 @@ public class AttributePlayerMgr implements PlayerMgr {
     /**
      * 计算更新战力
      */
-    public long calculateAllFighting(Player player) {
-        // TODO: 2022-6-2 需要添加处理发送战力给客户端
+    public void calculateAllFighting(Player player) {
         long fighting = calculateAllFighting(allTemplateAttributeMap);
-        return fighting;
+        player.getPlayerActor().tell(AttributeProtocolBuilder.get10041(player.getId(), fighting), ActorRef.noSender());
     }
 
     /**

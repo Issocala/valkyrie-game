@@ -111,7 +111,7 @@ public class SceneActor extends AbstractLogActor {
 
     private void scenePlayerEntry(int newSceneId, PlayerFight playerFight) {
         if (!containsSceneActor(newSceneId)) {
-            MessageUtil.sendClient(playerFight.getClient(), CommonProtocols.APPLICATION_ERROR,
+            MessageUtil.sendClient(playerFight.getClient(),
                     CommonProtocolBuilder.getSc10080(ApplicationErrorCode.SCENE_UNOPENED), self());
             playerFight.getPlayerActor().tell(new PlayerEntryErrorOpt(playerFight.getId(), newSceneId), self());
             return;

@@ -46,12 +46,11 @@ public class FixedDamageFunction implements FightSkillActiveFunction {
 
             if (targetAttributeMap.containsKey(ICE_MAGIC_SHIELD)) {
                 long curMp = targetAttributeMap.get(VAR_MP);
-                if (curMp > 500) {
+                long maxMp = targetAttributeMap.get(MAX_MP);
+                long reduceToMinMp = (long) (maxMp * 0.1);
+                if (curMp > reduceToMinMp) {
                     long reduceDamage = (long) (finalDamage * 0.35);
-                    long finalReduceDamage = curMp - 500 - reduceDamage;
-                    if (finalReduceDamage < 0) {
-                        reduceDamage += finalReduceDamage;
-                    }
+                    reduceDamage = Math.min(reduceToMinMp, reduceDamage);
                     targetAttributeMap.put(VAR_MP, curMp - reduceDamage);
                     targetParameter.getChangeAttributeMap().put(VAR_MP, -reduceDamage);
                     builder.setReduceMP(reduceDamage);

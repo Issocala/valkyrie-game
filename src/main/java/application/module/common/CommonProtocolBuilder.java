@@ -1,5 +1,6 @@
 package application.module.common;
 
+import application.client.Client;
 import protocol.Common;
 
 /**
@@ -9,16 +10,17 @@ import protocol.Common;
  */
 public class CommonProtocolBuilder {
 
-    public static Common.SC10080 getSc10080(int applicationErrorId) {
-        return Common.SC10080.newBuilder()
-                .setApplicationErrorId(applicationErrorId)
-                .build();
+    public static Client.SendToClientJ getSc10080(int applicationErrorId) {
+        Common.SC10080.Builder builder = Common.SC10080.newBuilder()
+                .setApplicationErrorId(applicationErrorId);
+
+        return new Client.SendToClientJ(CommonProtocols.APPLICATION_ERROR, builder.build());
     }
 
-    public static Common.SC10081 getSc10081() {
-        return Common.SC10081.newBuilder()
-                .setServerTime(System.currentTimeMillis())
-                .build();
+    public static Client.SendToClientJ getSc10081() {
+        Common.SC10081.Builder builder = Common.SC10081.newBuilder()
+                .setServerTime(System.currentTimeMillis());
+        return new Client.SendToClientJ(CommonProtocols.SERVER_TIME, builder.build());
     }
 
 }

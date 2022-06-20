@@ -2,11 +2,9 @@ package application.module.scene.fight.skill;
 
 import akka.actor.ActorRef;
 import application.condition.core.ConditionBase;
-import application.condition.core.ConditionContext;
-import application.condition.util.ConditionOperator;
+import application.condition.util.ConditionHelper;
 import application.condition.util.ConditionParser;
 import application.module.common.CommonProtocolBuilder;
-import application.module.common.CommonProtocols;
 import application.module.organism.FightOrganism;
 import application.module.organism.PlayerFight;
 import application.module.player.fight.attribute.AttributeTemplateId;
@@ -96,8 +94,7 @@ public class FightSkillMgr {
         if (owner instanceof PlayerFight playerFight) {
             if (FightAttributeMgr.getValue(owner.getFightAttributeMgr().getFightMap(), AttributeTemplateId.VAR_MP) < fightSkillTemplate.costMp()
                     || FightAttributeMgr.getValue(getAttackAttributeMap(), AttributeTemplateId.VAR_HP) <= fightSkillTemplate.costHp()) {
-                playerFight.getClient().tell(new application.client.Client.SendToClientJ(CommonProtocols.APPLICATION_ERROR,
-                        CommonProtocolBuilder.getSc10080(ApplicationErrorCode.USE_SKILL_HP_MP)), ActorRef.noSender());
+                playerFight.getClient().tell(CommonProtocolBuilder.getSc10080(ApplicationErrorCode.USE_SKILL_HP_MP), ActorRef.noSender());
                 return;
             }
         }
@@ -181,7 +178,7 @@ public class FightSkillMgr {
                 }
                 if (ArrayUtils.isNotEmpty(template.condition())) {
                     ConditionBase condition = ConditionParser.parseCondition(template.condition());
-                    if (!ConditionOperator.eligibleTo(condition, useSkillDataTemp).isOK()) {
+                    if (!ConditionHelper.eligibleTo(condition, useSkillDataTemp).isOK()) {
                         continue;
                     }
                 }

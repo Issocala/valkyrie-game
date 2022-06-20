@@ -125,6 +125,18 @@ public class PlayerSceneMgr implements SceneMgr {
         });
     }
 
+    public void sendToAllClient(Scene scene, Client.SendToClientJ sendToClientJ) {
+        playerFightMap.values().forEach(playerFight -> playerFight.getClient().tell(sendToClientJ, scene.getSceneActor()));
+    }
+
+    public void sendToOtherClient(Scene scene, Client.SendToClientJ sendToClientJ, long organismId) {
+        playerFightMap.values().forEach(playerFight -> {
+            if (playerFight.getId() != organismId) {
+                playerFight.getClient().tell(sendToClientJ, scene.getSceneActor());
+            }
+        });
+    }
+
     public void selectClient(Scene scene) {
         if (this.aiAgentPlayerId == 0) {
             for (Map.Entry<Long, PlayerFight> entry : this.playerFightMap.entrySet()) {

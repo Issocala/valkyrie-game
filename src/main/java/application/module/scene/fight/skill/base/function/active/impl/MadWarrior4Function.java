@@ -37,12 +37,12 @@ public class MadWarrior4Function implements FightSkillActiveFunction {
         final long douQi = fightMap.getOrDefault(AttributeTemplateId.DOU_QI, 0L);
         if (douQi > 0) {
             Map<Short, Long> extFightMap = new HashMap<>();
-            extFightMap.put(AttributeTemplateId.CRIT_RATIO, 200L * douQi + 1);
-            extFightMap.put(AttributeTemplateId.CRIT_ADD_DAMAGE_RATIO, 500L * douQi + 1);
+            extFightMap.put(AttributeTemplateId.CRIT_RATIO, 200L * (douQi + 1));
+            extFightMap.put(AttributeTemplateId.CRIT_ADD_DAMAGE_RATIO, 500L * (douQi + 1));
             for (int i = 0; i < douQi; i++) {
                 useSkillDataTemp.removeBuff(10002, useSkillDataTemp.getAttack());
             }
-            FightOrganismBuff buff = createBuff(buffId, useSkillDataTemp.getAttack(), useSkillDataTemp.getAttack(), duration);
+            FightOrganismBuff buff = createBuff(buffId, useSkillDataTemp.getAttack(), useSkillDataTemp.getAttack(), duration + douQi * 1000);
             buff.setAttributeMap(extFightMap);
             useSkillDataTemp.getAttack().getFightBuffMgr().addBuff(buff);
         }

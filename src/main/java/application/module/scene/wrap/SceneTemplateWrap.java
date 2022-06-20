@@ -1,4 +1,4 @@
-package application.module.scene.template;
+package application.module.scene.wrap;
 
 import application.util.Vector3;
 import template.SceneDataTemplate;

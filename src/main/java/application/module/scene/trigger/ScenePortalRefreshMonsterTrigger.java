@@ -32,6 +32,8 @@ public class ScenePortalRefreshMonsterTrigger {
 
     private final long tick = 20000;
 
+    private final long useSkillTick = 5000;
+
     private final long itemTick = 15000;
 
     private final long closeTick = 40000;
@@ -123,8 +125,12 @@ public class ScenePortalRefreshMonsterTrigger {
 
     private int randomNpcSkillId(int npcTemplateId) {
         OrganismDataTemplate dataTemplate = OrganismDataTemplateHolder.getData(npcTemplateId);
-        int i = RandomUtil.randomInt(dataTemplate.skills().length);
-        return dataTemplate.skills()[i];
+        int i = RandomUtil.randomInt(10);
+        if (i < 2) {
+            return dataTemplate.skills()[1];
+        }else {
+            return dataTemplate.skills()[0];
+        }
     }
 
     private int randomMonsterSkillIdNum() {
@@ -180,7 +186,7 @@ public class ScenePortalRefreshMonsterTrigger {
         }
 
         public boolean isUseSkill() {
-            return preUseSkillTime + tick <= System.currentTimeMillis();
+            return preUseSkillTime + useSkillTick <= System.currentTimeMillis();
         }
 
         public void setCurrCloseTime() {

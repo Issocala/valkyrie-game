@@ -34,8 +34,7 @@ public class CommonModule extends AbstractModule {
     }
 
     private void playerLogin(PlayerLogin playerLogin) {
-        playerLogin.r().client().tell(new application.client.Client.SendToClientJ(CommonProtocols.SERVER_TIME,
-                CommonProtocolBuilder.getSc10081()), self());
+        playerLogin.r().client().tell(CommonProtocolBuilder.getSc10081(), self());
     }
 
     private void dataResult(DataMessage.DataResult dataResult) {

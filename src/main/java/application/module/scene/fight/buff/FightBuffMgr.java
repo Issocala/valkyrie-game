@@ -42,14 +42,12 @@ public class FightBuffMgr {
         }
         FightOrganismBuff oldBuff = this.fightOrganismBuffs.get(buff.getBuffTemplateId());
         if (Objects.isNull(oldBuff)) {
-            buff.addSelf();
-            this.fightOrganismBuffs.put(buff.getBuffTemplateId(), buff);
-        } else {
-            oldBuff.addSelf();
+            oldBuff = buff;
+            this.fightOrganismBuffs.put(buff.getBuffTemplateId(), oldBuff);
         }
-
-        owner.getScene().getPlayerSceneMgr().sendToAllClient(owner.getScene(), FightBuffProtocols.ADD,
-                FightBuffProtocolBuilder.getSc10071(owner.getId(), buff));
+        oldBuff.addSelf();
+        owner.getScene().getPlayerSceneMgr().sendToAllClient(owner.getScene(),
+                FightBuffProtocolBuilder.getSc10071(owner.getId(), oldBuff));
     }
 
     public boolean removeBuff(FightOrganismBuff buff) {
@@ -62,9 +60,12 @@ public class FightBuffMgr {
         }
         if (buff.getCurrCoverCount() <= 0) {
             this.fightOrganismBuffs.remove(buff.getBuffTemplateId());
+            owner.getScene().getPlayerSceneMgr().sendToAllClient(owner.getScene(),
+                    FightBuffProtocolBuilder.getSc10072(owner.getId(), buff));
+        } else {
+            owner.getScene().getPlayerSceneMgr().sendToAllClient(owner.getScene(),
+                    FightBuffProtocolBuilder.getSc10071(owner.getId(), buff));
         }
-        owner.getScene().getPlayerSceneMgr().sendToAllClient(owner.getScene(), FightBuffProtocols.REMOVE,
-                FightBuffProtocolBuilder.getSc10072(owner.getId(), buff));
         return true;
     }
 
@@ -221,7 +222,7 @@ public class FightBuffMgr {
                 }
             }
             this.fightOrganismBuffs.remove(buff.getBuffTemplateId());
-            owner.getScene().getPlayerSceneMgr().sendToAllClient(owner.getScene(), FightBuffProtocols.REMOVE,
+            owner.getScene().getPlayerSceneMgr().sendToAllClient(owner.getScene(),
                     FightBuffProtocolBuilder.getSc10072(buff.getTo().getId(), buff));
         });
     }

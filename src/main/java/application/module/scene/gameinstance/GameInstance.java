@@ -1,5 +1,6 @@
 package application.module.scene.gameinstance;
 
+import akka.actor.ActorRef;
 import application.module.scene.Scene;
 
 /**
@@ -7,7 +8,7 @@ import application.module.scene.Scene;
  * @date 2022-6-7
  * @Source 1.0
  */
-public class GameInstance {
+public class GameInstance extends Scene {
 
     Scene scene;
 
@@ -15,6 +16,10 @@ public class GameInstance {
 
     private int gameInstanceTemplateId;
 
+
+    public GameInstance(ActorRef sceneActor, int sceneTemplateId) {
+        super(sceneActor, sceneTemplateId);
+    }
 
 
 }

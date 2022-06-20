@@ -1,5 +1,6 @@
 package application.module.player.fight.attribute;
 
+import application.client.Client;
 import protocol.Attribute;
 import protocol.Base;
 
@@ -17,5 +18,11 @@ public class AttributeProtocolBuilder {
         attributeMap.forEach((k, v) ->
                 builder.addAttributeMap(Base.AttributeMap.newBuilder().setKey(k).setValue(v).build()));
         return builder.build();
+    }
+
+    public static Client.SendToClientJ get10041(long fightOrganismId, long fighting) {
+        Attribute.SC10041.Builder builder = Attribute.SC10041.newBuilder();
+        builder.setFightOrganismId(fightOrganismId).setFighting(fighting);
+        return new Client.SendToClientJ(AttributeProtocols.FIGHTING, builder.build());
     }
 }

@@ -151,6 +151,9 @@ public class FightOrganismBuff extends LongId {
     }
 
     public void setExpiredTime(long expiredTime) {
+        if (this.expiredTime <= 0) {
+            return;
+        }
         this.expiredTime = expiredTime;
     }
 
