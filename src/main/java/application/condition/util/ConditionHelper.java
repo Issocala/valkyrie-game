@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class ConditionOperator {
+public class ConditionHelper {
 
     public static RuntimeResult eligibleTo(Condition<ConditionContext> condition, ConditionContext context) {
         if (condition != null) {

@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-@SuppressWarnings("rawtypes")
 public final class ConditionParser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConditionParser.class.getSimpleName());
@@ -26,7 +25,7 @@ public final class ConditionParser {
         short type = itemData.getFirst();
 
         if (ConditionItemMgr.getInstance().containType(type)) {
-            final Class clazz = ConditionItemMgr.getInstance().getConditionItemImplClazz(type);
+            final Class<?> clazz = ConditionItemMgr.getInstance().getConditionItemImplClazz(type);
             try {
                 @SuppressWarnings("unchecked")
                 ConditionItem<ConditionContext> item = (ConditionItem<ConditionContext>) clazz.getDeclaredConstructor().newInstance();

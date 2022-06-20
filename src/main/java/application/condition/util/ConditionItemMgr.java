@@ -12,11 +12,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-@SuppressWarnings("rawtypes")
 public class ConditionItemMgr {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConditionItemMgr.class.getSimpleName());
 
-    private final Map<Short, Class> clazzMap = new HashMap<>();
+    private final Map<Short, Class<?>> clazzMap = new HashMap<>();
 
     private final static ConditionItemMgr instance = new ConditionItemMgr();
 
@@ -31,7 +30,7 @@ public class ConditionItemMgr {
         return clazzMap.containsKey(type);
     }
 
-    public Class getConditionItemImplClazz(short type) {
+    public Class<?> getConditionItemImplClazz(short type) {
         return clazzMap.get(type);
     }
 

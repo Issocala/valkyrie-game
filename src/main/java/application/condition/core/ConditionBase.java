@@ -17,7 +17,9 @@ public final class ConditionBase implements Condition<ConditionContext> {
 
     private final List<List<ConditionItem<ConditionContext>>> itemList = new ArrayList<>();
 
-    //缓存一个空对象，其他地方可以复用，避免到处创建
+    /**
+     * 缓存一个空对象，其他地方可以复用，避免多次创建无用对象浪费空间
+     */
     private static final ConditionBase INSTANCE = new ConditionBase();
 
     public static ConditionBase of() {
@@ -26,8 +28,8 @@ public final class ConditionBase implements Condition<ConditionContext> {
 
     @Override
     public int eligibleTo(ConditionContext context) {
+        int code = ApplicationErrorCode.CODE_ERROR;
         for (List<ConditionItem<ConditionContext>> conditionItems : itemList) {
-            int code = ApplicationErrorCode.CODE_ERROR;
             for (ConditionItem<ConditionContext> conditionItem : conditionItems) {
                 try {
                     code = conditionItem.eligibleTo(context);
@@ -43,7 +45,7 @@ public final class ConditionBase implements Condition<ConditionContext> {
                 return ApplicationCode.CODE_SUCCESS;
             }
         }
-        return ApplicationCode.CODE_SUCCESS;
+        return code;
     }
 
     public void addConditionItem(List<ConditionItem<ConditionContext>> conditionItem) {
