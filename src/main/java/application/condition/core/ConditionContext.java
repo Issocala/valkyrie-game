@@ -10,21 +10,21 @@ import java.util.Map;
  */
 public class ConditionContext {
 
-    private final Map<String, Object> stringObjectMap = new HashMap<>();
+    private final Map<Class<?>, Object> classObjectMap = new HashMap<>();
 
     public static ConditionContext of() {
         return new ConditionContext();
     }
 
-    public void put(String key, Object value) {
-        this.stringObjectMap.put(key, value);
+    public void put(Class<?> key, Object value) {
+        this.classObjectMap.put(key, value);
     }
 
-    public Object get(String key) {
-        return this.stringObjectMap.get(key);
+    public Object get(Class<?> key) {
+        return this.classObjectMap.get(key);
     }
 
-    public boolean containsKey(String name) {
-        return stringObjectMap.containsKey(name);
+    public boolean containsKey(Class<?> name) {
+        return classObjectMap.containsKey(name);
     }
 }

@@ -44,11 +44,10 @@ public final class ConditionParser {
         if (ArrayUtils.isEmpty(conditionDatas)) {
             return ConditionBase.getInstance();
         }
-
         ConditionBase condition = ConditionBase.of();
         for (String conditionData : conditionDatas) {
             String[] ss1 = StringUtils.toStringArrayByAnd(conditionData);
-            List<ConditionItem<ConditionContext>> conditionItems = new ArrayList<>();
+            ConditionBase.ConditionItemWrap<ConditionContext> conditionItems = new ConditionBase.ConditionItemWrap<>();
             for (String s : ss1) {
                 String[] ss = StringUtils.toStringArrayByColon(s);
                 if (ss.length != 2) {
@@ -57,10 +56,10 @@ public final class ConditionParser {
                 Pair<Short, String> pair = new Pair<>(Short.parseShort(ss[0]), ss[1]);
                 ConditionItem<ConditionContext> conditionItem = parseConditionItem(pair);
                 if (conditionItem != null) {
-                    conditionItems.add(conditionItem);
+                    conditionItems.addConditionItem(conditionItem);
                 }
             }
-            condition.addConditionItem(conditionItems);
+            condition.addConditionItemWrap(conditionItems);
         }
         return condition;
     }

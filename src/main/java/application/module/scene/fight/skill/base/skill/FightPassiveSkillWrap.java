@@ -1,5 +1,7 @@
 package application.module.scene.fight.skill.base.skill;
 
+import application.condition.core.ConditionBase;
+import application.condition.util.ConditionParser;
 import template.FightPassiveSkillProcessTemplate;
 import template.FightPassiveSkillTemplate;
 
@@ -19,9 +21,12 @@ public class FightPassiveSkillWrap {
 
     private final FightPassiveSkillTemplate fightPassiveSkillTemplate;
 
-    public FightPassiveSkillWrap(FightPassiveSkillTemplate fightPassiveSkillTemplate) {
+    private final ConditionBase condition;
+
+    public FightPassiveSkillWrap(FightPassiveSkillTemplate template) {
         list = new ArrayList<>();
-        this.fightPassiveSkillTemplate = fightPassiveSkillTemplate;
+        this.fightPassiveSkillTemplate = template;
+        condition = ConditionParser.parseCondition(template.condition());
     }
 
     public void add(FightPassiveSkillProcessTemplate fightPassiveSkillProcessTemplate) {
@@ -34,5 +39,9 @@ public class FightPassiveSkillWrap {
 
     public FightPassiveSkillTemplate getFightPassiveSkillTemplate() {
         return fightPassiveSkillTemplate;
+    }
+
+    public ConditionBase getCondition() {
+        return condition;
     }
 }

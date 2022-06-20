@@ -22,7 +22,7 @@ public class SkillTypeCondition extends AbstractConditionItem {
 
     @Override
     public int eligibleTo(ConditionContext conditionContext) {
-        UseSkillDataTemp useSkillDataTemp = (UseSkillDataTemp) conditionContext.get(UseSkillDataTemp.class.getSimpleName());
+        UseSkillDataTemp useSkillDataTemp = (UseSkillDataTemp) conditionContext.get(UseSkillDataTemp.class);
         FightSkillTemplate template = FightSkillTemplateHolder.getData(useSkillDataTemp.getSkillId());
         return template.activeSkillType() == type ? ApplicationCode.CODE_SUCCESS : ApplicationErrorCode.CODE_ERROR;
     }

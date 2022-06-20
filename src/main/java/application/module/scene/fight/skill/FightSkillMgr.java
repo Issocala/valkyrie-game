@@ -177,7 +177,7 @@ public class FightSkillMgr {
                     continue;
                 }
                 if (ArrayUtils.isNotEmpty(template.condition())) {
-                    ConditionBase condition = ConditionParser.parseCondition(template.condition());
+                    ConditionBase condition = fightPassiveSkillWrap.getCondition();
                     if (!ConditionHelper.eligibleTo(condition, useSkillDataTemp).isOK()) {
                         continue;
                     }

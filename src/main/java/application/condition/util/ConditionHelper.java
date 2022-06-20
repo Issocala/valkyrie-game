@@ -5,9 +5,7 @@ import application.condition.core.ConditionContext;
 import application.util.ApplicationCode;
 import com.cala.orm.util.RuntimeResult;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 
 public class ConditionHelper {
 
@@ -22,15 +20,17 @@ public class ConditionHelper {
     }
 
     public static RuntimeResult eligibleTo(Condition<ConditionContext> condition, Object... objects) {
+        Objects.requireNonNull(condition, "输入的condition为空！");
+        if (condition.isEmpty()) {
+            return RuntimeResult.ok();
+        }
         ConditionContext context = ConditionContext.of();
         for (Object o : objects) {
-            context.put(o.getClass().getSimpleName(), o);
+            context.put(o.getClass(), o);
         }
-        if (condition != null) {
-            int code = condition.eligibleTo(context);
-            if (code != ApplicationCode.CODE_SUCCESS) {
-                return RuntimeResult.runtimeApplicationError(code);
-            }
+        int code = condition.eligibleTo(context);
+        if (code != ApplicationCode.CODE_SUCCESS) {
+            return RuntimeResult.runtimeApplicationError(code);
         }
         return RuntimeResult.ok();
     }
