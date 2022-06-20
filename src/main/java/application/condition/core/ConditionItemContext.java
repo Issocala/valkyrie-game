@@ -7,6 +7,5 @@ import application.condition.ConditionItem;
  * @date 2022-6-7
  * @Source 1.0
  */
-public abstract class AbstractConditionItem implements ConditionItem<ConditionContext> {
-
+public interface ConditionItemContext extends ConditionItem<ConditionContext> {
 }

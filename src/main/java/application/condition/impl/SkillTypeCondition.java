@@ -2,7 +2,7 @@ package application.condition.impl;
 
 import application.condition.annotation.ConditionImpl;
 import application.condition.constant.ConditionItemType;
-import application.condition.core.AbstractConditionItem;
+import application.condition.core.ConditionItemContext;
 import application.condition.core.ConditionContext;
 import application.module.scene.fight.skill.base.context.UseSkillDataTemp;
 import application.util.ApplicationCode;
@@ -16,7 +16,7 @@ import template.FightSkillTemplateHolder;
  * @Source 1.0
  */
 @ConditionImpl(id = ConditionItemType.SKILL_TYPE)
-public class SkillTypeCondition extends AbstractConditionItem {
+public class SkillTypeCondition implements ConditionItemContext {
 
     private byte type;
 
