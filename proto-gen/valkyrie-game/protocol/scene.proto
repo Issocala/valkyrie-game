@@ -1,5 +1,12 @@
 package protocol;
 
+// 道具信息
+message ItemData
+{
+  required int32 itemId = 1;
+  required int64 num = 2; // 数量
+}
+
 
 message MoveInfo 
 {
@@ -172,4 +179,11 @@ message SC10312
   required float positionX = 2;
   required float positionY = 3;
   required float time = 4;
+}
+
+//结算
+message SC10313
+{
+  required bool success = 1;
+  repeated ItemData itemData = 2; //物品信息
 }

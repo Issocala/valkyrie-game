@@ -9,7 +9,13 @@ message MailInfo
   required int64 expiration = 5;
   required int32 status = 6;
   required int32 mailType = 7;
-  optional string annexList = 8;
+  repeated AnnexMap annexMap = 8;
+}
+
+message AnnexMap
+{
+  required int32 itemId = 1;
+  required int32 num = 2;
 }
 
 //获取当前玩家的所有邮件
@@ -72,11 +78,5 @@ message CS11304
 message SC11304
 {
   repeated int64 id = 1;
-}
-
-//战斗结算（其他模块调用发送邮件）
-message SC11305
-{
-  repeated MailInfo mailInfo = 1;
 }
 
